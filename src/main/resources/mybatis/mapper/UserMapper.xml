@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.min.cinemagreen.mapper.IUserMapper">
+
+  <insert id="insertUser" parameterType="UserDTO">
+    INSERT INTO user_t (
+        user_no
+      , email
+      , pw
+      , name
+      , gender
+      , mobile
+      , sns
+      , pw_modify_dt
+      , signup_dt
+      , postcode
+      , address
+      , detailAddress
+      , extraAddress
+    ) VALUES (
+        user_seq.NEXTVAL
+      , #{email}
+      , #{pw}
+      , #{name}
+      , #{gender}
+      , #{mobile}
+      , #{sns}
+      , CURRENT_DATE
+      , CURRENT_DATE
+      , #{postcode}
+      , #{address}
+      , #{detailAddress}
+      , #{extraAddress}
+    )
+  </insert>
+  
+  <select id="getUserByMap" parameterType="Map" resultType="UserDTO">
+    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt
+      FROM user_t
+    <where> 
+      <if test="email != null">email = #{email}</if>
+      <if test="pw != null">AND pw = #{pw}</if>
+    </where>
+  </select>
+  
+  <insert id="insertAccess" parameterType="Map">
+    INSERT INTO access_t (
+        access_no
+      , email
+      , ip
+      , user_agent
+      , session_id
+      , signin_dt
+    ) VALUES (
+        access_seq.NEXTVAL
+      , #{email}
+      , #{ip}
+      , #{userAgent}
+      , #{sessionId}
+      , CURRENT_DATE
+    )
+  </insert>
+  
+  <delete id="deleteUser" parameterType="int">
+    DELETE
+      FROM user_t
+     WHERE user_no = #{userNo}
+  </delete>
+  
+</mapper>

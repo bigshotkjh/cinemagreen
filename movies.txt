@@ -1,0 +1,42 @@
+ 물리적 : 실제 column 이름
+ 논리적 : 한글로 작성 가능
+
+ movie_t
+  movie_no number
+  title varchar2
+  subtitle varchar2
+  story varchar2
+  running_time varchar2
+  grade varchar2
+  ticket_rate number(3,1)
+  xxx_score number
+  ticket_sale number
+  opening_dt date
+
+
+ -----------------------------------------------------------------------
+
+ movie_director_match_t   movie_actor_match_t   movie_genre_t   poster_t
+  no
+  movie_no
+  director_no
+
+ director_t               actor_t                genre_t
+  no     1
+  name  봉준호
+
+ ---------------------------------------------------------------------
+  
+ ticketing_t                  전체 상영 정보
+  ticketing_no number
+  user_no number
+  movie_no number            예매 완료 좌석 정보
+  ticket_dt date
+  persons number
+  
+ payment_t
+  ticketing_no number
+  pay_money number
+  pay_way varchar2
+
+ 
