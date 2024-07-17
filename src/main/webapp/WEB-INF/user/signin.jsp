@@ -8,7 +8,7 @@
   <jsp:param value="Signin" name="title"/>
 </jsp:include>
 
-<h1 class="title">Sign In</h1>
+<h4 class="title">Sign In</h4>
 
 <form id="signin-form"
       method="post"
