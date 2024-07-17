@@ -12,7 +12,7 @@
  .dead-btn{cursor: default; pointer-events: none;}
 </style>
 <!--@@@@@@@끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
-<h1 class="title">Sign Up</h1>
+<h4 class="title">Sign Up</h4>
 
 <form id="signup-form"
       method="post"

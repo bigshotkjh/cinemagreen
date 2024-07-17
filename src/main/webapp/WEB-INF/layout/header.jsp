@@ -31,7 +31,40 @@
 
 </head>
 <body>
-  
+  <div class="wrap">
+    <div class="nav_cover"></div>
+    <div id="header" class="sections section_00">
+        <div class="width_con">
+            <a href="index.html" class="btn_home"><img src="img/logo.svg">멋진로고</a>
+            <div class="btn_open_nav"><div></div></div>
+            <ul class="nav">
+                <li><a href="#">예매</a></li>
+                <li><a href="#">영화</a></li>
+                <li><a href="#">고객지원</a></li>
+                <li><a href="#">마이페이지</a></li>
+            </ul>
+            
+          <c:if test="${empty sessionScope.loginUser}">
+            <ul class="nav_customer">
+              <li><a href="${contextPath}/user/signin.page"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그인</a></li>
+              <li><a href="${contextPath}/user/signup.page"><i class="fa-solid fa-user-plus"></i>회원가입</a></li>
+            </ul>
+          </c:if>
+          <c:if test="${not empty sessionScope.loginUser}">
+            <ul class="nav_customer">
+              <li><a href="마이페이지로가기">${sessionScope.loginUser.name}</a>님 반갑습니다</li>
+              <li><a href="${contextPath}/user/signout.do">로그아웃</a></li>
+              <!--
+              <li><a href="${contextPath}/user/leave.do">회원탈퇴</a></li> 
+              마이페이지로 이동해야 함. -->
+            </ul>
+          </c:if>
+              
+          
+        </div>
+    </div>
+  </div>
+  <!--  
   <div class="header-wrap">
     
     <div class="logo"></div>
@@ -65,5 +98,12 @@
   </div>
   
   <hr>
-  
+  -->
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
   <div class="main-wrap">
