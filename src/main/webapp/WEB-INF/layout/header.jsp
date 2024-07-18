@@ -43,6 +43,7 @@
                 <li><a href="#">영화</a></li>
                 <li><a href="#">고객지원</a></li>
                 <li><a href="#">마이페이지</a></li>
+				<li><a href="${contextPath}/store/store.page">스토어</a></li>
             </ul>
             
           <c:if test="${empty sessionScope.loginUser}">
