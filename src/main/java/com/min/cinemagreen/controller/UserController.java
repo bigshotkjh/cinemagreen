@@ -90,4 +90,9 @@ public class UserController {
     return "redirect:/main.do";
   }
   
+  @GetMapping(value = "/userpage.page")
+  public String userpage() {
+    return "user/userpage";
+  }
+  
 }

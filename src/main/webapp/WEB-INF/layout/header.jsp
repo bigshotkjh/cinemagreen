@@ -42,7 +42,7 @@
                 <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>
                 <li><a href="#">영화</a></li>
                 <li><a href="#">고객지원</a></li>
-                <li><a href="#">마이페이지</a></li>
+                <li><a href="${contextPath}/user/userpage.page">마이페이지</a></li>
 				<li><a href="${contextPath}/store/store.page">스토어</a></li>
             </ul>
             
@@ -101,11 +101,4 @@
   
   <hr>
   -->
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
   <div class="main-wrap">

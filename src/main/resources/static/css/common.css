@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 /*구글폰트 임포트 */
 :root{
@@ -16,7 +15,7 @@
     --font-defualt-size: 14px;
 }
 *{scroll-behavior: smooth;}
-html, body{ margin: 0 auto; max-width: 1920px; font-size: var(--font-defualt-size);}
+html, body{ font-family: "Poppins" margin: 0 auto; max-width: 1920px; font-size: var(--font-defualt-size);}
 h1, h2, h3, h4, h5, h6{ position: relative; font-weight: normal; transition: all 250ms ease-in-out;}
 h1, h2, h3{ text-transform: uppercase;}
 h1{ font-size: 6.75em; font-weight: 500; line-height:  .65em;}
@@ -139,6 +138,7 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 .sections.section_05 .width_con ul.v_con.six_con li.cells.box:nth-child(4){ transition-delay: 1600ms;}
 .sections.section_05 .width_con ul.v_con.six_con li.cells.box:nth-child(5){ transition-delay: 1800ms;}
 .sections.section_05 .width_con ul.v_con.six_con li.cells.box:nth-child(6){ transition-delay: 2000ms;}
+
 
 
 

@@ -10,105 +10,115 @@
 <!--@@@@@@@css시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 <style>
  .dead-btn{cursor: default; pointer-events: none;}
+ .sections.section_signup .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
+ .sections.section_signup .width_con .signup form{ position: relative; transform: translateX(42%); transition: inherit;}
+ 
 </style>
 <!--@@@@@@@끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
-<h4 class="title">Sign Up</h4>
 
-<form id="signup-form"
-      method="post"
-      action="${contextPath}/user/signup.do">
+<div class="wrap">
+  <div class="sections section_signup">
+    <div class="width_con">
+      <div class="title_con white signup">
+        <h4 class="title">Sign Up</h4><br>
+        <form id="signup-form"
+              method="post"
+              action="${contextPath}/user/signup.do">
+        
+          <div>
+            <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요">
+            <button type="button" id="get-code-btn">인증코드받기</button>
+            <h6></h6>
+          </div>
+          
+          <div>
+            <input type="password" name="pw" id="pw" placeholder="비밀번호">
+            <h6></h6>
+            <div id=""></div>
+          </div>
+          <div>
+            <input type="password" id="pw2" placeholder="비밀번호 확인">
+            <h6></h6>
+            <div id=""></div>
+          </div>
+          
+          <div>
+            <input type="text" name="name" id="name" placeholder="이름">
+          </div>
+          <br>
+          
+          <div>
+            <input type="radio" name="gender" value="none" id="none" checked>
+            <label for="none">선택안함</label>
+            <input type="radio" name="gender" value="man" id="man">
+            <label for="man">남자</label>
+            <input type="radio" name="gender" value="woman" id="woman">
+            <label for="woman">여자</label>
+          </div>
+          <br>
+          
+          <div>
+            <input type="text" name="mobile" id="mobile" placeholder="휴대전화">
+            <h6></h6>
+            <div id=""></div>
+          </div>
+          
+          <div>
+            <input type="text" id="postcode" name="postcode" placeholder="우편번호">
+            <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+            <input type="text" id="address" name="address" placeholder="주소"><br>
+            <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목"><br>
+            <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소"> 
+          </div>
+          <br>
+        
+          <div>
+            <button type="submit" class="submit dead-btn">가입하기</button>
+            <button type="button" onclick="history.back()">취소하기</button>
+          </div>
+              
+        </form>
 
-  <div>
-    <label for="email">이메일</label>
-    <input type="text" name="email" id="email" placeholder="example@example.com">
-    <%-- 이메일 인증 구현할 것 : 인증코드 6자리를 이메일로 보내고 입력 받아서 검증할 것 --%>
-    <button type="button" id="get-code-btn">인증코드받기</button>
-  </div>
-  
-  <div>
-    <label for="pw">비밀번호</label>
-    <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해 주세요">
-    <h6></h6>
-    <div id=""></div>
-  </div>
-  <div>
-    <label for="pw2">비밀번호 확인</label>
-    <input type="password" id="pw2">
-    <h6></h6>
-    <div id=""></div>
-  </div>
-  
-  <div>
-    <label for="name">이름</label>
-    <input type="text" name="name" id="name">
-  </div>
-  
-  <div>
-    <input type="radio" name="gender" value="none" id="none" checked>
-    <label for="none">선택안함</label>
-    <input type="radio" name="gender" value="man" id="man">
-    <label for="man">남자</label>
-    <input type="radio" name="gender" value="woman" id="woman">
-    <label for="woman">여자</label>
-  </div>
-  
-  <div>
-    <label for="mobile">휴대전화</label>
-    <input type="text" name="mobile" id="mobile">
-    <h6></h6>
-    <div id=""></div>
-  </div>
-  
-  <div>
-    <input type="text" id="postcode" name="postcode" placeholder="우편번호">
-    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-    <input type="text" id="address" name="address" placeholder="주소"><br>
-    <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
-    <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목"> 
+      </div>
+    </div>
   </div>
 
-  <div>
-    <button type="submit" class="submit dead-btn">가입하기</button>
-    <button type="button" onclick="history.back()">취소하기</button>
-  </div>
-      
-</form>
-  
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  
 <script>
 //카카오 주소 API
-    function execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var addr = ''; 
-                var extraAddr = ''; 
-                if (data.userSelectedType === 'R') {
-                    addr = data.roadAddress;
-                } else { 
-                    addr = data.jibunAddress;
-                }
-                if(data.userSelectedType === 'R'){
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    document.getElementById("extraAddress").value = extraAddr;
-                } else {
-                    document.getElementById("extraAddress").value = '';
-                }
-                document.getElementById('postcode').value = data.zonecode;
-                document.getElementById("address").value = addr;
-                document.getElementById("detailAddress").focus();
-            }
-        }).open();
-    }
+  function execDaumPostcode() {
+      new daum.Postcode({
+          oncomplete: function(data) {
+              var addr = ''; 
+              var extraAddr = ''; 
+              if (data.userSelectedType === 'R') {
+                  addr = data.roadAddress;
+              } else { 
+                  addr = data.jibunAddress;
+              }
+              if(data.userSelectedType === 'R'){
+                  if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                      extraAddr += data.bname;
+                  }
+                  if(data.buildingName !== '' && data.apartment === 'Y'){
+                      extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                  }
+                  if(extraAddr !== ''){
+                      extraAddr = ' (' + extraAddr + ')';
+                  }
+                  document.getElementById("extraAddress").value = extraAddr;
+              } else {
+                  document.getElementById("extraAddress").value = '';
+              }
+              document.getElementById('postcode').value = data.zonecode;
+              document.getElementById("address").value = addr;
+              document.getElementById("detailAddress").focus();
+          }
+      }).open();
+  }
 </script>
 
 <script>
@@ -156,12 +166,12 @@
         $("#pw2").next("h6").html('확인을 위해 비밀번호는 한번 더 입력해주세요.');
         pw2.focus();
       }else{
-          if(pw_v == pw2_v){
-            $("#pw2").next("h6").html('비밀번호가 일치합니다.');
-            passwordCheck = true;//
-          }else{
-            $("#pw2").next("h6").html('확인을 위해 비밀번호는 한번 더 입력해주세요.');
-          }    
+        if(pw_v == pw2_v){
+          $("#pw2").next("h6").html('비밀번호가 일치합니다.');
+          passwordCheck = true;//
+        }else{
+          $("#pw2").next("h6").html('확인을 위해 비밀번호는 한번 더 입력해주세요.');
+        }    
       }                                 
    	}else{
       $("#pw").next("h6").html('5자리 이상의 영문 대소문자, 최소 1개의 숫자 혹은 특수 문자를 포함하여야 합니다.');

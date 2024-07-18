@@ -7,35 +7,47 @@
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="Signin" name="title"/>
 </jsp:include>
+<style>
+  .sections.section_signin .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
+  .sections.section_signin .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
 
-<h4 class="title">Sign In</h4>
+</style>
 
-<form id="signin-form"
-      method="post"
-      action="${contextPath}/user/signin.do">
-
-  <input type="hidden" name="url" value="${url}">
-
-  <div>
-    <label for="email">이메일</label>
-    <input type="text" name="email" id="email" placeholder="example@example.com">
-    <input type="checkbox" id="checkId">
-    <label for="id">이메일저장</label>
+<div class="wrap">
+  <div class="sections section_signin">
+    <div class="width_con">
+      <div class="title_con white signin">
+        <h4 class="title">Sign In</h4><br>
+        <form id="signin-form"
+              method="post"
+              action="${contextPath}/user/signin.do">
+          <input type="hidden" name="url" value="${url}">
+          
+          <div>
+            <input type="text" name="email" id="email" placeholder="이메일">
+            <input type="checkbox" id="checkId">
+            <label for="id">이메일저장</label>
+          </div><br>
+          
+          <div>
+            <input type="password" name="pw" id="pw" placeholder="비밀번호">
+          </div><br>
+          
+          <%--  / SNS 로그인 / 아이디비번 찾기 --%>
+          
+          <div>
+            <button type="submit" onclick="setCookie()">로그인하기</button>
+            <button type="button" onclick="history.back()">취소하기</button>
+          </div>
+              
+        </form>
+      </div>
+    </div>
   </div>
-  
-  <div>
-    <label for="pw">비밀번호</label>
-    <input type="password" name="pw" id="pw">
-  </div>
-  
-  <%--  / SNS 로그인 / 아이디비번 찾기 --%>
-  
-  <div>
-    <button type="submit" onclick="setCookie()">로그인하기</button>
-    <button type="button" onclick="history.back()">취소하기</button>
-  </div>
-      
-</form>
+ 
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+
 
 <script>
 //ID 체크박스 (쿠키)
