@@ -19,7 +19,7 @@
       action="${contextPath}/user/signup.do">
 
   <div>
-    <label for="email">아이디</label>
+    <label for="email">이메일</label>
     <input type="text" name="email" id="email" placeholder="example@example.com">
     <%-- 이메일 인증 구현할 것 : 인증코드 6자리를 이메일로 보내고 입력 받아서 검증할 것 --%>
     <button type="button" id="get-code-btn">인증코드받기</button>

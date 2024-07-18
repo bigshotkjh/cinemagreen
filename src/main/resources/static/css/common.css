@@ -110,7 +110,7 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #header.sections.section_00.scrolled:hover .width_con a.btn_home{ position: absolute; top: 50%; left: var(--mrgn); height: calc(100% - 10px); transform: translateY(-50%); transition: inherit;}
 #header.sections.section_00.scrolled .width_con a.btn_home{ height: calc(100% - 6px);}
 #header.sections.section_00 .width_con a.btn_home img{ height: 100%;}
-#header.sections.section_00 .width_con ul.nav{ position: relative; transform: translateX(20%); transition: inherit;}/*수정*/
+#header.sections.section_00 .width_con ul.nav{ position: relative; transform: translateX(12%); transition: inherit;}/*수정*/
 #header.sections.section_00 .width_con ul.nav_customer{ position: absolute; right: var(--mrgn); transition: inherit;}
 #header.sections.section_00 .width_con ul.nav,
 #header.sections.section_00.scrolled:hover .width_con ul.nav{ top: 42px; }
