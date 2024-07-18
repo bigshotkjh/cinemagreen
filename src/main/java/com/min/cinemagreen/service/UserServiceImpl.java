@@ -102,7 +102,16 @@ public class UserServiceImpl implements IUserService {
     
   }
   
-  
+  @Override
+  public UserDTO getUserInf(HttpSession session) {
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    /*
+    if(loginUser == null) {
+      session.invalidate();
+      return ;  아직 못정함.
+    }*/
+    return userMapper.getUserInf(loginUser.getUserNo());
+  }
   
   
   

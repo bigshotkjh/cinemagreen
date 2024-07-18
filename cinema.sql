@@ -23,7 +23,6 @@ DROP TABLE x_user_t;
 DROP TABLE access_t;
 DROP TABLE user_t;
 
-
 -- 회원
 CREATE TABLE user_t (
   user_no      NUMBER             NOT NULL,
@@ -35,6 +34,10 @@ CREATE TABLE user_t (
   sns          NUMBER,  /* 가입형태(0:직접,1:네이버) */
   pw_modify_dt DATE,
   signup_dt    DATE,
+  postcode     NUMBER,
+  address      VARCHAR2(100 BYTE),
+  detailAddress VARCHAR2(100 BYTE),
+  extraAddress VARCHAR2(100 BYTE),
   CONSTRAINT pk_user PRIMARY KEY(user_no)
 );
 

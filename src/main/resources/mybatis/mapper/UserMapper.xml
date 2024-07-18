@@ -38,7 +38,7 @@
   </insert>
   
   <select id="getUserByMap" parameterType="Map" resultType="UserDTO">
-    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt
+    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt, postcode, address, detailAddress, extraAddress           
       FROM user_t
     <where> 
       <if test="email != null">email = #{email}</if>
@@ -69,5 +69,12 @@
       FROM user_t
      WHERE user_no = #{userNo}
   </delete>
+  
+  <select id="getUserInf" parameterType="int" resultType="UserDTO">
+    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt
+      FROM user_t
+     WHERE user_no = #{userNo}
+  </select>
+  
   
 </mapper>

@@ -14,4 +14,5 @@ public interface IUserService {
   int signup(UserDTO user);
   void signin(HttpServletRequest request);
   int leave(HttpSession session);
+  UserDTO getUserInf(HttpSession session);
 }

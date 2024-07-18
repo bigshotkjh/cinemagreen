@@ -12,4 +12,5 @@ public interface IUserMapper {
   UserDTO getUserByMap(Map<String, Object> params);
   int insertAccess(Map<String, Object> params);
   int deleteUser(int userNo);
+  UserDTO getUserInf(int userNo);
 }

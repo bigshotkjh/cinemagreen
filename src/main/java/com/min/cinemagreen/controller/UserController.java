@@ -89,9 +89,10 @@ public class UserController {
     rttr.addFlashAttribute("leaveMessage", userService.leave(session) == 1 ? "회원 탈퇴 성공" : "회원 탈퇴 실패");
     return "redirect:/main.do";
   }
-  
+  /*망함 세션에 이미 유저정보 다 있음.*/
   @GetMapping(value = "/userpage.page")
-  public String userpage() {
+  public String userpage(HttpSession session, Model model) {
+	/*model.addAttribute("user", userService.getUserInf(session));*/
     return "user/userpage";
   }
   
