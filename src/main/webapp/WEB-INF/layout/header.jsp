@@ -38,12 +38,17 @@
         <div class="width_con">
             <a href="index.html" class="btn_home"><img src="img/logo.svg">멋진로고</a>
             <div class="btn_open_nav"><div></div></div>
-            <ul class="nav">
+            <ul class="nav" id="main-menu">
                 <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>
                 <li><a href="#">영화</a></li>
                 <li><a href="#">고객지원</a></li>
                 <li><a href="#">마이페이지</a></li>
-				<li><a href="${contextPath}/store/store.page">스토어</a></li>
+				<li><a href="${contextPath}/store/store.page">스토어</a>
+					<ul id="sub-menu">
+						<li><a href="${contextPath}/store/store.page">스토어</a></li>
+						<li><a href="#">장바구니</a></li>
+					</ul>
+				</li>
             </ul>
             
           <c:if test="${empty sessionScope.loginUser}">

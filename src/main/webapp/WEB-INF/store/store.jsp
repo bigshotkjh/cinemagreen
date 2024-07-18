@@ -91,7 +91,7 @@
                   <div class="bi-star-fill"></div>
                 </div>
                 <!-- Product price-->
-                $40.00 - $80.00
+                10,000P
               </div>
             </div>
             <!-- Product actions-->
@@ -119,8 +119,7 @@
                   <div class="bi-star-fill"></div>
                 </div>
                 <!-- Product price-->
-                <span class="text-muted text-decoration-line-through">$20.00</span>
-                $18.00
+                15,000P
               </div>
             </div>
             <!-- Product actions-->
@@ -148,8 +147,7 @@
                     <div class="bi-star-fill"></div>
                   </div>
                   <!-- Product price-->
-                  <span class="text-muted text-decoration-line-through">$50.00</span>
-                  $25.00
+                  27,000P
                  </div>
                </div>
                <!-- Product actions-->
@@ -177,7 +175,7 @@
                        <div class="bi-star-fill"></div>
                      </div>
                      <!-- Product price-->
-                      $40.00
+                      40,000P
                    </div>
                  </div>
                  <!-- Product actions-->
@@ -190,12 +188,12 @@
 			 <div class="col mb-5">
 			   <div class="card h-100">
 			   <!-- Product image-->
-			   <img src="../images/ticket4.png"/>
+			   <img src="../images/snack1.png"/>
 			     <!-- Product details-->
 			     <div class="p-4">
 			       <div class="text-center">
 			       <!-- Product name-->
-			       <h5 class="fw-bolder">패밀리 패키지</h5>
+			       <h5 class="fw-bolder">황태 스낵</h5>
 			       <!-- Product reviews-->
 			         <div class="d-flex center small text-warning mb-2">
 			           <div class="bi-star-fill"></div>
@@ -205,7 +203,7 @@
 			             <div class="bi-star-fill"></div>
 			           </div>
 			           <!-- Product price-->
-			            $40.00
+			            2,000P
 			          </div>
 			        </div>
 			        <!-- Product actions-->
@@ -221,12 +219,12 @@
                     <!-- Sale badge-->
                     <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
 				  <!-- Product image-->
-				  <img src="../images/ticket4.png"/>
+				  <img src="../images/snack1.png"/>
 				    <!-- Product details-->
 				    <div class="p-4">
 				      <div class="text-center">
 				      <!-- Product name-->
-				      <h5 class="fw-bolder">패밀리 패키지</h5>
+				      <h5 class="fw-bolder">(특가)황태 스낵</h5>
 				      <!-- Product reviews-->
 				        <div class="d-flex center small text-warning mb-2">
 				          <div class="bi-star-fill"></div>
@@ -236,7 +234,8 @@
 				            <div class="bi-star-fill"></div>
 				          </div>
 				          <!-- Product price-->
-				           $40.00
+						  <span class="text-muted text-decoration-line-through">2,000P</span>
+				           1,000P
 				        </div>
 				      </div>
 				      <!-- Product actions-->
@@ -249,12 +248,12 @@
 			<div class="col mb-5">
 			  <div class="card h-100">
 			  <!-- Product image-->
-			  <img src="../images/ticket4.png"/>
+			  <img src="../images/snack3.png"/>
 			    <!-- Product details-->
 			    <div class="p-4">
 			      <div class="text-center">
 			      <!-- Product name-->
-			      <h5 class="fw-bolder">패밀리 패키지</h5>
+			      <h5 class="fw-bolder">오징어 튀김 세트</h5>
 			      <!-- Product reviews-->
 			        <div class="d-flex center small text-warning mb-2">
 			          <div class="bi-star-fill"></div>
@@ -264,7 +263,7 @@
 			            <div class="bi-star-fill"></div>
 			          </div>
 			          <!-- Product price-->
-			           $40.00
+			           4,000P
 			        </div>
 			      </div>
 			      <!-- Product actions-->
@@ -277,12 +276,12 @@
 			  <div class="col mb-5">
 			    <div class="card h-100">
 			    <!-- Product image-->
-			    <img src="../images/ticket4.png"/>
+			    <img src="../images/snack4.png"/>
 			      <!-- Product details-->
 			      <div class="p-4">
 			        <div class="text-center">
 			        <!-- Product name-->
-			        <h5 class="fw-bolder">패밀리 패키지</h5>
+			        <h5 class="fw-bolder">오징어 튀김</h5>
 			        <!-- Product reviews-->
 			          <div class="d-flex center small text-warning mb-2">
 			            <div class="bi-star-fill"></div>
@@ -292,7 +291,7 @@
 			              <div class="bi-star-fill"></div>
 			            </div>
 			            <!-- Product price-->
-			             $40.00
+			             2,000P
 			          </div>
 			        </div>
 			        <!-- Product actions-->
