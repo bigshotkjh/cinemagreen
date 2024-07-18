@@ -56,9 +56,6 @@
             <ul class="nav_customer">
               <li><a href="마이페이지로가기">${sessionScope.loginUser.name}</a>님 반갑습니다</li>
               <li><a href="${contextPath}/user/signout.do">로그아웃</a></li>
-              <!--
-              <li><a href="${contextPath}/user/leave.do">회원탈퇴</a></li> 
-              마이페이지로 이동해야 함. -->
             </ul>
           </c:if>
               
@@ -66,39 +63,5 @@
         </div>
     </div>
   </div>
-  <!--  
-  <div class="header-wrap">
-    
-    <div class="logo"></div>
-    
-    <div class="user-wrap">
-    
-      <%-- Signin 안 한 상태 --%>
-      <c:if test="${empty sessionScope.loginUser}">
-        <div>
-          <a href="${contextPath}/user/signin.page"><i class="fa-solid fa-arrow-right-from-bracket"></i>Signin</a>
-          <a href="${contextPath}/user/signup.page"><i class="fa-solid fa-user-plus"></i>Signup</a>
-        </div>
-      </c:if>
-      
-      <%-- Signin 한 상태 --%>
-      <c:if test="${not empty sessionScope.loginUser}">
-        <div><a href="마이페이지로가기">${sessionScope.loginUser.name}</a>님 반갑습니다</div>
-        <div><a href="${contextPath}/user/signout.do">로그아웃</a></div>
-        <div><a href="${contextPath}/user/leave.do">회원탈퇴(마이페이지로이동해야함)</a></div>
-      </c:if>
-    
-    </div>
-    
-    <div class="gnb-wrap">
-      <ul>
-        <li><a href="${contextPath}/bbs/list.do">BBS_계층게시판</a></li>
-        <li><a href="${contextPath}/blog/list.do">BLOG_댓글게시판</a></li>
-      </ul>
-    </div>
-    
-  </div>
-  
-  <hr>
-  -->
+  <
   <div class="main-wrap">
