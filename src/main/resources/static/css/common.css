@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 /*구글폰트 임포트 */
 :root{
@@ -15,7 +16,7 @@
     --font-defualt-size: 14px;
 }
 *{scroll-behavior: smooth;}
-html, body{  margin: 0 auto; max-width: 1920px; font-size: var(--font-defualt-size);}
+html, body{ margin: 0 auto; max-width: 1920px; font-size: var(--font-defualt-size);}
 h1, h2, h3, h4, h5, h6{ position: relative; font-weight: normal; transition: all 250ms ease-in-out;}
 h1, h2, h3{ text-transform: uppercase;}
 h1{ font-size: 6.75em; font-weight: 500; line-height:  .65em;}
@@ -103,26 +104,26 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #header.sections.section_00{ position: fixed; top: 10px; left: 50%; z-index: 99; transform: translateX(-50%); border-radius: calc(var(--mrgn-half) / 2); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); background: rgba(255, 255, 255, .85); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .15); transition: all 250ms ease-in-out;}
 #header.sections.section_00:hover{ background: rgba(255, 255, 255, 1); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .35);}
 #header.sections.section_00 .width_con,
-#header.sections.section_00.scrolled:hover .width_con{ height: 80px; padding: 0 var(--mrgn); }
+#header.sections.section_00.scrolled:hover .width_con{ height: 100px; padding: 0 var(--mrgn); }
 #header.sections.section_00.scrolled .width_con{ height: 50px;}
 #header.sections.section_00 .width_con a.btn_home,
 #header.sections.section_00.scrolled:hover .width_con a.btn_home{ position: absolute; top: 50%; left: var(--mrgn); height: calc(100% - 10px); transform: translateY(-50%); transition: inherit;}
 #header.sections.section_00.scrolled .width_con a.btn_home{ height: calc(100% - 6px);}
 #header.sections.section_00 .width_con a.btn_home img{ height: 100%;}
-#header.sections.section_00 .width_con ul.nav,
+#header.sections.section_00 .width_con ul.nav{ position: relative; transform: translateX(20%); transition: inherit;}/*수정*/
 #header.sections.section_00 .width_con ul.nav_customer{ position: absolute; right: var(--mrgn); transition: inherit;}
 #header.sections.section_00 .width_con ul.nav,
 #header.sections.section_00.scrolled:hover .width_con ul.nav{ top: 42px; }
 #header.sections.section_00.scrolled .width_con ul.nav{ top: 16px;}
 #header.sections.section_00 .width_con ul.nav:after{ content: ''; clear: both;}
-#header.sections.section_00 .width_con ul.nav > li{ float: left; margin-left: var(--mrgn);}
-#header.sections.section_00 .width_con ul.nav > li > a{ font-size: 16px;}
+#header.sections.section_00 .width_con ul.nav > li{ float: none; margin-left: 120px;}/*수정*/
+#header.sections.section_00 .width_con ul.nav > li > a{ font-size: 20px; text-decoration: none; color: inherit; }
 #header.sections.section_00 .width_con ul.nav_customer,
 #header.sections.section_00.scrolled:hover .width_con ul.nav_customer{ top: 15px; filter: blur(0); opacity: 1; pointer-events: auto;}
 #header.sections.section_00.scrolled .width_con ul.nav_customer{ top: -5px; filter: blur(4px); opacity: 0; pointer-events: none;}
 #header.sections.section_00 .width_con ul.nav_customer:after{ content: ''; clear: both;}
 #header.sections.section_00 .width_con ul.nav_customer > li{ float: left; margin-left: var(--mrgn-half);}
-#header.sections.section_00 .width_con ul.nav_customer > li > a{ font-size: 12px;}
+#header.sections.section_00 .width_con ul.nav_customer > li > a{ font-size: 16px; text-decoration: none; color: inherit;}
 
 #visual.sections.section_01{}
 #visual.sections.section_01 .width_con/*{ position: absolute; top: 50% left: 50%; transform: translate(-50% -50%);}대문 배경*/
