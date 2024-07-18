@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="${contextPath}/static/bootstrap-5.3.3-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="${contextPath}/static/summernote-0.8.18-dist/summernote-lite.min.css">
 <link rel="stylesheet" href="${contextPath}/static/css/init.css">
+<link rel="stylesheet" href="${contextPath}/static/css/common.css">
 <link rel="stylesheet" href="${contextPath}/static/css/header.css">
 
 </head>
@@ -38,7 +39,7 @@
             <a href="index.html" class="btn_home"><img src="img/logo.svg">멋진로고</a>
             <div class="btn_open_nav"><div></div></div>
             <ul class="nav">
-                <li><a href="#">예매</a></li>
+                <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>
                 <li><a href="#">영화</a></li>
                 <li><a href="#">고객지원</a></li>
                 <li><a href="#">마이페이지</a></li>

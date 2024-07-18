@@ -15,7 +15,7 @@
     --font-defualt-size: 14px;
 }
 *{scroll-behavior: smooth;}
-html, body{ font-family: "Poppins" margin: 0 auto; max-width: 1920px; font-size: var(--font-defualt-size);}
+html, body{  margin: 0 auto; max-width: 1920px; font-size: var(--font-defualt-size);}
 h1, h2, h3, h4, h5, h6{ position: relative; font-weight: normal; transition: all 250ms ease-in-out;}
 h1, h2, h3{ text-transform: uppercase;}
 h1{ font-size: 6.75em; font-weight: 500; line-height:  .65em;}
