@@ -14,4 +14,5 @@ public interface IUserMapper {
   int deleteUser(int userNo);
   UserDTO getUserInf(int userNo);
   int updateInf(UserDTO user);
+  int pwchange(Map<String, Object> params);
 }

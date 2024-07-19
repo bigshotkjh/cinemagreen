@@ -96,10 +96,31 @@ public class UserController {
     return "user/userpage";
   }
   
-  /*망함 세션에 이미 유저정보 다 있음.*/
   @PostMapping(value = "/updateInf.do", produces = "application/json")
   public ResponseEntity<Map<String, Object>> updateInf(UserDTO user, HttpSession session) {
     return userService.updateInf(user, session);
   }
+  
+  @GetMapping(value = "/pwchange.page")
+  public String pwchange() {
+    return "user/pwchange";
+  }
+  
+  @PostMapping(value = "/pwchange.do")
+  public String pwchange(HttpServletRequest request, RedirectAttributes rttr) {
+    
+    String redirectURL;
+    String message;
+    if(userService.pwchange(request) == 1) {
+      redirectURL = "/main.do";
+      message = "비밀번호 변경 성공";
+    } else {
+      redirectURL = "/user/signup.page";
+      message = "비밀번호 변경 실패";
+    }
+    rttr.addFlashAttribute("signupMessage", message);
+    return "redirect:" + redirectURL;
+  }
+  
   
 }

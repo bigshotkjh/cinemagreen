@@ -14,9 +14,8 @@
  
 </style>
 <!-- 지금 진행중인것
-    회원정보 표시 했고 .
-  1. 이제 수정보내고 받아오기는  ajax
-  2. 이메일과 비번 번경에 대해.  
+     회원정보 표시 했고 .
+  1. 이메일과 비번 번경에 대해.  
 
   -->
 <!--
@@ -39,8 +38,6 @@
     <div class="width_con">
       <div class="title_con white userpage">
         <h4 class="title">User Page</h4><br>
-          
-         <a href="${contextPath}/user/leave.do">회원탈퇴</a>
         <form id="user-info-form">
         
           <div>
@@ -73,7 +70,16 @@
             <button type="button" id="submitbtn" class="submit dead-btn" >개인정보 변경하기</button>
           </div>
               
-        </form>
+        </form><br>
+       
+          <div>
+            <button type="button" onclick="pwChange()">비밀번호변경</button>
+          </div><br>
+       
+          <div>
+            <button type="button" onclick="leaveUser()">탈퇴하기</button>
+          </div>
+        
     </div>
   </div>
               
@@ -103,8 +109,6 @@
     fnMobileCheck();
   })
   
-  //submit 버튼 컨트롤
-  /*아직 이메일체크 빠져 있음.*/
   $(document).on("keyup", "#mobile", evt=>{
     if(mobileCheck == true){
         $(".submit").removeClass("dead-btn");
@@ -136,13 +140,26 @@
   $('#submitbtn').on('click', evt=>{
     fnUpdateInf();
   })
+  
+  const leaveUser = () => {
+    // 회원 탈퇴 확인 메시지 표시
+    if (confirm("정말 회원 탈퇴를 하시겠습니까?")) {
+      // 회원 탈퇴 처리 URL로 이동
+      window.location.href = "${contextPath}/user/leave.do";
+    }
+  };
+  
+  const pwChange = () => {
+    
+    window.location.href = "${contextPath}/user/pwchange.page";
+    
+  };
    
 </script>
   
 <script>
 
-  // 변경 성공 알리기.
-  if('${updateMessage}' !== ''){   /* 수정필요. */
+  if('${updateMessage}' !== ''){   
     alert('${updateMessage}');
   }
 </script>
