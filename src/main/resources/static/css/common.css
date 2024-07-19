@@ -46,7 +46,7 @@ h6{ font-size:    1em; font-weight: 400; line-height: 1.35em;}
 .sections.section_07{ background: rgba(0, 102, 255, .35);}
 .sections.section_08{ background: rgba(247, 248, 255, .4);}
 
-.width_con{ position: relative; margin: 0 auto; width: 1400px; padding: var(--mrgn-x4) 0; background: rgba(0, 70, 150, .1); transition: all 250ms ease-in-out;}
+.width_con{ position: relative; margin: 0 auto; width: 1400px; padding: var(--mrgn-x4) 0; background: rgb(0, 255, 0, 0.06); transition: all 250ms ease-in-out;}
 .title_con{ position: relative; margin: 0 0 var(--mrgn-x2) 0; }
 .title_con.center{}
 .title_con h1{ margin-top: var(--mrgn-half);}
@@ -102,10 +102,10 @@ ul.v_con.six_con > li.cells,
 ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% - var(--mrgn));}
 
 
-#header.sections.section_00{ position: fixed; top: 10px; left: 50%; z-index: 99; transform: translateX(-50%); border-radius: calc(var(--mrgn-half) / 2); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); background: rgba(255, 255, 255, .85); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .15); transition: all 250ms ease-in-out;}
+#header.sections.section_00{ position: fixed; color: black; top: 10px; left: 50%; z-index: 99; transform: translateX(-50%); border-radius: calc(var(--mrgn-half) / 2); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); background: rgba(255, 255, 255, .85); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .15); transition: all 250ms ease-in-out;}
 #header.sections.section_00:hover{ background: rgba(255, 255, 255, 1); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .35);}
 #header.sections.section_00 .width_con,
-#header.sections.section_00.scrolled:hover .width_con{ height: 100px; padding: 0 var(--mrgn); }
+#header.sections.section_00.scrolled:hover .width_con{ height: 80px; padding: 0 var(--mrgn-x2); }
 #header.sections.section_00.scrolled .width_con{ height: 50px;}
 #header.sections.section_00 .width_con a.btn_home,
 #header.sections.section_00.scrolled:hover .width_con a.btn_home{ position: absolute; top: 50%; left: var(--mrgn); height: calc(100% - 10px); transform: translateY(-50%); transition: inherit;}
@@ -114,13 +114,13 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #header.sections.section_00 .width_con ul.nav{ position: relative; transform: translateX(12%); transition: inherit; overflow: auto;}/*수정*/
 #header.sections.section_00 .width_con ul.nav_customer{ position: absolute; right: var(--mrgn); transition: inherit;}
 #header.sections.section_00 .width_con ul.nav,
-#header.sections.section_00.scrolled:hover .width_con ul.nav{ top: 42px; }
+#header.sections.section_00.scrolled:hover .width_con ul.nav{ top: 25px; }
 #header.sections.section_00.scrolled .width_con ul.nav{ top: 16px;}
 #header.sections.section_00 .width_con ul.nav:after{ content: ''; clear: both;}
 #header.sections.section_00 .width_con ul.nav > li{ float: none; margin-left: 120px;}/*수정*/
 #header.sections.section_00 .width_con ul.nav > li > a{ font-size: 20px; text-decoration: none; color: inherit; }
 #header.sections.section_00 .width_con ul.nav_customer,
-#header.sections.section_00.scrolled:hover .width_con ul.nav_customer{ top: 15px; filter: blur(0); opacity: 1; pointer-events: auto;}
+#header.sections.section_00.scrolled:hover .width_con ul.nav_customer{ top: 15px; filter: blur(0); opacity: 1; pointer-events: auto; list-style-type: none;}
 #header.sections.section_00.scrolled .width_con ul.nav_customer{ top: -5px; filter: blur(4px); opacity: 0; pointer-events: none;}
 #header.sections.section_00 .width_con ul.nav_customer:after{ content: ''; clear: both;}
 #header.sections.section_00 .width_con ul.nav_customer > li{ float: left; margin-left: var(--mrgn-half);}
@@ -135,17 +135,27 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 	list-style-type: none;
 	opacity: 0;
 	visibility: hidden;
+	transition: all 0.5s ease;
 }
+
 
 #sub-menu > li > a {
 	display: block;
-	padding: 8px 0px;
+	padding: 10px 0px;
+	color: black;
+	font-size: medium;
+	text-decoration: none;
+}
+
+#main-menu > li:hover {
+	text-decoration: underline;
 }
 
 #main-menu > li:hover #sub-menu {
 	opacity: 1;
 	visibility: visible;
 }
+
 
 
 #visual.sections.section_01{}

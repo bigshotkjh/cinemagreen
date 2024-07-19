@@ -27,13 +27,21 @@
           <input type="hidden" name="url" value="${url}">
           
           <div>
+<<<<<<< HEAD
             <input type="password" name="oldpw" id="oldpw" placeholder="현재 비밀번호">
+=======
+            <input type="text" name="oldpw" id="oldpw" placeholder="현재 비밀번호">
+>>>>>>> main
             <h6></h6>
             <div id=""></div>
           </div>
           
           <div>
+<<<<<<< HEAD
             <input type="password" name="pw" id="pw" placeholder="새로운 비밀번호">
+=======
+            <input type="text" name="pw" id="pw" placeholder="새로운 비밀번호">
+>>>>>>> main
             <h6></h6>
           </div>
           
