@@ -92,8 +92,14 @@ public class UserController {
   /*망함 세션에 이미 유저정보 다 있음.*/
   @GetMapping(value = "/userpage.page")
   public String userpage(HttpSession session, Model model) {
-	/*model.addAttribute("user", userService.getUserInf(session));*/
+    model.addAttribute("user", userService.getUserInf(session));
     return "user/userpage";
+  }
+  
+  /*망함 세션에 이미 유저정보 다 있음.*/
+  @PostMapping(value = "/updateInf.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> updateInf(UserDTO user, HttpSession session) {
+    return userService.updateInf(user, session);
   }
   
 }

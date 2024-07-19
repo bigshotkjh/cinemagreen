@@ -13,4 +13,5 @@ public interface IUserMapper {
   int insertAccess(Map<String, Object> params);
   int deleteUser(int userNo);
   UserDTO getUserInf(int userNo);
+  int updateInf(UserDTO user);
 }

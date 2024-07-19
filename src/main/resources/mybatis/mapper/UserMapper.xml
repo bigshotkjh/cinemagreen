@@ -70,11 +70,22 @@
      WHERE user_no = #{userNo}
   </delete>
   
-  <select id="getUserInf" parameterType="int" resultType="UserDTO">
+  <select id="getUserInf" parameterType="int" >
     SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt
       FROM user_t
      WHERE user_no = #{userNo}
   </select>
+  
+  <update id="updateInf" parameterType="UserDTO" >
+    UPDATE user_t
+       SET name = #{name},
+           mobile = #{mobile},
+           postcode = #{postcode},
+           address = #{address},
+           detailAddress = #{detailAddress},
+           extraAddress = #{extraAddress}
+     WHERE user_no = #{userNo}
+</update>
   
   
 </mapper>

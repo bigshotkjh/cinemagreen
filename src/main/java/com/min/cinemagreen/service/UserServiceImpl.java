@@ -113,7 +113,17 @@ public class UserServiceImpl implements IUserService {
     return userMapper.getUserInf(loginUser.getUserNo());
   }
   
-  
+  @Override
+  public ResponseEntity<Map<String, Object>> updateInf(UserDTO user, HttpSession session) {
+     
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    user.setUserNo(loginUser.getUserNo());
+    user.setEmail(loginUser.getEmail());
+    int updateResult = userMapper.updateInf(user);
+    loginUser = user;
+    session.setAttribute("loginUser", loginUser); 
+    return ResponseEntity.ok(Map.of("isSuccess", updateResult == 1));
+  }
   
   
   
