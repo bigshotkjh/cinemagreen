@@ -16,4 +16,5 @@ public interface IUserService {
   int leave(HttpSession session);
   UserDTO getUserInf(HttpSession session);
   ResponseEntity<Map<String, Object>> updateInf(UserDTO user, HttpSession session);
+  int pwchange(HttpServletRequest request);
 }

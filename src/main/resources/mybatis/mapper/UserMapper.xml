@@ -76,15 +76,13 @@
      WHERE user_no = #{userNo}
   </select>
   
-  <update id="updateInf" parameterType="UserDTO" >
+  <update id="pwchange" parameterType="Map" >
     UPDATE user_t
-       SET name = #{name},
-           mobile = #{mobile},
-           postcode = #{postcode},
-           address = #{address},
-           detailAddress = #{detailAddress},
-           extraAddress = #{extraAddress}
-     WHERE user_no = #{userNo}
+       SET pw = #{pw}
+    <where> 
+      <if test="u != null">user_no = #{userNo}</if>
+      <if test="pw != null">AND pw = #{oldpw}</if>
+    </where>
 </update>
   
   

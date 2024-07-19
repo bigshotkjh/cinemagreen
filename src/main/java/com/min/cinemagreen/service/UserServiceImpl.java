@@ -3,6 +3,7 @@ package com.min.cinemagreen.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,6 +106,7 @@ public class UserServiceImpl implements IUserService {
   @Override
   public UserDTO getUserInf(HttpSession session) {
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    
     /*
     if(loginUser == null) {
       session.invalidate();
@@ -117,6 +119,8 @@ public class UserServiceImpl implements IUserService {
   public ResponseEntity<Map<String, Object>> updateInf(UserDTO user, HttpSession session) {
      
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    if(loginUser == null)  // 로그인이 풀린 유저
+      return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);  // 401
     user.setUserNo(loginUser.getUserNo());
     user.setEmail(loginUser.getEmail());
     int updateResult = userMapper.updateInf(user);
@@ -125,9 +129,22 @@ public class UserServiceImpl implements IUserService {
     return ResponseEntity.ok(Map.of("isSuccess", updateResult == 1));
   }
   
+  @Override
+  public int pwchange(HttpServletRequest request) {
+    /* 번호 같이 넣어서 유저dto로 걍 db에 두번 들려라.*/
+    HttpSession session = request.getSession();
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    if(loginUser == null)  // 세션 만료 대비
+      return 0;
+    int userNo = loginUser.getUserNo();
+    String oldpw = securityUtils.getSha256(request.getParameter("oldpw"));
+    String pw = securityUtils.getSha256(request.getParameter("pw"));
+    Map<String, Object> params = new HashMap<>();
+    params.put("userNo", userNo);
+    params.put("oldpw", oldpw);
+    params.put("pw", pw);
+    
+    return userMapper.pwchange(params);
+  }
   
-  
-  
-  
-
 }
