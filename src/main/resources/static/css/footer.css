@@ -1,57 +1,57 @@
 .footer-wrap {
-    background-color: #f8f8f8;
-    padding: 20px 0;
-    color: #333;
-    font-size: 14px;
-    text-align: center; /* 모든 요소를 가운데 정렬 */
+  background-color: #f8f8f8;
+  padding: 20px 0;
+  color: #333;
+  font-size: 14px;
+  text-align: center; /* 모든 요소를 가운데 정렬 */
 }
 
 .footer-wrap .width_con {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .footer-wrap .links,
 .footer-wrap .protect,
 .footer-wrap .trademark,
 .footer-wrap .copy {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .footer-wrap .links a {
-    color: #333;
-    text-decoration: none;
-    margin: 0 5px; /* 좌우 여백 조정 */
+  color: #333;
+  text-decoration: none;
+  margin: 0 5px; /* 좌우 여백 조정 */
 }
 
 .footer-wrap .links a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .footer-wrap .protect,
 .footer-wrap .copy {
-    color: #999;
+  color: #999;
 }
 
 .footer-wrap .trademark img {
-    max-width: 100px;
-    display: block;
-    margin: 10px auto;
+  max-width: 100px;
+  display: block;
+  margin: 10px auto;
 }
 
 .footer-wrap .social-icons {
-    text-align: center;
-    margin-top: 10px;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .footer-wrap .social-icons a {
-    color: #999;
-    font-size: 18px;
-    margin: 0 10px;
-    text-decoration: none;
+  color: #999;
+  font-size: 18px;
+  margin: 0 10px;
+  text-decoration: none;
 }
 
 .footer-wrap .social-icons a:hover {
-    color: #333;
+  color: #333;
 }
