@@ -13,4 +13,9 @@ public class ReserveController {
 	    return "/reserve/reserve";
 	  }
 	
+	@GetMapping(value = "seat.do")
+	  public String seatDo() {
+	    return "/reserve/seat";
+	  }
+	
 }
