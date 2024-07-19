@@ -43,12 +43,12 @@
               <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>
               <li><a href="#">영화</a></li>
               <li><a href="#">고객지원</a></li>
-              <li><a href="#">마이페이지</a></li>
+              <li><a href="${contextPath}/user/userpage.page">마이페이지</a></li>
               <li><a href="${contextPath}/store/store.page">스토어</a>
-              <ul id="sub-menu">
-                <li><a href="${contextPath}/store/store.page">스토어</a></li>
-                <li><a href="#">장바구니</a></li>
-              </ul>
+	              <ul id="sub-menu">
+	                <li><a href="${contextPath}/store/store.page">스토어</a></li>
+	                <li><a href="#">장바구니</a></li>
+	              </ul>
           </li>
 		  </div>
           <c:if test="${empty sessionScope.loginUser}">
@@ -63,9 +63,10 @@
               <li><a href="${contextPath}/user/signout.do">로그아웃</a></li>
             </ul>
           </c:if>
-
+		</div>
       </div> 
     </div>
+	<div class="main-wrap">
   <body>
     <!-- Header-->
     <header class="bg-dark py-5">
