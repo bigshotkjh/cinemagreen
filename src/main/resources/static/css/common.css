@@ -109,7 +109,7 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #header.sections.section_00.scrolled:hover .width_con a.btn_home{ position: absolute; top: 50%; left: var(--mrgn); height: calc(100% - 10px); transform: translateY(-50%); transition: inherit;}
 #header.sections.section_00.scrolled .width_con a.btn_home{ height: calc(100% - 6px);}
 #header.sections.section_00 .width_con a.btn_home img{ height: 100%;}
-#header.sections.section_00 .width_con ul.nav{ position: relative; transform: translateX(12%); transition: inherit;}/*수정*/
+#header.sections.section_00 .width_con ul.nav{ position: relative; transform: translateX(12%); transition: inherit; overflow: auto;}/*수정*/
 #header.sections.section_00 .width_con ul.nav_customer{ position: absolute; right: var(--mrgn); transition: inherit;}
 #header.sections.section_00 .width_con ul.nav,
 #header.sections.section_00.scrolled:hover .width_con ul.nav{ top: 42px; }
@@ -123,6 +123,28 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #header.sections.section_00 .width_con ul.nav_customer:after{ content: ''; clear: both;}
 #header.sections.section_00 .width_con ul.nav_customer > li{ float: left; margin-left: var(--mrgn-half);}
 #header.sections.section_00 .width_con ul.nav_customer > li > a{ font-size: 16px; text-decoration: none; color: inherit;}
+
+
+
+
+/*#sub-menu {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	opacity: 0;
+	visibility: hidden;
+}
+
+#sub-menu > li > a {
+	display: block;
+	padding: 8px 0px;
+}
+
+#main-menu > li:hover #sub-menu {
+	opacity: 1;
+	visibility: visible;
+}
+*/
 
 #visual.sections.section_01{}
 #visual.sections.section_01 .width_con/*{ position: absolute; top: 50% left: 50%; transform: translate(-50% -50%);}대문 배경*/

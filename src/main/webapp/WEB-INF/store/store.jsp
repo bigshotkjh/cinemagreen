@@ -32,114 +32,90 @@
 <link rel="stylesheet" href="${contextPath}/static/css/store.css">
 
 </head>
-<body>
-  <div class="wrap">
-    <div class="nav_cover"></div>
-    <div id="header" class="sections section_00">
-      <div class="width_con">
-        <a href="index.html" class="btn_home"><img src="img/logo.svg">멋진로고</a>
-        <div class="btn_open_nav"><div></div></div>
-        <ul class="nav">
-          <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>
-          <li><a href="#">영화</a></li>
-          <li><a href="#">고객지원</a></li>
-	      <li><a href="#">마이페이지</a></li>
-	      <li><a href="${contextPath}/store/store.page">스토어</a></li>
-        </ul>
-        <c:if test="${empty sessionScope.loginUser}">
-          <ul class="nav_customer">
-            <li><a href="${contextPath}/user/signin.page"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그인</a></li>
-            <li><a href="${contextPath}/user/signup.page"><i class="fa-solid fa-user-plus"></i>회원가입</a></li>
-          </ul>
-        </c:if>
-        <c:if test="${not empty sessionScope.loginUser}">
-          <ul class="nav_customer">
-            <li><a href="마이페이지로가기">${sessionScope.loginUser.name}</a>님 반갑습니다</li>
-            <li><a href="${contextPath}/user/signout.do">로그아웃</a></li>
-          </ul>
-        </c:if>
-      </div>
-    </div> 
-  </div>
-<body>
-  <!-- Header-->
-  <header class="bg-dark py-5">
-    <div class="text-center text-white">
-      <h1 class="display-4 fw-bolder">Shop in style</h1>
-      <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+  <body>
+    <div class="wrap">
+      <div class="nav_cover"></div>
+      <div id="header" class="sections section_00">
+        <div class="width_con">
+          <a href="index.html" class="btn_home"><img src="img/logo.svg">멋진로고</a>
+          <div class="btn_open_nav"><div>
+          <ul class="nav" id="main-menu">
+              <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>
+              <li><a href="#">영화</a></li>
+              <li><a href="#">고객지원</a></li>
+              <li><a href="#">마이페이지</a></li>
+              <li><a href="${contextPath}/store/store.page">스토어</a>
+              <ul id="sub-menu">
+                <li><a href="${contextPath}/store/store.page">스토어</a></li>
+                <li><a href="#">장바구니</a></li>
+              </ul>
+          </li>
+		  </div>
+          <c:if test="${empty sessionScope.loginUser}">
+            <ul class="nav_customer">
+              <li><a href="${contextPath}/user/signin.page"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그인</a></li>
+              <li><a href="${contextPath}/user/signup.page"><i class="fa-solid fa-user-plus"></i>회원가입</a></li>
+            </ul>
+          </c:if>
+          <c:if test="${not empty sessionScope.loginUser}">
+            <ul class="nav_customer">
+              <li><a href="마이페이지로가기">${sessionScope.loginUser.name}</a>님 반갑습니다</li>
+              <li><a href="${contextPath}/user/signout.do">로그아웃</a></li>
+            </ul>
+          </c:if>
+
+      </div> 
     </div>
-  </header>
-  <!-- Section-->
-  <section class="py-5">
-    <div class="container">
-      <div class="row width4 center">
+  <body>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+      <div class="text-center text-white">
+        <h1 class="display-4 fw-bolder">Shop in style</h1>
+        <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+      </div>
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+      <div class="container">
+        <div class="row width4 center">
 
-		<div class="col mb-5">
-          <div class="card h-100">
-            <!-- Product image-->
-            <img src="../images/ticket1.png"/>
-              <!-- Product details-->
-            <div class="p-4">
-              <div class="text-center">
-                <!-- Product name-->
-                <h5 class="fw-bolder">일반 관람권</h5>
-                <!-- Product reviews-->
-                <div class="d-flex center small warning mb-2">
-                  <div class="bi-star-fill"></div>
-                  <div class="bi-star-fill"></div>
-                  <div class="bi-star-fill"></div>
-                  <div class="bi-star-fill"></div>
+      <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Product image-->
+              <img src="../images/ticket1.png"/>
+                <!-- Product details-->
+              <div class="p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">일반 관람권</h5>
+                  <!-- Product reviews-->
+                  <div class="d-flex center small warning mb-2">
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  10,000P
                 </div>
-                <!-- Product price-->
-                $40.00 - $80.00
               </div>
-            </div>
-            <!-- Product actions-->
-            <div class="p-4 pt-0">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-		   </div>
-         </div>
-       </div>
-
-       <div class="col mb-5">
-         <div class="card h-100">
-            <!-- Product image-->
-            <img src="../images/ticket2.png"/>
-            <!-- Product details-->
-            <div class="p-4">
-              <div class="text-center">
-                <!-- Product name-->
-                <h5 class="fw-bolder">싱글 패키지</h5>
-                <!-- Product reviews-->
-                <div class="d-flex center small text-warning mb-2">
-                  <div class="bi-star-fill"></div>
-                  <div class="bi-star-fill"></div>
-                  <div class="bi-star-fill"></div>
-                  <div class="bi-star-fill"></div>
-                  <div class="bi-star-fill"></div>
-                </div>
-                <!-- Product price-->
-                <span class="text-muted text-decoration-line-through">$20.00</span>
-                $18.00
-              </div>
-            </div>
-            <!-- Product actions-->
-            <div class="p-4 pt-0">
+              <!-- Product actions-->
+              <div class="p-4 pt-0">
               <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-            </div>
+        </div>
           </div>
         </div>
 
         <div class="col mb-5">
           <div class="card h-100">
-            <!-- Product image-->
-            <img src="../images/ticket3.png"/>
-            <!-- Product details-->
-            <div class="p-4">
-              <div class="text-center">
-                <!-- Product name-->
-                <h5 class="fw-bolder">러브콤보 패키지</h5>
-                <!-- Product reviews-->
+              <!-- Product image-->
+              <img src="../images/ticket2.png"/>
+              <!-- Product details-->
+              <div class="p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">싱글 패키지</h5>
+                  <!-- Product reviews-->
                   <div class="d-flex center small text-warning mb-2">
                     <div class="bi-star-fill"></div>
                     <div class="bi-star-fill"></div>
@@ -148,163 +124,191 @@
                     <div class="bi-star-fill"></div>
                   </div>
                   <!-- Product price-->
-                  <span class="text-muted text-decoration-line-through">$50.00</span>
-                  $25.00
-                 </div>
-               </div>
-               <!-- Product actions-->
-               <div class="p-4 pt-0">
-                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-               </div>
-             </div>
-           </div>
+                  15,000P
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="p-4 pt-0">
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+              </div>
+            </div>
+          </div>
 
-           <div class="col mb-5">
-             <div class="card h-100">
-             <!-- Product image-->
-             <img src="../images/ticket4.png"/>
-               <!-- Product details-->
-               <div class="p-4">
-                 <div class="text-center">
-                 <!-- Product name-->
-                 <h5 class="fw-bolder">패밀리 패키지</h5>
-                 <!-- Product reviews-->
-                   <div class="d-flex center small text-warning mb-2">
-                     <div class="bi-star-fill"></div>
-                       <div class="bi-star-fill"></div>
-                       <div class="bi-star-fill"></div>
-                       <div class="bi-star-fill"></div>
-                       <div class="bi-star-fill"></div>
-                     </div>
-                     <!-- Product price-->
-                      $40.00
-                   </div>
-                 </div>
-                 <!-- Product actions-->
-                 <div class="p-4 pt-0">
-                   <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                 </div>
-               </div>
-             </div>
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Product image-->
+              <img src="../images/ticket3.png"/>
+              <!-- Product details-->
+              <div class="p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">러브콤보 패키지</h5>
+                  <!-- Product reviews-->
+                    <div class="d-flex center small text-warning mb-2">
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                    </div>
+                    <!-- Product price-->
+                    27,000P
+                  </div>
+                </div>
+                <!-- Product actions-->
+                <div class="p-4 pt-0">
+                  <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                </div>
+              </div>
+            </div>
 
-			 <div class="col mb-5">
-			   <div class="card h-100">
-			   <!-- Product image-->
-			   <img src="../images/ticket4.png"/>
-			     <!-- Product details-->
-			     <div class="p-4">
-			       <div class="text-center">
-			       <!-- Product name-->
-			       <h5 class="fw-bolder">패밀리 패키지</h5>
-			       <!-- Product reviews-->
-			         <div class="d-flex center small text-warning mb-2">
-			           <div class="bi-star-fill"></div>
-			             <div class="bi-star-fill"></div>
-			             <div class="bi-star-fill"></div>
-			             <div class="bi-star-fill"></div>
-			             <div class="bi-star-fill"></div>
-			           </div>
-			           <!-- Product price-->
-			            $40.00
-			          </div>
-			        </div>
-			        <!-- Product actions-->
-			        <div class="p-4 pt-0">
-			          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-			        </div>
-			      </div>
-			    </div>
+            <div class="col mb-5">
+              <div class="card h-100">
+              <!-- Product image-->
+              <img src="../images/ticket4.png"/>
+                <!-- Product details-->
+                <div class="p-4">
+                  <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">패밀리 패키지</h5>
+                  <!-- Product reviews-->
+                    <div class="d-flex center small text-warning mb-2">
+                      <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                      </div>
+                      <!-- Product price-->
+                        40,000P
+                    </div>
+                  </div>
+                  <!-- Product actions-->
+                  <div class="p-4 pt-0">
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                  </div>
+                </div>
+              </div>
+
+        <div class="col mb-5">
+          <div class="card h-100">
+          <!-- Product image-->
+          <img src="../images/snack1.png"/>
+            <!-- Product details-->
+            <div class="p-4">
+              <div class="text-center">
+              <!-- Product name-->
+              <h5 class="fw-bolder">황태 스낵</h5>
+              <!-- Product reviews-->
+                <div class="d-flex center small text-warning mb-2">
+                  <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                    2,000P
+                  </div>
+                </div>
+                <!-- Product actions-->
+                <div class="p-4 pt-0">
+                  <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                </div>
+              </div>
+            </div>
 
 
-				<div class="col mb-5">
-				  <div class="card h-100">
-                    <!-- Sale badge-->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-				  <!-- Product image-->
-				  <img src="../images/ticket4.png"/>
-				    <!-- Product details-->
-				    <div class="p-4">
-				      <div class="text-center">
-				      <!-- Product name-->
-				      <h5 class="fw-bolder">패밀리 패키지</h5>
-				      <!-- Product reviews-->
-				        <div class="d-flex center small text-warning mb-2">
-				          <div class="bi-star-fill"></div>
-				            <div class="bi-star-fill"></div>
-				            <div class="bi-star-fill"></div>
-				            <div class="bi-star-fill"></div>
-				            <div class="bi-star-fill"></div>
-				          </div>
-				          <!-- Product price-->
-				           $40.00
-				        </div>
-				      </div>
-				      <!-- Product actions-->
-				      <div class="p-4 pt-0">
-				        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-				      </div>
-				    </div>
-				  </div>
+          <div class="col mb-5">
+            <div class="card h-100">
+                      <!-- Sale badge-->
+                      <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+            <!-- Product image-->
+            <img src="../images/snack1.png"/>
+              <!-- Product details-->
+              <div class="p-4">
+                <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">(특가)황태 스낵</h5>
+                <!-- Product reviews-->
+                  <div class="d-flex center small text-warning mb-2">
+                    <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                    </div>
+                    <!-- Product price-->
+                <span class="text-muted text-decoration-line-through">2,000P</span>
+                    1,000P
+                  </div>
+                </div>
+                <!-- Product actions-->
+                <div class="p-4 pt-0">
+                  <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                </div>
+              </div>
+            </div>
 
-			<div class="col mb-5">
-			  <div class="card h-100">
-			  <!-- Product image-->
-			  <img src="../images/ticket4.png"/>
-			    <!-- Product details-->
-			    <div class="p-4">
-			      <div class="text-center">
-			      <!-- Product name-->
-			      <h5 class="fw-bolder">패밀리 패키지</h5>
-			      <!-- Product reviews-->
-			        <div class="d-flex center small text-warning mb-2">
-			          <div class="bi-star-fill"></div>
-			            <div class="bi-star-fill"></div>
-			            <div class="bi-star-fill"></div>
-			            <div class="bi-star-fill"></div>
-			            <div class="bi-star-fill"></div>
-			          </div>
-			          <!-- Product price-->
-			           $40.00
-			        </div>
-			      </div>
-			      <!-- Product actions-->
-			      <div class="p-4 pt-0">
-			        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-			      </div>
-			    </div>
-			  </div>
+        <div class="col mb-5">
+          <div class="card h-100">
+          <!-- Product image-->
+          <img src="../images/snack3.png"/>
+            <!-- Product details-->
+            <div class="p-4">
+              <div class="text-center">
+              <!-- Product name-->
+              <h5 class="fw-bolder">오징어 튀김 세트</h5>
+              <!-- Product reviews-->
+                <div class="d-flex center small text-warning mb-2">
+                  <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  4,000P
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="p-4 pt-0">
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+              </div>
+            </div>
+          </div>
 
-			  <div class="col mb-5">
-			    <div class="card h-100">
-			    <!-- Product image-->
-			    <img src="../images/ticket4.png"/>
-			      <!-- Product details-->
-			      <div class="p-4">
-			        <div class="text-center">
-			        <!-- Product name-->
-			        <h5 class="fw-bolder">패밀리 패키지</h5>
-			        <!-- Product reviews-->
-			          <div class="d-flex center small text-warning mb-2">
-			            <div class="bi-star-fill"></div>
-			              <div class="bi-star-fill"></div>
-			              <div class="bi-star-fill"></div>
-			              <div class="bi-star-fill"></div>
-			              <div class="bi-star-fill"></div>
-			            </div>
-			            <!-- Product price-->
-			             $40.00
-			          </div>
-			        </div>
-			        <!-- Product actions-->
-			        <div class="p-4 pt-0">
-			          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-			        </div>
-			      </div>
-			    </div>
-			
-			
+          <div class="col mb-5">
+            <div class="card h-100">
+            <!-- Product image-->
+            <img src="../images/snack4.png"/>
+              <!-- Product details-->
+              <div class="p-4">
+                <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">오징어 튀김</h5>
+                <!-- Product reviews-->
+                  <div class="d-flex center small text-warning mb-2">
+                    <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                    </div>
+                    <!-- Product price-->
+                    2,000P
+                  </div>
+                </div>
+                <!-- Product actions-->
+                <div class="p-4 pt-0">
+                  <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                </div>
+              </div>
+            </div>
+        
+        
+          </div>
         </div>
       </div>
-    </div>
-  </body>
+    </body>
 </html>
