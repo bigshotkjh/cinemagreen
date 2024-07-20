@@ -25,46 +25,26 @@
               method="post"
               action="${contextPath}/user/pwchange.do">
           <input type="hidden" name="url" value="${url}">
-          
           <div>
-<<<<<<< HEAD
             <input type="password" name="oldpw" id="oldpw" placeholder="현재 비밀번호">
-=======
-            <input type="text" name="oldpw" id="oldpw" placeholder="현재 비밀번호">
->>>>>>> main
             <h6></h6>
-            <div id=""></div>
           </div>
-          
           <div>
-<<<<<<< HEAD
-            <input type="password" name="pw" id="pw" placeholder="새로운 비밀번호">
-=======
-            <input type="text" name="pw" id="pw" placeholder="새로운 비밀번호">
->>>>>>> main
+          <input type="password" name="pw" id="pw" placeholder="새로운 비밀번호">
             <h6></h6>
           </div>
-          
           <div>
             <input type="password" name="pw2" id="pw2" placeholder="비밀번호 확인">
             <h6></h6>
           </div><br>
-          
-          <%--  / SNS 로그인 / 아이디비번 찾기 --%>
-          
           <div>
             <button type="submit" class="submit dead-btn" >변경하기</button>
             <button type="button" onclick="history.back()">취소하기</button>
           </div>
-              
         </form>
       </div>
     </div>
   </div>
- 
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-
 
 <script>
 

@@ -73,7 +73,7 @@
           <br>
         
           <div>
-            <button type="submit" class="submit dead-btn">가입하기</button>
+            <button type="submit" id="submit" class="submit dead-btn">가입하기</button>
             <button type="button" onclick="history.back()">취소하기</button>
           </div>
               
@@ -209,6 +209,12 @@
         $(".submit").addClass("dead-btn");
     }
   });
+  
+  $(document).on("keypress", "#signup-form", function(evt) {
+    if (evt.which === 13) { // 13은 엔터 키 코드
+        evt.preventDefault(); // 기본 동작 방지
+    }
+});
   
 </script>
 
