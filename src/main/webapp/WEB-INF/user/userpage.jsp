@@ -13,11 +13,6 @@
  .sections.section_signup .width_con .signup form{ position: relative; transform: translateX(42%); transition: inherit;}
  
 </style>
-<!-- 지금 진행중인것
-     회원정보 표시 했고 .
-  1. 이메일과 비번 번경에 대해.  
-
-  -->
 <!--
  가져와 표시할 것 들
     {
@@ -39,7 +34,6 @@
       <div class="title_con white userpage">
         <h4 class="title">User Page</h4><br>
         <form id="user-info-form">
-        
           <div>
             <h5>이메일</h5>
             <input type="text" name="email" id="email" value="${loginUser.email}" disabled>
@@ -58,7 +52,7 @@
           
           <div>
             <h5>주소</h5>
-            <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+            <input type="button" onclick="execDaumPostcode(), fnMobileCheck(), fnAllCheck()" value="우편번호 찾기"><br>
             <input type="text" id="postcode" name="postcode" value="${loginUser.postcode}"><br>
             <input type="text" id="address" name="address" value="${loginUser.address}"><br>
             <input type="text" id="extraAddress" name="extraAddress" value="${loginUser.extraAddress}"><br>
@@ -84,7 +78,41 @@
   </div>
               
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+ 
+<script>
+//카카오 주소 API
+  function execDaumPostcode() {
+      new daum.Postcode({
+          oncomplete: function(data) {
+              var addr = ''; 
+              var extraAddr = ''; 
+              if (data.userSelectedType === 'R') {
+                  addr = data.roadAddress;
+              } else { 
+                  addr = data.jibunAddress;
+              }
+              if(data.userSelectedType === 'R'){
+                  if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                      extraAddr += data.bname;
+                  }
+                  if(data.buildingName !== '' && data.apartment === 'Y'){
+                      extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                  }
+                  if(extraAddr !== ''){
+                      extraAddr = ' (' + extraAddr + ')';
+                  }
+                  document.getElementById("extraAddress").value = extraAddr;
+              } else {
+                  document.getElementById("extraAddress").value = '';
+              }
+              document.getElementById('postcode').value = data.zonecode;
+              document.getElementById("address").value = addr;
+              document.getElementById("detailAddress").focus();
+          }
+      }).open();
+  }
+</script>
 
 <script>
 
@@ -97,7 +125,7 @@
     const mobile = document.getElementById('mobile');
     var regMobile = /^010(-{0,1}[0-9]{4}){2}$/;
     if(regMobile.test(mobile.value)){
-      $("#mobile").next("h6").html('핸드폰번호 확인되었습니다.' );
+      $("#mobile").next("h6").html('' );
       mobileCheck = true;
     } else {
       $("#mobile").next("h6").html('010을 포함한 11자리 숫자로 입력해 주세요' );
@@ -105,20 +133,26 @@
     }
   }
   
-  $(document).on("keyup","#mobile", evt=>{
+  $(document).on("keyup","#mobile, #name", evt=>{
     fnMobileCheck();
   })
   
-  $(document).on("keyup", "#mobile", evt=>{
+  const fnAllCheck = ()=>{
     if(mobileCheck == true){
         $(".submit").removeClass("dead-btn");
     }else{
         $(".submit").addClass("dead-btn");
     }
+  }
+  
+  $(document).on("keyup", "#mobile, #name", evt=>{
+    fnAllCheck();
   });
 </script>
 
+
 <script>
+//ajax
   const fnUpdateInf = () => {
     $.ajax({
       type: 'post',
@@ -141,6 +175,7 @@
     fnUpdateInf();
   })
   
+//탈퇴
   const leaveUser = () => {
     // 회원 탈퇴 확인 메시지 표시
     if (confirm("정말 회원 탈퇴를 하시겠습니까?")) {
@@ -154,6 +189,11 @@
     window.location.href = "${contextPath}/user/pwchange.page";
     
   };
+  
+//비밀번호변경 메세지
+  if('${pwchangeMessage}' !== ''){
+    alert('${pwchangeMessage}');
+  }
    
 </script>
   

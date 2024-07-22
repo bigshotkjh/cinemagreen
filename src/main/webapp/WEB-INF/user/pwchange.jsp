@@ -110,6 +110,11 @@
         $(".submit").addClass("dead-btn");
     }
   });
+  
+  //비밀번호변경 메세지
+  if('${pwchangeMessage}' !== ''){
+    alert('${pwchangeMessage}');
+  }
 </script>
 
 <%@ include file="../layout/footer.jsp" %>

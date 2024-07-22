@@ -59,7 +59,7 @@
           </c:if>
           <c:if test="${not empty sessionScope.loginUser}">
             <ul class="nav_customer">
-              <li><a href="마이페이지로가기">${sessionScope.loginUser.name}</a>님 반갑습니다</li>
+              <li><a href="${contextPath}/user/userpage.page">${sessionScope.loginUser.name}</a>님 반갑습니다</li>
               <li><a href="${contextPath}/user/signout.do">로그아웃</a></li>
             </ul>
           </c:if>

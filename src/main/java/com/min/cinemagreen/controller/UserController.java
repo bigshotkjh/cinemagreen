@@ -112,13 +112,13 @@ public class UserController {
     String redirectURL;
     String message;
     if(userService.pwchange(request) == 1) {
-      redirectURL = "/main.do";
+      redirectURL = "/user/userpage.page";
       message = "비밀번호 변경 성공";
     } else {
-      redirectURL = "/user/signup.page";
+      redirectURL = "/user/pwchange.page";
       message = "비밀번호 변경 실패";
     }
-    rttr.addFlashAttribute("signupMessage", message);
+    rttr.addFlashAttribute("pwchangeMessage", message);
     return "redirect:" + redirectURL;
   }
   
