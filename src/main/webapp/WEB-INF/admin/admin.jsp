@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
+<c:set var="contextPath" value="<%=request.getContextPath()%>" />
     <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>CINEMAGREEN Dashboard</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="../css/admin.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">CINEMAGREEN Admin</a>
+            <a class="navbar-brand ps-3" href="${contextPath}/admin/admin.page">CINEMAGREEN Admin</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -39,7 +37,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="${contextPath}/admin/admin.page">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 대시보드
                             </a>
@@ -72,11 +70,11 @@
                                 </nav>
                             </div>
                             <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
+                            <a class="nav-link" href="${contextPath}/admin/money.page">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 매출관리
                             </a>
-                            <a class="nav-link" href="tables.html">
+                            <a class="nav-link" href="${contextPath}/admin/userinfo.page">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 회원관리
                             </a>
@@ -210,6 +208,30 @@
                                             <td>2009/01/12</td>
                                             <td>$86,000</td>
                                         </tr>
+										<tr>
+										    <td>Michelle House</td>
+										    <td>Integration Specialist</td>
+										    <td>Sidney</td>
+										    <td>37</td>
+										    <td>2011/06/02</td>
+										    <td>$95,400</td>
+										</tr>
+										<tr>
+										    <td>Suki Burks</td>
+										    <td>Developer</td>
+										    <td>London</td>
+										    <td>53</td>
+										    <td>2009/10/22</td>
+										    <td>$114,500</td>
+										</tr>
+										<tr>
+										    <td>Prescott Bartlett</td>
+										    <td>Technical Author</td>
+										    <td>London</td>
+										    <td>27</td>
+										    <td>2011/05/07</td>
+										    <td>$145,000</td>
+										</tr>
                                         <tr>
                                             <td>Cedric Kelly</td>
                                             <td>Senior Javascript Developer</td>
@@ -234,11 +256,11 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <script src="../lib/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="../static/demo/chart-area-demo.js"></script>
+        <script src="../static/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
+        <script src="../lib/datatables-simple-demo.js"></script>
     </body>
 </html>

@@ -49,6 +49,7 @@
 	                <li><a href="${contextPath}/store/store.page">스토어</a></li>
 	                <li><a href="#">장바구니</a></li>
 	              </ul>
+			  <li><a href="${contextPath}/admin/admin.page">관리자</a>
           </li>
 		  </div>
           <c:if test="${empty sessionScope.loginUser}">
