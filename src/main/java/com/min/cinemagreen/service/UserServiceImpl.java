@@ -3,7 +3,6 @@ package com.min.cinemagreen.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,7 +56,7 @@ public class UserServiceImpl implements IUserService {
     return userMapper.insertUser(user);
     
   }
-  
+  /*
   @Override
   public void signin(HttpServletRequest request) {
     
@@ -87,6 +86,38 @@ public class UserServiceImpl implements IUserService {
       
     }
     
+  }*/
+  @Override
+  public ResponseEntity<Map<String, Object>> signin(HttpServletRequest request) {
+    
+    String email = request.getParameter("email");
+    String pw = securityUtils.getSha256(request.getParameter("pw"));
+    
+    Map<String, Object> params = new HashMap<>();
+    params.put("email", email);
+    params.put("pw", pw);
+    
+    UserDTO loginUser = userMapper.getUserByMap(params);
+    int signinResult;
+    if(loginUser != null) {
+      
+      HttpSession session = request.getSession();
+      session.setAttribute("loginUser", loginUser);  // session 유지 시간 : application.properties
+      
+      String ip = request.getRemoteAddr();
+      String userAgent = request.getHeader("User-Agent");
+      String sessionId = session.getId();
+      
+      params.put("ip", ip);
+      params.put("userAgent", userAgent);
+      params.put("sessionId", sessionId);
+      
+      userMapper.insertAccess(params);
+      signinResult = 1;
+    }else {
+      signinResult = 0;
+    }
+    return ResponseEntity.ok(Map.of("isSuccess", signinResult == 1 ));
   }
   
   @Override
@@ -102,31 +133,27 @@ public class UserServiceImpl implements IUserService {
     return userMapper.deleteUser(loginUser.getUserNo());
     
   }
-  
+  /*
   @Override
   public UserDTO getUserInf(HttpSession session) {
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
     
-    /*
-    if(loginUser == null) {
-      session.invalidate();
-      return ;  아직 못정함.
-    }*/
     return userMapper.getUserInf(loginUser.getUserNo());
-  }
+  }*/
   
   @Override
-  public ResponseEntity<Map<String, Object>> updateInf(UserDTO user, HttpSession session) {
+  public int updateInf(UserDTO user, HttpSession session) {
      
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
     if(loginUser == null)  // 로그인이 풀린 유저
-      return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);  // 401
+      return 0; 
+
     user.setUserNo(loginUser.getUserNo());
     user.setEmail(loginUser.getEmail());
-    int updateResult = userMapper.updateInf(user);
-    loginUser = user;
-    session.setAttribute("loginUser", loginUser); 
-    return ResponseEntity.ok(Map.of("isSuccess", updateResult == 1));
+    session.setAttribute("loginUser", user); 
+    return userMapper.updateInf(user);
+    
+    
   }
   
   @Override

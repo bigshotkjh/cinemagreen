@@ -43,7 +43,7 @@
                 <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>
                 <li><a href="#">영화</a></li>
                 <li><a href="#">고객지원</a></li>
-                <li><a href="#">마이페이지</a></li>
+                <li><a href="${contextPath}/user/userpage.page">마이페이지</a></li>
 				<li><a href="${contextPath}/store/store.page">스토어</a>
 					<ul id="sub-menu">
 						<li><a href="${contextPath}/store/store.page">스토어</a></li>
@@ -60,7 +60,7 @@
           </c:if>
           <c:if test="${not empty sessionScope.loginUser}">
             <ul class="nav_customer">
-              <li><a href="${contextPath}/user/userpage.page">${sessionScope.loginUser.name}</a>님 반갑습니다</li>
+              <li><a href="${contextPath}/user/userpage.page">${loginUser.name}</a>님 반갑습니다</li>
               <li><a href="${contextPath}/user/signout.do">로그아웃</a></li>
             </ul>
           </c:if>

@@ -33,7 +33,9 @@
     <div class="width_con">
       <div class="title_con white userpage">
         <h4 class="title">User Page</h4><br>
-        <form id="user-info-form">
+        <form id="user-info-form"
+              method="post"
+              action="${contextPath}/user/updateInf.do">
           <div>
             <h5>이메일</h5>
             <input type="text" name="email" id="email" value="${loginUser.email}" disabled>
@@ -61,7 +63,7 @@
           <br>
        
           <div>
-            <button type="button" id="submitbtn" class="submit dead-btn" >개인정보 변경하기</button>
+            <button type="submit"  class="submit dead-btn" >개인정보 변경하기</button>
           </div>
               
         </form><br>
@@ -119,7 +121,7 @@
   var 
   	  mobileCheck = false;
   
-//mobile검사
+//mobile 정규식 검사
   const fnMobileCheck = ()=>{
     
     const mobile = document.getElementById('mobile');
@@ -133,7 +135,7 @@
     }
   }
   
-  $(document).on("keyup","#mobile, #name", evt=>{
+  $(document).on("keyup","#mobile, #name, #postcode, #address, #detailAddress, #extraAddress", evt=>{
     fnMobileCheck();
   })
   
@@ -145,13 +147,14 @@
     }
   }
   
-  $(document).on("keyup", "#mobile, #name", evt=>{
+  $(document).on("keyup", "#mobile, #name, #postcode, #address, #detailAddress, #extraAddress", evt=>{
     fnAllCheck();
   });
 </script>
 
 
 <script>
+/* 헤더에 이름 안바뀌는 사유로 봉인.
 //ajax
   const fnUpdateInf = () => {
     $.ajax({
@@ -170,23 +173,23 @@
     });
   }
   
-  
   $('#submitbtn').on('click', evt=>{
     fnUpdateInf();
   })
+  */
   
 //탈퇴
   const leaveUser = () => {
     // 회원 탈퇴 확인 메시지 표시
     if (confirm("정말 회원 탈퇴를 하시겠습니까?")) {
       // 회원 탈퇴 처리 URL로 이동
-      window.location.href = "${contextPath}/user/leave.do";
+     location.href = "${contextPath}/user/leave.do";
     }
   };
   
   const pwChange = () => {
     
-    window.location.href = "${contextPath}/user/pwchange.page";
+    location.href = "${contextPath}/user/pwchange.page";
     
   };
   
@@ -198,7 +201,7 @@
 </script>
   
 <script>
-
+//업데이트 결과 메세지.
   if('${updateMessage}' !== ''){   
     alert('${updateMessage}');
   }

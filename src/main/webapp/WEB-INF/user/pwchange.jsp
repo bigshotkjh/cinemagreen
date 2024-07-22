@@ -39,7 +39,7 @@
           </div><br>
           <div>
             <button type="submit" class="submit dead-btn" >변경하기</button>
-            <button type="button" onclick="history.back()">취소하기</button>
+            <button type="button" onclick="goUserInf()">취소하기</button>
           </div>
         </form>
       </div>
@@ -98,11 +98,12 @@
     }
   }
   
+  // 정규식에 맞게 입력했나 체크
   $(document).on("keyup","#pw, #pw2",evt=>{
     fnPasswordCheck();
   })
 
-  
+  // 모두 정상 입력했나 확인 하고 서브밋 버튼 활성화.
   $(document).on("keyup", "#oldpw, #pw, #pw2", evt=>{
     if(oldpasswordCheck == true && passwordCheck == true){
         $(".submit").removeClass("dead-btn");
@@ -110,6 +111,11 @@
         $(".submit").addClass("dead-btn");
     }
   });
+  
+  //변경 취소시
+  const goUserInf = ()=>{
+    location.href = "${contextPath}/user/userpage.page";
+  }
   
   //비밀번호변경 메세지
   if('${pwchangeMessage}' !== ''){

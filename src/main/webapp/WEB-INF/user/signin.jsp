@@ -18,9 +18,7 @@
     <div class="width_con">
       <div class="title_con white signin">
         <h4 class="title">Sign In</h4><br>
-        <form id="signin-form"
-              method="post"
-              action="${contextPath}/user/signin.do">
+        <form id="signin-form">
           <input type="hidden" name="url" value="${url}">
           
           <div>
@@ -36,7 +34,7 @@
           <%--  / SNS 로그인 / 아이디비번 찾기 --%>
           
           <div>
-            <button type="submit" onclick="setCookie()">로그인하기</button>
+            <button type="button" id="submitbtn" onclick="setCookie()">로그인하기</button>
             <button type="button" onclick="history.back()">취소하기</button>
           </div>
               
@@ -50,6 +48,30 @@
 
 
 <script>
+//아이디와 비밀번호 ajax
+  const fnSignin = () => {
+    $.ajax({
+      type: 'post',
+      url: '${contextPath}/user/signin.do',
+      data: $('#signin-form').serialize(),
+      dataType: 'json'
+    }).done(resData => {
+      if (resData.isSuccess) {
+        location.href = "${contextPath}/main.do";
+      } else {
+        alert('아이디와 비밀번호를 확인해 주세요.');
+      }
+    }).fail(jqXHR => {
+      alert(jqXHR.status);
+    });
+  }
+  
+  
+  $('#submitbtn').on('click', evt=>{
+    fnSignin();
+  })
+
+
 //ID 체크박스 (쿠키)
 
  //쿠키에 저장

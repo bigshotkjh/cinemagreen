@@ -12,9 +12,9 @@ import jakarta.servlet.http.HttpSession;
 public interface IUserService {
   ResponseEntity<Map<String, Object>> sendCode(String email);
   int signup(UserDTO user);
-  void signin(HttpServletRequest request);
+  ResponseEntity<Map<String, Object>> signin(HttpServletRequest request);
   int leave(HttpSession session);
-  UserDTO getUserInf(HttpSession session);
-  ResponseEntity<Map<String, Object>> updateInf(UserDTO user, HttpSession session);
+  /*UserDTO getUserInf();*/
+  int updateInf(UserDTO user, HttpSession session);
   int pwchange(HttpServletRequest request);
 }

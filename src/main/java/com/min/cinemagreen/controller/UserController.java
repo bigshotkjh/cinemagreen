@@ -72,11 +72,11 @@ public class UserController {
     return "user/signin";
   }
   
-  @PostMapping(value = "/signin.do")
-  public String signinDo(HttpServletRequest request) {
-    userService.signin(request);
-    return "redirect:" + request.getParameter("url");
+  @PostMapping(value = "/signin.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> signinDo(HttpServletRequest request) {
+    return userService.signin(request);
   }
+  
   
   @GetMapping(value = "/signout.do")
   public String signoutDo(HttpSession session) {
@@ -89,16 +89,21 @@ public class UserController {
     rttr.addFlashAttribute("leaveMessage", userService.leave(session) == 1 ? "회원 탈퇴 성공" : "회원 탈퇴 실패");
     return "redirect:/main.do";
   }
-  /*망함 세션에 이미 유저정보 다 있음.*/
+  
   @GetMapping(value = "/userpage.page")
-  public String userpage(HttpSession session, Model model) {
-    model.addAttribute("user", userService.getUserInf(session));
+  public String userpage() {
     return "user/userpage";
   }
-  
+  /* ajax와 함께 봉인
   @PostMapping(value = "/updateInf.do", produces = "application/json")
   public ResponseEntity<Map<String, Object>> updateInf(UserDTO user, HttpSession session) {
     return userService.updateInf(user, session);
+  }
+  */
+  @PostMapping(value = "/updateInf.do")
+  public String updateInf(UserDTO user, HttpSession session, RedirectAttributes rttr) {
+    rttr.addFlashAttribute("updateMessage", userService.updateInf(user, session) == 1 ? "회원 정보 수정 성공" : "회원 정보 수정 실패");
+    return "redirect:/user/userpage.page";
   }
   
   @GetMapping(value = "/pwchange.page")
@@ -121,6 +126,8 @@ public class UserController {
     rttr.addFlashAttribute("pwchangeMessage", message);
     return "redirect:" + redirectURL;
   }
+  
+  
   
   
 }
