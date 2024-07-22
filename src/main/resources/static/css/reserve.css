@@ -47,8 +47,15 @@ p{padding:0; margin:0;}
 .-active{ display:none;}
 .red{color:red;}
 
-.reserve_wrap .rsv_seat .list{ margin-bottom: 10px;}
-.reserve_wrap input[type=radio].custom{ display: none; }
-.reserve_wrap input[type=radio].custom+label { width: 25px; height: 25px; margin-right: 10px; text-align: center; border-radius: 5px; border: 1px solid #ddd; vertical-align: middle; line-height: 1.6; cursor: pointer;}
-.reserve_wrap input[type=radio].custom:checked+label{ background: #bbb;}
-.reserve_wrap .pay_area{ margin-top:var(--mrgn-half)}
+
+.rsv_seat .list{ margin-bottom: 10px;}
+.rsv_seat input[type=radio].custom{ display: none; }
+.rsv_seat input[type=radio].custom+label { width: 25px; height: 25px; margin-right: 10px; text-align: center; border-radius: 3px; border: 1px solid #ddd; vertical-align: middle; line-height: 1.6; cursor: pointer;}
+.rsv_seat input[type=radio].custom:checked+label{ background: #bbb;}
+
+.rsv_seat .pay_area{ margin-top:var(--mrgn-half)}
+.rsv_seat .seat_area span { width: 25px; height: 25px; display: inline-block; text-align: center; vertical-align: top;}
+.rsv_seat .seat_area input[type="checkbox"] {display: none; }
+.rsv_seat .seat_area input[type="checkbox"] + label {display: inline-block; width:25px; height: 25px !important;  border: 2px solid #12b886; cursor: pointer; border-radius: 2px; }
+.rsv_seat .seat_area input[type="checkbox"]:checked + label {background:#12b886;}
+.rsv_seat .seat_area input[type="checkbox"]:disabled + label{border:2px solid #a8bbb6; cursor: default;}

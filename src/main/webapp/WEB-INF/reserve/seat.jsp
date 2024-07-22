@@ -8,13 +8,7 @@
   <jsp:param value="예매" name="title"/>
 </jsp:include>
 <link rel="stylesheet" href="${contextPath}/static/css/reserve.css">
-<style>
-.rsv_seat .seat_area span { width: 25px; height: 25px; display: inline-block; text-align: center; vertical-align: top;}
-.rsv_seat .seat_area input[type="checkbox"] {display: none; }
-.rsv_seat .seat_area input[type="checkbox"] + label {display: inline-block; width:25px; height: 25px !important;  border: 2px solid #12b886; cursor: pointer; border-radius: 2px; }
-.rsv_seat .seat_area input[type="checkbox"]:checked + label {background:#12b886;}
 
-</style>
 <div class="width_con">
 		<div class="reserve_wrap">
 				<h5 class="title">영화예매</h5>
@@ -89,13 +83,12 @@
 		      		<div class="seat_area">&nbsp; &nbsp; &nbsp; &nbsp;
 			      		<%for(char c = 'A'; c<= 'F'; c++){ %>
 			      			<span><%=c %></span>
-				      				<%= c == 2 ? "&nbsp;&nbsp;" : "" %>
 			      			<% } %>
 			      			<br>
 			      			<% for(int i = 1; i <= 5; i++){ %> 
 				      			<span><%=i %></span>
 				      			<% for(char c = 'A'; c<= 'F'; c++){ %>
-				      				<input id="<%=c%><%=i%>" type="checkbox" name ="seat" value="<%=c%><%=i%>"><label for="<%=c%><%=i%>"></label>
+				      				<input id="<%=c%><%=i%>" type="checkbox" name="seat" value="<%=c%><%=i%>"><label for="<%=c%><%=i%>"></label>
 				      			<%} %>
 				      				<br>
 				      				<%= i == 3 ? "<br/>" : "" %>
@@ -113,15 +106,27 @@
 	const payBtn = document.getElementById('payment_btn');
 	
 	payBtn.disabled = true; //결제 버튼 비활성화 
+	$("input[name='seat']").prop("disabled", true); // 좌석 비활성화 
+
+	
+	
 	$('.list .ticket').on("change",function(){
 		$("input[name='seat']").prop("checked", false); // 선택 좌석 초기화
+		/*
+ 			if($("input[name='seat']").disabled = true){
+			console.log('ㅜ');
+			$("input[name='seat']").on("click",function(){
+				alert('인원을 선택해주세요.');
+				})
+			} */
+		$("input:disabled[name='seat']").prop("disabled",false); // 좌석 활성화 
 		payBtn.disabled = true; //결제 버튼 비활성화 
 		
-		var totalmoney=0;
+		var totalmoney = 0;
 		var chkLen = $(".ticket").length;
-		typeA = Number($("[name='type1']:checked").val());
-		typeB = Number($("[name='type2']:checked").val());
-		typeC = Number($("[name='type3']:checked").val());
+		typeA = Number($("input[name='type1']:checked").val());
+		typeB = Number($("input[name='type2']:checked").val());
+		typeC = Number($("input[name='type3']:checked").val());
 		totalCount = (typeA + typeB + typeC);
 		
 		maxCount = 4;
@@ -130,7 +135,7 @@
 		Cmoney = (typeC * 5000);		
 		totalmoney = (Amoney + Bmoney + Cmoney);
 		
-		for(var i=1; i<chkLen; i++){
+		for(i=1; i<chkLen; i++){
 			if($("input[name='type"+i+"']:checked").val() != undefined){
 				//chkTotal += Number($("input[name='type"+i+"']:checked").val());
 				
@@ -144,11 +149,11 @@
 					$('.result span').removeClass('red').text(totalmoney + '원');
 				}
 				//좌석  
-				$("input[type='checkbox']").on("click",function(){
-					let stcount = $("input:checked[type='checkbox']").length;
+				$("input[name='seat']").on("click",function(){
+					let stcount = $("input:checked[name='seat']").length;
 					if (stcount > totalCount){
-							$(this).prop("checked",false);
-							alert(totalCount + '개까지만 선택할 수 있습니다.')
+						$(this).prop("checked",false);
+						alert(totalCount + '개까지만 선택할 수 있습니다.')
 					}else if(stcount == totalCount){
 						payBtn.disabled = false; //결제 버튼 활성화 
 					}else if(stcount != totalCount){
