@@ -42,6 +42,40 @@
               </div>
               <!-- Product actions-->
               <div class="p-4 pt-0">
+                <!-- Product price-->
+                10,000P
+              </div>
+            </div>
+            <!-- Product actions-->
+            <div class="p-4 pt-0">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+		   </div>
+         </div>
+       </div>
+
+       <div class="col mb-5">
+         <div class="card h-100">
+            <!-- Product image-->
+            <img src="../images/ticket2.png"/>
+            <!-- Product details-->
+            <div class="p-4">
+              <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">싱글 패키지</h5>
+                <!-- Product reviews-->
+                <div class="d-flex center small text-warning mb-2">
+                  <div class="bi-star-fill"></div>
+                  <div class="bi-star-fill"></div>
+                  <div class="bi-star-fill"></div>
+                  <div class="bi-star-fill"></div>
+                  <div class="bi-star-fill"></div>
+                </div>
+                <!-- Product price-->
+                15,000P
+              </div>
+            </div>
+            <!-- Product actions-->
+            <div class="p-4 pt-0">
               <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
         </div>
           </div>

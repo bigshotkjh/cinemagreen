@@ -37,21 +37,20 @@
       <div class="nav_cover"></div>
       <div id="header" class="sections section_00">
         <div class="width_con">
-          <a href="index.html" class="btn_home"><img src="img/logo.svg">멋진로고</a>
-          <div class="btn_open_nav"><div>
-          <ul class="nav" id="main-menu">
-              <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>
-              <li><a href="#">영화</a></li>
-              <li><a href="#">고객지원</a></li>
-              <li><a href="${contextPath}/user/userpage.page">마이페이지</a></li>
-              <li><a href="${contextPath}/store/store.page">스토어</a>
-	              <ul id="sub-menu">
-	                <li><a href="${contextPath}/store/store.page">스토어</a></li>
-	                <li><a href="#">장바구니</a></li>
-	              </ul>
-			  <li><a href="${contextPath}/admin/admin.page">관리자</a>
-          </li>
-		  </div>
+            <a href="index.html" class="btn_home"><img src="img/logo.svg">멋진로고</a>
+            <div class="btn_open_nav"><div></div></div>
+            <ul class="nav" id="main-menu">
+                <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>
+                <li><a href="#">영화</a></li>
+                <li><a href="#">고객지원</a></li>
+                <li><a href="#">마이페이지</a></li>
+				<li><a href="${contextPath}/store/store.page">스토어</a>
+					<ul id="sub-menu">
+						<li><a href="${contextPath}/store/store.page">스토어</a></li>
+						<li><a href="#">장바구니</a></li>
+					</ul>
+				</li>
+            </ul>
           <c:if test="${empty sessionScope.loginUser}">
             <ul class="nav_customer">
               <li><a href="${contextPath}/user/signin.page"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그인</a></li>
