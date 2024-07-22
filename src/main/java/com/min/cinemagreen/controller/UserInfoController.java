@@ -9,11 +9,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 @Controller
-public class AdminController {
+public class UserInfoController {
 
-	@GetMapping(value = "/admin.page")
-	public String adminPage() {
-	  return "admin/admin";
+	@GetMapping(value = "/userinfo.page")
+	public String userinfoPage() {
+	  return "admin/userinfo";
 	}
 	
 }

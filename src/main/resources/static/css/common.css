@@ -126,9 +126,6 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #header.sections.section_00 .width_con ul.nav_customer > li{ float: left; margin-left: var(--mrgn-half);}
 #header.sections.section_00 .width_con ul.nav_customer > li > a{ font-size: 16px; text-decoration: none; color: inherit;}
 
-
-
-
 #sub-menu {
 	margin: 0;
 	padding: 0;
@@ -155,8 +152,6 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 	opacity: 1;
 	visibility: visible;
 }
-
-
 
 #visual.sections.section_01{}
 #visual.sections.section_01 .width_con/*{ position: absolute; top: 50% left: 50%; transform: translate(-50% -50%);}대문 배경*/
