@@ -25,8 +25,10 @@
               method="post"
               action="${contextPath}/user/signup.do">
           <div id="code-div" ></div>
+          <div><h5><B>이메일, 비밀번호, 휴대전화 입력은 필수 입니다</h5></div>
           <div>
             <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요">
+            <button type="button" id="overlap-check" onclick="overlapCheck()">이메일 중복 확인</button>
             <button type="button" id="get-code-btn">인증코드 받기</button>
             <h6></h6>
             <input type="text" name="email-check" id="email-check" value="" placeholder="인증번호를 입력해 주세요">
@@ -262,6 +264,10 @@
     }
   });
   
+  
+  const overlapCheck = ()=>{
+    location.href = "${contextPath}/user/overlapcheck.page";
+  }
   
 </script>
 
