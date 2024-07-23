@@ -36,6 +36,7 @@
           <div>
             <button type="button" id="submitbtn" onclick="setCookie()">로그인하기</button>
             <button type="button" onclick="history.back()">취소하기</button>
+            <button type="button" onclick="pwfind()">비밀번호 찾기</button>
           </div>
               
         </form>
@@ -136,6 +137,10 @@
      });
   
   })
+  
+  const pwfind = ()=>{
+    location.href = "${contextPath}/user/pwfind.page";
+  }
 </script>
 
 <%@ include file="../layout/footer.jsp" %>

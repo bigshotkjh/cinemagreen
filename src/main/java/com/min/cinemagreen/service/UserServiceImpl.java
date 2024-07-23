@@ -174,5 +174,17 @@ public class UserServiceImpl implements IUserService {
     return userMapper.pwchange(params);
   }
   
+  @Override
+  public int pwupdate(HttpServletRequest request) {
+
+    String email = request.getParameter("email");
+    String pw = securityUtils.getSha256(request.getParameter("pw"));
+
+    Map<String, Object> params = new HashMap<>();
+    params.put("email", email);
+    params.put("pw", pw);
+    
+    return userMapper.pwupdate(params);
+  }
 }
 

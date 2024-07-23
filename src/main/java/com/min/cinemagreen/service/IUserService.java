@@ -17,4 +17,5 @@ public interface IUserService {
   /*UserDTO getUserInf();*/
   int updateInf(UserDTO user, HttpSession session);
   int pwchange(HttpServletRequest request);
+  int pwupdate(HttpServletRequest request);
 }

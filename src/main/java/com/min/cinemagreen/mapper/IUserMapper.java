@@ -15,4 +15,5 @@ public interface IUserMapper {
   UserDTO getUserInf(int userNo);
   int updateInf(UserDTO user);
   int pwchange(Map<String, Object> params);
+  int pwupdate(Map<String, Object> params);
 }

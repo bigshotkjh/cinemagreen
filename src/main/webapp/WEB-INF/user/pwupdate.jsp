@@ -5,14 +5,14 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 
 <jsp:include page="../layout/header.jsp">
-  <jsp:param value="Change Password" name="title"/>
+  <jsp:param value="Update Password" name="title"/>
 </jsp:include>
 <style>
 
   h6{ font-size:  .85em;}
   .dead-btn{cursor: default; pointer-events: none;}
-  .sections.section_pwchange .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
-  .sections.section_pwchange .width_con .pwchange form{ position: relative; transform: translateX(42%); transition: inherit;}
+  .sections.section_signin .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
+  .sections.section_signin .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
 
 </style>
 
@@ -21,7 +21,7 @@
     <div class="width_con">
       <div class="title_con white pwchange">
         <h4 class="title">비밀번호 변경</h4><br>
-        <form id="pwchange-form"
+        <form id="signin-form"
               method="post"
               action="${contextPath}/user/pwchange.do">
           <input type="hidden" name="url" value="${url}">
@@ -121,14 +121,6 @@
   if('${pwchangeMessage}' !== ''){
     alert('${pwchangeMessage}');
   }
-  
-
-  
-  $(document).on("keypress", "#pwchange-form", evt=>{
-    if (evt.which === 13) { // 13은 엔터 키 코드
-        evt.preventDefault(); // 기본 동작 방지
-    }
-  });
 </script>
 
 <%@ include file="../layout/footer.jsp" %>

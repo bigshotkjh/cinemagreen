@@ -98,4 +98,12 @@
   </update>
   
   
+  <update id="pwupdate" parameterType="Map" >
+    UPDATE user_t
+       SET pw = #{pw}
+    WHERE 
+        email = #{email}
+  </update>
+  
+  
 </mapper>

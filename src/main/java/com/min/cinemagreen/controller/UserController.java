@@ -127,6 +127,27 @@ public class UserController {
     return "redirect:" + redirectURL;
   }
   
+  @GetMapping(value = "/pwfind.page")
+  public String pwfind() {
+    return "user/pwfind";
+  }
+  
+  @PostMapping(value = "/pwupdate.do")
+  public String pwupdate(HttpServletRequest request, RedirectAttributes rttr) {
+    
+    String redirectURL;
+    String message;
+    if(userService.pwupdate(request) == 1) {
+      redirectURL = "/user/signin.page";
+      message = "비밀번호 변경 성공";
+    } else {
+      redirectURL = "/user/pwfind.page";
+      message = "비밀번호 변경 실패";
+    }
+    rttr.addFlashAttribute("pwupdateMessage", message);
+    return "redirect:" + redirectURL;
+  }
+  
   
   
   

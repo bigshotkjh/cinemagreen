@@ -29,9 +29,9 @@
             <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요">
             <button type="button" id="get-code-btn">인증코드 받기</button>
             <h6></h6>
-            <input type="text" name="email-check" id="email-check" value="">
+            <input type="text" name="email-check" id="email-check" value="" placeholder="인증번호를 입력해 주세요">
             <button type="button" id="code-check-btn">인증번호 확인</button>
-            <h6>인증번호를 입력해 주세요</h6>
+            <h6></h6>
           </div>
           <div>
             <input type="password" name="pw" id="pw" placeholder="비밀번호">
@@ -267,7 +267,7 @@
     if (evt.which === 13) { // 13은 엔터 키 코드
         evt.preventDefault(); // 기본 동작 방지
     }
-});
+  });
   
   
 </script>
