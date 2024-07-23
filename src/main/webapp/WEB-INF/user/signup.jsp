@@ -36,19 +36,15 @@
           <div>
             <input type="password" name="pw" id="pw" placeholder="비밀번호">
             <h6></h6>
-            <div id=""></div>
           </div>
           <div>
             <input type="password" id="pw2" placeholder="비밀번호 확인">
             <h6></h6>
-            <div id=""></div>
           </div>
-          
           <div>
             <input type="text" name="name" id="name" placeholder="이름">
           </div>
           <br>
-          
           <div>
             <input type="radio" name="gender" value="none" id="none" checked>
             <label for="none">선택안함</label>
@@ -58,13 +54,10 @@
             <label for="woman">여자</label>
           </div>
           <br>
-          
           <div>
             <input type="text" name="mobile" id="mobile" placeholder="휴대전화">
             <h6></h6>
-            <div id=""></div>
           </div>
-          
           <div>
             <input type="text" id="postcode" name="postcode" placeholder="우편번호">
             <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>

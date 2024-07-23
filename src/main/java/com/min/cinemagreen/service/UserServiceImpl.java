@@ -186,5 +186,23 @@ public class UserServiceImpl implements IUserService {
     
     return userMapper.pwupdate(params);
   }
+  
+  @Override
+  public ResponseEntity<Map<String, Object>> emailfindDo(HttpServletRequest request) {
+    
+    String pw = securityUtils.getSha256(request.getParameter("pw"));
+    String mobile = request.getParameter("mobile");
+    
+    Map<String, Object> params = new HashMap<>();
+    params.put("pw", pw);
+    params.put("mobile", mobile); 
+      
+    UserDTO user = userMapper.emailfindDo(params);
+    String email = user.getEmail();
+  
+    return ResponseEntity.ok(Map.of("email", email));
+  }
+  
+  
 }
 

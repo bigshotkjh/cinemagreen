@@ -148,6 +148,16 @@ public class UserController {
     return "redirect:" + redirectURL;
   }
   
+  @GetMapping(value = "/emailfind.page")
+  public String emailfind() {
+    return "user/emailfind";
+  }
+  
+  @PostMapping(value = "/emailfind.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> emailfindDo(HttpServletRequest request) {
+    return userService.emailfindDo(request);
+  }
+  
   
   
   

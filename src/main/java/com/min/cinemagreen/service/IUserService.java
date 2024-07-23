@@ -18,4 +18,5 @@ public interface IUserService {
   int updateInf(UserDTO user, HttpSession session);
   int pwchange(HttpServletRequest request);
   int pwupdate(HttpServletRequest request);
+  ResponseEntity<Map<String, Object>> emailfindDo(HttpServletRequest request);
 }

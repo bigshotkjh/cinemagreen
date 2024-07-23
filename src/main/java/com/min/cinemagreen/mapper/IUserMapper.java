@@ -16,4 +16,5 @@ public interface IUserMapper {
   int updateInf(UserDTO user);
   int pwchange(Map<String, Object> params);
   int pwupdate(Map<String, Object> params);
+  UserDTO emailfindDo(Map<String, Object> params);
 }

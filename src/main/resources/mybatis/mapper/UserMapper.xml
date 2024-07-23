@@ -105,5 +105,13 @@
         email = #{email}
   </update>
   
+  <select id="emailfindDo" parameterType="Map" resultType="UserDTO">
+    SELECT email           
+      FROM user_t
+     WHERE 
+               pw = #{pw}
+       AND mobile = #{mobile}
+  </select>
+  
   
 </mapper>
