@@ -140,7 +140,6 @@
       dataType: 'json'
     }).done(resData=>{
       const code = document.getElementById('code-div');
-      alert(resData.code);
       code.innerHTML = '<input type="text" id="code" value="' + resData.code + '">';
       console.log(resData);
     }).fail(jqXHR=>{
@@ -158,7 +157,7 @@
     const code = document.getElementById('code');
     const emailCheck = document.getElementById('email-check');
     if(code.value === emailCheck.value){
-      alert('맞아');
+      alert('인증에 성공했습니다.');
       emailCodeCheck = true;
     }else{
       alert('인증번호가 틀렸습니다.');
@@ -186,12 +185,10 @@
     
     if(pw_v == ""){ 
       $("#pw").next("h6").html('비밀번호를 입력해주세요.');
-      pw.focus();
   	}else if(text_check.test(pw_v) == true){
       $("#pw").next("h6").html('');
       if(pw2_v == ""){
         $("#pw2").next("h6").html('확인을 위해 비밀번호는 한번 더 입력해주세요.');
-        pw2.focus();
       }else{
         if(pw_v == pw2_v){
           $("#pw2").next("h6").html('비밀번호가 일치합니다.');
@@ -230,7 +227,25 @@
     fnMobileCheck();
   })
  
-  //submit 버튼 컨트롤
+  //submit 버튼 활성화
+  const allCheck = ()=>{
+    if(mobileCheck == true && passwordCheck == true && emailCodeCheck == true){
+        $(".submit").removeClass("dead-btn");
+    }else{
+        $(".submit").addClass("dead-btn");
+    }
+  }
+  
+  $(document).on("keyup", "#pw, #mobile, #pw2", evt=>{
+    allCheck();
+  });
+  
+  $(document).on("click", "#code-check-btn", evt=>{
+    allCheck();
+  });
+  
+  /*
+  
   $(document).on("keyup", "#pw, #mobile, #pw2", evt=>{
     if(mobileCheck == true && passwordCheck == true && emailCodeCheck == true){
         $(".submit").removeClass("dead-btn");
@@ -239,7 +254,16 @@
     }
   });
   
-  $(document).on("keypress", "#signup-form", function(evt) {
+  $(document).on("click", "#code-check-btn", evt=>{
+    if(mobileCheck == true && passwordCheck == true && emailCodeCheck == true){
+        $(".submit").removeClass("dead-btn");
+    }else{
+        $(".submit").addClass("dead-btn");
+    }
+  });
+  */
+  
+  $(document).on("keypress", "#signup-form", evt=>{
     if (evt.which === 13) { // 13은 엔터 키 코드
         evt.preventDefault(); // 기본 동작 방지
     }
