@@ -56,7 +56,7 @@
     const oldpw_v = oldpw.value;
     if(oldpw_v == ""){ 
       $("#oldpw").next("h6").html('현재 비밀번호를 입력해주세요.');
-      pw.focus();
+      oldpasswordCheck = false;
     }else{
       $("#oldpw").next("h6").html('');
       oldpasswordCheck = true;
@@ -77,24 +77,24 @@
     var text_check = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,99}$/;
     
     if(pw_v == ""){ 
-      $("#pw").next("h6").html('비밀번호를 입력해주세요.');
-      pw.focus();
+      $("#pw").next("h6").html('새로운 비밀번호를 입력해주세요.');
     }else if(text_check.test(pw_v) == true){
       $("#pw").next("h6").html('');
       if(pw2_v == ""){
         $("#pw2").next("h6").html('확인을 위해 비밀번호는 한번 더 입력해주세요.');
-        pw2.focus();
       }else{
         if(pw_v == pw2_v){
           $("#pw2").next("h6").html('비밀번호가 일치합니다.');
           passwordCheck = true;//
         }else{
           $("#pw2").next("h6").html('확인을 위해 비밀번호는 한번 더 입력해주세요.');
+          passwordCheck = false;
         }    
       }                                 
     }else{
       $("#pw").next("h6").html('5자리 이상의 영문 대소문자, 최소 1개의 숫자 혹은 특수 문자를 포함하여야 합니다.');
       $("#pw2").next("h6").html('');
+      passwordCheck = false;
     }
   }
   

@@ -92,10 +92,9 @@
   <update id="pwchange" parameterType="Map" >
     UPDATE user_t
        SET pw = #{pw}
-    <where> 
-      <if test="u != null">user_no = #{userNo}</if>
-      <if test="pw != null">AND pw = #{oldpw}</if>
-    </where>
+    WHERE 
+      user_no = #{userNo}
+       AND pw = #{oldpw}
   </update>
   
   

@@ -24,13 +24,15 @@
         <form id="signup-form"
               method="post"
               action="${contextPath}/user/signup.do">
-        
+          <div id="code-div" ></div>
           <div>
             <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요">
-            <button type="button" id="get-code-btn">인증코드받기</button>
+            <button type="button" id="get-code-btn">인증코드 받기</button>
             <h6></h6>
+            <input type="text" name="email-check" id="email-check" value="">
+            <button type="button" id="code-check-btn">인증번호 확인</button>
+            <h6>인증번호를 입력해 주세요</h6>
           </div>
-          
           <div>
             <input type="password" name="pw" id="pw" placeholder="비밀번호">
             <h6></h6>
@@ -123,7 +125,7 @@
 
 <script>
  
-  var emailCheck = false,
+  var emailCodeCheck = false,
   	  passwordCheck = false,
   	  mobileCheck = false;
   
@@ -137,6 +139,9 @@
       data: 'email=' + email.value,
       dataType: 'json'
     }).done(resData=>{
+      const code = document.getElementById('code-div');
+      alert(resData.code);
+      code.innerHTML = '<input type="text" id="code" value="' + resData.code + '">';
       console.log(resData);
     }).fail(jqXHR=>{
       console.log(jqXHR);
@@ -147,6 +152,28 @@
   document.getElementById('get-code-btn').addEventListener('click', evt=>{
     fnEmailCheck();
   })
+
+//email code검사  
+  const fnCodeCheck = ()=>{
+    const code = document.getElementById('code');
+    const emailCheck = document.getElementById('email-check');
+    if(code.value === emailCheck.value){
+      alert('맞아');
+      emailCodeCheck = true;
+    }else{
+      alert('인증번호가 틀렸습니다.');
+    }
+  }
+/*
+  document.getElementById('code-check-btn').addEventListener('click', evt=>{
+    fnCodeCheck();
+  })
+*/  
+  $(document).on("click","#code-check-btn",evt=>{
+    fnCodeCheck();
+  })
+  
+  
 //password검사
 
   const fnPasswordCheck = ()=>{
@@ -168,20 +195,23 @@
       }else{
         if(pw_v == pw2_v){
           $("#pw2").next("h6").html('비밀번호가 일치합니다.');
-          passwordCheck = true;//
+          passwordCheck = true;
         }else{
           $("#pw2").next("h6").html('확인을 위해 비밀번호는 한번 더 입력해주세요.');
+          passwordCheck = false;
         }    
       }                                 
    	}else{
       $("#pw").next("h6").html('5자리 이상의 영문 대소문자, 최소 1개의 숫자 혹은 특수 문자를 포함하여야 합니다.');
       $("#pw2").next("h6").html('');
+      passwordCheck = false;
   	}
   }
   
   $(document).on("keyup","#pw, #pw2",evt=>{
     fnPasswordCheck();
   })
+  
 //mobile검사
   const fnMobileCheck = ()=>{
     
@@ -201,9 +231,8 @@
   })
  
   //submit 버튼 컨트롤
-  /*아직 이메일체크 빠져 있음.*/
-  $(document).on("keyup", "#pw, #mobile", evt=>{
-    if(mobileCheck == true && passwordCheck == true){
+  $(document).on("keyup", "#pw, #mobile, #pw2", evt=>{
+    if(mobileCheck == true && passwordCheck == true && emailCodeCheck == true){
         $(".submit").removeClass("dead-btn");
     }else{
         $(".submit").addClass("dead-btn");
@@ -215,6 +244,7 @@
         evt.preventDefault(); // 기본 동작 방지
     }
 });
+  
   
 </script>
 
