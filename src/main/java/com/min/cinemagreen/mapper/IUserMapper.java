@@ -17,4 +17,5 @@ public interface IUserMapper {
   int pwchange(Map<String, Object> params);
   int pwupdate(Map<String, Object> params);
   UserDTO emailfindDo(Map<String, Object> params);
+  UserDTO overlapcheckDo(UserDTO email);
 }

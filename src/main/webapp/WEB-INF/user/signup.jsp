@@ -28,7 +28,7 @@
           <div><h5><B>이메일, 비밀번호, 휴대전화 입력은 필수 입니다</h5></div>
           <div>
             <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요">
-            <button type="button" id="overlap-check" onclick="overlapCheck()">이메일 중복 확인</button>
+            <button type="button" id="overlap-check">이메일 중복 확인</button>
             <button type="button" id="get-code-btn">인증코드 받기</button>
             <h6></h6>
             <input type="text" name="email-check" id="email-check" value="" placeholder="인증번호를 입력해 주세요">
@@ -264,11 +264,30 @@
     }
   });
   
-  
-  const overlapCheck = ()=>{
-    location.href = "${contextPath}/user/overlapcheck.page";
+
+//아이디 중복 검사 ajax
+  const overlapCheck = () => {
+    $.ajax({
+      type: 'post',
+      url: '${contextPath}/user/overlapcheck.do',
+      data: $('#signup-form').serialize(),
+      dataType: 'json'
+    }).done(resData => {
+      if (resData.isSuccess) {
+        alert('중복되는 이메일이 존재합니다.');
+      } else {
+        alert('사용할 수 있는 이메일 입니다.');
+      }
+    }).fail(jqXHR => {
+      alert(jqXHR.status);
+    });
   }
   
+  
+  $('#overlap-check').on('click', () =>{
+    overlapCheck();
+  });
+
 </script>
 
 <script>

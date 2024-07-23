@@ -19,4 +19,5 @@ public interface IUserService {
   int pwchange(HttpServletRequest request);
   int pwupdate(HttpServletRequest request);
   ResponseEntity<Map<String, Object>> emailfindDo(HttpServletRequest request);
+  ResponseEntity<Map<String, Object>> overlapcheckDo(UserDTO email);
 }

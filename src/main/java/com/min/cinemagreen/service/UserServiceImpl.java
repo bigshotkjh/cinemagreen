@@ -203,6 +203,20 @@ public class UserServiceImpl implements IUserService {
     return ResponseEntity.ok(Map.of("email", email));
   }
   
+  @Override
+  public ResponseEntity<Map<String, Object>> overlapcheckDo(UserDTO email) {
+    
+    
+    UserDTO user = userMapper.overlapcheckDo(email);
+    int overlapcheckResult;
+    if(user != null) {
+      overlapcheckResult = 1;
+    }else {
+      overlapcheckResult = 0;
+    }
+    return ResponseEntity.ok(Map.of("isSuccess", overlapcheckResult == 1));
+  }
+  
   
 }
 

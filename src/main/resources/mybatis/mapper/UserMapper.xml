@@ -109,8 +109,15 @@
     SELECT email           
       FROM user_t
      WHERE 
-               pw = #{pw}
+           pw = #{pw}
        AND mobile = #{mobile}
+  </select>
+  
+  <select id="overlapcheckDo" parameterType="UserDTO" resultType="UserDTO">
+    SELECT email           
+      FROM user_t
+     WHERE 
+        email = #{email}
   </select>
   
   

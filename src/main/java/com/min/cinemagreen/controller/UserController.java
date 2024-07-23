@@ -158,6 +158,11 @@ public class UserController {
     return userService.emailfindDo(request);
   }
   
+  @PostMapping(value = "/overlapcheck.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> overlapcheckDo(UserDTO email) {
+    return userService.overlapcheckDo(email);
+  }
+  
   
   
   
