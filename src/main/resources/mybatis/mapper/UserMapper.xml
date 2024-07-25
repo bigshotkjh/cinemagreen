@@ -92,11 +92,33 @@
   <update id="pwchange" parameterType="Map" >
     UPDATE user_t
        SET pw = #{pw}
-    <where> 
-      <if test="u != null">user_no = #{userNo}</if>
-      <if test="pw != null">AND pw = #{oldpw}</if>
-    </where>
+    WHERE 
+      user_no = #{userNo}
+       AND pw = #{oldpw}
   </update>
+  
+  
+  <update id="pwupdate" parameterType="Map" >
+    UPDATE user_t
+       SET pw = #{pw}
+    WHERE 
+        email = #{email}
+  </update>
+  
+  <select id="emailfindDo" parameterType="Map" resultType="UserDTO">
+    SELECT email           
+      FROM user_t
+     WHERE 
+           pw = #{pw}
+       AND mobile = #{mobile}
+  </select>
+  
+  <select id="overlapcheckDo" parameterType="UserDTO" resultType="UserDTO">
+    SELECT email           
+      FROM user_t
+     WHERE 
+        email = #{email}
+  </select>
   
   
 </mapper>

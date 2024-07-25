@@ -127,6 +127,42 @@ public class UserController {
     return "redirect:" + redirectURL;
   }
   
+  @GetMapping(value = "/pwfind.page")
+  public String pwfind() {
+    return "user/pwfind";
+  }
+  
+  @PostMapping(value = "/pwupdate.do")
+  public String pwupdate(HttpServletRequest request, RedirectAttributes rttr) {
+    
+    String redirectURL;
+    String message;
+    if(userService.pwupdate(request) == 1) {
+      redirectURL = "/user/signin.page";
+      message = "비밀번호 변경 성공";
+    } else {
+      redirectURL = "/user/pwfind.page";
+      message = "비밀번호 변경 실패";
+    }
+    rttr.addFlashAttribute("pwupdateMessage", message);
+    return "redirect:" + redirectURL;
+  }
+  
+  @GetMapping(value = "/emailfind.page")
+  public String emailfind() {
+    return "user/emailfind";
+  }
+  
+  @PostMapping(value = "/emailfind.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> emailfindDo(HttpServletRequest request) {
+    return userService.emailfindDo(request);
+  }
+  
+  @PostMapping(value = "/overlapcheck.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> overlapcheckDo(UserDTO email) {
+    return userService.overlapcheckDo(email);
+  }
+  
   
   
   

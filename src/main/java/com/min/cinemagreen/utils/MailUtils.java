@@ -1,8 +1,9 @@
 package com.min.cinemagreen.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.context.annotation.PropertySource;
+//import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -19,15 +20,15 @@ import jakarta.mail.internet.MimeMessage;
  *   
  *   env.getProperty("spring.mail.username")  */
 
-@PropertySource(value = "classpath:application.properties")
+//@PropertySource(value = "classpath:application.properties")
 @Component
 public class MailUtils {
   
   @Autowired
   private JavaMailSender javaMailSender;
   
-  @Autowired
-  private Environment env;
+  @Value(value = "${spring.mail.username}")
+  private String username;
   
   public void sendMail(String to, String subject, String content) {
     
@@ -35,7 +36,7 @@ public class MailUtils {
 
       MimeMessage mimeMessage = javaMailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
-      helper.setFrom(env.getProperty("spring.mail.username"));
+      helper.setFrom(username);
       helper.setTo(new InternetAddress(to));
       helper.setSubject(subject);
       mimeMessage.setContent(content, "text/html; charset=UTF-8");

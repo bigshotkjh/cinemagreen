@@ -174,5 +174,49 @@ public class UserServiceImpl implements IUserService {
     return userMapper.pwchange(params);
   }
   
+  @Override
+  public int pwupdate(HttpServletRequest request) {
+
+    String email = request.getParameter("email");
+    String pw = securityUtils.getSha256(request.getParameter("pw"));
+
+    Map<String, Object> params = new HashMap<>();
+    params.put("email", email);
+    params.put("pw", pw);
+    
+    return userMapper.pwupdate(params);
+  }
+  
+  @Override
+  public ResponseEntity<Map<String, Object>> emailfindDo(HttpServletRequest request) {
+    
+    String pw = securityUtils.getSha256(request.getParameter("pw"));
+    String mobile = request.getParameter("mobile");
+    
+    Map<String, Object> params = new HashMap<>();
+    params.put("pw", pw);
+    params.put("mobile", mobile); 
+      
+    UserDTO user = userMapper.emailfindDo(params);
+    String email = user.getEmail();
+  
+    return ResponseEntity.ok(Map.of("email", email));
+  }
+  
+  @Override
+  public ResponseEntity<Map<String, Object>> overlapcheckDo(UserDTO email) {
+    
+    
+    UserDTO user = userMapper.overlapcheckDo(email);
+    int overlapcheckResult;
+    if(user != null) {
+      overlapcheckResult = 1;
+    }else {
+      overlapcheckResult = 0;
+    }
+    return ResponseEntity.ok(Map.of("isSuccess", overlapcheckResult == 1));
+  }
+  
+  
 }
 
