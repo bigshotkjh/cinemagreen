@@ -1,9 +1,6 @@
 package com.min.cinemagreen.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.net.URLEncoder;
-import java.security.SecureRandom;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
@@ -90,6 +87,7 @@ public class UserController {
         }
       }
     }
+    model.addAttribute("url", url);
     userService.makeNaverApi(session); 
     return "user/signin";
   }
