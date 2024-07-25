@@ -7,5 +7,9 @@ import com.min.cinemagreen.dto.UserInfoDTO;
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface IUserInfoService {
-    List<UserInfoDTO> getUserList(HttpServletRequest request); // request 매개변수 추가
+    
+    List<UserInfoDTO> getUserList(HttpServletRequest request);
+    UserInfoDTO getUserById(int userNo);
+    UserInfoDTO adminUpdateInf(int userNo, UserInfoDTO user); // 사용자 정보 수정
+    String adminDeleteUser(int userNo); // 사용자 삭제
 }

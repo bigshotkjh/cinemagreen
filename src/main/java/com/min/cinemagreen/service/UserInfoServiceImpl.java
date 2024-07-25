@@ -21,9 +21,30 @@ public class UserInfoServiceImpl implements IUserInfoService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<UserInfoDTO> getUserList(HttpServletRequest request) { // request 매개변수 추가
+    public List<UserInfoDTO> getUserList(HttpServletRequest request) {
         Map<String, Object> params = new HashMap<>();
-        // 필요한 경우 request를 사용하여 params에 추가 로직 구현 가능
-        return userInfoMapper.getUserList(params); // 사용자 목록 반환
+        return userInfoMapper.getUserList(params);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public UserInfoDTO getUserById(int userNo) {
+        return userInfoMapper.getUserById(userNo);
+    }
+    
+    @Override
+    public UserInfoDTO adminUpdateInf(int userNo, UserInfoDTO user) {
+        // 업데이트 로직
+        userInfoMapper.adminUpdateInf(userNo, user);
+        return user; // 여기에 문제가 없도록 반환값을 확인
+    }
+
+    @Override
+    public String adminDeleteUser(int userNo) {
+        // 사용자 삭제 로직 수행
+        userInfoMapper.adminDeleteUser(userNo); // 이 부분은 실제 삭제 로직으로 대체해야 합니다.
+        
+        // 항상 "success" 반환
+        return "success"; 
     }
 }

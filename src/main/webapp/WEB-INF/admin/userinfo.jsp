@@ -32,7 +32,8 @@
                             <th>이메일</th>
                             <th>이름</th>
                             <th>전화번호</th>
-                            <th>가입일자</th>
+							<th>가입일자</th>
+							<th>상세</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -41,23 +42,36 @@
                             <th>email</th>
                             <th>name</th>
                             <th>mobile</th>
-                            <th>signup_dt</th>
+							<th>signup_dt</th>
+							<th>detail</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <c:forEach var="user" items="${userList}">
-                            <tr>
-                                <td>${user.userNo}</td>
-                                <td>${user.email}</td>
-                                <td>${user.name}</td>
-                                <td>${user.mobile}</td>
-                                <td>${user.signupDt}</td>
-                            </tr>
-                        </c:forEach>
+						<c:forEach var="user" items="${userList}">
+						    <tr>
+						        <td>${user.userNo}</td>
+						        <td>${user.email}</td>
+						        <td>${user.name}</td>
+						        <td>${user.mobile}</td>
+						        <td>${user.signupDt}</td>
+						        <td>
+						            <button type="button" onclick="detail(${user.userNo})">상세보기</button>
+						        </td>
+						    </tr>
+						</c:forEach>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </main>
+	<script>
+	const detail = (userNo) => {
+	    location.href = "${contextPath}/admin/detail.page?userNo=" + userNo;
+	}
+	</script>
+
+
+
+
 <%@ include file="../admin/adminfooter.jsp" %>

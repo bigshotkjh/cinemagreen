@@ -18,5 +18,37 @@
             signup_dt DESC
     </select>
   
+    <!-- 사용자 번호에 해당하는 정보 조회 -->
+    <select id="getUserById" parameterType="int" resultType="UserInfoDTO">
+        SELECT
+            user_no,
+            name,
+            email,
+            mobile,
+            signup_dt
+        FROM
+            user_t
+        WHERE
+            user_no = #{userNo}
+    </select>
+    
+  
+    <update id="adminUpdateInf" parameterType="UserInfoDTO" >
+      UPDATE user_t
+         SET name = #{name}
+         , mobile = #{mobile}
+         , postcode = #{postcode}
+         , address = #{address}
+         , detailAddress = #{detailAddress}
+         , extraAddress = #{extraAddress}
+       WHERE user_no = #{userNo}
+     </update>
+  
+    <delete id="adminDeleteUser" parameterType="int">
+      DELETE
+        FROM user_t
+      WHERE user_no = #{userNo}
+    </delete>
+  
   
 </mapper>
