@@ -24,19 +24,15 @@ public class TMDBService {
           .title(result.getTitle())
           .subTitle(result.getOriginal_title())
           .story(result.getOverview())
-          .grade("none")
-          .ticketRate(0)
-          .reviewScore(0)
-          .ticketSale(0)
+          .grade("none")  // Grade.java 로 대체 
+          .ticketRate(0)  // API 제공x
+          .reviewScore(0) // DetailResult.java의 vote_average 로 대체
+          .ticketSale(0)  // DetailResult.java의 revenue 로 대체
           .openingDt(result.getRelease_date())
           .runningTime(0)
           .build();
     }
-    
-    
-    
-    
-    
+
     return response.getResults();
     
   }

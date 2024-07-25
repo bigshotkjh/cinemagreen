@@ -19,7 +19,6 @@ public class MovieApiController {
   @GetMapping("/movies")
   public String getMovies(Model model) {
     List<TMDBResult> movies = tmdbService.getMovies();
-    System.out.println(movies);
     model.addAttribute("movies", movies);
     return "main"; // main.jsp로 설정
   }
