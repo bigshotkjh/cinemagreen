@@ -37,7 +37,7 @@
       <div class="nav_cover"></div>
       <div id="header" class="sections section_00">
         <div class="width_con">
-            <a href="index.html" class="btn_home"><img src="img/logo.svg">멋진로고</a>
+            <a href="http://localhost:9090" class="btn_home"><img src="img/logo.svg">멋진로고</a>
             <div class="btn_open_nav"><div></div></div>
             <ul class="nav" id="main-menu">
                 <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>

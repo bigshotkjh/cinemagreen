@@ -1,11 +1,16 @@
 package com.min.cinemagreen.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.URLEncoder;
+import java.security.SecureRandom;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +33,22 @@ public class UserController {
   private final IUserService userService;
   
   @GetMapping(value = "/signup.page")
-  public String signupPage() {
+  public String signupPage(HttpSession session, Model model ) throws UnsupportedEncodingException {
+
+    
+
+    /*네이버 apiURL 만들기*/
+
+    String clientId = "KxQPnOuYjOzlcaMNmVR2";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://localhost:9090/user/naverGetToken.do", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
+         + "&client_id=" + clientId
+         + "&redirect_uri=" + redirectURI
+         + "&state=" + state;
+    session.setAttribute("state", state);
+    model.addAttribute("apiURL", apiURL);
     return "user/signup";
   }
   
@@ -44,6 +64,8 @@ public class UserController {
       message = "회원 가입 실패";
     }
     rttr.addFlashAttribute("signupMessage", message);
+    
+    
     return "redirect:" + redirectURL;
   }
   
@@ -54,7 +76,7 @@ public class UserController {
   
   @GetMapping(value = "/signin.page")
   public String signinPage(@RequestHeader(name = "referer") String referer
-                         , Model model) {
+                         , HttpSession session, Model model) throws UnsupportedEncodingException {
     /* 이전 주소는 요청 헤더 referer 에 저장되어 있다. */
     String[] excludeURLs = {"/signup.page"};
     String url = referer;
@@ -68,9 +90,28 @@ public class UserController {
         }
       }
     }
+    /*네이버 apiURL 만들기*/
+
+    String clientId = "KxQPnOuYjOzlcaMNmVR2";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://localhost:9090/user/naverGetToken.do", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
+         + "&client_id=" + clientId
+         + "&redirect_uri=" + redirectURI
+         + "&state=" + state;
+    session.setAttribute("state", state);
+
     model.addAttribute("url", url);
+    model.addAttribute("apiURL", apiURL);
+    
     return "user/signin";
   }
+  /*
+  @GetMapping(value = "/naverCallProfile.do")
+  public void callProfile(HttpServletRequest request) {
+    userService.callProfile(request);
+  }*/
   
   @PostMapping(value = "/signin.do", produces = "application/json")
   public ResponseEntity<Map<String, Object>> signinDo(HttpServletRequest request) {
@@ -162,8 +203,75 @@ public class UserController {
   public ResponseEntity<Map<String, Object>> overlapcheckDo(UserDTO email) {
     return userService.overlapcheckDo(email);
   }
+  /*
+  @GetMapping(value = "/naverGetToken.do")
+  public String naverGetToken(HttpServletRequest request) throws UnsupportedEncodingException {
+    String clientId = "KxQPnOuYjOzlcaMNmVR2";//애플리케이션 클라이언트 아이디값";
+    String clientSecret = "tc4iVZch4O";//애플리케이션 클라이언트 시크릿값";
+    String code = request.getParameter("code");
+    String state = request.getParameter("state");
+    String redirectURI = URLEncoder.encode("http://localhost:9090", "UTF-8");
+    String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
+        + "&client_id=" + clientId
+        + "&client_secret=" + clientSecret
+        + "&redirect_uri=" + redirectURI
+        + "&code=" + code
+        + "&state=" + state;
+    String accessToken = "";
+    String refreshToken = "";
+    try {
+      URL url = URI.create(apiURL).toURL();
+      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+      con.setRequestMethod("GET");
+      int responseCode = con.getResponseCode();
+      BufferedReader br;
+      if (responseCode == 200) { // 정상 호출
+        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+      } else {  // 에러 발생
+        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+      }
+      String inputLine;
+      StringBuilder res = new StringBuilder();
+      while ((inputLine = br.readLine()) != null) {
+        res.append(inputLine);
+      }
+      br.close();
+      if (responseCode == 200) {
+        String result  = res.toString();
+        System.out.println(result);
+        JSONObject obj = new JSONObject(result); 
+        accessToken = obj.getString("access_token");
+        refreshToken = obj.getString("refresh_token");
+        System.out.println(accessToken);
+        System.out.println(refreshToken);
+        request.setAttribute("accessToken", accessToken);
+        userService.callProfile(request);
+        
+        
+      }
+    } catch (Exception e) {
+      // Exception 로깅
+    }
+    return "redirect:/main.do";
+  }
   
+  */
   
+  @GetMapping(value = "/naverGetToken.do")
+  public String naverGetToken(HttpServletRequest request, RedirectAttributes rttr) throws UnsupportedEncodingException{
+    
+    String accessToken = userService.naverGetToken(request);
+    rttr.addFlashAttribute("accessToken", accessToken);
+    return "redirect:/user/callProfile.do";
+    
+  }
+  @GetMapping(value = "/callProfile.do")
+  public String callProfile(@ModelAttribute("accessToken") String accessToken, HttpServletRequest request) {
+    
+   System.out.println("컨트롤토큰2 : " + accessToken);
+    userService.callProfile(accessToken, request);
+    return "redirect:/main.do";
+  }
   
   
 }

@@ -7,6 +7,9 @@
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="Signup" name="title"/>
 </jsp:include>
+
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!--@@@@@@@css시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 <style>
  .dead-btn{cursor: default; pointer-events: none;}
@@ -73,6 +76,12 @@
             <button type="submit" id="submit" class="submit dead-btn">가입하기</button>
             <button type="button" onclick="history.back()">취소하기</button>
           </div>
+          
+          <!-- 네이버 로그인 버튼 노출 영역 -->
+          <br>
+          <a href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+          <!-- //네이버 로그인 버튼 노출 영역 -->
+                      
               
         </form>
 

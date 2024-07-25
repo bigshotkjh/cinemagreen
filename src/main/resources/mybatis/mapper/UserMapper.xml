@@ -69,13 +69,6 @@
       FROM user_t
      WHERE user_no = #{userNo}
   </delete>
-  <!--  
-  <select id="getUserInf" parameterType="int" >
-    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt
-      FROM user_t
-     WHERE user_no = #{userNo}
-  </select>
-  -->
   
   <update id="updateInf" parameterType="UserDTO" >
     UPDATE user_t
@@ -92,6 +85,7 @@
   <update id="pwchange" parameterType="Map" >
     UPDATE user_t
        SET pw = #{pw}
+         , pw_modify_dt = CURRENT_DATE
     WHERE 
       user_no = #{userNo}
        AND pw = #{oldpw}
@@ -101,6 +95,7 @@
   <update id="pwupdate" parameterType="Map" >
     UPDATE user_t
        SET pw = #{pw}
+         , pw_modify_dt = CURRENT_DATE
     WHERE 
         email = #{email}
   </update>
@@ -108,9 +103,7 @@
   <select id="emailfindDo" parameterType="Map" resultType="UserDTO">
     SELECT email           
       FROM user_t
-     WHERE 
-           pw = #{pw}
-       AND mobile = #{mobile}
+     WHERE mobile = #{mobile}
   </select>
   
   <select id="overlapcheckDo" parameterType="UserDTO" resultType="UserDTO">
@@ -119,6 +112,27 @@
      WHERE 
         email = #{email}
   </select>
+
+  <insert id="insertSnsUser" parameterType="UserDTO">
+    INSERT INTO user_t (
+        user_no
+      , email
+      , name
+      , mobile
+      , sns
+      , pw_modify_dt
+      , signup_dt
+    ) VALUES (
+        user_seq.NEXTVAL
+      , #{email}
+      , #{name}
+      , #{mobile}
+      , #{sns}
+      , CURRENT_DATE
+      , CURRENT_DATE
+    )
+  </insert>
+  
   
   
 </mapper>

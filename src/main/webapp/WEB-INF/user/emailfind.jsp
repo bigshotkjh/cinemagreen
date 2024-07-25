@@ -22,10 +22,6 @@
         <form id="emailfind-form">
           <input type="hidden" name="url" value="${url}">
           <div>
-          <input type="password" name="pw" id="pw" placeholder="비밀번호">
-            <h6></h6>
-          </div>
-          <div>
             <input type="text" name="mobile" id="mobile" placeholder="휴대전화">
             <h6></h6>
             <div id=""></div>
@@ -58,10 +54,10 @@
         emailDiv.innerHTML = '<h5><b> 회원님의 이메일은 : <br>' + resData.email + '입니다 </h5>';
         
       } else {
-        alert('비밀번호와 휴대전화번호를 확인해 주세요.');
+        alert('휴대전화번호를 확인해 주세요.');
       }
     }).fail(jqXHR => {
-      alert('비밀번호와 휴대전화번호를 확인해 주세요.');
+      alert('휴대전화번호를 확인해 주세요.');
     });
   }
   

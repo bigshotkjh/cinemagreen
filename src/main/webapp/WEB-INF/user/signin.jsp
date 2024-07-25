@@ -7,11 +7,15 @@
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="Signin" name="title"/>
 </jsp:include>
+
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <style>
   .sections.section_signin .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
   .sections.section_signin .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
 
 </style>
+
 
 <div class="wrap">
   <div class="sections section_signin">
@@ -39,15 +43,18 @@
             <button type="button" onclick="pwfind()">비밀번호 찾기</button>
             <button type="button" onclick="emailfind()">이메일 찾기</button>
           </div>
-              
+          
+          <!-- 네이버 로그인 버튼 노출 영역 -->
+          <br>
+          <a href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+          <!-- //네이버 로그인 버튼 노출 영역 -->
+                      
         </form>
       </div>
     </div>
   </div>
  
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-
 
 <script>
 //아이디와 비밀번호 ajax
