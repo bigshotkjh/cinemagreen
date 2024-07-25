@@ -22,4 +22,5 @@ public interface IUserService {
   ResponseEntity<Map<String, Object>> overlapcheckDo(UserDTO email);
   String naverGetToken(HttpServletRequest request) throws UnsupportedEncodingException;
   void callProfile(String accessToken ,HttpServletRequest request);
+  void makeNaverApi(HttpSession session) throws UnsupportedEncodingException;
 }

@@ -3,9 +3,12 @@ package com.min.cinemagreen.service;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,37 +66,7 @@ public class UserServiceImpl implements IUserService {
     return userMapper.insertUser(user);
     
   }
-  /*
-  @Override
-  public void signin(HttpServletRequest request) {
-    
-    String email = request.getParameter("email");
-    String pw = securityUtils.getSha256(request.getParameter("pw"));
-    
-    Map<String, Object> params = new HashMap<>();
-    params.put("email", email);
-    params.put("pw", pw);
-    
-    UserDTO loginUser = userMapper.getUserByMap(params);
-    
-    if(loginUser != null) {
-      
-      HttpSession session = request.getSession();
-      session.setAttribute("loginUser", loginUser);  // session 유지 시간 : application.properties
-      
-      String ip = request.getRemoteAddr();
-      String userAgent = request.getHeader("User-Agent");
-      String sessionId = session.getId();
-      
-      params.put("ip", ip);
-      params.put("userAgent", userAgent);
-      params.put("sessionId", sessionId);
-      
-      userMapper.insertAccess(params);
-      
-    }
-    
-  }*/
+  
   @Override
   public ResponseEntity<Map<String, Object>> signin(HttpServletRequest request) {
     
@@ -157,7 +130,6 @@ public class UserServiceImpl implements IUserService {
   
   @Override
   public int pwchange(HttpServletRequest request) {
-    /* 번호 같이 넣어서 유저dto로 걍 db에 두번 들려라.*/
     HttpSession session = request.getSession();
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
     if(loginUser == null)  // 세션 만료 대비
@@ -213,8 +185,6 @@ public class UserServiceImpl implements IUserService {
     return ResponseEntity.ok(Map.of("isSuccess", overlapcheckResult == 1));
   }
   
-  /////////////////////////////////////////////////////////////////////
-  
   @Override
   public String naverGetToken(HttpServletRequest request) throws UnsupportedEncodingException {
     String clientId = "KxQPnOuYjOzlcaMNmVR2";//애플리케이션 클라이언트 아이디값";
@@ -249,19 +219,13 @@ public class UserServiceImpl implements IUserService {
         System.out.println(result);
         JSONObject obj = new JSONObject(result); 
         accessToken = obj.getString("access_token");
-        System.out.println("서비스토큰1 : " + accessToken);
         
       }
     } catch (Exception e) {
       // Exception 로깅
     }
-    
-    System.out.println("서비스토큰2 : " + accessToken);
     return accessToken;
   }
-  
-  
-  ////////////////////////////////////////////////////////////////////
   
   @Override
   public void callProfile(String accessToken ,HttpServletRequest request) {
@@ -269,7 +233,6 @@ public class UserServiceImpl implements IUserService {
     String apiUrl = "https://openapi.naver.com/v1/nid/me";
 
     try {
-        /*URL url = new URL(apiUrl);*/
         URL url = URI.create(apiUrl).toURL();
         
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -317,6 +280,22 @@ public class UserServiceImpl implements IUserService {
     } catch (Exception e) {
         e.printStackTrace();
     }
+    
+  }
+  
+  @Override
+  public void makeNaverApi(HttpSession session) throws UnsupportedEncodingException {
+    String clientId = "KxQPnOuYjOzlcaMNmVR2";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://localhost:9090/user/naverGetToken.do", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
+         + "&client_id=" + clientId
+         + "&redirect_uri=" + redirectURI
+         + "&state=" + state;
+    session.setAttribute("state", state);
+    session.setAttribute("apiURL", apiURL);
+    
     
   }
 }
