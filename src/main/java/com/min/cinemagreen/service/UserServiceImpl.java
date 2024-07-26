@@ -64,6 +64,10 @@ public class UserServiceImpl implements IUserService {
     
     // 이름 크로스 사이트 스크립팅 처리
     user.setName( securityUtils.preventXss(user.getName()) );
+//모바일 청소
+    String mobile = user.getMobile();
+    String cleanNumber = mobile.replace("-", "");
+    user.setMobile(cleanNumber);
     
     return userMapper.insertUser(user);
     
@@ -146,6 +150,10 @@ public class UserServiceImpl implements IUserService {
     user.setUserNo(loginUser.getUserNo());
     user.setEmail(loginUser.getEmail());
     user.setSns(loginUser.getSns());
+//모바일  청소
+    String mobile = user.getMobile();
+    String cleanNumber = mobile.replace("-", "");
+    user.setMobile(cleanNumber);
     session.setAttribute("loginUser", user); 
     return userMapper.updateInf(user);
     
@@ -184,10 +192,11 @@ public class UserServiceImpl implements IUserService {
   
   @Override
   public ResponseEntity<Map<String, Object>> emailfindDo(HttpServletRequest request) {
+//모바일 청소   
     String mobile = request.getParameter("mobile");
-    
+    String cleanNumber = mobile.replace("-", "");
     Map<String, Object> params = new HashMap<>();
-    params.put("mobile", mobile); 
+    params.put("mobile", cleanNumber); 
       
     UserDTO user = userMapper.emailfindDo(params);
     String email = user.getEmail();
@@ -286,13 +295,15 @@ public class UserServiceImpl implements IUserService {
         
         JSONObject userInfObj = obj.getJSONObject("response");
         String email = userInfObj.getString("email");
+//모바일 청소
         String mobile = userInfObj.getString("mobile");
+        String cleanNumber = mobile.replace("-", "");
         System.out.println(email);
         System.out.println(mobile);
         
         UserDTO user = new UserDTO();
         user.setEmail(email);
-        user.setMobile(mobile);
+        user.setMobile(cleanNumber);
         user.setSns(1);
         user.setName("네이버고객");
         session.setAttribute("snsUser", user);

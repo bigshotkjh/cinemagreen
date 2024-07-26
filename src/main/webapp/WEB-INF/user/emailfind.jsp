@@ -50,8 +50,13 @@
     }).done(resData => {
       if (resData.email != null) {
         const emailDiv = document.getElementById('email-div');
+        //이메일 일부 가리기
+        var userEmail;
+        const firstSix = resData.email.substring(0, 6); // 처음 6글자 추출
+        const rest = resData.email.length - 6; // 나머지 길이 계산
+        userEmail = firstSix + '*'.repeat(rest); // 나머지 부분을 *로 대체
         
-        emailDiv.innerHTML = '<h5><b> 회원님의 이메일은 : <br>' + resData.email + '입니다 </h5>';
+        emailDiv.innerHTML = '<h5><b> 회원님의 이메일은 : <br>' + userEmail + '입니다 </h5>';
         
       } else {
         alert('휴대전화번호를 확인해 주세요.');
