@@ -9,6 +9,8 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,6 +81,7 @@ public class UserServiceImpl implements IUserService {
     
     UserDTO loginUser = userMapper.getUserByMap(params);
     int signinResult;
+    int dtResult;
     if(loginUser != null) {
       
       HttpSession session = request.getSession();
@@ -93,11 +96,31 @@ public class UserServiceImpl implements IUserService {
       params.put("sessionId", sessionId);
       
       userMapper.insertAccess(params);
+      ///////////////////////////////////////////////////////////
+      //비밀번호 90일 마다 변경.
+      long currentTimeMillis = System.currentTimeMillis();
+      Date today = new Date(currentTimeMillis);
+      Date lastPwModifyDt = loginUser.getPwModifyDt();
+
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(lastPwModifyDt); // 특정 날짜 설정
+      
+      calendar.add(Calendar.DAY_OF_MONTH, 90);
+      
+      Date dateAfter90Days = new Date(calendar.getTimeInMillis()); //비밀번호 바꿔야 하는 날짜.
+
+      if (today.compareTo(dateAfter90Days) > 0) { // 날짜 비교 
+          dtResult = 1;
+      } else {
+          dtResult = 0;
+      }
+      /////////////////////////////////////////////////////////////
       signinResult = 1;
     }else {
       signinResult = 0;
+      dtResult = 0;
     }
-    return ResponseEntity.ok(Map.of("isSuccess", signinResult == 1 ));
+    return ResponseEntity.ok(Map.of("isSuccess", signinResult == 1 , "nowPwModify", dtResult == 1 ));
   }
   
   @Override
@@ -122,6 +145,7 @@ public class UserServiceImpl implements IUserService {
 
     user.setUserNo(loginUser.getUserNo());
     user.setEmail(loginUser.getEmail());
+    user.setSns(loginUser.getSns());
     session.setAttribute("loginUser", user); 
     return userMapper.updateInf(user);
     

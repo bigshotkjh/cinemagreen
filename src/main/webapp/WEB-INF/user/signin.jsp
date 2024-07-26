@@ -57,6 +57,7 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 <script>
+
 //아이디와 비밀번호 ajax
   const fnSignin = () => {
     $.ajax({
@@ -65,8 +66,24 @@
       data: $('#signin-form').serialize(),
       dataType: 'json'
     }).done(resData => {
+      
       if (resData.isSuccess) {
-        location.href = "${contextPath}/main.do";
+        
+        if(resData.nowPwModify){
+          
+          //비밀번호 90일 변경
+          const result = confirm("비밀번호를 변경한지 90일이 지났습니다. 지금 변경하시겠습니까?");
+          
+          if (result) {
+              location.href = "/user/pwchange.page"; 
+          } else {
+              location.href = "/main.do"; 
+          }
+            
+        } else {
+          location.href = "${contextPath}/main.do";
+        }
+        
       } else {
         alert('아이디와 비밀번호를 확인해 주세요.');
       }
@@ -79,7 +96,6 @@
   $('#submitbtn').on('click', evt=>{
     fnSignin();
   })
-
 
 //ID 체크박스 (쿠키)
 
@@ -147,11 +163,11 @@
   })
   
   const pwfind = ()=>{
-    location.href = "${contextPath}/user/pwfind.page";
+    location.href = "/user/pwfind.page";
   }
   
   const emailfind = ()=>{
-    location.href = "${contextPath}/user/emailfind.page";
+    location.href = "/user/emailfind.page";
   }
 </script>
 
