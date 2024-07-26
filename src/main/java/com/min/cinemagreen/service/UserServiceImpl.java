@@ -176,8 +176,9 @@ public class UserServiceImpl implements IUserService {
     
     
     UserDTO user = userMapper.overlapcheckDo(email);
+    UserDTO xUser = userMapper.xUsercheckDo(email);
     int overlapcheckResult;
-    if(user != null) {
+    if(user == null && xUser == null) {
       overlapcheckResult = 1;
     }else {
       overlapcheckResult = 0;
@@ -231,7 +232,9 @@ public class UserServiceImpl implements IUserService {
   public void callProfile(String accessToken ,HttpServletRequest request) {
     
     String apiUrl = "https://openapi.naver.com/v1/nid/me";
-
+    HttpSession session = request.getSession();
+    String resultUrl = "";
+    
     try {
         URL url = URI.create(apiUrl).toURL();
         
@@ -268,24 +271,29 @@ public class UserServiceImpl implements IUserService {
         user.setMobile(mobile);
         user.setSns(1);
         user.setName("네이버고객");
+        session.setAttribute("snsUser", user);
         
-        HttpSession session = request.getSession();
         if(userMapper.overlapcheckDo(user) != null) {
-          session.setAttribute("loginUser", user);  
+          UserDTO snsUser = userMapper.getsnsUserInfo(user);
+          session.setAttribute("loginUser", snsUser);
+          resultUrl = "/main.do";
         } else {
           /*가입정보를 더받자.*/
-          userMapper.insertSnsUser(user);
+          session.setAttribute("snsUser", user);
+          resultUrl = "/user/snssignup.page";
+          /*userMapper.insertSnsUser(user);*/
         }
         
     } catch (Exception e) {
         e.printStackTrace();
     }
-    
+
+    session.setAttribute("URL", resultUrl);
   }
   
   @Override
   public void makeNaverApi(HttpSession session) throws UnsupportedEncodingException {
-    String clientId = "KxQPnOuYjOzlcaMNmVR2";//애플리케이션 클라이언트 아이디값";
+    String clientId = "KxQPnOuYjOzlcaMNmVR2";//애플리케이션 클라이언트 아이디값"
     String redirectURI = URLEncoder.encode("http://localhost:9090/user/naverGetToken.do", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
@@ -298,5 +306,18 @@ public class UserServiceImpl implements IUserService {
     
     
   }
+  
+  @Override
+  public int snsSignup(UserDTO user) {
+    
+    // 이름 크로스 사이트 스크립팅 처리
+    user.setName( securityUtils.preventXss(user.getName()) );
+    
+    return userMapper.insertSnsUser(user);
+    
+  }
+  
+  
+  
 }
 

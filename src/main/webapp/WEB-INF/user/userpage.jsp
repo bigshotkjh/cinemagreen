@@ -9,6 +9,7 @@
 </jsp:include>
 <style>
  .dead-btn{cursor: default; pointer-events: none;}
+ .hidden-btn{display: none;}
  .sections.section_signup .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
  .sections.section_signup .width_con .signup form{ position: relative; transform: translateX(42%); transition: inherit;}
  
@@ -69,7 +70,7 @@
         </form><br>
        
           <div>
-            <button type="button" onclick="pwChange()">비밀번호변경</button>
+            <button type="button" class="pw-button" onclick="pwChange()">비밀번호변경</button>
           </div><br>
        
           <div>
@@ -83,6 +84,18 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  
 <script>
+
+//sns로그인유저 비밀번호변경 버튼 숨기기
+  const fnSnsPwNone = ()=>{
+    
+   if("${loginUser.sns}" == 1){
+      $(".pw-button").addClass("hidden-btn");
+    }
+  }
+
+  window.onload = ()=>{
+    fnSnsPwNone();
+  }
 //카카오 주소 API
   function execDaumPostcode() {
       new daum.Postcode({
@@ -119,7 +132,7 @@
 <script>
 
   var 
-  	  mobileCheck = false;
+      mobileCheck = false;
   
 //mobile 정규식 검사
   const fnMobileCheck = ()=>{

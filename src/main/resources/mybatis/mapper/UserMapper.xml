@@ -112,6 +112,13 @@
      WHERE 
         email = #{email}
   </select>
+  
+  <select id="xUsercheckDo" parameterType="UserDTO" resultType="UserDTO">
+    SELECT email           
+      FROM x_user_t
+     WHERE 
+        email = #{email}
+  </select>
 
   <insert id="insertSnsUser" parameterType="UserDTO">
     INSERT INTO user_t (
@@ -133,6 +140,12 @@
     )
   </insert>
   
+  <select id="getsnsUserInfo" parameterType="UserDTO" resultType="UserDTO">
+    SELECT user_no, email, name, mobile, sns, pw_modify_dt, signup_dt        
+      FROM user_t
+     WHERE 
+        email = #{email}
+  </select>
   
   
 </mapper>

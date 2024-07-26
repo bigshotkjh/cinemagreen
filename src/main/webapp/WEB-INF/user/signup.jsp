@@ -283,9 +283,9 @@
       dataType: 'json'
     }).done(resData => {
       if (resData.isSuccess) {
-        alert('중복되는 이메일이 존재합니다.');
-      } else {
         alert('사용할 수 있는 이메일 입니다.');
+      } else {
+        alert('이미 가입중 이거나 탈퇴한 이메일 입니다.');
       }
     }).fail(jqXHR => {
       alert(jqXHR.status);

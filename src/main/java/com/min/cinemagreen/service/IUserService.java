@@ -23,4 +23,5 @@ public interface IUserService {
   String naverGetToken(HttpServletRequest request) throws UnsupportedEncodingException;
   void callProfile(String accessToken ,HttpServletRequest request);
   void makeNaverApi(HttpSession session) throws UnsupportedEncodingException;
+  int snsSignup(UserDTO user);
 }

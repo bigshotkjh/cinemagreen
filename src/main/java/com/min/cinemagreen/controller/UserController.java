@@ -189,7 +189,31 @@ public class UserController {
   public String callProfile(@ModelAttribute("accessToken") String accessToken, HttpServletRequest request) {
     
     userService.callProfile(accessToken, request);
-    return "redirect:/main.do";
+    HttpSession session = request.getSession();
+    String URL = (String) session.getAttribute("URL");
+    return "redirect:" + URL;
+  }
+  
+  @GetMapping(value = "/snssignup.page")
+  public String snsSignup() {
+    return "user/snssignup";
+  }
+  
+  @PostMapping(value = "/snssignup.do")
+  public String snssignup(UserDTO user, RedirectAttributes rttr) {
+    String redirectURL;
+    String message;
+    if(userService.snsSignup(user) == 1) {
+      redirectURL = "/main.do";
+      message = "회원 가입 성공";
+    } else {
+      redirectURL = "/user/snssignup.page";
+      message = "회원 가입 실패";
+    }
+    rttr.addFlashAttribute("signupMessage", message);
+    
+    
+    return "redirect:" + redirectURL;
   }
   
   
