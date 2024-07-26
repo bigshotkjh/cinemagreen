@@ -30,45 +30,50 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                회원목록
-                            </div>
-							<div class="card-body">
-							    <table id="datatablesSimple">
-							        <thead>
-							            <tr>
-							                <th>유저번호</th>
-							                <th>이메일</th>
-							                <th>이름</th>
-							                <th>전화번호</th>
-							                <th>가입일자</th>
-							            </tr>
-							        </thead>
-							        <tfoot>
-							            <tr>
-							                <th>user_no</th>
-							                <th>email</th>
-							                <th>name</th>
-							                <th>mobile</th>
-							                <th>signup_dt</th>
-							            </tr>
-							        </tfoot>
-							        <tbody>
-							            <c:forEach var="user" items="${userList}">
-							                <tr>
-							                    <td>${user.userNo}</td>
-							                    <td>${user.email}</td>
-							                    <td>${user.name}</td>
-							                    <td>${user.mobile}</td>
-							                    <td>${user.signupDt}</td>
-							                </tr>
-							            </c:forEach>
-							        </tbody>
-							    </table>
-							</div>
-                        </div>
+						<div class="card mb-4">
+						    <div class="card-header">
+						        <i class="fas fa-table me-1"></i>
+						        회원목록
+						    </div>
+						    <div class="card-body">
+						        <table id="datatablesSimple">
+						            <thead>
+						                <tr>
+						                    <th>유저번호</th>
+						                    <th>이메일</th>
+						                    <th>이름</th>
+						                    <th>전화번호</th>
+											<th>가입일자</th>
+											<th>상세</th>
+						                </tr>
+						            </thead>
+						            <tfoot>
+						                <tr>
+						                    <th>user_no</th>
+						                    <th>email</th>
+						                    <th>name</th>
+						                    <th>mobile</th>
+											<th>signup_dt</th>
+											<th>detail</th>
+						                </tr>
+						            </tfoot>
+						            <tbody>
+										<c:forEach var="user" items="${userList}">
+										    <tr>
+										        <td>${user.userNo}</td>
+										        <td>${user.email}</td>
+										        <td>${user.name}</td>
+										        <td>${user.mobile}</td>
+										        <td>${user.signupDt}</td>
+										        <td>
+										            <button type="button" onclick="location.href='${pageContext.request.contextPath}/admin/detail.page?userNo=${user.userNo}'">상세보기</button>
+										        </td>
+										    </tr>
+										</c:forEach>
+						            </tbody>
+						        </table>
+						    </div>
+						</div>
                     </div>
                 </main>
 
