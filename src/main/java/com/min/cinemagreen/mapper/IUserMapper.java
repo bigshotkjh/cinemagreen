@@ -21,5 +21,8 @@ public interface IUserMapper {
   UserDTO xUsercheckDo(UserDTO email);
   int insertSnsUser(UserDTO user);
   UserDTO getsnsUserInfo(UserDTO user);
+//블로그//////////////////
+  int getBlogCount();
+  /*List<BlogDTO> getBlogetUserBloglistgList(Map<String, Object> params);*/
   
 }

@@ -72,4 +72,40 @@ public class PageUtils {
     
   }
   
+  public String getAsyncPaging() {
+    
+    StringBuilder builder = new StringBuilder();
+    
+    // <div>
+    builder.append("<div class=\"paging\">");
+    
+    // <
+    if(beginPage == 1)
+      builder.append("<button type=\"button\" style=\"color: silver;\">&lt;</button>");
+    else
+      builder.append("<button type=\"button\" onclick=\"paging(" + (beginPage - 1) + ")\">&lt;</button>");
+    
+    // 1 2 3 4 5 6 7 8 9 10
+    for(int p = beginPage; p <= endPage; p++) {
+      if(p == page) {
+        builder.append("<button type=\"button\" style=\"color: limegreen;\" onclick=\"paging(" + p + ")\">" + p + "</button>");
+      } else {
+        builder.append("<button type=\"button\" onclick=\"paging(" + p + ")\">" + p + "</button>");        
+      }
+    }
+    
+    // >
+    if(endPage == totalPage) {
+      builder.append("<button type=\"button\" style=\"color: silver;\">&gt;</button>");
+    } else {
+      builder.append("<button type=\"button\" onclick=\"paging(" + (endPage + 1) + ")\">&gt;</button>");
+    }
+    
+    // </div>
+    builder.append("</div>");
+    
+    return builder.toString();
+    
+  }
+  
 }

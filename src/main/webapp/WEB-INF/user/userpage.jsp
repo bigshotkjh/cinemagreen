@@ -12,7 +12,8 @@
  .hidden-btn{display: none;}
  .sections.section_signup .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
  .sections.section_signup .width_con .signup form{ position: relative; transform: translateX(42%); transition: inherit;}
- 
+ .title_con h6{ margin-top: 0;}
+  input { border-radius: 4px; margin-top: 2px;}
 </style>
 <!--
  가져와 표시할 것 들
@@ -20,8 +21,7 @@
       등급표시
       포인트량
       내가 쓴 블로그
-      내가 쓴 bbs
-      내정보표시와 수정(가장 먼저)
+      내가 쓴 bbss
       예매한 영화 정보
     }
  -->
@@ -46,7 +46,6 @@
             <h5>이름</h5>
             <input type="text" name="name" id="name" value="${loginUser.name}">
           </div>
-          <br>
           <div>
             <h5>휴대폰번호</h5>
             <input type="text" name="mobile" id="mobile" value="${loginUser.mobile}">
@@ -70,16 +69,23 @@
         </form><br>
        
           <div>
-            <button type="button" class="pw-button" onclick="pwChange()">비밀번호변경</button>
+            <button type="button" class="pw-button" onclick="location.href = '${contextPath}/user/pwchange.page'">비밀번호변경</button>
           </div><br>
        
           <div>
             <button type="button" onclick="leaveUser()">탈퇴하기</button>
+          </div><br>
+       
+          <div>
+            <button type="button" onclick="location.href = '${contextPath}/user/getUserBloglist.do'">내가 쓴 blog</button>
           </div>
         
     </div>
   </div>
-              
+
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->  
+
+
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  
@@ -127,14 +133,11 @@
           }
       }).open();
   }
-</script>
 
-<script>
-
-  var 
-      mobileCheck = false;
-  
 //mobile 정규식 검사
+  var mobileCheck = false;
+  
+
   const fnMobileCheck = ()=>{
     
     const mobile = document.getElementById('mobile');
@@ -163,10 +166,7 @@
   $(document).on("keyup", "#mobile, #name, #postcode, #address, #detailAddress, #extraAddress", evt=>{
     fnAllCheck();
   });
-</script>
 
-
-<script>
 /* 헤더에 이름 안바뀌는 사유로 봉인.
 //ajax
   const fnUpdateInf = () => {
@@ -200,20 +200,13 @@
     }
   };
   
-  const pwChange = () => {
-    
-    location.href = "${contextPath}/user/pwchange.page";
-    
-  };
+//////////////////////////////////////////////////////////////////////  
   
 //비밀번호변경 메세지
   if('${pwchangeMessage}' !== ''){
     alert('${pwchangeMessage}');
   }
-   
-</script>
-  
-<script>
+
 //업데이트 결과 메세지.
   if('${updateMessage}' !== ''){   
     alert('${updateMessage}');

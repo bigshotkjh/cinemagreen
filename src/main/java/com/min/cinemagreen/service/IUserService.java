@@ -24,4 +24,6 @@ public interface IUserService {
   void callProfile(String accessToken ,HttpServletRequest request);
   void makeNaverApi(HttpSession session) throws UnsupportedEncodingException;
   int snsSignup(UserDTO user);
+///블로그//////////////////
+  ResponseEntity<Map<String, Object>> getUserBloglist(HttpServletRequest request);
 }

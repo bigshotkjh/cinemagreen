@@ -147,5 +147,11 @@
         email = #{email}
   </select>
   
+<!-- 블로그 부분 -->  
+  <select id="getBlogCount" resultType="int">
+    SELECT COUNT(*)
+      FROM blog_t
+  </select>
+  
   
 </mapper>

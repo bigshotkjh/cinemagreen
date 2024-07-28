@@ -12,6 +12,7 @@ import java.security.SecureRandom;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
@@ -23,6 +24,7 @@ import com.min.cinemagreen.dto.UserDTO;
 import com.min.cinemagreen.mapper.IUserMapper;
 import com.min.cinemagreen.utils.MailUtils;
 import com.min.cinemagreen.utils.SecurityUtils;
+import com.min.cinemagreen.utils.PageUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -36,6 +38,7 @@ public class UserServiceImpl implements IUserService {
 	private final IUserMapper userMapper;
 	private final SecurityUtils securityUtils;
 	private final MailUtils mailUtils;
+  private final PageUtils pageUtils;
   
   @Transactional(readOnly = true)
   @Override
@@ -351,7 +354,33 @@ public class UserServiceImpl implements IUserService {
     return userMapper.insertSnsUser(user);
     
   }
+
+///블로그//////////////////
   
+  @Override
+  public ResponseEntity<Map<String, Object>> getUserBloglist(HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    if(loginUser == null)  // 세션 만료 대비
+      return null;
+    int userNo = loginUser.getUserNo();
+    ///////////////////////////////////////////////////////////////
+    int page = 1;
+    page = Integer.parseInt(request.getParameter("page"));//페이지를 받아왔네.
+    int display = 20; //한 페이지에 표시할 게시물 수
+//나중에 blogMapper로 바꾸기. 
+    int total = userMapper.getBlogCount();//블로그 게시물 총수/ 맵퍼에 다녀와야해.
+    pageUtils.setPaging(total, display, page);//페이징 정보를 설정
+    
+    Map<String, Object> params = new HashMap<>();//페이징 처리에 필요한 파라미터를 담은 Map을 생성
+    params.put("begin", pageUtils.getBegin());
+    params.put("end", pageUtils.getEnd());//시작과 끝을 담고 리스트 받으러 가
+   
+    List<BlogDTO> blogList = userMapper.getBlogList(params); //블로그를 리스트형으로 받아오기.
+    String paging = pageUtils.getAsyncPaging();//pageUtils를 사용하여 페이징 HTML 코드를 생성
+    /////////////////////////////////////////////////////////////////
+    return ResponseEntity.ok(map.of());
+  }
   
   
 }

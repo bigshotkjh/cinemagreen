@@ -11,7 +11,8 @@
   .dead-btn{cursor: default; pointer-events: none;}
   .sections.section_emailfind .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
   .sections.section_emailfind .width_con .emailfind form{ position: relative; transform: translateX(42%); transition: inherit;}
-
+  .title_con h6{ margin-top: 0;}
+  input { border-radius: 4px;}
 </style>
 
 <div class="wrap">
@@ -25,7 +26,7 @@
             <input type="text" name="mobile" id="mobile" placeholder="휴대전화">
             <h6></h6>
             <div id=""></div>
-          </div>
+          </div><br>
           <div>
             <button type="button" id="submit" >이메일 찾기</button>
             <button type="button" onclick="signinGo()">로그인 하러가기</button>

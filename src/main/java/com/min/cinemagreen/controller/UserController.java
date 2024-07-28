@@ -216,5 +216,12 @@ public class UserController {
     return "redirect:" + redirectURL;
   }
   
+//블로그/////////////////////////////////////////////////////////////
+  
+  @GetMapping(value = "/getUserBloglist.do")
+  public ResponseEntity<Map<String, Object>> getUserBloglist(HttpServletRequest request) {
+    return userService.getUserBloglist(request);
+  }
+  
   
 }
