@@ -18,7 +18,6 @@
   <div class="sections section_userpage">
     <div class="width_con">
       <div class="title_con white userpage">
-        <h4 class="title">User Page</h4><br>
         <form id="user-info-form"
               method="post"
               action="${contextPath}/user/updateInf.do">
@@ -31,11 +30,9 @@
             <h5>이름</h5>
             <input type="text" name="name" id="name" value="${user.name}">
           </div>
-          <br>
           <div>
             <h5>전화번호</h5>
             <input type="text" name="mobile" id="mobile" value="${user.mobile}">
-            <h6></h6>
           </div>
           
           <div>
@@ -46,17 +43,16 @@
             <input type="text" id="extraAddress" name="extraAddress" value="${user.extraAddress}"><br>
             <input type="text" id="detailAddress" name="detailAddress" value="${user.detailAddress}"> 
           </div>
-          <br>
        
           <div>
             <button type="submit"  class="submit" >개인정보 변경하기</button>
           </div>
               
-        </form><br>
+        </form>
        
           <div>
             <button type="button" onclick="pwChange()">비밀번호변경</button>
-          </div><br>
+          </div>
        
 		  <div>
 		      <button type="button" onclick="adminLeaveUser(${user.userNo})">삭제하기</button>
@@ -161,5 +157,3 @@ const adminLeaveUser = (userNo) => {
     alert('${updateMessage}');
   }
 </script>
-
-<%@ include file="../admin/adminfooter.jsp" %>

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,12 +42,6 @@ public class AdminController {
         return ResponseEntity.ok(userInfoService.getUserList(request));
     }
     
-    @GetMapping(value = "/detail.page")
-    public String detailPage(Model model, @RequestParam(required = false) int userNo) {
-        UserInfoDTO user = userInfoService.getUserById(userNo);
-        model.addAttribute("user", user);
-        return "admin/detail"; // 사용자 상세 정보를 보여줍니다.
-    }
     
     @PostMapping(value = "/adminUpdateInf.do")
     public String adminUpdateInf(UserInfoDTO user, RedirectAttributes rttr) {
@@ -71,5 +66,11 @@ public class AdminController {
     @GetMapping(value = "/insertuser.do")
     public String insertuserPage() {
         return "admin/insertuser"; // 사용자 추가 페이지로 이동
+    }
+    
+    @GetMapping(value = "/getUserDetail/{userNo}", produces = "application/json")
+    public ResponseEntity<UserInfoDTO> getUserById(@PathVariable int userNo) {
+        UserInfoDTO user = userInfoService.getUserById(userNo);
+        return ResponseEntity.ok(user);
     }
 }
