@@ -32,4 +32,6 @@ public interface IUserInfoMapper {
     void adminUpdateInf(int userNo, UserInfoDTO user);
     
     void adminDeleteUser(int userNo);
+    
+    
 }

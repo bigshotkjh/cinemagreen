@@ -56,12 +56,13 @@ public class AdminController {
         return "redirect:/admin/userinfo.page"; // 수정 후 사용자 목록으로 리다이렉트
     }
 
-    @GetMapping(value = "/adminDeleteUser.do")
+    @PostMapping(value = "/adminDeleteUser.do")
     public String adminDeleteUser(@RequestParam int userNo, RedirectAttributes rttr) {
         userInfoService.adminDeleteUser(userNo);
         rttr.addFlashAttribute("deleteMessage", "회원 삭제 성공");
-        return "redirect:/admin/userinfo.page"; // 삭제 후 사용자 목록으로 리다이렉트
+        return "redirect:/admin/admin.page"; // 삭제 후 사용자 목록으로 리다이렉트
     }
+
     
     @GetMapping(value = "/insertuser.do")
     public String insertuserPage() {
@@ -73,4 +74,6 @@ public class AdminController {
         UserInfoDTO user = userInfoService.getUserById(userNo);
         return ResponseEntity.ok(user);
     }
+    
+    
 }
