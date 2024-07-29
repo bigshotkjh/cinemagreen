@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.min.cinemagreen.dto.BlogDTO;
 import com.min.cinemagreen.dto.UserDTO;
 import com.min.cinemagreen.mapper.IUserMapper;
 import com.min.cinemagreen.utils.MailUtils;
@@ -379,7 +380,7 @@ public class UserServiceImpl implements IUserService {
     List<BlogDTO> blogList = userMapper.getBlogList(params); //블로그를 리스트형으로 받아오기.
     String paging = pageUtils.getAsyncPaging();//pageUtils를 사용하여 페이징 HTML 코드를 생성
     /////////////////////////////////////////////////////////////////
-    return ResponseEntity.ok(map.of());
+    return ResponseEntity.ok(Map.of());
   }
   
   

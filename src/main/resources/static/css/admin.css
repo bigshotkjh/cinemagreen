@@ -11187,7 +11187,7 @@ body {
   color: inherit;
 }
 
-.datatable-sorter {
+/*.datatable-sorter {
   display: inline-block;
   height: 100%;
   position: relative;
@@ -11218,7 +11218,7 @@ body {
 .asc .datatable-sorter::after,
 .desc .datatable-sorter::before {
   opacity: 0.6;
-}
+}*/
 
 .datatables-empty {
   text-align: center;
