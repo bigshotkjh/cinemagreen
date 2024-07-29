@@ -1,10 +1,12 @@
 package com.min.cinemagreen.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.min.cinemagreen.dto.UserDTO;
+import com.min.cinemagreen.dto.BlogDTO;
 
 @Mapper
 public interface IUserMapper {
@@ -22,7 +24,7 @@ public interface IUserMapper {
   int insertSnsUser(UserDTO user);
   UserDTO getsnsUserInfo(UserDTO user);
 //블로그//////////////////
-  int getBlogCount();
-  /*List<BlogDTO> getBlogetUserBloglistgList(Map<String, Object> params);*/
+  int getBlogCount(int userNo);
+  List<BlogDTO> userGetBlogList(Map<String, Object> params);
   
 }

@@ -77,9 +77,13 @@
           </div><br>
        
           <div>
-            <button type="button" onclick="location.href = '${contextPath}/user/getUserBloglist.do'">내가 쓴 blog</button>
+            <button type="button" onclick="getBlogList()">내가 쓴 blog</button>
           </div>
-        
+<!-- 블로그 -->
+          <div id="paging"></div>
+          <div id="blog-list"></div>
+<!-- 블로그 -->
+          
     </div>
   </div>
 
@@ -90,6 +94,47 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  
 <script>
+//블로그 가져오기
+  var page = 1;
+  
+  const paging = (p)=>{
+    page = p;
+    getBlogList();
+  }
+  
+  const getBlogList = ()=>{   
+    $.ajax({
+      type: 'get',
+      url: '${contextPath}/user/getUserBloglist.do',
+      data: 'page=' + page,
+      dataType: 'json'
+    }).done(resData=>{  // {"blogList": [{}, {}, ...], "paging": "< 1 2 3 4 5 6 7 8 9 10 >"} 
+      alert("done도착");
+      const blogList = document.getElementById('blog-list');
+      const paging = document.getElementById('paging');
+      if(resData.blogList.length === 0){
+        alert("블로그없는거 도착");
+        blogList.innerHTML = '<div>등록된 블로그가 없습니다.</div>';
+        paging.innerHTML = '';
+        return;
+      }
+      alert("블로그는 있어.");
+      paging.innerHTML = resData.paging;
+      blogList.innerHTML = '';
+      for(const blog of resData.blogList){
+        let str = '<div class="blog" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
+        str += '<div>' + blog.name + '</div>';
+        str += '<div>' + blog.title + '</div>';
+        str += '<div>' + blog.hit + '</div>';
+        str += '<div>' + blog.createDt + '</div>';
+        str += '</div>';
+        blogList.innerHTML += str;
+      }
+    })
+    alert("done실패?");
+  }
+  
+  getBlogList();
 
 //sns로그인유저 비밀번호변경 버튼 숨기기
   const fnSnsPwNone = ()=>{
