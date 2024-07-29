@@ -122,8 +122,8 @@
 			               </div>
 			           </div>
 			           <div class="next">
-			           		 <button onclick="modalDel()" id="btnDel">취소</button>
-			               <button onclick="location.href='${contextPath}/reserve/seat.do'" type="button" id="btnNext">인원/좌석 선택</button>
+			           		 <button onclick="modalDel()" id="btnDel" class="c-btn c-gray">취소</button>
+			               <button onclick="location.href='${contextPath}/reserve/seat.do'" type="button" id="btnNext" class="c-btn c-cblue">인원/좌석 선택</button>
 			           </div>
 			       </div>
 			   </div>

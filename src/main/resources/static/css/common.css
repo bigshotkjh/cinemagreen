@@ -117,7 +117,7 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #header.sections.section_00.scrolled:hover .width_con ul.nav{ top: 25px; }
 #header.sections.section_00.scrolled .width_con ul.nav{ top: 16px;}
 #header.sections.section_00 .width_con ul.nav:after{ content: ''; clear: both;}
-#header.sections.section_00 .width_con ul.nav > li{ float: none; width:14%;/* margin-left: 120px; */}/*수정*/
+#header.sections.section_00 .width_con ul.nav > li{ float: none; width:13.3%;}/*수정*/
 #header.sections.section_00 .width_con ul.nav > li > a{ font-size: 20px; text-decoration: none; color: inherit; }
 #header.sections.section_00 .width_con ul.nav_customer,
 #header.sections.section_00.scrolled:hover .width_con ul.nav_customer{ top: 7px; filter: blur(0); opacity: 1; pointer-events: auto; list-style-type: none;}
@@ -168,6 +168,12 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 .sections.section_05 .width_con ul.v_con.six_con li.cells.box:nth-child(5){ transition-delay: 1800ms;}
 .sections.section_05 .width_con ul.v_con.six_con li.cells.box:nth-child(6){ transition-delay: 2000ms;}
 
-
-
-
+/* 공통 버튼 Css - 임시 */
+.c-btn{ border: 0;  width: 150px; padding: 5px 0px; border-radius: 5px; transition:all .3s;} 
+.c-btn:hover{box-shadow: 0px 0px 15px -3px rgb(255,255,255,0.5) inset;}
+.c-btn.c-cblue{ background: #149b85; color: #fff;} 
+.c-btn.c-lgrn{background: #12b886; color: #fff;}
+.c-btn.c-gray{background:#999; color: #fff;}
+ 
+ 
+ 

@@ -101,7 +101,7 @@
 				    </div>
 				   
 				    <div class="pay_area">
-			      	<button id="payment_btn" type="submit" onclick="requestPay()">결제하기 </button>
+			      	<button id="payment_btn" class="c-btn c-cblue" type="submit" onclick="requestPay()">결제하기 </button>
 			      </div>
 					</div>
 					
