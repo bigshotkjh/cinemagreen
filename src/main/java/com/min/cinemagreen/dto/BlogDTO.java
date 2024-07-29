@@ -20,9 +20,6 @@ public class BlogDTO {
   private Date createDt;
   private Date modifyDt;
   private String name;
-  private String email;
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 35dde3a595c254bad5f0f3356d57b46334a7bdca
+
