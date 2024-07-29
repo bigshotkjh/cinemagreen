@@ -11,7 +11,8 @@
   .dead-btn{cursor: default; pointer-events: none;}
   .sections.section_emailfind .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
   .sections.section_emailfind .width_con .emailfind form{ position: relative; transform: translateX(42%); transition: inherit;}
-
+  .title_con h6{ margin-top: 0;}
+  input { border-radius: 4px;}
 </style>
 
 <div class="wrap">
@@ -22,14 +23,10 @@
         <form id="emailfind-form">
           <input type="hidden" name="url" value="${url}">
           <div>
-          <input type="password" name="pw" id="pw" placeholder="비밀번호">
-            <h6></h6>
-          </div>
-          <div>
             <input type="text" name="mobile" id="mobile" placeholder="휴대전화">
             <h6></h6>
             <div id=""></div>
-          </div>
+          </div><br>
           <div>
             <button type="button" id="submit" >이메일 찾기</button>
             <button type="button" onclick="signinGo()">로그인 하러가기</button>
@@ -54,14 +51,19 @@
     }).done(resData => {
       if (resData.email != null) {
         const emailDiv = document.getElementById('email-div');
+        //이메일 일부 가리기
+        var userEmail;
+        const firstSix = resData.email.substring(0, 6); // 처음 6글자 추출
+        const rest = resData.email.length - 6; // 나머지 길이 계산
+        userEmail = firstSix + '*'.repeat(rest); // 나머지 부분을 *로 대체
         
-        emailDiv.innerHTML = '<h5><b> 회원님의 이메일은 : <br>' + resData.email + '입니다 </h5>';
+        emailDiv.innerHTML = '<h5><b> 회원님의 이메일은 : <br>' + userEmail + '입니다 </h5>';
         
       } else {
-        alert('비밀번호와 휴대전화번호를 확인해 주세요.');
+        alert('휴대전화번호를 확인해 주세요.');
       }
     }).fail(jqXHR => {
-      alert('비밀번호와 휴대전화번호를 확인해 주세요.');
+      alert('휴대전화번호를 확인해 주세요.');
     });
   }
   

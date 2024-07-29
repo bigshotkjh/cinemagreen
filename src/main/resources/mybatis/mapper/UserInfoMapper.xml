@@ -25,7 +25,11 @@
             name,
             email,
             mobile,
-            signup_dt
+            signup_dt,
+            postcode,
+            address,
+            detailAddress,
+            extraAddress
         FROM
             user_t
         WHERE

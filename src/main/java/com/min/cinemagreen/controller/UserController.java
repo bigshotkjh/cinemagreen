@@ -1,11 +1,13 @@
 package com.min.cinemagreen.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +30,22 @@ public class UserController {
   private final IUserService userService;
   
   @GetMapping(value = "/signup.page")
-  public String signupPage() {
+  public String signupPage(HttpSession session, Model model ) throws UnsupportedEncodingException {
+
+    /*네이버 apiURL 만들기*/
+    /*
+    String clientId = "KxQPnOuYjOzlcaMNmVR2";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://localhost:9090/user/naverGetToken.do", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
+         + "&client_id=" + clientId
+         + "&redirect_uri=" + redirectURI
+         + "&state=" + state;
+    session.setAttribute("state", state);
+    model.addAttribute("apiURL", apiURL);
+    */
+    userService.makeNaverApi(session);
     return "user/signup";
   }
   
@@ -44,6 +61,8 @@ public class UserController {
       message = "회원 가입 실패";
     }
     rttr.addFlashAttribute("signupMessage", message);
+    
+    
     return "redirect:" + redirectURL;
   }
   
@@ -54,7 +73,7 @@ public class UserController {
   
   @GetMapping(value = "/signin.page")
   public String signinPage(@RequestHeader(name = "referer") String referer
-                         , Model model) {
+                         , HttpSession session, Model model) throws UnsupportedEncodingException {
     /* 이전 주소는 요청 헤더 referer 에 저장되어 있다. */
     String[] excludeURLs = {"/signup.page"};
     String url = referer;
@@ -69,6 +88,7 @@ public class UserController {
       }
     }
     model.addAttribute("url", url);
+    userService.makeNaverApi(session); 
     return "user/signin";
   }
   
@@ -94,12 +114,6 @@ public class UserController {
   public String userpage() {
     return "user/userpage";
   }
-  /* ajax와 함께 봉인
-  @PostMapping(value = "/updateInf.do", produces = "application/json")
-  public ResponseEntity<Map<String, Object>> updateInf(UserDTO user, HttpSession session) {
-    return userService.updateInf(user, session);
-  }
-  */
   @PostMapping(value = "/updateInf.do")
   public String updateInf(UserDTO user, HttpSession session, RedirectAttributes rttr) {
     rttr.addFlashAttribute("updateMessage", userService.updateInf(user, session) == 1 ? "회원 정보 수정 성공" : "회원 정보 수정 실패");
@@ -163,7 +177,51 @@ public class UserController {
     return userService.overlapcheckDo(email);
   }
   
+  @GetMapping(value = "/naverGetToken.do")
+  public String naverGetToken(HttpServletRequest request, RedirectAttributes rttr) throws UnsupportedEncodingException{
+    
+    String accessToken = userService.naverGetToken(request);
+    rttr.addFlashAttribute("accessToken", accessToken);
+    return "redirect:/user/callProfile.do";
+    
+  }
+  @GetMapping(value = "/callProfile.do")
+  public String callProfile(@ModelAttribute("accessToken") String accessToken, HttpServletRequest request) {
+    
+    userService.callProfile(accessToken, request);
+    HttpSession session = request.getSession();
+    String URL = (String) session.getAttribute("URL");
+    return "redirect:" + URL;
+  }
   
+  @GetMapping(value = "/snssignup.page")
+  public String snsSignup() {
+    return "user/snssignup";
+  }
+  
+  @PostMapping(value = "/snssignup.do")
+  public String snssignup(UserDTO user, RedirectAttributes rttr) {
+    String redirectURL;
+    String message;
+    if(userService.snsSignup(user) == 1) {
+      redirectURL = "/main.do";
+      message = "회원 가입 성공";
+    } else {
+      redirectURL = "/user/snssignup.page";
+      message = "회원 가입 실패";
+    }
+    rttr.addFlashAttribute("signupMessage", message);
+    
+    
+    return "redirect:" + redirectURL;
+  }
+  
+//블로그/////////////////////////////////////////////////////////////
+  
+  @GetMapping(value = "/getUserBloglist.do")
+  public ResponseEntity<Map<String, Object>> getUserBloglist(HttpServletRequest request) {
+    return userService.getUserBloglist(request);
+  }
   
   
 }

@@ -18,4 +18,11 @@ public interface IUserMapper {
   int pwupdate(Map<String, Object> params);
   UserDTO emailfindDo(Map<String, Object> params);
   UserDTO overlapcheckDo(UserDTO email);
+  UserDTO xUsercheckDo(UserDTO email);
+  int insertSnsUser(UserDTO user);
+  UserDTO getsnsUserInfo(UserDTO user);
+//블로그//////////////////
+  int getBlogCount();
+  /*List<BlogDTO> getBlogetUserBloglistgList(Map<String, Object> params);*/
+  
 }

@@ -11,7 +11,8 @@
   .dead-btn{cursor: default; pointer-events: none;}
   .sections.section_pwfind .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
   .sections.section_pwfind .width_con .pwfind form{ position: relative; transform: translateX(42%); transition: inherit;}
-
+  .title_con h6{ margin-top: 0;}
+  input { border-radius: 4px;}
 </style>
 
 <div class="wrap">
