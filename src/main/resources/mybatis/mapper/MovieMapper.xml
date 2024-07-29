@@ -20,7 +20,7 @@
     ) VALUES (
         movie_seq.NEXTVAL
       , #{title}
-      , #{subtitle}
+      , #{subTitle}
       , #{story}
       , #{grade}
       , #{ticketRate}

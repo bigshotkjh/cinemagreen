@@ -43,7 +43,7 @@
         <div class="movie-list">
             <c:forEach var="movie" items="${movies}">
                 <div class="movie-item">
-                    <img src="${movie.poster_path}" alt="${movie.title}">
+                    <img src="http://image.tmdb.org/t/p/original${movie.poster_path}" alt="${movie.title}">
                     <h2>${movie.title}</h2>
                     <p>Rank: ${movie.vote_count}</p>
                     <p>Release Date: ${movie.release_date}</p>

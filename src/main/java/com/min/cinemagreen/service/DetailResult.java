@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class DetailResult {
 	private boolean adult;
 	private String backdrop_path;
-	private String belongs_to_collection;
-	private Long budget;
+	//private String belongs_to_collection;
+	private int budget;
 	private List<Genre> genres;
 	private int id;
 	private String imdb_id;

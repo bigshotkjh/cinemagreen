@@ -14,7 +14,7 @@
 <div class="movie-chart">
     <c:forEach var="movie" items="${movies}">
         <div class="movie">
-            <img src="${movie.poster_path}" alt="${movie.title} 포스터">
+            <img src="http://image.tmdb.org/t/p/original${movie.poster_path}" alt="${movie.title} 포스터">
             <div class="overlay">
                 <p>${movie.overview}</p>
             </div>
