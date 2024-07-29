@@ -382,10 +382,7 @@ public class UserServiceImpl implements IUserService {
     String paging = pageUtils.getAsyncPaging();//pageUtils를 사용하여 페이징 HTML 코드를 생성
     return ResponseEntity.ok(Map.of("blogList", blogList, "paging", paging)); //리스트랑 페이징 결과 담아서 보내.
     /////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
-=======
-    return ResponseEntity.ok(Map.of());
->>>>>>> b5d1386ee760d43da037d99cbeb514a07d42a5a8
+
   }
   
   

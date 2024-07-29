@@ -21,8 +21,4 @@ public class BlogDTO {
   private Date modifyDt;
   private String name;
   private String email;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b5d1386ee760d43da037d99cbeb514a07d42a5a8
