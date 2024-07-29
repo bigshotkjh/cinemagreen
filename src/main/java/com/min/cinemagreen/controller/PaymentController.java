@@ -41,7 +41,7 @@ public class PaymentController {
     private String secretKey;
     
     
-    IamportClient iamportClient = new IamportClient(apiKey, secretKey);
+    IamportClient iamportClient = new IamportClient("6848584747520311", "NvwsO9QDV9fzxqFpF5KmqoPpz1O9lUOM5MIKou6kKikg46ivyWoK6y7oAMGX83xf1KdOCrJxQufBsPbu");
 
 
 //    public PaymentController(IPaymentService paymentService) {

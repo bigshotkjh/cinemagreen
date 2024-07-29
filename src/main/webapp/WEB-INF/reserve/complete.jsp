@@ -17,12 +17,12 @@
 		        <h5 class="sub_title line">결제가 완료되었습니다.</span></h5>
 		      </div>
 		     	<div class="list_body ">
-		     	   예매자명 : 김그린 ${loginUser.name}<br>
-		     		 결제번호 : imp_241584739601 ${pay.payId}<br>
-		     		 결제금액 : 5000 원 ${pay.amount}<br>
-		     		 티켓번호 : 202407283301220102 ${pay.ticketNo}<br>
+		     	   예매자명 : ${loginUser.name} <!-- 김그린  --><br>
+		     		 결제번호 : ${pay.payId}<!-- imp_241584739601 --> <br>
+		     		 결제금액 : ${pay.amount} 원 <!-- 5000 원 --> <br>
+		     		 티켓번호 : ${pay.ticketNo} <!-- 202407283301220102 --> <br>
 					</div>
-					<button onclick="location.href='${contextPath}/'" type="button" id="btnNext" style="margin-top:15px;">마이페이지</button>
+					<button onclick="location.href='${contextPath}/'" type="button" id="btnNext"  class="c-cblue c-lgrn" style="margin-top:15px;">마이페이지</button>
 		    </div>
 		</div>
 
