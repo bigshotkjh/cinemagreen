@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.min.cinemagreen.dto.UserDTO" %>
+<%@ page import="com.min.cinemagreen.dto.UserDTO
 
 <jsp:include page="../admin/adminheader.jsp">
   <jsp:param value="CINEMAGREEN ADMIN" name="title"/>
