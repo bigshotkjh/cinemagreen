@@ -27,7 +27,7 @@
               method="post"
               action="${contextPath}/user/snssignup.do">
           <div id="code-div" ></div>
-          <div><h5><B>휴대전화 입력은 필수 입니다</B></h5></div>
+          <div><h5><B>휴대전화, 생년월일 입력은 필수 입니다</B></h5></div>
           <div>
             <input type="text" name="sns" id="sns" hidden="" value="${snsUser.sns}">
             <input type="text" name="email" id="email" hidden="" value = "${snsUser.email}" >

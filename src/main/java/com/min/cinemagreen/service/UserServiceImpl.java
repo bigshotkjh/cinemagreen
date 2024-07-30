@@ -71,10 +71,8 @@ public class UserServiceImpl implements IUserService {
     
     // 이름 크로스 사이트 스크립팅 처리
     user.setName( securityUtils.preventXss(user.getName()) );
-//모바일 청소
-    String mobile = user.getMobile();
-    String cleanNumber = mobile.replace("-", "");
-    user.setMobile(cleanNumber);
+//하이픈 제거
+    user.setMobile(removehypen(user));
 //나이계산
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
     LocalDate birthDate = LocalDate.parse(user.getBirthYear(), formatter);
@@ -82,6 +80,13 @@ public class UserServiceImpl implements IUserService {
     int age = Period.between(birthDate, currentDate).getYears();
     user.setAge(age);
     return userMapper.insertUser(user);
+  }
+ //하이픈 제거//////// 
+  @Override
+  public String removehypen(UserDTO user) {
+
+    String mobile = user.getMobile();
+    return mobile.replace("-", "");
   }
   
   @Override
