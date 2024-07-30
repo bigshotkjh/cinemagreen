@@ -29,7 +29,7 @@
         <div class="card mb-4">
           <div class="card-header">
             <i class="fas fa-chart-bar me-1"></i>
-            최고 매출 영화
+            주간 최고 매출 영화
           </div>
           <div class="card-body">
             <canvas id="myBarChart" width="100%" height="40"></canvas>
@@ -134,11 +134,11 @@
                   </div>
                   <div>
                     <h5>주소</h5>
-                    <button type="button" onclick="execDaumPostcode()">우편번호 찾기</button><br>
+                    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
                     <input type="text" name="postcode" id="modalPostcode" value="">
                     <input type="text" name="address" id="modalAddress" value=""><br>
                     <input type="text" name="extraAddress" id="modalExtraAddress" value=""><br>
-                    <input type="text"  name="detailAddress"id="modalDetailAddress" value=""> 
+                    <input type="text" name="detailAddress"id="modalDetailAddress" value=""> 
                   </div>
                   <div>
                     <button type="submit" class="submit">개인정보 변경하기</button>
@@ -176,13 +176,13 @@
 		            if(extraAddr !== ''){
 		              extraAddr = ' (' + extraAddr + ')';
 		            }
-		            document.getElementById("extraAddress").value = extraAddr;
+                    document.getElementById("modalExtraAddress").value = extraAddr;
 		          } else {
 		            document.getElementById("extraAddress").value = '';
 		          }
-		          document.getElementById('postcode').value = data.zonecode;
-		          document.getElementById("address").value = addr;
-		          document.getElementById("detailAddress").focus();
+				  document.getElementById('modalPostcode').value = data.zonecode;
+				  document.getElementById('modalAddress').value = addr;
+				  document.getElementById('modalDetailAddress').focus();
 		        }
 		      }).open();
 		    }
@@ -271,9 +271,7 @@
       }
     }
   };
-</script>
-
-
+  </script>
 </script>
 
 

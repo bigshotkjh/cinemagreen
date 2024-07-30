@@ -8,8 +8,6 @@
   <jsp:param value="CINEMAGREEN STORE" name="title"/>
 </jsp:include>
   <body>
-	
-	
     <!-- Header-->
     <header class="bg-dark py-5">
       <div class="text-center text-white">

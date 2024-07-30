@@ -12,6 +12,7 @@
   <div class="sections section_signup">
     <div class="width_con">
       <div class="title_con white signup">
+		<br>
         <h4 class="title">INSERT USER</h4><br>
         <form id="signup-form"
               method="post"
