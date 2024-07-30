@@ -14,6 +14,7 @@
  .sections.section_signup .width_con .signup form{ position: relative; transform: translateX(42%); transition: inherit;}
  .title_con h6{ margin-top: 0;}
   input { border-radius: 4px; margin-top: 2px;}
+ .red{ border: 2px solid red;}
 </style>
 <!--
  가져와 표시할 것 들
@@ -49,6 +50,11 @@
           <div>
             <h5>휴대폰번호</h5>
             <input type="text" name="mobile" id="mobile" value="${loginUser.mobile}">
+            <h6></h6>
+          </div>
+          <div>
+            <h5>생년월일</h5>
+            <input type="text" name="birthYear" id="birth_year" value="${loginUser.birthYear}">
             <h6></h6>
           </div>
           
@@ -131,7 +137,7 @@
         blogList.innerHTML += str;
       }
     })
-    alert("done실패?");
+    /*alert("done실패?");*/
   }
   
   getBlogList();
@@ -143,10 +149,7 @@
       $(".pw-button").addClass("hidden-btn");
     }
   }
-
-  window.onload = ()=>{
-    fnSnsPwNone();
-  }
+  
 //카카오 주소 API
   function execDaumPostcode() {
       new daum.Postcode({
@@ -180,7 +183,8 @@
   }
 
 //mobile 정규식 검사
-  var mobileCheck = false;
+  var mobileCheck = true,
+      birthCheck = true;
   
 
   const fnMobileCheck = ()=>{
@@ -195,22 +199,59 @@
       mobileCheck = false;
     }
   }
-  
-  $(document).on("keyup","#mobile, #name, #postcode, #address, #detailAddress, #extraAddress", evt=>{
+  $(document).on("keyup","#mobile", evt=>{
     fnMobileCheck();
   })
+//생년월일 입력 검사
+  
+  const fnBirthCheck = ()=>{
+    
+    const birthYear = document.getElementById('birth_year');
+    var regbirthYear = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+    if(regbirthYear.test(birthYear.value)){
+      $("#birth_year").next("h6").html('생년월일 확인되었습니다.' );
+      birthCheck = true;
+    } else {
+      $("#birth_year").next("h6").html('생년월일 8자리를 입력해 주세요 ex)20000101');
+      birthCheck = false;
+    }
+  }
+  
+  $(document).on("keyup","#birth_year", evt=>{
+    fnBirthCheck();
+  })
+  
   
   const fnAllCheck = ()=>{
-    if(mobileCheck == true){
+    if(mobileCheck == true && birthCheck == true){
         $(".submit").removeClass("dead-btn");
     }else{
         $(".submit").addClass("dead-btn");
     }
+    if(mobileCheck == false){
+      $("#mobile").addClass("red");
+    } else {
+      $("#mobile").removeClass("red");
+    }
+    if(birthCheck == false){
+      $("#birth_year").addClass("red");
+    } else {
+      $("#birth_year").removeClass("red");
+    }
   }
   
-  $(document).on("keyup", "#mobile, #name, #postcode, #address, #detailAddress, #extraAddress", evt=>{
+  $(document).on("keyup", "#mobile, #name, #birth_year, #postcode, #address, #detailAddress, #extraAddress", evt=>{
     fnAllCheck();
   });
+  
+  
+  window.onload = ()=>{
+    fnSnsPwNone();
+    fnMobileCheck();
+    fnBirthCheck();
+    fnAllCheck();
+  }  
+  
 
 /* 헤더에 이름 안바뀌는 사유로 봉인.
 //ajax

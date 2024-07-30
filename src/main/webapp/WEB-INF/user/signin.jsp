@@ -72,19 +72,29 @@
       
       if (resData.isSuccess) {
         
-        if(resData.nowPwModify){
+       //비밀번호 90일 변경
+        if(resData.nowPwModify) {
           
-          //비밀번호 90일 변경
           const result = confirm("비밀번호를 변경한지 90일이 지났습니다. 지금 변경하시겠습니까?");
           
-          if (result) {
+          if(result) {
               location.href = "/user/pwchange.page"; 
           } else {
-              location.href = "/main.do"; 
+            //adminCheck
+             if(resData.adminCheck) {
+               location.href = "/admin/admin.page";
+             }else{
+               location.href = "/main.do"; 
+             }
           }
             
         } else {
-          location.href = "${contextPath}/main.do";
+          //adminCheck
+           if(resData.adminCheck) {
+             location.href = "/admin/admin.page"; 
+           }else{
+             location.href = "/main.do"; 
+           }
         }
         
       } else {

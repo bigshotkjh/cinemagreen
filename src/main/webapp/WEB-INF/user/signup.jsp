@@ -17,6 +17,7 @@
  .sections.section_signup .width_con .signup form{ position: relative; transform: translateX(42%); transition: inherit;}
  .title_con h6{ margin-top: 0;}
  input { border-radius: 4px; margin-top: 2px;}
+ .red{ border: 2px solid red;}
 </style>
 <!--@@@@@@@끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 
@@ -29,7 +30,7 @@
               method="post"
               action="${contextPath}/user/signup.do">
           <div id="code-div" ></div>
-          <div><h5><B>이메일, 비밀번호, 휴대전화 입력은 필수 입니다</h5></div>
+          <div><h5><B>이메일, 비밀번호, 휴대전화, 생년월일 입력은 필수 입니다</h5></div>
           <div>
             <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요">
             <button type="button" id="overlap-check">이메일 중복 확인</button>
@@ -62,6 +63,10 @@
           <br>
           <div>
             <input type="text" name="mobile" id="mobile" placeholder="휴대전화">
+            <h6></h6>
+          </div>
+          <div>
+            <input type="text" name="birthYear" id="birth_year" placeholder="생년월일 8자리">
             <h6></h6>
           </div>
           <div>
@@ -132,8 +137,36 @@
  
   var emailCodeCheck = false,
   	  passwordCheck = false,
+  	  emailOverlapCheck = false,
+  	  birthCheck = false,
   	  mobileCheck = false;
+
+//이메일 중복 검사 ajax
+  const overlapCheck = () => {
+    $.ajax({
+      type: 'post',
+      url: '${contextPath}/user/overlapcheck.do',
+      data: $('#signup-form').serialize(),
+      dataType: 'json'
+    }).done(resData => {
+      if (resData.isSuccess) {
+        alert('사용할 수 있는 이메일 입니다.');
+        emailOverlapCheck = true;
+      } else {
+        alert('이미 가입중 이거나 탈퇴한 이메일 입니다.');
+        emailOverlapCheck = false;
+      }
+    }).fail(jqXHR => {
+      alert(jqXHR.status);
+    });
+  }
   
+  
+  $('#overlap-check').on('click', () =>{
+    overlapCheck();
+  });
+  
+// 이메일 코드 보내기
   const fnEmailCheck = ()=>{
     
     const email = document.getElementById('email');
@@ -166,13 +199,10 @@
       emailCodeCheck = true;
     }else{
       alert('인증번호가 틀렸습니다.');
+      emailCodeCheck = false;
     }
   }
-/*
-  document.getElementById('code-check-btn').addEventListener('click', evt=>{
-    fnCodeCheck();
-  })
-*/  
+  
   $(document).on("click","#code-check-btn",evt=>{
     fnCodeCheck();
   })
@@ -231,42 +261,61 @@
   $(document).on("keyup","#mobile", evt=>{
     fnMobileCheck();
   })
- 
-  //submit 버튼 활성화
-  const allCheck = ()=>{
-    if(mobileCheck == true && passwordCheck == true && emailCodeCheck == true){
-        $(".submit").removeClass("dead-btn");
-    }else{
-        $(".submit").addClass("dead-btn");
+//생년월일 입력 검사
+  
+  const fnBirthCheck = ()=>{
+    
+    const birthYear = document.getElementById('birth_year');
+    var regbirthYear = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+    if(regbirthYear.test(birthYear.value)){
+      $("#birth_year").next("h6").html('생년월일 확인되었습니다.' );
+      birthCheck = true;
+    } else {
+      $("#birth_year").next("h6").html('생년월일 8자리를 입력해 주세요 ex)20000101');
+      birthCheck = false;
     }
   }
   
-  $(document).on("keyup", "#pw, #mobile, #pw2", evt=>{
-    allCheck();
-  });
+  $(document).on("keyup","#birth_year", evt=>{
+    fnBirthCheck();
+  })
   
-  $(document).on("click", "#code-check-btn", evt=>{
-    allCheck();
-  });
-  
-  /*
-  
-  $(document).on("keyup", "#pw, #mobile, #pw2", evt=>{
-    if(mobileCheck == true && passwordCheck == true && emailCodeCheck == true){
+//submit 버튼 활성화
+  const allCheck = ()=>{
+    if(mobileCheck == true && passwordCheck == true && emailCodeCheck == true && birthCheck == true && emailOverlapCheck == true){
         $(".submit").removeClass("dead-btn");
     }else{
         $(".submit").addClass("dead-btn");
     }
+    if(mobileCheck == false){
+      $("#mobile").addClass("red");
+    } else {
+      $("#mobile").removeClass("red");
+    }
+    if(passwordCheck == false){
+      $("#pw").addClass("red");
+    } else {
+      $("#pw").removeClass("red");
+    }
+    if(emailCodeCheck == false || emailOverlapCheck == false){
+      $("#email").addClass("red");
+    } else {
+      $("#email").removeClass("red");
+    }
+    if(birthCheck == false){
+      $("#birth_year").addClass("red");
+    } else {
+      $("#birth_year").removeClass("red");
+    }
+  }
+  
+  $(document).on("keyup", evt=>{
+    allCheck();
   });
   
-  $(document).on("click", "#code-check-btn", evt=>{
-    if(mobileCheck == true && passwordCheck == true && emailCodeCheck == true){
-        $(".submit").removeClass("dead-btn");
-    }else{
-        $(".submit").addClass("dead-btn");
-    }
+  $(document).on("click", evt=>{
+    allCheck();
   });
-  */
   
   $(document).on("keypress", "#signup-form", evt=>{
     if (evt.which === 13) { // 13은 엔터 키 코드
@@ -274,30 +323,6 @@
     }
   });
   
-
-//아이디 중복 검사 ajax
-  const overlapCheck = () => {
-    $.ajax({
-      type: 'post',
-      url: '${contextPath}/user/overlapcheck.do',
-      data: $('#signup-form').serialize(),
-      dataType: 'json'
-    }).done(resData => {
-      if (resData.isSuccess) {
-        alert('사용할 수 있는 이메일 입니다.');
-      } else {
-        alert('이미 가입중 이거나 탈퇴한 이메일 입니다.');
-      }
-    }).fail(jqXHR => {
-      alert(jqXHR.status);
-    });
-  }
-  
-  
-  $('#overlap-check').on('click', () =>{
-    overlapCheck();
-  });
-
 </script>
 
 <script>

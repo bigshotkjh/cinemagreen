@@ -16,6 +16,8 @@
       , sns
       , pw_modify_dt
       , signup_dt
+      , birthyear
+      , age
       , postcode
       , address
       , detailAddress
@@ -30,6 +32,8 @@
       , #{sns}
       , CURRENT_DATE
       , CURRENT_DATE
+      , #{birthYear}
+      , #{age}
       , #{postcode}
       , #{address}
       , #{detailAddress}
@@ -38,7 +42,7 @@
   </insert>
   
   <select id="getUserByMap" parameterType="Map" resultType="UserDTO">
-    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt, postcode, address, detailAddress, extraAddress           
+    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt, birthyear, age, postcode, address, detailAddress, extraAddress           
       FROM user_t
     <where> 
       <if test="email != null">email = #{email}</if>
@@ -74,6 +78,8 @@
     UPDATE user_t
        SET name = #{name}
          , mobile = #{mobile}
+         , birthyear = #{birthYear}
+         , age = #{age}
          , postcode = #{postcode}
          , address = #{address}
          , detailAddress = #{detailAddress}
@@ -96,8 +102,7 @@
     UPDATE user_t
        SET pw = #{pw}
          , pw_modify_dt = CURRENT_DATE
-    WHERE 
-        email = #{email}
+    WHERE  email = #{email}
   </update>
   
   <select id="emailfindDo" parameterType="Map" resultType="UserDTO">
@@ -109,15 +114,13 @@
   <select id="overlapcheckDo" parameterType="UserDTO" resultType="UserDTO">
     SELECT email           
       FROM user_t
-     WHERE 
-        email = #{email}
+     WHERE email = #{email}
   </select>
   
   <select id="xUsercheckDo" parameterType="UserDTO" resultType="UserDTO">
     SELECT email           
       FROM x_user_t
-     WHERE 
-        email = #{email}
+     WHERE email = #{email}
   </select>
 
   <insert id="insertSnsUser" parameterType="UserDTO">
@@ -129,6 +132,8 @@
       , sns
       , pw_modify_dt
       , signup_dt
+      , birthyear
+      , age
     ) VALUES (
         user_seq.NEXTVAL
       , #{email}
@@ -137,15 +142,22 @@
       , #{sns}
       , CURRENT_DATE
       , CURRENT_DATE
+      , #{birthYear}
+      , #{age}
     )
   </insert>
   
   <select id="getsnsUserInfo" parameterType="UserDTO" resultType="UserDTO">
-    SELECT user_no, email, name, mobile, sns, pw_modify_dt, signup_dt        
+    SELECT user_no, email, name, mobile, sns, pw_modify_dt, signup_dt, birthyear, age        
       FROM user_t
-     WHERE 
-        email = #{email}
+     WHERE email = #{email}
   </select>
+  
+  <update id="ageUpdate" parameterType="UserDTO" >
+    UPDATE user_t
+       SET age = #{age}
+    WHERE  user_no = #{userNo}
+  </update>
   
 <!-- 블로그 부분 -->  
   <select id="getBlogCount" resultType="int">

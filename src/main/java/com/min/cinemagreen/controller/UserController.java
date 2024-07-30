@@ -31,20 +31,6 @@ public class UserController {
   
   @GetMapping(value = "/signup.page")
   public String signupPage(HttpSession session, Model model ) throws UnsupportedEncodingException {
-
-    /*네이버 apiURL 만들기*/
-    /*
-    String clientId = "KxQPnOuYjOzlcaMNmVR2";//애플리케이션 클라이언트 아이디값";
-    String redirectURI = URLEncoder.encode("http://localhost:9090/user/naverGetToken.do", "UTF-8");
-    SecureRandom random = new SecureRandom();
-    String state = new BigInteger(130, random).toString();
-    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
-         + "&client_id=" + clientId
-         + "&redirect_uri=" + redirectURI
-         + "&state=" + state;
-    session.setAttribute("state", state);
-    model.addAttribute("apiURL", apiURL);
-    */
     userService.makeNaverApi(session);
     return "user/signup";
   }

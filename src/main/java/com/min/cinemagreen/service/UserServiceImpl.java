@@ -10,6 +10,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -24,8 +27,8 @@ import com.min.cinemagreen.dto.BlogDTO;
 import com.min.cinemagreen.dto.UserDTO;
 import com.min.cinemagreen.mapper.IUserMapper;
 import com.min.cinemagreen.utils.MailUtils;
-import com.min.cinemagreen.utils.SecurityUtils;
 import com.min.cinemagreen.utils.PageUtils;
+import com.min.cinemagreen.utils.SecurityUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -72,9 +75,13 @@ public class UserServiceImpl implements IUserService {
     String mobile = user.getMobile();
     String cleanNumber = mobile.replace("-", "");
     user.setMobile(cleanNumber);
-    
+//나이계산
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+    LocalDate birthDate = LocalDate.parse(user.getBirthYear(), formatter);
+    LocalDate currentDate = LocalDate.now();
+    int age = Period.between(birthDate, currentDate).getYears();
+    user.setAge(age);
     return userMapper.insertUser(user);
-    
   }
   
   @Override
@@ -88,6 +95,7 @@ public class UserServiceImpl implements IUserService {
     params.put("pw", pw);
     
     UserDTO loginUser = userMapper.getUserByMap(params);
+    int admin;
     int signinResult;
     int dtResult;
     if(loginUser != null) {
@@ -104,31 +112,39 @@ public class UserServiceImpl implements IUserService {
       params.put("sessionId", sessionId);
       
       userMapper.insertAccess(params);
-      ///////////////////////////////////////////////////////////
-      //비밀번호 90일 마다 변경.
+    //나이계산
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+      LocalDate birthDate = LocalDate.parse(loginUser.getBirthYear(), formatter);
+      LocalDate currentDate = LocalDate.now();
+      int age = Period.between(birthDate, currentDate).getYears();
+      loginUser.setAge(age);
+      userMapper.ageUpdate(loginUser);
+//admin check   
+      if(loginUser.getUserNo() == 0) {
+        admin = 1;
+      }else {
+        admin = 0;
+      }
+/////90일 비밀번호/////////////////////////////////////////////////////////////
+      Calendar calendar = Calendar.getInstance();
       long currentTimeMillis = System.currentTimeMillis();
       Date today = new Date(currentTimeMillis);
       Date lastPwModifyDt = loginUser.getPwModifyDt();
-
-      Calendar calendar = Calendar.getInstance();
-      calendar.setTime(lastPwModifyDt); // 특정 날짜 설정
-      
+      calendar.setTime(lastPwModifyDt); // 마지막비번 변경일
       calendar.add(Calendar.DAY_OF_MONTH, 90);
-      
       Date dateAfter90Days = new Date(calendar.getTimeInMillis()); //비밀번호 바꿔야 하는 날짜.
-
       if (today.compareTo(dateAfter90Days) > 0) { // 날짜 비교 
           dtResult = 1;
       } else {
           dtResult = 0;
       }
-      /////////////////////////////////////////////////////////////
       signinResult = 1;
     }else {
       signinResult = 0;
       dtResult = 0;
+      admin = 0;
     }
-    return ResponseEntity.ok(Map.of("isSuccess", signinResult == 1 , "nowPwModify", dtResult == 1 ));
+    return ResponseEntity.ok(Map.of("isSuccess", signinResult == 1 , "nowPwModify", dtResult == 1 ,"adminCheck", admin == 1 ));
   }
   
   @Override
@@ -158,10 +174,14 @@ public class UserServiceImpl implements IUserService {
     String mobile = user.getMobile();
     String cleanNumber = mobile.replace("-", "");
     user.setMobile(cleanNumber);
+//나이계산
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+    LocalDate birthDate = LocalDate.parse(user.getBirthYear(), formatter);
+    LocalDate currentDate = LocalDate.now();
+    int age = Period.between(birthDate, currentDate).getYears();
+    user.setAge(age);
     session.setAttribute("loginUser", user); 
     return userMapper.updateInf(user);
-    
-    
   }
   
   @Override
@@ -299,23 +319,48 @@ public class UserServiceImpl implements IUserService {
         
         JSONObject userInfObj = obj.getJSONObject("response");
         String email = userInfObj.getString("email");
-//모바일 청소
+        String birthday = userInfObj.getString("birthday");
+        String birthYear = userInfObj.getString("birthyear") + birthday;
+        String name = userInfObj.getString("name");
+//생년월일과 모바일 하이픈 청소
+        String cleanBirthYear = birthYear.replace("-", "");
         String mobile = userInfObj.getString("mobile");
         String cleanNumber = mobile.replace("-", "");
         System.out.println(email);
-        System.out.println(mobile);
+        System.out.println(cleanNumber);
+        System.out.println(cleanBirthYear);
         
         UserDTO user = new UserDTO();
         user.setEmail(email);
+        user.setName(name);
         user.setMobile(cleanNumber);
+        user.setBirthYear(cleanBirthYear);
         user.setSns(1);
-        user.setName("네이버고객");
         session.setAttribute("snsUser", user);
         
         if(userMapper.overlapcheckDo(user) != null) {
           UserDTO snsUser = userMapper.getsnsUserInfo(user);
+        //나이계산
+          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+          LocalDate birthDate = LocalDate.parse(snsUser.getBirthYear(), formatter);
+          LocalDate currentDate = LocalDate.now();
+          int age = Period.between(birthDate, currentDate).getYears();
+          snsUser.setAge(age);
+          int agersulte = userMapper.ageUpdate(snsUser);
+          System.out.println("나이변경 성공????" + agersulte);
           session.setAttribute("loginUser", snsUser);
+        //접속기록
+          String ip = request.getRemoteAddr();
+          String userAgent = request.getHeader("User-Agent");
+          String sessionId = session.getId();
+          Map<String, Object> params = new HashMap<>();
+          params.put("email", email);
+          params.put("ip", ip);
+          params.put("userAgent", userAgent);
+          params.put("sessionId", sessionId);
+          userMapper.insertAccess(params);
           resultUrl = "/main.do";
+
         } else {
           /*가입정보를 더받자.*/
           session.setAttribute("snsUser", user);
@@ -351,6 +396,12 @@ public class UserServiceImpl implements IUserService {
     
     // 이름 크로스 사이트 스크립팅 처리
     user.setName( securityUtils.preventXss(user.getName()) );
+//나이계산
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+    LocalDate birthDate = LocalDate.parse(user.getBirthYear(), formatter);
+    LocalDate currentDate = LocalDate.now();
+    int age = Period.between(birthDate, currentDate).getYears();
+    user.setAge(age);
     
     return userMapper.insertSnsUser(user);
     

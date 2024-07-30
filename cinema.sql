@@ -1,4 +1,4 @@
-/************************* ½ÃÄö½º *************************/
+/************************* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ *************************/
 DROP SEQUENCE user_seq;
 DROP SEQUENCE access_seq;
 DROP SEQUENCE x_user_seq;
@@ -14,7 +14,7 @@ CREATE SEQUENCE blog_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE blog_comment_seq START WITH 1 INCREMENT BY 1;
 
 
-/************************* Å×ÀÌºí *************************/
+/************************* ï¿½ï¿½ï¿½Ìºï¿½ *************************/
 DROP TABLE blog_comment_t;
 DROP TABLE image_t;
 DROP TABLE blog_t;
@@ -23,7 +23,7 @@ DROP TABLE x_user_t;
 DROP TABLE access_t;
 DROP TABLE user_t;
 
--- È¸¿ø
+-- È¸ï¿½ï¿½
 CREATE TABLE user_t (
   user_no      NUMBER             NOT NULL,
   email        VARCHAR2(100 BYTE) NOT NULL UNIQUE,
@@ -31,9 +31,12 @@ CREATE TABLE user_t (
   name         VARCHAR2(100 BYTE),
   gender       VARCHAR2(5 BYTE),
   mobile       VARCHAR2(20 BYTE),
-  sns          NUMBER,  /* °¡ÀÔÇüÅÂ(0:Á÷Á¢,1:³×ÀÌ¹ö) */
+  grade        VARCHAR2(20 BYTE),
+  sns          NUMBER,  /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(0:ï¿½ï¿½ï¿½ï¿½,1:ï¿½ï¿½ï¿½Ì¹ï¿½) */
   pw_modify_dt DATE,
   signup_dt    DATE,
+  birthyear    VARCHAR2(100 BYTE),
+  age          NUMBER,
   postcode     NUMBER,
   address      VARCHAR2(100 BYTE),
   detailAddress VARCHAR2(100 BYTE),
@@ -41,7 +44,7 @@ CREATE TABLE user_t (
   CONSTRAINT pk_user PRIMARY KEY(user_no)
 );
 
--- Á¢¼Ó ±â·Ï
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 CREATE TABLE access_t (
   access_no  NUMBER             NOT NULL,
   email      VARCHAR2(100 BYTE),
@@ -54,7 +57,7 @@ CREATE TABLE access_t (
       REFERENCES user_t(email) ON DELETE CASCADE
 );
 
--- Å»Åð È¸¿ø
+-- Å»ï¿½ï¿½ È¸ï¿½ï¿½
 CREATE TABLE x_user_t (
   x_user_no NUMBER             NOT NULL,
   email         VARCHAR2(100 BYTE) NOT NULL UNIQUE,
@@ -62,22 +65,22 @@ CREATE TABLE x_user_t (
   CONSTRAINT pk_x_user PRIMARY KEY(x_user_no)
 );
 
--- °èÃþÇü °Ô½ÃÆÇ (NÂ÷ ´ä±Û)
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ (Nï¿½ï¿½ ï¿½ï¿½ï¿½)
 CREATE TABLE bbs_t (
   bbs_no      NUMBER              NOT NULL,
   contents    VARCHAR2(4000 BYTE) NOT NULL,
   user_no     NUMBER              NOT NULL,
   create_dt   DATE                NULL,
-  state       NUMBER              NULL,  -- -1:»èÁ¦, 1:Á¤»ó
-  depth       NUMBER              NULL,  -- 0:¿ø±Û, 1:´ä±Û, 2:´ä´ä±Û, ...
-  group_no    NUMBER              NULL,  -- ¿ø±Û°ú ¿ø±Û¿¡ ´Þ¸° ¸ðµç ´ä±ÛµéÀº µ¿ÀÏÇÑ GROUP_NO¸¦ °¡Áü
-  group_order NUMBER              NULL,  -- °°Àº GROUP_NO ³»ºÎ¿¡¼­ Ç¥½ÃÇÒ ¼ø¼­
+  state       NUMBER              NULL,  -- -1:ï¿½ï¿½ï¿½ï¿½, 1:ï¿½ï¿½ï¿½ï¿½
+  depth       NUMBER              NULL,  -- 0:ï¿½ï¿½ï¿½ï¿½, 1:ï¿½ï¿½ï¿½, 2:ï¿½ï¿½ï¿½ï¿½, ...
+  group_no    NUMBER              NULL,  -- ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ûµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ GROUP_NOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+  group_order NUMBER              NULL,  -- ï¿½ï¿½ï¿½ï¿½ GROUP_NO ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   CONSTRAINT pk_bbs PRIMARY KEY(bbs_no),
   CONSTRAINT fk_bbs_user FOREIGN KEY(user_no)
     REFERENCES user_t(user_no) ON DELETE CASCADE
 );
 
--- ºí·Î±× (´ñ±ÛÇü °Ô½ÃÆÇ)
+-- ï¿½ï¿½Î±ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½)
 CREATE TABLE blog_t (
   blog_no   NUMBER               NOT NULL,
   title     VARCHAR2(1000 BYTE)  NOT NULL,
@@ -91,7 +94,7 @@ CREATE TABLE blog_t (
       REFERENCES user_t(user_no) ON DELETE CASCADE
 );
 
--- ºí·Î±× ¸¸µé ¶§ »ç¿ëÇÑ ÀÌ¹ÌÁö ¸ñ·Ï
+-- ï¿½ï¿½Î±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 CREATE TABLE image_t (
   blog_no         NUMBER             NOT NULL,
   upload_path     VARCHAR2(100 BYTE),
@@ -100,7 +103,7 @@ CREATE TABLE image_t (
     REFERENCES blog_t(blog_no) ON DELETE CASCADE
 );
 
--- ºí·Î±× ´ñ±Û
+-- ï¿½ï¿½Î±ï¿½ ï¿½ï¿½ï¿½
 CREATE TABLE blog_comment_t (
   comment_no  NUMBER NOT NULL,
   user_no     NUMBER,
@@ -118,27 +121,27 @@ CREATE TABLE blog_comment_t (
     REFERENCES blog_t(blog_no) ON DELETE CASCADE
 );
 
-/************************* Æ®¸®°Å *************************/
+/************************* Æ®ï¿½ï¿½ï¿½ï¿½ *************************/
 /*
-  1. DML (INSERT, UPDATE, DELETE) ÀÛ¾÷ ÀÌÈÄ ÀÚµ¿À¸·Î ½ÇÇàµÇ´Â µ¥ÀÌÅÍº£ÀÌ½º °´Ã¼ÀÌ´Ù.
-  2. Çà (ROW) ´ÜÀ§·Î µ¿ÀÛÇÑ´Ù.
-  3. Á¾·ù
-    1) BEFORE : DML µ¿ÀÛ ÀÌÀü¿¡ ½ÇÇàµÇ´Â Æ®¸®°Å
-    2) AFTER  : DML µ¿ÀÛ ÀÌÈÄ¿¡ ½ÇÇàµÇ´Â Æ®¸®°Å
-  4. Çü½Ä
-    CREATE [OR REPLACE] TRIGGER Æ®¸®°Å¸í
+  1. DML (INSERT, UPDATE, DELETE) ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½Ã¼ï¿½Ì´ï¿½.
+  2. ï¿½ï¿½ (ROW) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+  3. ï¿½ï¿½ï¿½ï¿½
+    1) BEFORE : DML ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½
+    2) AFTER  : DML ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½
+  4. ï¿½ï¿½ï¿½ï¿½
+    CREATE [OR REPLACE] TRIGGER Æ®ï¿½ï¿½ï¿½Å¸ï¿½
     BEFORE | AFTER
     INSERT OR UPDATE OR DELETE
-    ON Å×ÀÌºí¸í
+    ON ï¿½ï¿½ï¿½Ìºï¿½ï¿½
     FOR EACH ROW
     BEGIN
-      Æ®¸®°Åº»¹®
+      Æ®ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½
     END;
 */
 
 /*
-  user_t Å×ÀÌºí¿¡¼­ »èÁ¦µÈ È¸¿øÁ¤º¸¸¦ x_user_t Å×ÀÌºí¿¡ ÀÚµ¿À¸·Î »ðÀÔÇÏ´Â
-  x_trigger Æ®¸®°Å »ý¼ºÇÏ±â
+  user_t ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ x_user_t ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
+  x_trigger Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 */
 CREATE OR REPLACE TRIGGER x_trigger
   AFTER
@@ -155,5 +158,5 @@ BEGIN
     , :OLD.email
     , current_date
   );
-  -- COMMIT;  Æ®¸®°Å ³»¿¡¼­´Â ¿À·ù°¡ ÀÖÀ¸¸é ROLLBACK, ¾øÀ¸¸é COMMIT ÀÚµ¿ Ã³¸®
+  -- COMMIT;  Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ROLLBACK, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ COMMIT ï¿½Úµï¿½ Ã³ï¿½ï¿½
 END;

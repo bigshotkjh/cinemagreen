@@ -14,6 +14,7 @@
  .sections.section_snssignup .width_con .snssignup form{ position: relative; transform: translateX(42%); transition: inherit;}
  .title_con h6{ margin-top: 0;}
   input { border-radius: 4px; margin-top: 2px;}
+ .red{ border: 2px solid red;}
 </style>
 <!--@@@@@@@끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 
@@ -48,6 +49,10 @@
           <br>
           <div>
             <input type="text" name="mobile" id="mobile" value="${snsUser.mobile}" placeholder="휴대전화">
+            <h6></h6>
+          </div>
+          <div>
+            <input type="text" name="birthYear" id="birth_year" value = "${snsUser.birthYear}" placeholder="생년월일 8자리">
             <h6></h6>
           </div>
           <div>
@@ -109,7 +114,8 @@
 
 <script>
  
-  var mobileCheck = false;
+  var mobileCheck = false,
+      birthCheck = false;
   
 //mobile검사
   const fnMobileCheck = ()=>{
@@ -118,11 +124,9 @@
     var regMobile = /^010(-{0,1}[0-9]{4}){2}$/;
     if(regMobile.test(mobile.value)){
       $("#mobile").next("h6").html('핸드폰번호 확인되었습니다.' );
-      $(".submit").removeClass("dead-btn");
       mobileCheck = true;
     } else {
       $("#mobile").next("h6").html('010을 포함한 11자리 숫자로 입력해 주세요' );
-      $(".submit").addClass("dead-btn");
       mobileCheck = false;
     }
   }
@@ -130,9 +134,65 @@
   $(document).on("keyup","#mobile", evt=>{
     fnMobileCheck();
   })
+  
+//생년월일 입력 검사
+  
+  const fnBirthCheck = ()=>{
+    
+    const birthYear = document.getElementById('birth_year');
+    var regbirthYear = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+    if(regbirthYear.test(birthYear.value)){
+      $("#birth_year").next("h6").html('생년월일 확인되었습니다.' );
+      birthCheck = true;
+    } else {
+      $("#birth_year").next("h6").html('생년월일 8자리를 입력해 주세요 ex)20000101');
+      birthCheck = false;
+    }
+  }
+  
+  $(document).on("keyup","#birth_year", evt=>{
+    fnBirthCheck();
+  })
+  
+  
   window.onload = ()=>{
     fnMobileCheck();
+    fnBirthCheck();
+  }  
+//submit 버튼 활성화
+  const allCheck = ()=>{
+    if(mobileCheck == true && birthCheck == true){
+        $(".submit").removeClass("dead-btn");
+    }else{
+        $(".submit").addClass("dead-btn");
+    }
+    if(mobileCheck == false){
+      $("#mobile").addClass("red");
+    } else {
+      $("#mobile").removeClass("red");
+    }
+    if(birthCheck == false){
+      $("#birth_year").addClass("red");
+    } else {
+      $("#birth_year").removeClass("red");
+    }
   }
+  
+  
+  window.onload = ()=>{
+    fnMobileCheck();
+    fnBirthCheck();
+    allCheck();
+  }  
+  
+  $(document).on("keyup", evt=>{
+    allCheck();
+  });
+  
+  $(document).on("click", evt=>{
+    allCheck();
+  });
+  
   $(document).on("keypress", "#snssignup-form", evt=>{
     if (evt.which === 13) { // 13은 엔터 키 코드
         evt.preventDefault(); // 기본 동작 방지
