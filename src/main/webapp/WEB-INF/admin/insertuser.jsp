@@ -31,9 +31,13 @@
             <input type="password" id="pw2" placeholder="비밀번호 확인">
             <h6></h6>
           </div>
-          <div>
-            <input type="text" name="name" id="name" placeholder="이름">
-          </div>
+		  <div>
+		    <input type="text" name="name" id="name" placeholder="이름">
+		  </div>
+		  <div>
+		    <input type="text" name="birthYear" id="birth_year" placeholder="생년월일 8자리">
+		  </div>
+		  
           <br>
           <div>
             <input type="radio" name="gender" value="none" id="none" checked>
@@ -61,12 +65,12 @@
             <button type="submit" id="submit" class="submit dead-btn">추가하기</button>
             <button type="button" onclick="history.back()">취소하기</button>
           </div>
-              
         </form>
-
       </div>
     </div>
   </div>
+  
+  
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
@@ -107,135 +111,25 @@
 </script>
 
 <script>
- 
-  var emailCodeCheck = false,
-  	  passwordCheck = false,
-  	  mobileCheck = false;
   
-  const fnEmailCheck = ()=>{
-    
-    const email = document.getElementById('email');
-    
-    $.ajax({
-      type: 'get',
-      url: '/user/sendCode.do',
-      data: 'email=' + email.value,
-      dataType: 'json'
-    }).done(resData=>{
-      const code = document.getElementById('code-div');
-      code.innerHTML = '<input type="text" id="code" value="' + resData.code + '">';
-      console.log(resData);
-    }).fail(jqXHR=>{
-      console.log(jqXHR);
-    })
-    
-  }
 
-  document.getElementById('get-code-btn').addEventListener('click', evt=>{
-    fnEmailCheck();
-  })
-
-
-
-  $(document).on("click","#code-check-btn",evt=>{
-    fnCodeCheck();
-  })
   
-  
-//password검사
-
-  const fnPasswordCheck = ()=>{
+  const fnBirthCheck = ()=>{
     
-    const pw = document.getElementById('pw');
-    const pw_v = pw.value;
-    const pw2 = document.getElementById('pw2');
-    const pw2_v = pw2.value;
-    
-    if(pw_v == ""){ 
-      $("#pw").next("h6").html('비밀번호를 입력해주세요.');
-  	}
-      if(pw2_v == ""){
-        $("#pw2").next("h6").html('확인을 위해 비밀번호는 한번 더 입력해주세요.');
-      }else{
-        if(pw_v == pw2_v){
-          $("#pw2").next("h6").html('비밀번호가 일치합니다.');
-          passwordCheck = true;
-        }else{
-          $("#pw2").next("h6").html('확인을 위해 비밀번호는 한번 더 입력해주세요.');
-          passwordCheck = false;
-        }    
-      }                                 
-   	}
-  	}
-  }
-  
-  $(document).on("keyup","#pw, #pw2",evt=>{
-    fnPasswordCheck();
-  })
-  
-//mobile검사
-  const fnMobileCheck = ()=>{
-    
-    const mobile = document.getElementById('mobile');
-    if(regMobile.test(mobile.value)){
-      mobileCheck = true;
-    }
+    const birthYear = document.getElementById('birth_year');
+    var regbirthYear = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+    if(regbirthYear.test(birthYear.value)){
+      $("#birth_year").next("h6").html('생년월일 확인되었습니다.' );
+      birthCheck = true;
+    } else {
+      $("#birth_year").next("h6").html('생년월일 8자리를 입력해 주세요 ex)20000101');
+      birthCheck = false;
     }
   }
-  
-  $(document).on("keyup","#mobile", evt=>{
-    fnMobileCheck();
+
+  $(document).on("keyup","#birth_year", evt=>{
+    fnBirthCheck();
   })
- 
-  //submit 버튼 활성화
-  const allCheck = ()=>{
-    if(mobileCheck == true && passwordCheck == true && emailCodeCheck == true){
-        $(".submit").removeClass("dead-btn");
-    }else{
-        $(".submit").addClass("dead-btn");
-    }
-  }
-  
-  $(document).on("keyup", "#pw, #mobile, #pw2", evt=>{
-    allCheck();
-  });
-  
-  $(document).on("click", "#code-check-btn", evt=>{
-    allCheck();
-  });
-  
-
-  */
-  
-  $(document).on("keypress", "#signup-form", evt=>{
-    if (evt.which === 13) { // 13은 엔터 키 코드
-        evt.preventDefault(); // 기본 동작 방지
-    }
-  });
-  
-
-//아이디 중복 검사 ajax
-  const overlapCheck = () => {
-    $.ajax({
-      type: 'post',
-      url: '${contextPath}/user/overlapcheck.do',
-      data: $('#signup-form').serialize(),
-      dataType: 'json'
-    }).done(resData => {
-      if (resData.isSuccess) {
-        alert('중복되는 이메일이 존재합니다.');
-      } else {
-        alert('사용할 수 있는 이메일 입니다.');
-      }
-    }).fail(jqXHR => {
-      alert(jqXHR.status);
-    });
-  }
-  
-  
-  $('#overlap-check').on('click', () =>{
-    overlapCheck();
-  });
 
 </script>
 

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.min.cinemagreen.mapper.IMovieMapper">
+
+  <insert id="insertMovie" parameterType="MovieDTO">
+    <selectKey order="BEFORE" keyProperty="movieNo" resultType="int">
+      SELECT movie_seq.NEXTVAL FROM dual
+    </selectKey>
+    INSERT INTO movie_t (
+        movie_no
+      , movie_cd
+      , movie_nm
+      , audi_acc
+      , sales_acc
+      , open_dt
+    ) VALUES (
+        #{movieNo}
+      , #{movieCd}
+      , #{movieNm}
+      , #{audiAcc}
+      , #{salesAcc}
+      , #{openDt}
+    )
+  </insert>
+  
+  <update id="updateMovieInfo" parameterType="MovieDTO">
+    UPDATE movie_t
+       SET title_eng = #{titleEng}
+         , title_org = #{titleOrg}
+         , plot = #{plot}
+         , runtime = #{runtime}
+         , rating = #{rating}
+         , keywords = #{keywords}
+         , genres = #{genres}
+         , still_urls = #{stillUrls}
+         , poster_urls = #{posterUrls}
+     WHERE movie_cd = #{movieCd}
+  </update>
+  
+  <update id="updateMovieAcc" parameterType="MovieDTO">
+    UPDATE movie_t
+       SET audi_acc = #{audiAcc}
+         , sales_acc = #{salesAcc}
+     WHERE movie_cd = #{movieCd}
+  </update>
+  
+  <insert id="insertDirector" parameterType="DirectorDTO">
+    INSERT INTO director_t (
+        director_id
+      , director_nm
+      , director_en_nm
+    ) VALUES (
+        #{directorId}
+      , #{directorNm}
+      , #{directorEnNm}
+    )
+  </insert>
+  
+  <insert id="insertMovieDirector" parameterType="Map">
+    INSERT INTO movie_director_match_t (
+        mdm_no
+      , movie_no
+      , director_id
+    ) VALUES (
+        mdm_seq.NEXTVAL
+      , #{movieNo}
+      , #{directorId}
+    )
+  </insert>
+  
+  <insert id="insertActor" parameterType="ActorDTO">
+    INSERT INTO actor_t (
+        actor_id
+      , actor_nm
+      , actor_en_nm
+    ) VALUES (
+        #{actorId}
+      , #{actorNm}
+      , #{actorEnNm}
+    )
+  </insert>
+  
+  <insert id="insertMovieActor" parameterType="Map">
+    INSERT INTO movie_actor_match_t (
+        mam_no
+      , movie_no
+      , actor_id
+    ) VALUES (
+        mam_seq.NEXTVAL
+      , #{movieNo}
+      , #{actorId}
+    )
+  </insert>
+  
+  <select id="getBoxOfficeList" parameterType="List" resultType="MovieDTO">
+    SELECT movie_no, movie_cd, movie_nm, audi_acc, sales_acc, open_dt, title_eng, title_org, plot, runtime, rating, genres, keywords, still_urls, poster_urls
+      FROM movie_t
+    <where>
+      <foreach item="movieNo" collection="list" open="movie_no IN (" separator="," close=")">
+        #{movieNo}
+      </foreach>
+    </where>
+  </select>
+  
+  <select id="getMovieByNo" parameterType="int" resultType="MovieDTO">
+    SELECT movie_no, movie_cd, movie_nm, audi_acc, sales_acc, open_dt, title_eng, title_org, plot, runtime, rating, genres, keywords, still_urls, poster_urls
+      FROM movie_t
+     WHERE movie_no = #{movieNo}
+  </select>
+  
+</mapper>

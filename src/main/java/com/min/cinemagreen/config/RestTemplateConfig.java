@@ -1,8 +1,11 @@
-package com.min.cinemagreen.openai;
+package com.min.cinemagreen.config;
 
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Qualifier;
 // import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.web.client.RestTemplate;
 
 /* RestTemplate
@@ -16,20 +19,30 @@ import org.springframework.web.client.RestTemplate;
  *   4) DELETE : delete()
  * 4. 앞으로는 WebClient로 대체될 예정  */
 
+@MapperScan(basePackages = {"com.min.cinemagreen.mapper"})
 @Configuration
-public class OpenAIRestTemplateConfig {
+public class RestTemplateConfig {
 
   // 현재는 시스템 변수로 OPENAI_API_KEY 값을 활용. 향후 docker 환경 변수로 수정하고 아래 코드로 대체해야 함
   // @Value("${openai.api.key}")
   private String openaiApiKey = System.getenv("OPENAI_API_KEY");  // 환경 변수 OPENAI_API_KEY 등록할 것(사용자 변수 말고, 시스템 변수로 등록)
-
+  
+  @Primary
   @Bean
+  @Qualifier("openaiRestTemplate")
   RestTemplate openaiRestTemplate() {
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.getInterceptors().add((request, body, execution) -> {
       request.getHeaders().add("Authorization", "Bearer " + openaiApiKey);
       return execution.execute(request, body);
     });
+    return restTemplate;
+  }
+  
+  @Bean
+  @Qualifier("movieApiRestTemplate")
+  RestTemplate movieApiRestTemplate() {
+    RestTemplate restTemplate = new RestTemplate();
     return restTemplate;
   }
   

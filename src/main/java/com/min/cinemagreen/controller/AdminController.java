@@ -64,7 +64,7 @@ public class AdminController {
     }
 
     
-    @GetMapping(value = "/insertuser.do")
+    @GetMapping(value = "/insertuser.page")
     public String insertuserPage() {
         return "admin/insertuser"; // 사용자 추가 페이지로 이동
     }
@@ -74,6 +74,14 @@ public class AdminController {
         UserInfoDTO user = userInfoService.getUserById(userNo);
         return ResponseEntity.ok(user);
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 }

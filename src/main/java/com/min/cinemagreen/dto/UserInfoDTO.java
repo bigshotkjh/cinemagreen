@@ -12,17 +12,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class UserInfoDTO {
-  private int userNo;
-  private String email;
-  private String pw;
-  private String name;
-  private String gender;
-  private String mobile;
-  private int sns;
-  private Date pwModifyDt;
-  private Date signupDt;
-  private String postcode;
-  private String address;
-  private String detailAddress;
-  private String extraAddress;
+	  private int userNo;
+	  private String email;
+	  private String pw;
+	  private String name;
+	  private String gender;
+	  private String mobile;
+	  private String grade;
+	  private int sns;
+	  private Date pwModifyDt;
+	  private Date signupDt;
+	  private String birthYear;
+	  private int age;
+	  private String postcode;
+	  private String address;
+	  private String detailAddress;
+	  private String extraAddress;
 }

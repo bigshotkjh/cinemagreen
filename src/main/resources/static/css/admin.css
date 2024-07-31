@@ -104,6 +104,28 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+#modalEmailInput {
+    width: 300px; /* 원하는 길이로 설정 */
+}
+#modalName {
+	width: 300px; /* 원하는 길이로 설정 */
+}
+#modalMobile {
+	width: 300px; /* 원하는 길이로 설정 */
+}
+#modalPostcode {
+	width: 300px; /* 원하는 길이로 설정 */
+}
+#modalAddress {
+	width: 300px; /* 원하는 길이로 설정 */
+}
+#modalExtraAddress {
+	width: 300px; /* 원하는 길이로 설정 */
+}
+#modalDetailAddress {
+	width: 300px; /* 원하는 길이로 설정 */
+}
+
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -789,7 +811,7 @@ progress {
 }
 
 .offset-1 {
-  margin-left: 8.33333333%;
+  margin-left: 8.33333333/2%;
 }
 
 .offset-2 {
@@ -5251,7 +5273,7 @@ textarea.form-control-lg {
 
 .modal {
   --bs-modal-zindex: 1055;
-  --bs-modal-width: 500px;
+  --bs-modal-width: 1000px;
   --bs-modal-padding: 1rem;
   --bs-modal-margin: 0.5rem;
   --bs-modal-color: ;

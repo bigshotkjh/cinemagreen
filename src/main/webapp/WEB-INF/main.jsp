@@ -8,21 +8,8 @@
   <jsp:param value="홈" name="title"/>
 </jsp:include>
 
-<h1></h1>
-
-<h1>현재 상영중인 영화</h1>
-<div class="movie-chart">
-    <c:forEach var="movie" items="${movies}">
-        <div class="movie">
-            <img src="http://image.tmdb.org/t/p/original${movie.poster_path}" alt="${movie.title} 포스터">
-            <div class="overlay">
-                <p>${movie.overview}</p>
-            </div>
-            <h2>${movie.title}</h2>
-        </div>
-    </c:forEach>
-</div>
-
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <style>
     .movie-chart {
         display: flex;
@@ -33,6 +20,7 @@
         text-align: center;
         position: relative;
         width: 200px;
+        cursor: pointer;
     }
     .movie img {
         width: 100%;
@@ -63,5 +51,48 @@
         opacity: 1;
     }
 </style>
+</head>
+<body>
+
+<h1>일일박스오피스</h1>
+<div id="movie-chart" class="movie-chart"></div>
+
+<script>
+
+  const getDailyBoxOfficeList = () => {    
+    $.ajax({
+      type: 'get',
+      url: '${contextPath}/movie/boxOfficeList.do',
+      dataType: 'json'
+    })
+    .done(resData => {
+      const movieChart = $('#movie-chart');
+      movieChart.empty();
+      resData.forEach(boxOffice => {
+        let movie = '<div class="movie" data-movie-no="' + boxOffice.movieNo + '">';
+        movie += '<img src="'+ boxOffice.posterUrls.substring(0, boxOffice.posterUrls.indexOf('|')) +'" alter="' + boxOffice.movieNm + ' 포스터">';
+        movie += '<div class="overlay">';
+        movie +=   '<p>' + boxOffice.plot + '</p>';
+        movie += '</div>';
+        movie += '<h2>' + boxOffice.movieNm + '</h2>';
+        movie += '</div>';
+        movieChart.append(movie);
+      })
+    })
+    .fail(jqXHR => {
+      alert(jqXHR.responseText);
+    })
+  }
+
+  const movieDetailPage = () => {
+    $(document).on('click', '.movie', event => {
+      location.href = '${contextPath}/movie/detail.do?movieNo=' + event.currentTarget.dataset.movieNo;
+    })
+  }
+  
+  getDailyBoxOfficeList();
+  movieDetailPage();
+  
+</script>
 
 <%@ include file="./layout/footer.jsp" %>

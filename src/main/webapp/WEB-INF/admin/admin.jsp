@@ -10,6 +10,10 @@
   <jsp:param value="CINEMAGREEN ADMIN" name="title"/>
 </jsp:include>
 
+
+
+
+
 <main>
   <div class="container-fluid px-4">
     <br>
@@ -37,50 +41,40 @@
         </div>
       </div>
     </div>
+
     <div class="card mb-4">
       <div class="card-header">
         <i class="fas fa-table me-1"></i>
-        회원목록
+        상영중인 영화 목록
       </div>
       <div class="card-body">
         <table id="datatablesSimple" class="table table-striped">
           <thead>
             <tr>
-			  <th>선택</th>
-		      <th>유저번호</th>
-              <th>이메일</th>
-              <th>이름</th>
-              <th>전화번호</th>
-              <th>가입일자</th>
+              <th>선택</th>
+              <th>영화번호</th>
+              <th>제목</th>
+              <th>상영등급</th>
+              <th>감독</th>
+              <th>개봉일자</th>
               <th>상세</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-			  <th>선택</th>
-			  <th>유저번호</th>
-              <th>이메일</th>
-              <th>이름</th>
-              <th>전화번호</th>
-              <th>가입일자</th>
-              <th>상세</th>
-            </tr>
-          </tfoot>
           <tbody>
             <c:forEach var="user" items="${userList}">
               <tr>
-				<td>
-				  <input type="checkbox" class="user-checkbox" data-userno="${user.userNo}">
-				</td>
-				<td>${user.userNo}</td>
+                <td>
+                  <input type="checkbox" class="user-checkbox" data-userno="${user.userNo}">
+                </td>
+                <td>${user.userNo}</td>
                 <td>${user.email}</td>
                 <td>${user.name}</td>
                 <td>${user.mobile}</td>
                 <td>${user.signupDt}</td>
                 <td>
-                  <button class="btn btn-Success detail-btn" data-userno="${user.userNo}">
-					상세보기
-				  </button>
+                  <button class="btn btn-success detail-btn" data-userno="${user.userNo}">
+                    상세보기
+                  </button>
                 </td>
               </tr>
             </c:forEach>
@@ -88,8 +82,39 @@
         </table>
       </div>
     </div>
+	
+	
+	
+	
   </div>
 </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
   // 전체 선택 체크박스 기능
@@ -122,34 +147,31 @@
                   <input type="hidden" id="modalUserNo" name="userNo" value="">
                   <div>
                     <h5>이메일</h5>
-                    <input type="text" name="email" id="modalEmailInput" value="">
+					<input type="text" class="offset-1" name="email" id="modalEmailInput" value="">
                   </div>
                   <div>
                     <h5>이름</h5>
-                    <input type="text" name="name" id="modalName" value="">
+					<input type="text" class="offset-1" name="name" id="modalName" value="">
                   </div>
                   <div>
                     <h5>전화번호</h5>
-                    <input type="text" name="mobile" id="modalMobile" value="">
+					<input type="text" class="offset-1"  name="mobile" id="modalMobile" value="">
                   </div>
+				  <br>
                   <div>
-                    <h5>주소</h5>
-                    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-                    <input type="text" name="postcode" id="modalPostcode" value="">
-                    <input type="text" name="address" id="modalAddress" value=""><br>
-                    <input type="text" name="extraAddress" id="modalExtraAddress" value=""><br>
-                    <input type="text" name="detailAddress"id="modalDetailAddress" value=""> 
+                    <h5>주소<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"></h5>
+					<input type="text" class="offset-1" name="postcode" id="modalPostcode" value=""><br>
+					<input type="text" class="offset-1" name="address" id="modalAddress" value=""><br>
+                    <input type="text" class="offset-1" name="extraAddress" id="modalExtraAddress" value=""><br>
+                    <input type="text" class="offset-1" name="detailAddress"id="modalDetailAddress" value="">
                   </div>
                   <div>
                     <button type="submit" class="submit">개인정보 변경하기</button>
                   </div>
+				  <div>
+				    <button type="button" onclick="adminDeleteUser()">삭제하기</button>
+				  </div>
                 </form>
-                <div>
-                  <button type="button" onclick="adminPwChange()">비밀번호변경</button>
-                </div>
-                <div>
-                  <button type="button" onclick="adminDeleteUser()">삭제하기</button>
-                </div>
               </div>
             </div>
           </div>
