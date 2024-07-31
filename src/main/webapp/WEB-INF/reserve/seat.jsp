@@ -96,9 +96,31 @@
 				      			<%} %>
 				      				<br>
 				      				<%= i == 3 ? "<br/><p class='typeA'>" : "" %>
+				      				<%= i == 4 ? "</p>" : "" %>
 			      			<%} %>
 				      </div>
-				       <div id="chk_seat" class="-active" style="margin-left:20px;"></div>
+				       
+				       <div class="seatInfo"> 
+				       <div id="chk_seat" class="-active" ></div>
+					       	<ul class="">
+					       		
+					       		<li class="">
+					       			<span class="typeB-mini"></span>
+					       			<span>선택가능</span>
+					       			
+					       		</li>
+					       		<li class="">
+					       			<span class="typeA-mini"></span>
+					       			<span>장애인 석</span>
+					       		</li>
+					       		<li class="">
+					       			<span class="typeC-mini"></span>
+					       			<span>선택불가</span>
+					       		</li>
+					       		
+					       	</ul>
+				       		
+				       </div>
 				    </div>
 				   
 				    <div class="pay_area">

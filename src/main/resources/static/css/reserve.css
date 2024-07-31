@@ -47,7 +47,17 @@ p{padding:0; margin:0;}
 .-active{ display:none;}
 .red{color:red;}
 
+.typeA input[type="checkbox"]:disabled + label{border: 2px solid #beb7a4!important;}
+.typeA input[type="checkbox"] + label{border: 2px solid #fcb900!important; }
+.typeA input[type="checkbox"]:checked + label{ background:#fcb900!important;}
 
+.seatInfo{margin-left: 30px; margin-top: 26px; display: flex; flex-direction: column; justify-content: flex-end;}
+.seatInfo .typeA-mini{display: inline-block; width: 20px; height: 20px !important; border: 2px solid #fcb900; color: #fff; cursor: pointer; border-radius: 2px; text-align: center; margin: 1px; vertical-align: middle;}
+.seatInfo .typeC-mini{position:relative; display: inline-block; width: 20px; height: 20px !important; border: 2px solid #888; color: #fff; background: #888;cursor: pointer; border-radius: 2px; text-align: center; margin: 1px; vertical-align: middle;}
+.seatInfo .typeB-mini{display: inline-block; width: 20px; height: 20px !important; border: 2px solid #149b85; color: #fff; cursor: pointer; border-radius: 2px; text-align: center; margin: 1px; vertical-align: middle;}
+.seatInfo #chk_seat {margin-bottom:20px;}
+span.typeC-mini:before {position:absolute; top:-2px; left:1px;
+    content: '×'}
 
 .rsv_seat .list{ margin-bottom: 10px;}
 .rsv_seat input[type=radio].custom{ display: none; }
