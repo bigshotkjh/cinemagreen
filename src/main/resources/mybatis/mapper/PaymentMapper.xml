@@ -8,24 +8,37 @@
   <insert id="payInsert" parameterType="map">
     INSERT INTO payment_t (
        pay_id,
+       user_no,
+       ticketing_no,
+       pay_method,
        amount,
        pay_dt,
-       ticket_no
+       pay_state,
+       cancel_dt,
+       cancel_status
     ) VALUES (
        #{payId},
+       #{userNo},
+       #{ticketNo},
+       #{payMethod},
        #{amount},
        CURRENT_DATE,
-       #{ticketNo}
+       #{payState},
+       CURRENT_DATE,
+       #{cancelStatus}
        
     )
   </insert>
   <select id="getPayInfo"  resultType="PaymentDTO">
     SELECT pay_id,
        user_no,
+       ticketing_no,
+       pay_method,
        amount,
-       ticket_no,
        pay_dt,
-       pay_state           
+       pay_state,
+       cancel_dt,
+       cancel_status           
       FROM payment_t 
       WHERE pay_id = #{payId} 
 

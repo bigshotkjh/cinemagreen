@@ -18,13 +18,12 @@
 		      </div>
 		      
 		     	<div class="list_body ">
+		     		예매자명 : ${loginUser.name}<br>
 						결제번호 : ${payment.payId}<br>
 						결제금액 : ${payment.amount}<br>
 						티켓번호 : ${payment.ticketNo}<br>
-						티켓번호 : <br>
 						영화정보 : <br>
 						선택좌석 :  
-						
 
 					</div>
 					<button onclick="location.href='${contextPath}/'" type="button" id=""  class="c-btn c-cblue" style="margin-top:15px;">마이페이지</button>
@@ -35,6 +34,8 @@
 <script>
 	
 //const canclePay = document.getElementById('canclePay');
+
+// 취소처리 작업 보류 ==
 function canclePay() {
 	
 	if(confirm('취소 처리를 진행하시겠습니까?')){
@@ -47,8 +48,13 @@ function canclePay() {
 	        "cancel_request_amount": "${payment.amount}", // 환불금액
 	        "reason": "테스트 결제 환불" // 환불사유,
 	      }),
-      dataType: "json"
-		})
+      dataType: "json",
+    	  success: function() {
+    		 	
+    	  }
+		}).fail(function(){
+			 alert('서비스 기능 보류 ..');
+		 })
 	}
 }
 

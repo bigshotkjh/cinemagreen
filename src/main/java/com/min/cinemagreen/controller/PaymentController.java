@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.cinemagreen.dto.PaymentDTO;
+import com.min.cinemagreen.dto.UserDTO;
 import com.min.cinemagreen.service.IPaymentService;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -61,17 +62,14 @@ public class PaymentController {
     @PostMapping("completeInsert")
     public int savePaymentInfo( @RequestBody Map<String,Object> pay, HttpSession session,Model model) throws IOException {
     // String token = paymentService.getToken();
-    log.info("map : {}" ,pay);
-    int result = paymentService.payInsert(pay);
-//     UserDTO userDTO = (UserDTO) session.getAttribute("loginUser");
-//     if(userDTO != null) {
-//       userNo = userDTO.getUserNo();
-//     }
-//     pay.put("userNo", userNo);
+      log.info("map : {}" ,pay);
+      UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+      pay.put("userNo", loginUser.getUserNo());
+      int result = paymentService.payInsert(pay);
       return result;
     }
-    
-    
+      
+      
     
     @GetMapping(value = "complete/{payId}")
     public String getPaymentInfo(@PathVariable String payId, Model model) {
@@ -79,7 +77,9 @@ public class PaymentController {
       model.addAttribute("payment", payment);
       return "/payment/complete";
     }
-    /*
+    
+    /* 
+    // complete 임시 ..
     @GetMapping("complete")
     public String getPaymentInfo( @RequestParam String payId, Model model) throws IOException {
       //List<PaymentDTO> payList = paymentService.paySelect(payId); 

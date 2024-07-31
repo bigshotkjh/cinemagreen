@@ -5,7 +5,7 @@ p{padding:0; margin:0;}
 .width_con{ padding: var(--mrgn-half); }
 .reserve_wrap .box_con{ width:33%; height:600px; background:#fff; vertical-align: top; display: inline-block; padding:15px;}
 .reserve_wrap .box_con:nth-child(3){ width: 23%; }
-.reserve_wrap .box_con.rsv_seat:nth-child(3){ width: 66%; }
+.reserve_wrap .box_con.rsv_seat:nth-child(2){ width: 66%; }
 .reserve_wrap .box_con:nth-child(4){ width: 43%; }
 .title{ font-size:22px; font-weight:600;}
 .scroll_inner{ overflow-y: scroll;}
@@ -54,12 +54,12 @@ p{padding:0; margin:0;}
 .rsv_seat input[type=radio].custom+label { width: 25px; height: 25px; margin-right: 10px; text-align: center; border-radius: 3px; border: 1px solid #ddd; vertical-align: middle; line-height: 1.6; cursor: pointer;}
 .rsv_seat input[type=radio].custom:checked+label{ background: #bbb;}
 
-#paymoney    {outline: none; width: 50px; border: 0; cursor: default;  }
+#paymoney {outline: none; width: 50px; border: 0; cursor: default;  }
 
 .rsv_seat .pay_area{ margin-top:var(--mrgn-half)}
 .rsv_seat .seat_area span { width: 25px; height: 25px; display: inline-block; text-align: center; vertical-align: middle; margin: 1px; }
-.rsv_seat .seat_area span:first-child { margin-left: 30px; }
+.rsv_seat .seat_area > span:first-child { margin-left: 30px; }
 .rsv_seat .seat_area input[type="checkbox"] {display: none; }
-.rsv_seat .seat_area input[type="checkbox"] + label {display: inline-block; width:25px; height: 25px !important;  border: 2px solid #12b886; color:#fff; cursor: pointer; border-radius: 2px; text-align:center; margin :1px;}
-.rsv_seat .seat_area input[type="checkbox"]:checked + label {background:#12b886;}
+.rsv_seat .seat_area input[type="checkbox"] + label {display: inline-block; width:25px; height: 25px !important;  border: 2px solid #149b85; color:#fff; cursor: pointer; border-radius: 2px; text-align:center; margin :1px;}
+.rsv_seat .seat_area input[type="checkbox"]:checked + label {background:#149b85;}
 .rsv_seat .seat_area input[type="checkbox"]:disabled + label{border:2px solid #a8bbb6; cursor: default;}
