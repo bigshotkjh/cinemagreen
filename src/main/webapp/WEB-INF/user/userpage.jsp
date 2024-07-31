@@ -15,6 +15,8 @@
  .title_con h6{ margin-top: 0;}
   input { border-radius: 4px; margin-top: 2px;}
  .red{ border: 2px solid red;}
+ #blog-list{ border: 2px solid green;   margin-right: 1000px; }
+ .blog{ border: 2px solid black;}
 </style>
 <!--
  가져와 표시할 것 들
@@ -81,13 +83,9 @@
           <div>
             <button type="button" onclick="leaveUser()">탈퇴하기</button>
           </div><br>
-       
-          <div>
-            <button type="button" onclick="getBlogList()">내가 쓴 blog</button>
-          </div>
 <!-- 블로그 -->
+          <div id="blog-list"></div><br>
           <div id="paging"></div>
-          <div id="blog-list"></div>
 <!-- 블로그 -->
           
     </div>
@@ -101,6 +99,7 @@
  
 <script>
 //블로그 가져오기
+
   var page = 1;
   
   const paging = (p)=>{
@@ -115,31 +114,23 @@
       data: 'page=' + page,
       dataType: 'json'
     }).done(resData=>{  // {"blogList": [{}, {}, ...], "paging": "< 1 2 3 4 5 6 7 8 9 10 >"} 
-      alert("done도착");
       const blogList = document.getElementById('blog-list');
       const paging = document.getElementById('paging');
       if(resData.blogList.length === 0){
-        alert("블로그없는거 도착");
         blogList.innerHTML = '<div>등록된 블로그가 없습니다.</div>';
         paging.innerHTML = '';
         return;
       }
-      alert("블로그는 있어.");
       paging.innerHTML = resData.paging;
       blogList.innerHTML = '';
       for(const blog of resData.blogList){
-        let str = '<div class="blog" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
-        str += '<div>' + blog.name + '</div>';
-        str += '<div>' + blog.title + '</div>';
-        str += '<div>' + blog.hit + '</div>';
-        str += '<div>' + blog.createDt + '</div>';
-        str += '</div>';
+        let str =  '<div class="blog" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
+            str +=   '<div> 제목 : ' + blog.title + ' /Hit : ' + blog.hit + ' /Date : '  + blog.createDt + '</div>';
+            str += '</div>';
         blogList.innerHTML += str;
       }
     })
-    /*alert("done실패?");*/
   }
-  
   getBlogList();
 
 //sns로그인유저 비밀번호변경 버튼 숨기기
@@ -250,32 +241,7 @@
     fnMobileCheck();
     fnBirthCheck();
     fnAllCheck();
-  }  
-  
-
-/* 헤더에 이름 안바뀌는 사유로 봉인.
-//ajax
-  const fnUpdateInf = () => {
-    $.ajax({
-      type: 'post',
-      url: '${contextPath}/user/updateInf.do',
-      data: $('#user-info-form').serialize(),
-      dataType: 'json'
-    }).done(resData => {
-      if (resData.isSuccess) {
-        alert('정보 변경 성공');
-      } else {
-        alert('정보 등록 실패');
-      }
-    }).fail(jqXHR => {
-      alert(jqXHR.status);
-    });
-  }
-  
-  $('#submitbtn').on('click', evt=>{
-    fnUpdateInf();
-  })
-  */
+  } 
   
 //탈퇴
   const leaveUser = () => {
@@ -285,8 +251,6 @@
      location.href = "${contextPath}/user/leave.do";
     }
   };
-  
-//////////////////////////////////////////////////////////////////////  
   
 //비밀번호변경 메세지
   if('${pwchangeMessage}' !== ''){

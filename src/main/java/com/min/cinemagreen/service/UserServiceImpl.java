@@ -72,7 +72,8 @@ public class UserServiceImpl implements IUserService {
     // 이름 크로스 사이트 스크립팅 처리
     user.setName( securityUtils.preventXss(user.getName()) );
 //하이픈 제거
-    user.setMobile(removehypen(user));
+    String mobile = user.getMobile();
+    user.setMobile(mobile.replace("-", ""));
 //나이계산
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
     LocalDate birthDate = LocalDate.parse(user.getBirthYear(), formatter);
@@ -81,13 +82,7 @@ public class UserServiceImpl implements IUserService {
     user.setAge(age);
     return userMapper.insertUser(user);
   }
- //하이픈 제거//////// 
-  @Override
-  public String removehypen(UserDTO user) {
-
-    String mobile = user.getMobile();
-    return mobile.replace("-", "");
-  }
+  
   
   @Override
   public ResponseEntity<Map<String, Object>> signin(HttpServletRequest request) {
@@ -117,7 +112,7 @@ public class UserServiceImpl implements IUserService {
       params.put("sessionId", sessionId);
       
       userMapper.insertAccess(params);
-    //나이계산
+//나이계산
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
       LocalDate birthDate = LocalDate.parse(loginUser.getBirthYear(), formatter);
       LocalDate currentDate = LocalDate.now();
@@ -130,7 +125,7 @@ public class UserServiceImpl implements IUserService {
       }else {
         admin = 0;
       }
-/////90일 비밀번호/////////////////////////////////////////////////////////////
+//90일 비밀번호
       Calendar calendar = Calendar.getInstance();
       long currentTimeMillis = System.currentTimeMillis();
       Date today = new Date(currentTimeMillis);
@@ -314,7 +309,7 @@ public class UserServiceImpl implements IUserService {
         }
         in.close();
 
-        // 응답 처리
+     // 응답 처리
         System.out.println("Response Code: " + responseCode);
         System.out.println("Response: " + response.toString());
         
@@ -327,7 +322,7 @@ public class UserServiceImpl implements IUserService {
         String birthday = userInfObj.getString("birthday");
         String birthYear = userInfObj.getString("birthyear") + birthday;
         String name = userInfObj.getString("name");
-//생년월일과 모바일 하이픈 청소
+        //모바일과 생년월일 정리
         String cleanBirthYear = birthYear.replace("-", "");
         String mobile = userInfObj.getString("mobile");
         String cleanNumber = mobile.replace("-", "");
@@ -351,8 +346,7 @@ public class UserServiceImpl implements IUserService {
           LocalDate currentDate = LocalDate.now();
           int age = Period.between(birthDate, currentDate).getYears();
           snsUser.setAge(age);
-          int agersulte = userMapper.ageUpdate(snsUser);
-          System.out.println("나이변경 성공????" + agersulte);
+          userMapper.ageUpdate(snsUser);
           session.setAttribute("loginUser", snsUser);
         //접속기록
           String ip = request.getRemoteAddr();
@@ -367,10 +361,9 @@ public class UserServiceImpl implements IUserService {
           resultUrl = "/main.do";
 
         } else {
-          /*가입정보를 더받자.*/
+          /* 부족한 가입정보를 더 받자.*/
           session.setAttribute("snsUser", user);
           resultUrl = "/user/snssignup.page";
-          /*userMapper.insertSnsUser(user);*/
         }
         
     } catch (Exception e) {
@@ -421,14 +414,19 @@ public class UserServiceImpl implements IUserService {
     if(loginUser == null)  // 세션 만료 대비
       return null;
     int userNo = loginUser.getUserNo();
-    ///////////////////////////////////////////////////////////////
     int page = 1;
-    /*page = Integer.parseInt(request.getParameter("page"));*///페이지를 받아왔네.
-    int display = 20; //한 페이지에 표시할 게시물 수
+    page = Integer.parseInt(request.getParameter("page"));//페이지를 받아왔네.
+    int display = 5; //한 페이지에 표시할 게시물 수
 //나중에 blogMapper로 바꾸기. 
     int total = userMapper.getBlogCount(userNo);//블로그 게시물 총수/ 맵퍼에 다녀와야해.
+    System.out.println("으아아아아아아아아아아아" );
+    System.out.println("total : " + total);
+    System.out.println("display : " + display);
+    System.out.println("page : " + page);
     pageUtils.setPaging(total, display, page);//페이징 정보를 설정
-    
+
+    System.out.println("비긴 : " + pageUtils.getBegin());
+    System.out.println("엔드 : " + pageUtils.getEnd());
     Map<String, Object> params = new HashMap<>();//페이징 처리에 필요한 파라미터를 담은 Map을 생성
     params.put("userNo", userNo);
     params.put("begin", pageUtils.getBegin());
@@ -437,7 +435,6 @@ public class UserServiceImpl implements IUserService {
     List<BlogDTO> blogList = userMapper.userGetBlogList(params); //블로그를 리스트형으로 받아오기.
     String paging = pageUtils.getAsyncPaging();//pageUtils를 사용하여 페이징 HTML 코드를 생성
     return ResponseEntity.ok(Map.of("blogList", blogList, "paging", paging)); //리스트랑 페이징 결과 담아서 보내.
-    /////////////////////////////////////////////////////////////////
 
   }
   

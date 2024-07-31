@@ -21,6 +21,7 @@
 <div class="wrap">
   <div class="sections section_signin">
     <div class="width_con">
+    <div class ="aaa">
       <div class="title_con white signin">
         <h4 class="title">Sign In</h4><br>
         <form id="signin-form">
@@ -53,6 +54,7 @@
           <!-- //네이버 로그인 버튼 노출 영역 -->
                       
         </form>
+      </div>
       </div>
     </div>
   </div>
