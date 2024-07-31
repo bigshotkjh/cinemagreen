@@ -1,4 +1,4 @@
-package com.min.cinemagreen.mapper;
+package com.min.cinemagreen.user.mapper;
 
 import java.util.List;
 import java.util.Map;

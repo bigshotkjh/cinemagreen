@@ -1,4 +1,4 @@
-package com.min.cinemagreen.controller;
+package com.min.cinemagreen.movie.controller;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.min.cinemagreen.dto.MovieDTO;
-import com.min.cinemagreen.service.IMovieService;
+import com.min.cinemagreen.movie.service.IMovieService;
 
 import lombok.RequiredArgsConstructor;
 

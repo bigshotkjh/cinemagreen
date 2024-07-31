@@ -1,4 +1,4 @@
-package com.min.cinemagreen.service;
+package com.min.cinemagreen.movie.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,9 +16,9 @@ import org.springframework.web.client.RestTemplate;
 import com.min.cinemagreen.dto.ActorDTO;
 import com.min.cinemagreen.dto.DirectorDTO;
 import com.min.cinemagreen.dto.MovieDTO;
+import com.min.cinemagreen.movie.mapper.IMovieMapper;
 import com.min.cinemagreen.api.DailyBoxOffice;
 import com.min.cinemagreen.api.DailyBoxOfficeApiResponse;
-import com.min.cinemagreen.mapper.IMovieMapper;
 
 import lombok.RequiredArgsConstructor;
 

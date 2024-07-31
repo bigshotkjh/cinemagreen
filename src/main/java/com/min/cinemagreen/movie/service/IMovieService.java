@@ -1,4 +1,4 @@
-package com.min.cinemagreen.service;
+package com.min.cinemagreen.movie.service;
 
 import java.util.List;
 

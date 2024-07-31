@@ -1,4 +1,4 @@
-package com.min.cinemagreen.service;
+package com.min.cinemagreen.user.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;

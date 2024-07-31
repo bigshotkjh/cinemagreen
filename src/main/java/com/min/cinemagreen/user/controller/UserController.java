@@ -1,4 +1,4 @@
-package com.min.cinemagreen.controller;
+package com.min.cinemagreen.user.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.min.cinemagreen.dto.UserDTO;
-import com.min.cinemagreen.service.IUserService;
+import com.min.cinemagreen.user.service.IUserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

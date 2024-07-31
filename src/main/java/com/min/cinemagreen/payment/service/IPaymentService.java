@@ -1,4 +1,4 @@
-package com.min.cinemagreen.service;
+package com.min.cinemagreen.payment.service;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.min.cinemagreen.service;
+package com.min.cinemagreen.payment.service;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.min.cinemagreen.dto.PaymentDTO;
-import com.min.cinemagreen.mapper.IPaymentMapper;
+import com.min.cinemagreen.payment.mapper.IPaymentMapper;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.request.CancelData;

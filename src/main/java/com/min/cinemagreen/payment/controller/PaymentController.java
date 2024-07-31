@@ -1,4 +1,4 @@
-package com.min.cinemagreen.controller;
+package com.min.cinemagreen.payment.controller;
 
 import java.io.IOException;
 import java.util.Map;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.cinemagreen.dto.PaymentDTO;
-import com.min.cinemagreen.service.IPaymentService;
+import com.min.cinemagreen.payment.service.IPaymentService;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.request.CancelData;

@@ -1,4 +1,4 @@
-package com.min.cinemagreen.service;
+package com.min.cinemagreen.user.service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.min.cinemagreen.dto.BlogDTO;
 import com.min.cinemagreen.dto.UserDTO;
-import com.min.cinemagreen.mapper.IUserMapper;
+import com.min.cinemagreen.user.mapper.IUserMapper;
 import com.min.cinemagreen.utils.MailUtils;
 import com.min.cinemagreen.utils.PageUtils;
 import com.min.cinemagreen.utils.SecurityUtils;

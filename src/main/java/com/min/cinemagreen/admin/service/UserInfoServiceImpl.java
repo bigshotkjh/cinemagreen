@@ -1,4 +1,4 @@
-package com.min.cinemagreen.service;
+package com.min.cinemagreen.admin.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,14 +7,15 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.min.cinemagreen.admin.mapper.IUserInfoMapper;
 import com.min.cinemagreen.dto.UserInfoDTO;
-import com.min.cinemagreen.mapper.IUserInfoMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-@Service
+@Transactional
 @RequiredArgsConstructor
+@Service
 public class UserInfoServiceImpl implements IUserInfoService {
 
     private final IUserInfoMapper userInfoMapper;

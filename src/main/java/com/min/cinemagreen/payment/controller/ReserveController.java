@@ -1,4 +1,4 @@
-package com.min.cinemagreen.controller;
+package com.min.cinemagreen.payment.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

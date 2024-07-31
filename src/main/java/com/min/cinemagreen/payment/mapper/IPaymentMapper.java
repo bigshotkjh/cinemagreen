@@ -1,4 +1,4 @@
-package com.min.cinemagreen.mapper;
+package com.min.cinemagreen.payment.mapper;
 
 import java.util.Map;
 

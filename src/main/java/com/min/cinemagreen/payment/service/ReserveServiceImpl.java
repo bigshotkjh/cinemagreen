@@ -1,4 +1,4 @@
-package com.min.cinemagreen.service;
+package com.min.cinemagreen.payment.service;
 
 import com.min.cinemagreen.dto.TicketDTO;
 
