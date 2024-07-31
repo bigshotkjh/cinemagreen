@@ -1,6 +1,7 @@
 package com.min.cinemagreen.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import com.min.cinemagreen.dto.PaymentDTO;
@@ -13,9 +14,9 @@ public interface IPaymentService {
   //IamportResponse<Payment> getPaymentInfo(String imp_uid, String paid_amount) throws IamportResponseException, IOException ;
   //int payInsert(String imp_uid);
   int payInsert(Map <String,Object> pay);
-  String getToken() throws IOException;
   IamportResponse<Payment> getPaymentInfo(String imp_uid, String token) throws IamportResponseException, IOException;
-  PaymentDTO getPayinfo(String imp_uid);
+  PaymentDTO getPayInfo(String payId);
+  String getToken(String apiKey, String secretKey) throws IOException;
 
 
 }

@@ -12,7 +12,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -29,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
 @Service
 public class PaymentServiceImpl implements IPaymentService {
 
@@ -52,7 +50,7 @@ public class PaymentServiceImpl implements IPaymentService {
 
  //토큰 생성
  @Override
- public String getToken() throws IOException {
+ public String getToken(String apiKey, String secretKey) throws IOException {
 
    HttpsURLConnection conn = null;
 
@@ -88,81 +86,64 @@ public class PaymentServiceImpl implements IPaymentService {
    br.close();
    conn.disconnect();
 
-   System.out.println(token);
+   log.info("토큰 발급 성공:" + token);
    return token;
  }
  
   
-  // 결제 정보 
-  @Override
-  public IamportResponse<Payment> getPaymentInfo(String imp_uid, String token) throws IamportResponseException, IOException{
-   IamportResponse<Payment> response = iamportClient.paymentByImpUid(imp_uid);
-   URL url = new URL("https://api.iamport.kr/users/getToken");
-   HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-
-   // 요청 방식 설정
-   conn.setRequestMethod("POST");
-
-   // 요청의 Content-Type, Accept, Authorization 헤더 설정
-   conn.setRequestProperty("Content-type", "application/json");
-   conn.setRequestProperty("Accept", "application/json");
-   conn.setRequestProperty("Authorization", token);
-   conn.setRequestProperty("Access-Control-Allow-Origin", "http://localhost:9090");
-
-   // 해당 연결을 출력 스트림(요청)으로 사용
-   conn.setDoOutput(true);
-   
-   // JSON 객체에 해당 API가 필요로하는 데이터 추가.
-   JsonObject json = new JsonObject();
-   json.addProperty("imp_uid", imp_uid);
-   
-   System.out.println(token);
-   return response;
-  }
-  
-//  //결제 정보 불러오기
-//  public String getPaymentInfo(String imp_uid, String access_token) throws IOException, ParseException {
-//    HttpsURLConnection conn = null;
+//  // 결제 정보 
+//  @Override
+//  public IamportResponse<Payment> getPaymentInfo(String imp_uid, String token) throws IamportResponseException, IOException{
+//   IamportResponse<Payment> response = iamportClient.paymentByImpUid(imp_uid);
+//   URL url = new URL("https://api.iamport.kr/users/getToken");
+//   HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 //
-//    URL url = new URL("https://api.iamport.kr/payments/" + imp_uid);
+//   // 요청 방식 설정
+//   conn.setRequestMethod("POST");
 //
-//    conn = (HttpsURLConnection) url.openConnection();
+//   // 요청의 Content-Type, Accept, Authorization 헤더 설정
+//   conn.setRequestProperty("Content-type", "application/json");
+//   conn.setRequestProperty("Accept", "application/json");
+//   conn.setRequestProperty("Authorization", token);
+//   conn.setRequestProperty("Access-Control-Allow-Origin", "http://localhost:9090");
 //
-//    conn.setRequestMethod("GET");
-//    conn.setRequestProperty("Authorization", access_token);
-//    conn.setDoOutput(true);
-//
-//    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
-//
-//    JSONParser parser = new JSONParser();
-//
-//    JSONObject p = (JSONObject) parser.parse(br.readLine());
-//    
-//    String response = p.get("response").toString();
-//    
-//    p = (JSONObject) parser.parse(response);
-//    
-//    String amount = p.get("amount").toString();
-//    return amount;
+//   // 해당 연결을 출력 스트림(요청)으로 사용
+//   conn.setDoOutput(true);
+//   
+//   // JSON 객체에 해당 API가 필요로하는 데이터 추가.
+//   JsonObject json = new JsonObject();
+//   json.addProperty("imp_uid", imp_uid);
+//   
+//   System.out.println(token);
+//   return response;
 //  }
+  
+
 
   // 결제 취소
   public void cancelPayment(String imp_uid) throws IamportResponseException, IOException {
-    
-   CancelData cancelData = new CancelData(imp_uid,true);
-   iamportClient.cancelPaymentByImpUid(cancelData);
+    String token = getToken(apiKey, secretKey);
+    CancelData cancelData = new CancelData(imp_uid, true);
+    iamportClient.cancelPaymentByImpUid(cancelData);
   }
 
 
   @Override
   public int payInsert(Map<String, Object> pay) {
-    return paymentMapper.insertPay(pay);
+    return paymentMapper.payInsert(pay);
   }
 
 
 
   @Override
-  public PaymentDTO getPayinfo(String imp_uid) {
+  public PaymentDTO getPayInfo(String payId) {
+    return paymentMapper.getPayInfo(payId);    
+  }
+
+
+  @Override
+  public IamportResponse<Payment> getPaymentInfo(String imp_uid, String token)
+      throws IamportResponseException, IOException {
     // TODO Auto-generated method stub
     return null;
   }
@@ -170,16 +151,4 @@ public class PaymentServiceImpl implements IPaymentService {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
 }

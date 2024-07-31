@@ -170,12 +170,12 @@ $(function() {
 		$("#reserve_modal").addClass('open');
 	})
 
-});
+	});
 
 function modalDel() {
 	$(".modal_bg").removeClass('open');
 	$("#reserve_modal").removeClass('open');
-  }
+	}
 
 
 const dataDate = new Date();

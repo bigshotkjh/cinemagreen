@@ -17,7 +17,7 @@
 		        <h5 class="sub_title line">인원선택 <span class="btm_txt">최대 4 까지 선택 가능</span></h5>
 		      </div>
 		     	<div class="list_body ">
-		     	 <!-- <form action="#" id="rsv_seat" method="post"> -->
+		     	 <form action="#" id="rsv_seat" method="post">
 		     			<!-- 일반  -->
 		     			<div class="t1">일반</div>
 	     				<div class="list">
@@ -74,7 +74,7 @@
                      <input type="text" id="paymoney" name="paymoney" value="0" readonly> 원입니다. -->
                 </div>
               </div>
-					<!-- </form>  -->
+						 </form>
 						</div>
 					</div>
 					
@@ -190,6 +190,9 @@
 					}
 				})
 				
+				// input[name='seat'].val() 
+				// id는 좌석번호 value 값이랑 같음 좌석번호 배열 저장 , 
+				
 
 				
 			}
@@ -247,25 +250,28 @@
 	              "amount": rsp.paid_amount, 
 	              "ticketNo" : rsp.merchant_uid
 	            } 
-		           if(rsp.paid_amount === data.response.amount){
+		           if(rsp.paid_amount === data.response.amount){// 결제검증
 		            	alert("결제를 완료하였습니다. 결제 완료페이지로 이동합니다.");
+		            	chkSeat().addClass
 		            	$.ajax({
 		              	type: 'POST',
 		                //dataType:"json",
-		                url: '/payment/complete',
+		                url: '/payment/completeInsert',
 		                contentType: "application/json",
 		                data: JSON.stringify(pay),
-		             	  success: function (rsp) {
-		               		console.log("결제정보 저장 완료1");
-		               		console.log(rsp);
-		              		location.href = "/payment/complete";
+		             	  success: function (result) {
+		               		console.log("결제정보 저장 완료");
+		               		console.log(result);
+		               		if(result == 1){
+		               			location.replace("/payment/complete/"+ rsp.imp_uid);
+		               		}else{
+		               			
+		               		}
+		              		
 		              	},
 		           	 		error:function(request, status, error){
 		            	 		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		           			}
-			           }).done(function(res) {
-			           	console.log(" 완료2");
-			            console.log(res);
 			           });
 		           } else {
 		               alert("결제를 실패하였습니다." + rsp.error_msg);

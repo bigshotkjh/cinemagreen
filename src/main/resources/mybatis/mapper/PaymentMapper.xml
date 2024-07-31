@@ -5,12 +5,12 @@
   
 <mapper namespace="com.min.cinemagreen.mapper.IPaymentMapper">
 
-  <insert id="insertPay" parameterType="map">
+  <insert id="payInsert" parameterType="map">
     INSERT INTO payment_t (
-       payId,
+       pay_id,
        amount,
-       payDt,
-       ticketNo
+       pay_dt,
+       ticket_no
     ) VALUES (
        #{payId},
        #{amount},
@@ -19,14 +19,15 @@
        
     )
   </insert>
-  <select id="getPayinfo"  resultType="PaymentDTO">
-    SELECT payId,
-       userNo,
+  <select id="getPayInfo"  resultType="PaymentDTO">
+    SELECT pay_id,
+       user_no,
        amount,
-       ticketNo,
-       payDt,
-       payState           
-      FROM payment_t
+       ticket_no,
+       pay_dt,
+       pay_state           
+      FROM payment_t 
+      WHERE pay_id = #{payId} 
 
   </select>
   

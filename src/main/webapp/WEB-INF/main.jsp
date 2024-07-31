@@ -8,7 +8,7 @@
   <jsp:param value="홈" name="title"/>
 </jsp:include>
 
-<h1>Welcome To My Home</h1>
+<h1></h1>
 
 <h1>현재 상영중인 영화</h1>
 <div class="movie-chart">

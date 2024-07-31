@@ -4,10 +4,13 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.min.cinemagreen.dto.PaymentDTO;
+
 @Mapper
 public interface IPaymentMapper {
-  int insertPay(Map <String,Object> pay);
-
   
-  //int deletePay(int payId);
+  int payInsert(Map<String, Object> pay);
+
+  PaymentDTO getPayInfo(String payId);
+  
 }

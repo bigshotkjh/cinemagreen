@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class SeatDTO {
-  private String seatNo;     // 좌석번호
-  private int seatRow;       // 좌석 열 
-  private int seatCol;       // 좌석 행 
+  private String seat_no;     // 좌석번호
+  private String seat_code;   // 좌석코드
 }
