@@ -75,7 +75,20 @@
           </div>
               
         </form><br>
-       
+   <!--프로필 변경 --> 
+        <div>    
+          <form id="profile-form">
+            <div>
+              <label class="profile-label" for="profile"><b>프로필 변경하기 : </label>
+              <input type="file" name="profile" id="profile" multiple="multiple">
+            </div>
+            <br>
+          </form>
+         
+            <div>
+              <button type="button" id="profile-upload" >프로필변경</button>
+            </div><br>
+        </div>
           <div>
             <button type="button" class="pw-button" onclick="location.href = '${contextPath}/user/pwchange.page'">비밀번호변경</button>
           </div><br>
@@ -98,6 +111,39 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  
 <script>
+//프로필 변경
+  const profileUpload = (file)=> {  // file: 추가한 이미지 (단일 파일)
+    alert("profile도착.");
+    // FormData 객체 생성
+    let formData = new FormData();  // <form>
+    
+    // FormData 객체에 이미지 저장하기
+    formData.append('file', file);   // <input name="file" type="file">
+    
+    // FormData 객체 처리
+    $.ajax({
+      // FormData 객체를 서버로 보내기 (이미지를 서버로 보내기)
+      type: 'post',
+      url: '${contextPath}/user/profileUpload.do',
+      data: formData,
+      contentType: false,  // Content-Type 헤더 값 생성 방지
+      processData: false,  // 객체를 보내는 경우 해당 객체를 {property: value} 형식의 문자열로 자동으로 변환해서 보내는 것을 방지
+      // 서버가 저장한 이미지의 경로와 이름을 반환 받기
+      dataType: 'json'
+    }).done(resData => {  // resData == {url: '/경로/파일명'}
+      // summernote 편집기에 이미지 표시하기
+      //$('#contents').summernote('insertImage', resData.url);
+      alert("성공");
+    }).fail(jqXHR => {
+      alert("실패");
+      alert(jqXHR.status);
+    });
+  }
+  
+  
+  $('#profile-upload').on('click', evt=>{
+    profileUpload();
+  })
 //블로그 가져오기
 
   var page = 1;

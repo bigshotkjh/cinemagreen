@@ -1,6 +1,7 @@
 package com.min.cinemagreen.user.service;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -22,10 +23,12 @@ import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.min.cinemagreen.dto.BlogDTO;
 import com.min.cinemagreen.dto.UserDTO;
 import com.min.cinemagreen.user.mapper.IUserMapper;
+import com.min.cinemagreen.utils.FileUploadUtils;
 import com.min.cinemagreen.utils.MailUtils;
 import com.min.cinemagreen.utils.PageUtils;
 import com.min.cinemagreen.utils.SecurityUtils;
@@ -43,6 +46,7 @@ public class UserServiceImpl implements IUserService {
   private final SecurityUtils securityUtils;
   private final MailUtils mailUtils;
   private final PageUtils pageUtils;
+  private final FileUploadUtils fileUploadUtils;
   
   @Transactional(readOnly = true)
   @Override
@@ -231,11 +235,9 @@ public class UserServiceImpl implements IUserService {
   @Override
   public ResponseEntity<Map<String, Object>> overlapcheckDo(UserDTO email) {
     
-    
     UserDTO user = userMapper.overlapcheckDo(email);
-    UserDTO xUser = userMapper.xUsercheckDo(email);
     int overlapcheckResult;
-    if(user == null && xUser == null) {
+    if(user == null) {
       overlapcheckResult = 1;
     }else {
       overlapcheckResult = 0;
@@ -402,6 +404,27 @@ public class UserServiceImpl implements IUserService {
     user.setAge(age);
     
     return userMapper.insertSnsUser(user);
+//프로필 업로드    
+  }@Override
+  public ResponseEntity<Map<String, Object>> profileUpload(MultipartFile multipartFile) {
+    
+    // 저장할 디렉터리 만들기
+    String uploadPath = fileUploadUtils.getUploadPath();
+    File uploadDir = new File(uploadPath);
+    if(!uploadDir.exists())
+      uploadDir.mkdirs();
+    
+    // 저장할 파일명 만들기
+    String filesystemName = fileUploadUtils.getFilesystemName(multipartFile.getOriginalFilename());    
+    // 저장
+    File file = new File(uploadDir, filesystemName);
+    try {
+      multipartFile.transferTo(file);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    
+    return ResponseEntity.ok(Map.of("url", uploadPath + "/" + filesystemName));
     
   }
 

@@ -153,7 +153,7 @@
         alert('사용할 수 있는 이메일 입니다.');
         emailOverlapCheck = true;
       } else {
-        alert('이미 가입중 이거나 탈퇴한 이메일 입니다.');
+        alert('이미 사용중인 이메일 입니다.');
         emailOverlapCheck = false;
       }
     }).fail(jqXHR => {

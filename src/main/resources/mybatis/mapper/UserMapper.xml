@@ -20,8 +20,8 @@
       , age
       , postcode
       , address
-      , detailAddress
-      , extraAddress
+      , detail_address
+      , extra_address
     ) VALUES (
         user_seq.NEXTVAL
       , #{email}
@@ -42,7 +42,7 @@
   </insert>
   
   <select id="getUserByMap" parameterType="Map" resultType="UserDTO">
-    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt, birthyear, age, postcode, address, detailAddress, extraAddress           
+    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt, birthyear, age, postcode, address, detail_address, extra_address           
       FROM user_t
     <where> 
       <if test="email != null">email = #{email}</if>
@@ -56,14 +56,12 @@
       , email
       , ip
       , user_agent
-      , session_id
       , signin_dt
     ) VALUES (
         access_seq.NEXTVAL
       , #{email}
       , #{ip}
       , #{userAgent}
-      , #{sessionId}
       , CURRENT_DATE
     )
   </insert>
@@ -82,8 +80,8 @@
          , age = #{age}
          , postcode = #{postcode}
          , address = #{address}
-         , detailAddress = #{detailAddress}
-         , extraAddress = #{extraAddress}
+         , detail_address = #{detailAddress}
+         , extra_address = #{extraAddress}
      WHERE user_no = #{userNo}
   </update>
   
@@ -116,12 +114,6 @@
       FROM user_t
      WHERE email = #{email}
   </select>
-  
-  <select id="xUsercheckDo" parameterType="UserDTO" resultType="UserDTO">
-    SELECT email           
-      FROM x_user_t
-     WHERE email = #{email}
-  </select>
 
   <insert id="insertSnsUser" parameterType="UserDTO">
     INSERT INTO user_t (
@@ -130,10 +122,13 @@
       , name
       , mobile
       , sns
-      , pw_modify_dt
       , signup_dt
       , birthyear
       , age
+      , postcode
+      , address
+      , detail_address
+      , extra_address
     ) VALUES (
         user_seq.NEXTVAL
       , #{email}
@@ -141,14 +136,17 @@
       , #{mobile}
       , #{sns}
       , CURRENT_DATE
-      , CURRENT_DATE
       , #{birthYear}
       , #{age}
+      , #{postcode}
+      , #{address}
+      , #{detailAddress}
+      , #{extraAddress}
     )
   </insert>
   
   <select id="getsnsUserInfo" parameterType="UserDTO" resultType="UserDTO">
-    SELECT user_no, email, name, mobile, sns, pw_modify_dt, signup_dt, birthyear, age        
+    SELECT user_no, email, name, mobile, sns, signup_dt, birthyear, age, postcode, address, detail_address, extra_address        
       FROM user_t
      WHERE email = #{email}
   </select>

@@ -1,3 +1,4 @@
+
 /* DROP SEQUENCE */
 DROP SEQUENCE x_user_seq;
 DROP SEQUENCE post_img_seq;
@@ -13,6 +14,23 @@ DROP SEQUENCE occupied_seat_seq;
 DROP SEQUENCE runtime_seq;
 DROP SEQUENCE movie_seq;
 DROP SEQUENCE user_seq;
+
+
+/* CREATE SEQUENCE */
+CREATE SEQUENCE user_seq START WITH 1;
+CREATE SEQUENCE movie_seq START WITH 1;
+CREATE SEQUENCE runtime_seq START WITH 1;
+CREATE SEQUENCE occupied_seat_seq START WITH 1;
+CREATE SEQUENCE seat_type_seq START WITH 1;
+CREATE SEQUENCE mdm_seq START WITH 1;
+CREATE SEQUENCE mam_seq START WITH 1;
+CREATE SEQUENCE pay_seq START WITH 1;
+CREATE SEQUENCE review_seq START WITH 1;
+CREATE SEQUENCE like_seq START WITH 1;
+CREATE SEQUENCE access_seq START WITH 1;
+CREATE SEQUENCE post_seq START WITH 1;
+CREATE SEQUENCE post_img_seq START WITH 1;
+CREATE SEQUENCE x_user_seq START WITH 1;
 
 /* DROP TABLE */
 DROP TABLE moviepost_img_t;
@@ -34,22 +52,6 @@ DROP TABLE movie_director_match_t;
 DROP TABLE movie_t;
 DROP TABLE actor_t;
 DROP TABLE director_t;
-
-/* CREATE SEQUENCE */
-CREATE SEQUENCE user_seq START WITH 1;
-CREATE SEQUENCE movie_seq START WITH 1;
-CREATE SEQUENCE runtime_seq START WITH 1;
-CREATE SEQUENCE occupied_seat_seq START WITH 1;
-CREATE SEQUENCE seat_type_seq START WITH 1;
-CREATE SEQUENCE mdm_seq START WITH 1;
-CREATE SEQUENCE mam_seq START WITH 1;
-CREATE SEQUENCE pay_seq START WITH 1;
-CREATE SEQUENCE review_seq START WITH 1;
-CREATE SEQUENCE like_seq START WITH 1;
-CREATE SEQUENCE access_seq START WITH 1;
-CREATE SEQUENCE post_seq START WITH 1;
-CREATE SEQUENCE post_img_seq START WITH 1;
-CREATE SEQUENCE x_user_seq START WITH 1;
 
 /* CREATE TABLE */
 
@@ -116,15 +118,15 @@ CREATE TABLE runtime_t (
 CREATE TABLE user_t (
     user_no        NUMBER NOT NULL PRIMARY KEY,
     email          VARCHAR2(100) NOT NULL UNIQUE,
-    pw             VARCHAR2(64) NOT NULL,
+    pw             VARCHAR2(64),
     name           VARCHAR2(100),
     gender         VARCHAR2(5),
     mobile         VARCHAR2(13),
-    grade          VARCHAR2(5),
+    grade          VARCHAR2(10),
     sns            NUMBER,
     pw_modify_dt   DATE,
     signup_dt      DATE,
-    birthyear      VARCHAR2(6),
+    birthyear      VARCHAR2(10),
     age            NUMBER,
     postcode       VARCHAR2(10),
     address        VARCHAR2(100),
@@ -267,3 +269,21 @@ CREATE TABLE moviepost_img_t (
     img_path    VARCHAR2(100),
     CONSTRAINT fk_moviepost_img_moviepost FOREIGN KEY(post_no) REFERENCES moviepost_t(post_no) ON DELETE CASCADE
 );
+
+-- x_user_t 트리거    
+CREATE OR REPLACE TRIGGER x_trigger
+  AFTER
+  DELETE
+  ON user_t
+  FOR EACH ROW
+BEGIN
+  INSERT INTO x_user_t (
+      x_user_no
+    , email
+    , leave_dt
+  ) VALUES (
+      x_user_seq.NEXTVAL
+    , :OLD.email
+    , current_date
+  );
+END;

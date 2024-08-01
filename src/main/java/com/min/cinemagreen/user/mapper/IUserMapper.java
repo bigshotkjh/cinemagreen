@@ -20,7 +20,6 @@ public interface IUserMapper {
   int pwupdate(Map<String, Object> params);
   UserDTO emailfindDo(Map<String, Object> params);
   UserDTO overlapcheckDo(UserDTO email);
-  UserDTO xUsercheckDo(UserDTO email);
   int insertSnsUser(UserDTO user);
   UserDTO getsnsUserInfo(UserDTO user);
   int ageUpdate(UserDTO user);
