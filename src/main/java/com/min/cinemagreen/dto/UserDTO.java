@@ -28,4 +28,6 @@ public class UserDTO {
   private String address;
   private String detailAddress;
   private String extraAddress;
+  private String uploadPath;
+  private String filesystemName;
 }

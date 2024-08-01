@@ -206,8 +206,8 @@ public class UserController {
 //프로필업로드/////////////////////////////////////////////////////////////
   
   @PostMapping(value = "/profileUpload.do", produces = "application/json")
-  public ResponseEntity<Map<String, Object>> profileUpload(@RequestParam("file") MultipartFile multipartFile) {
-    return userService.profileUpload(multipartFile);
+  public ResponseEntity<Map<String, Object>> profileUpload(@RequestParam("file") MultipartFile multipartFile, HttpSession session) {
+    return userService.profileUpload(multipartFile, session);
   }
   
 //블로그/////////////////////////////////////////////////////////////

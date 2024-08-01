@@ -404,20 +404,34 @@ public class UserServiceImpl implements IUserService {
     user.setAge(age);
     
     return userMapper.insertSnsUser(user);
-//프로필 업로드    
-  }@Override
-  public ResponseEntity<Map<String, Object>> profileUpload(MultipartFile multipartFile) {
+
+  }
+//프로필 업로드     
+  @Override
+  public ResponseEntity<Map<String, Object>> profileUpload(MultipartFile multipartFile, HttpSession session) {
     
-    // 저장할 디렉터리 만들기
-    String uploadPath = fileUploadUtils.getUploadPath();
+    String uploadPath = fileUploadUtils.getUploadPath(); //파일업로드 유틸가 보면 지금 D드라이브로 되어있어!!
     File uploadDir = new File(uploadPath);
     if(!uploadDir.exists())
       uploadDir.mkdirs();
-    
-    // 저장할 파일명 만들기
+      
     String filesystemName = fileUploadUtils.getFilesystemName(multipartFile.getOriginalFilename());    
     // 저장
+    System.out.println(filesystemName);
     File file = new File(uploadDir, filesystemName);
+//공사중///////////////////////////////////
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    if(loginUser == null)  // 로그인이 풀린 유저
+      return null; 
+
+    int userNo = loginUser.getUserNo();
+    Map<String, Object> params = new HashMap<>();//페이징 처리에 필요한 파라미터를 담은 Map을 생성
+    params.put("userNo", userNo);
+    params.put("uploadPath", uploadPath);
+    params.put("filesystemName", filesystemName);
+    userMapper.updateprofile(params);
+//공사중///////////////////////////////////
+    
     try {
       multipartFile.transferTo(file);
     } catch (Exception e) {
@@ -442,7 +456,6 @@ public class UserServiceImpl implements IUserService {
     int display = 5; //한 페이지에 표시할 게시물 수
 //나중에 blogMapper로 바꾸기. 
     int total = userMapper.getBlogCount(userNo);//블로그 게시물 총수/ 맵퍼에 다녀와야해.
-    System.out.println("으아아아아아아아아아아아" );
     System.out.println("total : " + total);
     System.out.println("display : " + display);
     System.out.println("page : " + page);

@@ -23,6 +23,7 @@ public interface IUserMapper {
   int insertSnsUser(UserDTO user);
   UserDTO getsnsUserInfo(UserDTO user);
   int ageUpdate(UserDTO user);
+  int updateprofile(Map<String, Object> params);
 //블로그//////////////////
   int getBlogCount(int userNo);
   List<BlogDTO> userGetBlogList(Map<String, Object> params);

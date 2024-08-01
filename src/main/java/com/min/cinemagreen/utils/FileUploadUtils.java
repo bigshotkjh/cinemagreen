@@ -12,7 +12,7 @@ public class FileUploadUtils {
   private static final LocalDate TODAY = LocalDate.now();
   
   public String getUploadPath() {
-    return "/upload/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(TODAY);
+    return "/upload/";
   }
   
   public String getFilesystemName(String originalFilename) {

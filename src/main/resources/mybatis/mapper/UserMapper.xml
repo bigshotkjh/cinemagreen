@@ -120,6 +120,7 @@
         user_no
       , email
       , name
+      , gender
       , mobile
       , sns
       , signup_dt
@@ -133,6 +134,7 @@
         user_seq.NEXTVAL
       , #{email}
       , #{name}
+      , #{gender}
       , #{mobile}
       , #{sns}
       , CURRENT_DATE
@@ -154,6 +156,14 @@
   <update id="ageUpdate" parameterType="UserDTO" >
     UPDATE user_t
        SET age = #{age}
+    WHERE  user_no = #{userNo}
+  </update>
+  
+  
+  <update id="updateprofile" parameterType="Map" >
+    UPDATE user_t
+       SET profile_name = #{filesystemName}
+         , profile_path = #{uploadPath}
     WHERE  user_no = #{userNo}
   </update>
   

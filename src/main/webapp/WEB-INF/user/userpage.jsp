@@ -80,29 +80,31 @@
           <form id="profile-form">
             <div>
               <label class="profile-label" for="profile"><b>프로필 변경하기 : </label>
-              <input type="file" name="profile" id="profile" multiple="multiple">
+              <input type="file" name="file" id="profile" multiple="multiple">
             </div>
             <br>
-          </form>
-         
             <div>
               <button type="button" id="profile-upload" >프로필변경</button>
             </div><br>
+          </form>
         </div>
-          <div>
-            <button type="button" class="pw-button" onclick="location.href = '${contextPath}/user/pwchange.page'">비밀번호변경</button>
-          </div><br>
-       
-          <div>
-            <button type="button" onclick="leaveUser()">탈퇴하기</button>
-          </div><br>
+        
+    	<img id="profile-img" src="" width="200" height="200">
+    	
+    	
+        <div>
+          <button type="button" class="pw-button" onclick="location.href = '${contextPath}/user/pwchange.page'">비밀번호변경</button>
+        </div><br>
+        <div>
+          <button type="button" onclick="leaveUser()">탈퇴하기</button>
+        </div><br>
 <!-- 블로그 -->
-          <div id="blog-list"></div><br>
-          <div id="paging"></div>
+        <div id="blog-list"></div><br>
+        <div id="paging"></div>
 <!-- 블로그 -->
-          
-    </div>
-  </div>
+	          
+      </div>
+	</div>
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->  
 
@@ -113,7 +115,10 @@
 <script>
 //프로필 변경
   const profileUpload = (file)=> {  // file: 추가한 이미지 (단일 파일)
-    alert("profile도착.");
+    if (file == null) {
+        alert("파일을 선택해주세요.");
+        return;
+    }
     // FormData 객체 생성
     let formData = new FormData();  // <form>
     
@@ -131,8 +136,8 @@
       // 서버가 저장한 이미지의 경로와 이름을 반환 받기
       dataType: 'json'
     }).done(resData => {  // resData == {url: '/경로/파일명'}
-      // summernote 편집기에 이미지 표시하기
-      //$('#contents').summernote('insertImage', resData.url);
+    	alert(resData.url);
+    	$('#profile-img').attr('src', resData.url);
       alert("성공");
     }).fail(jqXHR => {
       alert("실패");
@@ -140,10 +145,16 @@
     });
   }
   
-  
-  $('#profile-upload').on('click', evt=>{
-    profileUpload();
-  })
+  $('#profile-upload').on('click', evt => {
+    const fileInput = document.getElementById('profile');
+    const files = fileInput.files; // 선택된 파일 목록 가져오기
+
+    if (files.length == 1) { // 파일이 하나만 선택되었는지 확인
+      profileUpload(files[0]); // 첫 번째 파일 업로드
+    } else {
+      alert("하나의 파일만 선택해주세요.");
+    }
+  });
 //블로그 가져오기
 
   var page = 1;

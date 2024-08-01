@@ -1,5 +1,7 @@
 
 /* DROP SEQUENCE */
+
+DROP SEQUENCE blog_seq;
 DROP SEQUENCE x_user_seq;
 DROP SEQUENCE post_img_seq;
 DROP SEQUENCE post_seq;
@@ -31,8 +33,10 @@ CREATE SEQUENCE access_seq START WITH 1;
 CREATE SEQUENCE post_seq START WITH 1;
 CREATE SEQUENCE post_img_seq START WITH 1;
 CREATE SEQUENCE x_user_seq START WITH 1;
+CREATE SEQUENCE blog_seq START WITH 1;
 
 /* DROP TABLE */
+DROP TABLE blog_t;
 DROP TABLE moviepost_img_t;
 DROP TABLE moviepost_comment_t;
 DROP TABLE like_t;
@@ -121,14 +125,14 @@ CREATE TABLE user_t (
     pw             VARCHAR2(64),
     name           VARCHAR2(100),
     gender         VARCHAR2(5),
-    mobile         VARCHAR2(13),
-    grade          VARCHAR2(10),
+    mobile         VARCHAR2(11),
+    grade          VARCHAR2(20),
     sns            NUMBER,
     pw_modify_dt   DATE,
     signup_dt      DATE,
-    birthyear      VARCHAR2(10),
+    birthyear       VARCHAR2(8),
     age            NUMBER,
-    postcode       VARCHAR2(10),
+    postcode       VARCHAR2(5),
     address        VARCHAR2(100),
     detail_address VARCHAR2(100),
     extra_address  VARCHAR2(100),
@@ -268,6 +272,20 @@ CREATE TABLE moviepost_img_t (
     img_name    VARCHAR2(100),
     img_path    VARCHAR2(100),
     CONSTRAINT fk_moviepost_img_moviepost FOREIGN KEY(post_no) REFERENCES moviepost_t(post_no) ON DELETE CASCADE
+);
+
+ --  블로그 blog_t 테이블
+CREATE TABLE blog_t (
+  blog_no   NUMBER               NOT NULL,
+  title     VARCHAR2(1000 BYTE)  NOT NULL,
+  contents  CLOB,
+  hit       NUMBER,
+  user_no   NUMBER               NOT NULL,
+  create_dt DATE,
+  modify_dt DATE,
+  CONSTRAINT pk_blog PRIMARY KEY(blog_no),
+  CONSTRAINT fk_blog_user FOREIGN KEY(user_no)
+      REFERENCES user_t(user_no) ON DELETE CASCADE
 );
 
 -- x_user_t 트리거    
