@@ -66,6 +66,12 @@ public class PaymentController {
       log.info("map : {}" ,pay);
       UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
       pay.put("userNo", loginUser.getUserNo());
+      //1. 결제 insert 전에 티켓팅 테이블에 insert
+      
+      //2. 티켓팅 insert 후 티켓번호 반환 받아 pay 맵에 추가
+      
+      log.info("userNo : {}" ,loginUser.getUserNo());
+      //3. 결제테이블 insert
       int result = paymentService.payInsert(pay);
       return result;
     }

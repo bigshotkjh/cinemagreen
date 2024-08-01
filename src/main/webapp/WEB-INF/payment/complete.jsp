@@ -21,7 +21,7 @@
 		     		예매자명 : ${loginUser.name}<br>
 						결제번호 : ${payment.payId}<br>
 						결제금액 : ${payment.amount}<br>
-						티켓번호 : ${payment.ticketNo}<br>
+						티켓번호 : ${payment.ticketingNo}<br>
 						영화정보 : <br>
 						선택좌석 :  
 
@@ -44,7 +44,7 @@ function canclePay() {
 				method: 'POST',
 				contentType: "application/json",
 				data: JSON.stringify({
-	        "merchant_uid": "${payment.ticketNo}", // 예: ORD20180131-0000011
+	        "merchant_uid": "${payment.ticketingNo}", // 예: ORD20180131-0000011
 	        "cancel_request_amount": "${payment.amount}", // 환불금액
 	        "reason": "테스트 결제 환불" // 환불사유,
 	      }),

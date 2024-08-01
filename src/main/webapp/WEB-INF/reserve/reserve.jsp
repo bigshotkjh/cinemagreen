@@ -30,19 +30,8 @@
 					<!-- 영화리스트 -->
 			    <div class="movie_list">
  			        <div class="scroll_inner">
-			            <ul id="movieList">
+			            <ul id="movieList" class="">
 			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a></li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
 			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
 			            </ul>
 			        </div>

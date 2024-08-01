@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class PaymentDTO {
     private String payId;        // 결제고유번호
     private int userNo;          // 회원 
-    private String ticketNo;     // 티켓번호 
-    private int payMethod;       // 결제수단
+    private String ticketingNo;     // 티켓번호 
+    private String payMethod;       // 결제수단
     private int amount;          // 결제금액
     private Date payDt;          // 결제일자  
     private String payState;     // 결제상태 

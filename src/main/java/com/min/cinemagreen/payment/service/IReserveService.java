@@ -1,10 +1,10 @@
 package com.min.cinemagreen.payment.service;
 
-import com.min.cinemagreen.dto.TicketDTO;
+import com.min.cinemagreen.dto.TicketingDTO;
 
 public interface IReserveService {
 
-  void saveTicket(TicketDTO ticket);
+  void saveTicket(TicketingDTO ticket);
 
 
 

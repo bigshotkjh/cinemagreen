@@ -1,11 +1,11 @@
 package com.min.cinemagreen.payment.service;
 
-import com.min.cinemagreen.dto.TicketDTO;
+import com.min.cinemagreen.dto.TicketingDTO;
 
 public class ReserveServiceImpl implements IReserveService {
 
   @Override
-  public void saveTicket(TicketDTO ticket) {
+  public void saveTicket(TicketingDTO ticket) {
     // TODO Auto-generated method stub
     
   }
