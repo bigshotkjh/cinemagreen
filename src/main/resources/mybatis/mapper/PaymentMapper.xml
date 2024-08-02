@@ -13,20 +13,15 @@
        pay_method,
        amount,
        pay_dt,
-       pay_state,
-       cancel_dt,
-       cancel_status
+       pay_state
     ) VALUES (
        #{payId},
        #{userNo},
-       #{ticketNo},
+       #{ticketingNo},
        #{payMethod},
        #{amount},
        CURRENT_DATE,
-       #{payState},
-       CURRENT_DATE,
-       #{cancelStatus}
-       
+       'y'
     )
   </insert>
   <select id="getPayInfo"  resultType="PaymentDTO">

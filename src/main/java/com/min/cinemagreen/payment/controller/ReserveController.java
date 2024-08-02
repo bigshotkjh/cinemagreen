@@ -1,16 +1,26 @@
 package com.min.cinemagreen.payment.controller;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.min.cinemagreen.dto.MovieDTO;
+import com.min.cinemagreen.movie.service.IMovieService;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequestMapping("/reserve")
+@RequiredArgsConstructor
 @Controller
 public class ReserveController {
   
+  //private final IMovieService movieService;
   
 	@GetMapping(value = "reserve.do")
 	  public String reserveDo() {
@@ -19,9 +29,11 @@ public class ReserveController {
 	
 	@GetMapping(value = "seat.do")
 	  public String seatDo() {
+	  // 예약좌석 select
 	    return "/reserve/seat";
 	  }
 		
+	
 	
 	// 예매
 //  @PostMapping("/reservation")

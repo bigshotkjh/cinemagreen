@@ -95,7 +95,7 @@
 				      				<input id="<%=c%><%=i%>" type="checkbox" name="seat" value="<%=c%><%=i%>"><label for="<%=c%><%=i%>"><%=c%><%=i%></label>
 				      			<%} %>
 				      				<br>
-				      				<%= i == 3 ? "<br/><p class='typeA'>" : "" %>
+				      				<%= i == 3 ? "<br/><p class='typeC'>" : "" %>
 				      				<%= i == 4 ? "</p>" : "" %>
 			      			<%} %>
 				      </div>
@@ -105,17 +105,17 @@
 					       	<ul class="">
 					       		
 					       		<li class="">
-					       			<span class="typeB-mini"></span>
+					       			<span class="typeA-mini"></span>
 					       			<span>선택가능</span>
 					       			
 					       		</li>
 					       		<li class="">
-					       			<span class="typeA-mini"></span>
-					       			<span>장애인 석</span>
+					       			<span class="typeB-mini"></span>
+					       			<span>선택불가</span>
 					       		</li>
 					       		<li class="">
 					       			<span class="typeC-mini"></span>
-					       			<span>선택불가</span>
+					       			<span>장애인 석</span>
 					       		</li>
 					       		
 					       	</ul>
@@ -205,29 +205,39 @@
 				}
 				
 				// 좌석  
+				
 				$("input[name='seat']").on("click",function(){
+					let stcount    = $("input:checked[name='seat']").length;
+					let typeCcount = $(".typeC input:checked[name='seat']").length;
 					// console.log("선택 좌석 : " + chkSeat());
-					let stcount = $("input:checked[name='seat']").length;
+					
 					if (stcount > totalCount){
 						$(this).prop("checked",false); // evt.target
-						alert(totalCount + '개 까지만 선택할 수 있습니다.')
+						alert(totalCount + '개 까지만 선택할 수 있습니다.');
+						
 					}else if(stcount == totalCount){
 						payBtn.disabled = false; //결제 버튼 활성화 
 						$('#chk_seat').removeClass('-active').text("선택하신 좌석은 " + chkSeat() + " 입니다.");
 					}else if(stcount != totalCount){
 						payBtn.disabled = true; //결제 버튼 비활성화
 						$('#chk_seat').addClass('-active');
+						
 					}
-				})
-				
-				// input[name='seat'].val() 
-				// id는 좌석번호 value 값이랑 같음 좌석번호 배열 저장 , 
-				
 
-				
+					$(".typeC input[name='seat']").on("click",function(){
+					
+						if(typeC < typeCcount){
+							alert('선택 가능한 장애인석을 초과하였습니다.');
+							event.preventDefault()
+							$(this).prop("checked",false);
+							}
+					 })
+					 
+				})
 			}
 		}
 	})
+	
 	// 선택 좌석
 	function chkSeat(){
 			var chk_seat = [];
@@ -239,7 +249,7 @@
 	}
 	
 	
-	// 주문번호 만들기
+	// 주문번호(티켓팅번호) 만들기
 	function createMerchantNum(){
 		const date = new Date();
 		const year = date.getFullYear();
@@ -252,6 +262,7 @@
 		}
 		return MerchantNum;
 	}
+	
 	//포트원 결제 (현재 값들은 임의로 넣어둔상태임.)
 	var IMP = window.IMP;
   IMP.init("imp56805834"); 
@@ -268,7 +279,7 @@
      }, function(rsp) { 
   	   console.log("실제 총 금액 : " + totalamount.innerText);
   	   console.log("결제 고유 번호 : " + rsp.imp_uid);
-  	   console.log("결제 고유 번호 : " + rsp.merchant_uid);
+  	   console.log("티켓 번호 : " + rsp.merchant_uid);
   	   console.log("선택 좌석 : " + chkSeat());
   	 	console.log("test:"+ '${loginUser.userNo}' );
 	  	 //console.log("유저확인":"+ '${loginUser.name}');
@@ -281,7 +292,8 @@
       		var pay = {
        	   	"payId": rsp.imp_uid,     // 결제 고유번호
            	"amount": rsp.paid_amount, 
-            "ticketNo" : rsp.merchant_uid
+            "ticketingNo" : rsp.merchant_uid,
+            "payMethod" : rsp.pay_method
             //"유저확인" : '${loginUser.userNo}'
           } 
           if(rsp.paid_amount === data.response.amount){// 결제검증

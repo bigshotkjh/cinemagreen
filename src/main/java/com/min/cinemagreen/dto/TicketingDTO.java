@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-public class TicketDTO {
-  private int ticketNo;       // 티켓번호
+public class TicketingDTO {
+  private int ticketing_no;       // 티켓번호
   private Date ticketDt;      // 예매일 
   private int userNo;         // 회원 
   private int movieNo;        // 영화번호 
