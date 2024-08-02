@@ -9,6 +9,11 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CINEMAGREEN Dashboard</title>
+        
+        
+        
+        
+        
 		<script src="${contextPath}/static/lib/jquery-3.7.1.min.js"></script>
 		<script src="${contextPath}/static/jquery-ui-1.13.3.custom/jquery-ui.min.js"></script>
 		<script src="${contextPath}/static/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
@@ -17,6 +22,11 @@
 		<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 		<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 		
+    
+    
+    
+    
+    
 		<link rel="stylesheet" href="${contextPath}/static/jquery-ui-1.13.3.custom/jquery-ui.min.css">
 		<link rel="stylesheet" href="${contextPath}/static/bootstrap-5.3.3-dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="${contextPath}/static/summernote-0.8.18-dist/summernote-lite.min.css">
@@ -33,7 +43,8 @@
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="${contextPath}/admin/admin.page">CINEMAGREEN Admin</a>
-            <!-- Navbar Search-->
+            <!-- 다른 페이지 살펴보기 -->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             </form>
             <!-- Navbar-->
@@ -49,5 +60,26 @@
                 </li>
             </ul>
         </nav>
-         
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                좌석 관리
+                            </a>
+                            <a class="nav-link"  href="${contextPath}/admin/movie.page">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                영화 관리
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
+                    </div>
+                </nav>
+            </div>
         <div id="layoutSidenav_content">

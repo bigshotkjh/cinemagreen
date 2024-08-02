@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
+import com.min.cinemagreen.dto.MovieDTO;
 import com.min.cinemagreen.dto.UserInfoDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,4 +23,6 @@ public interface IUserInfoService {
   int adminInsertUser(UserInfoDTO user); // 사용자 추가
 
   ResponseEntity<Map<String, Object>> doubleEmailCheckDo(UserInfoDTO email); // 이메일 중복 확인
+
+
 }

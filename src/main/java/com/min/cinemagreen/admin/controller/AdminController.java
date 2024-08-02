@@ -27,13 +27,27 @@ public class AdminController {
 
   private final IUserInfoService userInfoService;
 
+  
+  
+  // ------------------------- 페이지 이동 -------------------------
   @GetMapping("/admin.page")
   public String adminPage(Model model) {
     List<UserInfoDTO> userList = userInfoService.getUserList(null);
     model.addAttribute("userList", userList);
     return "admin/admin"; // 사용자 목록
   }
-
+  
+  @GetMapping(value = "/insertuser.page")
+  public String insertuserPage() {
+    return "admin/insertuser";
+  } // 사용자 추가 페이지로 이동
+  // ------------------------- 페이지 이동 -------------------------
+  
+  
+  
+  
+  
+  // ------------------------ 유저 관련 기능 ------------------------
   @GetMapping(value = "/getUserList.do", produces = "application/json")
   public ResponseEntity<List<UserInfoDTO>> getUserListDo(HttpServletRequest request) {
     return ResponseEntity.ok(userInfoService.getUserList(request));
@@ -52,17 +66,7 @@ public class AdminController {
     rttr.addFlashAttribute("deleteMessage", "회원 삭제 성공");
     return "redirect:/admin/admin.page"; // 삭제 후 사용자 목록으로 리다이렉트
   } // 유저 삭제
-
-  @GetMapping(value = "/insertuser.page")
-  public String insertuserPage() {
-    return "admin/insertuser";
-  } // 사용자 추가 페이지로 이동
-
-  @PostMapping(value = "/doubleEmailCheck.do", produces = "application/json")
-  public ResponseEntity<Map<String, Object>> doubleEmailCheckDo(UserInfoDTO email) {
-    return userInfoService.doubleEmailCheckDo(email);
-  } // 이메일 중복검사
-
+  
   @PostMapping(value = "/adminInsertUser.do")
   public String adminInsertUserDo(UserInfoDTO user, RedirectAttributes rttr) {
     String redirectURL;
@@ -78,11 +82,26 @@ public class AdminController {
 
     return "redirect:" + redirectURL;
   } // 유저 추가
+  // ------------------------ 유저 관련 기능 ------------------------
+  
+  
+  
+  
+  
+  
+  
+  
+  // ------------------------------- 추가 기능 -------------------------------
+  @PostMapping(value = "/doubleEmailCheck.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> doubleEmailCheckDo(UserInfoDTO email) {
+    return userInfoService.doubleEmailCheckDo(email);
+  } // 이메일 중복검사
 
   @GetMapping(value = "/getUserDetail/{userNo}", produces = "application/json")
   public ResponseEntity<UserInfoDTO> getUserById(@PathVariable int userNo) {
     UserInfoDTO user = userInfoService.getUserById(userNo);
     return ResponseEntity.ok(user);
   } // 유저 상세보기에 해당 유저 정보 넣기
+ // ------------------------------- 추가 기능 -------------------------------
 
 }

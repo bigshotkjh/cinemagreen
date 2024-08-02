@@ -25,7 +25,9 @@ public class UserInfoServiceImpl implements IUserInfoService {
 
   private final IUserInfoMapper userInfoMapper;
   private final SecurityUtils securityUtils;
-
+  
+  
+  // ------------------------- 사용자 정보 이동 -------------------------
   @Transactional(readOnly = true)
   @Override
   public List<UserInfoDTO> getUserList(HttpServletRequest request) {
@@ -38,7 +40,13 @@ public class UserInfoServiceImpl implements IUserInfoService {
   public UserInfoDTO getUserById(int userNo) {
     return userInfoMapper.getUserById(userNo);
   }
+  // ------------------------- 사용자 정보 이동 -------------------------
+  
+  
+  
 
+  
+  // ------------------------- 사용자 정보 수정, 삭제, 추가 -------------------------
   @Override
   public int adminUpdateUser(UserInfoDTO userInfo) {
     // 업데이트 로직
@@ -48,7 +56,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
   @Override
   public String adminDeleteUser(int userNo) {
     // 사용자 삭제 로직 수행
-    userInfoMapper.adminDeleteUser(userNo); // 이 부분은 실제 삭제 로직으로 대체해야 합니다.
+    userInfoMapper.adminDeleteUser(userNo);
 
     // 항상 "success" 반환
     return "success";
@@ -73,7 +81,14 @@ public class UserInfoServiceImpl implements IUserInfoService {
     user.setAge(age);
     return userInfoMapper.adminInsertUser(user);
   }
-
+  // ------------------------- 사용자 정보 수정, 삭제, 추가 -------------------------
+  
+  
+  
+  
+  
+  
+  // ----------------------------------- 이메일 -----------------------------------
   @Override
   public ResponseEntity<Map<String, Object>> doubleEmailCheckDo(UserInfoDTO email) {
 
@@ -86,5 +101,6 @@ public class UserInfoServiceImpl implements IUserInfoService {
     }
     return ResponseEntity.ok(Map.of("isSuccess", doubleEmailCheckResult == 1));
   }
+  // ----------------------------------- 이메일 -----------------------------------
 
 }

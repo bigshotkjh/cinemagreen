@@ -10,9 +10,16 @@
   <jsp:param value="CINEMAGREEN ADMIN" name="title"/>
 </jsp:include>
 
+<style>
+  
+    .input-wide {
+      width: 33%;
+    }
+    
+</style>
+
 <main>
   <div class="container-fluid px-4">
-    <br>
     <div class="row">
       <div class="col-xl-6">
         <div class="card mb-4">
@@ -115,42 +122,42 @@
 				  
                   <div>
                     <h5>이메일</h5>
-					<input type="text" class="offset-1" name="email" id="modalEmailInput" value="">
+					          <input type="text" class="offset-1 input-wide" name="email" id="modalEmailInput" value="" disabled>
                   </div>
                   <div>
                     <h5>이름</h5>
-					<input type="text" class="offset-1" name="name" id="modalName" value="">
+					          <input type="text" class="offset-1 input-wide" name="name" id="modalName" value="" disabled>
                   </div>
-				  <div>
-				    <h5>전화번호</h5>
-				    <input type="text" class="offset-1"  name="mobile" id="modalMobile" value="">
-				  </div>
-			      <div>
-			        <h5>성별</h5>
-			        <input type="text" class="offset-1"  name="gender" id="modalGender" value="">
-			      </div>
-				  <div>
-			        <h5>생년월일</h5>
-				    <input type="text" class="offset-1"  name="birthyear" id="modalBirthyear" value="">
-				  </div>
-		          <div>
-				    <h5>가입일자</h5>
-			     	<input type="text" class="offset-1"  name="signup_dt" id="modalSignupDt" value="">
-				  </div>
-				  <br>
+				          <div>
+      				      <h5>전화번호</h5>
+      				      <input type="text" class="offset-1 input-wide"  name="mobile" id="modalMobile" value="">
+      				    </div>
+      			      <div>
+      			        <h5>성별</h5>
+      			        <input type="text" class="offset-1 input-wide"  name="gender" id="modalGender" value="">
+      			      </div>
+      				    <div>
+      			        <h5>생년월일</h5>
+      				      <input type="text" class="offset-1 input-wide"  name="birthyear" id="modalBirthyear" value="">
+      				    </div>
+      		        <div>
+      				      <h5>가입일자</h5>
+      			       	<input type="text" class="offset-1 input-wide"  name="signup_dt" id="modalSignupDt" value="" disabled>
+      				    </div>
+      			  	  <br>
                   <div>
                     <h5>주소<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"></h5>
-					<input type="text" class="offset-1" name="postcode" id="modalPostcode" value=""><br>
-					<input type="text" class="offset-1" name="address" id="modalAddress" value=""><br>
-                    <input type="text" class="offset-1" name="extraAddress" id="modalExtraAddress" value=""><br>
-                    <input type="text" class="offset-1" name="detailAddress"id="modalDetailAddress" value="">
+				          	<input type="text" class="offset-1 input-wide" name="postcode" id="modalPostcode" value=""><br>
+					          <input type="text" class="offset-1 input-wide" name="address" id="modalAddress" value=""><br>
+                    <input type="text" class="offset-1 input-wide" name="extraAddress" id="modalExtraAddress" value=""><br>
+                    <input type="text" class="offset-1 input-wide" name="detailAddress"id="modalDetailAddress" value="">
                   </div>
                   <div>
                     <button type="button" onclick="adminUpdateUser()">개인정보 변경하기</button>
                   </div>
-				  <div>
-				    <button type="button" onclick="adminDeleteUser()">삭제하기</button>
-				  </div>
+        				  <div>
+        				    <button type="button" onclick="adminDeleteUser()">삭제하기</button>
+        				  </div>
                 </form>
               </div>
             </div>

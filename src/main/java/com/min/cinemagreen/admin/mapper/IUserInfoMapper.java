@@ -10,10 +10,6 @@ import com.min.cinemagreen.dto.UserInfoDTO;
 @Mapper
 public interface IUserInfoMapper {
 
-  int adminInsertUser(UserInfoDTO user); // 사용자 추가
-
-  UserInfoDTO doubleEmailCheckDo(UserInfoDTO email); // 이메일 중복체크
-
   List<UserInfoDTO> getUserList(Map<String, Object> params); // 모든 사용자 가져오기
 
   UserInfoDTO getUserById(int userNo); // 해당 사용자 가져오기
@@ -21,5 +17,9 @@ public interface IUserInfoMapper {
   int adminUpdateUser(UserInfoDTO userInfo); // 수정
 
   int adminDeleteUser(int userNo); // 삭제
+
+  int adminInsertUser(UserInfoDTO user); // 사용자 추가
+
+  UserInfoDTO doubleEmailCheckDo(UserInfoDTO email); // 이메일 중복체크
 
 }
