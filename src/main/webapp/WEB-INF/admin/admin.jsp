@@ -10,10 +10,6 @@
   <jsp:param value="CINEMAGREEN ADMIN" name="title"/>
 </jsp:include>
 
-
-
-
-
 <main>
   <div class="container-fluid px-4">
     <br>
@@ -45,18 +41,18 @@
     <div class="card mb-4">
       <div class="card-header">
         <i class="fas fa-table me-1"></i>
-        상영중인 영화 목록
+        회원 목록
       </div>
       <div class="card-body">
         <table id="datatablesSimple" class="table table-striped">
           <thead>
             <tr>
               <th>선택</th>
-              <th>영화번호</th>
-              <th>제목</th>
-              <th>상영등급</th>
-              <th>감독</th>
-              <th>개봉일자</th>
+              <th>회원번호</th>
+              <th>이메일</th>
+              <th>이름</th>
+              <th>전화번호</th>
+              <th>가입일자</th>
               <th>상세</th>
             </tr>
           </thead>
@@ -82,38 +78,8 @@
         </table>
       </div>
     </div>
-	
-	
-	
-	
   </div>
 </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <script>
@@ -145,6 +111,8 @@
               <div class="title_con white userpage">
                 <form id="user-info-form" method="post" action="${contextPath}/user/updateInf.do">
                   <input type="hidden" id="modalUserNo" name="userNo" value="">
+				  <!-- 프로필 들어갈 자리 -->
+				  
                   <div>
                     <h5>이메일</h5>
 					<input type="text" class="offset-1" name="email" id="modalEmailInput" value="">
@@ -153,10 +121,22 @@
                     <h5>이름</h5>
 					<input type="text" class="offset-1" name="name" id="modalName" value="">
                   </div>
-                  <div>
-                    <h5>전화번호</h5>
-					<input type="text" class="offset-1"  name="mobile" id="modalMobile" value="">
-                  </div>
+				  <div>
+				    <h5>전화번호</h5>
+				    <input type="text" class="offset-1"  name="mobile" id="modalMobile" value="">
+				  </div>
+			      <div>
+			        <h5>성별</h5>
+			        <input type="text" class="offset-1"  name="gender" id="modalGender" value="">
+			      </div>
+				  <div>
+			        <h5>생년월일</h5>
+				    <input type="text" class="offset-1"  name="birthyear" id="modalBirthyear" value="">
+				  </div>
+		          <div>
+				    <h5>가입일자</h5>
+			     	<input type="text" class="offset-1"  name="signup_dt" id="modalSignupDt" value="">
+				  </div>
 				  <br>
                   <div>
                     <h5>주소<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"></h5>
@@ -166,7 +146,7 @@
                     <input type="text" class="offset-1" name="detailAddress"id="modalDetailAddress" value="">
                   </div>
                   <div>
-                    <button type="submit" class="submit">개인정보 변경하기</button>
+                    <button type="button" onclick="adminUpdateUser()">개인정보 변경하기</button>
                   </div>
 				  <div>
 				    <button type="button" onclick="adminDeleteUser()">삭제하기</button>
@@ -222,77 +202,140 @@
 <!-- jQuery 및 AJAX 스크립트 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
-    // 상세보기 버튼 클릭 시
-    $('.detail-btn').click(function() {
-      var userNo = $(this).data('userno'); // data-userno 속성 가져오기
+	$(document).ready(function() {
+	  // 상세보기 버튼 클릭 시
+	  $('.detail-btn').click(function() {
+	    var userNo = $(this).data('userno'); // data-userno 속성 가져오기
 
-      // AJAX 요청
-      $.ajax({
-        url: '/admin/getUserDetail/' + userNo, // 사용자 상세 정보를 가져올 API 경로
-        method: 'GET',
-        success: function(data) {
-          // 모달에 사용자 정보 표시
-          $('#modalEmailInput').val(data.email); // 이메일
-          $('#modalName').val(data.name); // 이름
-          $('#modalMobile').val(data.mobile); // 전화번호
-          $('#modalUserNo').val(data.userNo); // 사용자 번호
-          $('#modalPostcode').val(data.postcode); // 사용자 우편번호
-          $('#modalAddress').val(data.address); // 사용자 주소
-          $('#modalExtraAddress').val(data.extraAddress); // 사용자 주소
-          $('#modalDetailAddress').val(data.detailAddress); // 사용자 주소
-          $('#userDetailModal').modal('show'); // 모달 표시
-        },
-        error: function() {
-          alert('사용자 정보를 불러오는데 실패했습니다.'); // 에러 처리
-        }
-      });
-    });
+	    // AJAX 요청
+	    $.ajax({
+	      url: '/admin/getUserDetail/' + userNo,
+	      method: 'GET',
+	      success: function(data) {
+	        $('#modalEmailInput').val(data.email);
+	        $('#modalName').val(data.name);
+	        $('#modalMobile').val(data.mobile);
+	        $('#modalUserNo').val(data.userNo);
+	        $('#modalGender').val(data.gender);
+	        $('#modalBirthyear').val(data.birthyear);
+	        $('#modalSignupDt').val(data.signupDt);
+	        $('#modalPostcode').val(data.postcode);
+	        $('#modalAddress').val(data.address);
+	        $('#modalExtraAddress').val(data.extraAddress); // 사용자 추가 주소
+	        $('#modalDetailAddress').val(data.detailAddress); // 사용자 상세 주소
+	        $('#userDetailModal').modal('show'); // 모달 표시
+	      },
+	      error: function() {
+	        alert('사용자 정보를 불러오는데 실패했습니다.');
+	      }
+	    });
+	  });
 
-    // 모달 닫기 (Bootstrap의 기본 기능 사용)
-    $('#userDetailModal').on('hide.bs.modal', function() {
-      // 필요시 추가적인 로직을 여기에 작성
-    });
-  });
+	  // 모달 닫기 이벤트
+	  $('#userDetailModal').on('hide.bs.modal', function() {
+	    // 입력값 초기화 등의 추가 로직
+	  });
+	});
 
-  const adminDeleteUser = () => {
-    if (confirm("정말 회원 삭제를 하시겠습니까?")) {
-      var userNo = $('#modalUserNo').val(); // 삭제할 사용자 번호 가져오기
-      $.ajax({
-        url: "${contextPath}/admin/adminDeleteUser.do", // 변경된 URL
-        method: 'POST', // POST 메서드로 변경
-        data: { userNo: userNo }, // 사용자 번호 전송
-        success: function(response) {
-          alert('회원 삭제가 완료되었습니다.');
-          location.reload(); // 페이지 새로고침 또는 다른 처리
-        },
-        error: function() {
-          alert('회원 삭제에 실패했습니다.');
-        }
-      });
-    }
-  };
+	const adminDeleteUser = () => {
+	  if (confirm("정말 회원 삭제를 하시겠습니까?")) {
+	    var userNo = $('#modalUserNo').val();
+	    $.ajax({
+	      url: "${contextPath}/admin/adminDeleteUser.do",
+	      method: 'POST',
+	      data: { userNo: userNo },
+	      success: function(response) {
+	        alert('회원 삭제가 완료되었습니다.');
+	        location.reload();
+	      },
+	      error: function() {
+	        alert('회원 삭제에 실패했습니다.');
+	      }
+	    });
+	  }
+	};
 
-  const adminPwChange = () => {
-    if (confirm("비밀번호를 변경 하시겠습니까?")) {
-      var userNo = $('#modalUserNo').val(); // 변경할 사용자 번호 가져오기
-      var newPassword = prompt("새 비밀번호를 입력하세요:"); // 비밀번호 입력 받기
-      if (newPassword) {
-        $.ajax({
-          url: "${contextPath}/admin/adminPwupdate.do", // 변경된 URL
-          method: 'POST', // POST 메서드로 변경
-          data: { userNo: userNo, newPassword: newPassword }, // 사용자 번호와 비밀번호 전송
-          success: function(response) {
-            alert('변경 완료되었습니다.');
-            location.reload(); // 페이지 새로고침 또는 다른 처리
-          },
-          error: function() {
-            alert('변경 실패했습니다.');
-          }
-        });
-      }
-    }
-  };
+	const adminUpdateUser = () => {
+		
+	  if (confirm("정말 회원 정보를 수정하시겠습니까?")) {
+		
+	    const userNo = $('#modalUserNo').val();
+	    const email = $('#modalEmail').val();
+	    const name = $('#modalName').val();
+	    const mobile = $('#modalMobile').val();
+	    const gender = $('#modalGender').val();
+	    const birthyear = $('#modalBirthyear').val(); // 변수명 통일
+	    const signup_dt = $('#modalSignupDt').val();
+	    const postcode = $('#modalPostcode').val();
+	    const address = $('#modalAddress').val();
+	    const extra_address = $('#modalExtraAddress').val();
+	    const detail_address = $('#modalDetailAddress').val();
+	    
+		console.log(		JSON.stringify({ 
+			        userNo: userNo,
+			        name: name,
+			        mobile: mobile,
+			        gender: gender,
+			        birthyear: birthyear,
+			        signupDt: signup_dt,
+			        postcode: postcode,
+			        address: address,
+			        extraAddress: extra_address,
+			        detailAddress: detail_address
+			      }));
+		
+	    $.ajax({
+	      url: "${contextPath}/admin/adminUpdateUser.do",
+	      method: 'POST',
+		  contentType: 'application/json',
+	      data: JSON.stringify({ 
+	        userNo: userNo,
+	        name: name,
+	        mobile: mobile,
+	        gender: gender,
+	        birthyear: birthyear,
+	        signupDt: signup_dt,
+	        postcode: postcode,
+	        address: address,
+	        extraAddress: extra_address,
+	        detailAddress: detail_address
+	      }),
+	      success: function(response) {
+			if(response.isSuccess) {				
+		        alert('회원 정보 수정이 완료되었습니다.');
+				location.reload();
+			} else {
+		        alert('회원 정보 수정이 실패했습니다.');
+			}
+	      },
+	      error: function(xhr, status, error) {
+	        console.error("Error details: ", xhr.responseText);
+	        alert('회원 정보 수정에 실패했습니다. 다시 시도해주세요.');
+	      }
+	    });
+	  }
+	};
+
+	const adminPwChange = () => {
+	  if (confirm("비밀번호를 변경하시겠습니까?")) {
+	    var userNo = $('#modalUserNo').val();
+	    var newPassword = prompt("새 비밀번호를 입력하세요:");
+	    if (newPassword) {
+	      $.ajax({
+	        url: "${contextPath}/admin/adminPwupdate.do",
+	        method: 'POST',
+	        data: { userNo: userNo, newPassword: newPassword },
+	        success: function(response) {
+	          alert('변경 완료되었습니다.');
+	          location.reload();
+	        },
+	        error: function() {
+	          alert('변경 실패했습니다.');
+	        }
+	      });
+	    }
+	  }
+	};
   </script>
 </script>
 

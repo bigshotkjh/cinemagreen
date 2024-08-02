@@ -11,20 +11,9 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class StoreController {
 
-	@GetMapping(value = "/store.page")
-	public String storePage() {
-	  return "store/store";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+  @GetMapping(value = "/store.page")
+  public String storePage() {
+    return "store/store";
+  }
+
 }

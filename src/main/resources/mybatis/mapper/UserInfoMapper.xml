@@ -5,15 +5,58 @@
   
 <mapper namespace="com.min.cinemagreen.admin.mapper.IUserInfoMapper">
 
+  <insert id="adminInsertUser" parameterType="UserInfoDTO">
+    INSERT INTO user_t (
+        user_no
+      , email
+      , pw
+      , name
+      , gender
+      , mobile
+      , sns
+      , pw_modify_dt
+      , signup_dt
+      , birthyear
+      , age
+      , postcode
+      , address
+      , detail_address
+      , extra_address
+    ) VALUES (
+        user_seq.NEXTVAL
+      , #{email}
+      , #{pw}
+      , #{name}
+      , #{gender}
+      , #{mobile}
+      , #{sns}
+      , CURRENT_DATE
+      , CURRENT_DATE
+      , #{birthyear}
+      , #{age}
+      , #{postcode}
+      , #{address}
+      , #{detailAddress}
+      , #{extraAddress}
+    )
+  </insert>
+
     <select id="getUserList" resultType="UserInfoDTO">
         SELECT
             user_no,
-            name,
-            email,
-            mobile,
-            signup_dt
-        FROM
-            user_t
+            email, 
+            name, 
+            mobile, 
+            sns, 
+            signup_dt, 
+            birthyear, 
+            age, 
+            gender,
+            postcode, 
+            address, 
+            detail_address, 
+            extra_address        
+      FROM user_t
         ORDER BY
             signup_dt DESC
     </select>
@@ -22,37 +65,59 @@
     <select id="getUserById" parameterType="int" resultType="UserInfoDTO">
         SELECT
             user_no,
-            name,
-            email,
-            mobile,
-            signup_dt,
-            postcode,
-            address,
-            detailAddress,
-            extraAddress
-        FROM
-            user_t
+            email, 
+            name, 
+            mobile, 
+            sns, 
+            signup_dt, 
+            birthyear, 
+            age, 
+            gender,
+            postcode, 
+            address, 
+            detail_address, 
+            extra_address        
+      FROM user_t
         WHERE
             user_no = #{userNo}
     </select>
     
   
-    <update id="adminUpdateInf" parameterType="UserInfoDTO" >
-      UPDATE user_t
-         SET name = #{name}
-         , mobile = #{mobile}
-         , postcode = #{postcode}
-         , address = #{address}
-         , detailAddress = #{detailAddress}
-         , extraAddress = #{extraAddress}
-       WHERE user_no = #{userNo}
-     </update>
+	<update id="adminUpdateUser" parameterType="UserInfoDTO">
+	  UPDATE user_t
+	  SET name = #{name}, 
+	  mobile = #{mobile}, 
+	  gender = #{gender}, 
+	  birthyear = #{birthyear}, 
+	  signup_dt = #{signupDt}, 
+	  postcode = #{postcode}, 
+	  address = #{address}, 
+	  extra_address = #{extraAddress}, 
+	  detail_address = #{detailAddress}
+	  WHERE user_no = #{userNo}
+	</update>
   
     <delete id="adminDeleteUser" parameterType="int">
       DELETE
         FROM user_t
       WHERE user_no = #{userNo}
     </delete>
+  
+    <select id="doubleEmailCheckDo" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+      SELECT email           
+        FROM user_t
+       WHERE email = #{email}
+    </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
 </mapper>
