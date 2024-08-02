@@ -207,6 +207,7 @@ public class UserController {
   
   @PostMapping(value = "/profileUpload.do", produces = "application/json")
   public ResponseEntity<Map<String, Object>> profileUpload(@RequestParam("file") MultipartFile multipartFile, HttpSession session) {
+    System.out.println("controller   " + multipartFile.getOriginalFilename());
     return userService.profileUpload(multipartFile, session);
   }
   

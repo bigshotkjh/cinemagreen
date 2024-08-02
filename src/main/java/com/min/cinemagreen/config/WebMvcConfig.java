@@ -23,8 +23,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     registry.addResourceHandler("/static/**")       // static 으로 시작하는 모든 경로
       .addResourceLocations("classpath:/static/");  // src/main/resources/static 디렉터리
     
-    registry.addResourceHandler("/upload/**")
-    .addResourceLocations("file:/C:/upload/");
+    registry.addResourceHandler("/profile/**") //profile경로
+    .addResourceLocations("file:D:/profile/");
     
   }
   

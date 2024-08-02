@@ -76,22 +76,18 @@
               
         </form><br>
    <!--프로필 변경 --> 
-        <div>    
+        <div>
+    	<img id="profile-img" src=" ${loginUser.profilePath}/${loginUser.profileName}" width="100" height="100">    
           <form id="profile-form">
             <div>
               <label class="profile-label" for="profile"><b>프로필 변경하기 : </label>
-              <input type="file" name="file" id="profile" multiple="multiple">
+              <input type="file" name="file" id="profile" accept="image/*">
             </div>
-            <br>
             <div>
               <button type="button" id="profile-upload" >프로필변경</button>
             </div><br>
           </form>
         </div>
-        
-    	<img id="profile-img" src="" width="200" height="200">
-    	
-    	
         <div>
           <button type="button" class="pw-button" onclick="location.href = '${contextPath}/user/pwchange.page'">비밀번호변경</button>
         </div><br>
@@ -113,19 +109,21 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  
 <script>
+
 //프로필 변경
   const profileUpload = (file)=> {  // file: 추가한 이미지 (단일 파일)
+  
     if (file == null) {
         alert("파일을 선택해주세요.");
         return;
     }
+  
     // FormData 객체 생성
     let formData = new FormData();  // <form>
     
     // FormData 객체에 이미지 저장하기
     formData.append('file', file);   // <input name="file" type="file">
-    
-    // FormData 객체 처리
+
     $.ajax({
       // FormData 객체를 서버로 보내기 (이미지를 서버로 보내기)
       type: 'post',
@@ -133,12 +131,9 @@
       data: formData,
       contentType: false,  // Content-Type 헤더 값 생성 방지
       processData: false,  // 객체를 보내는 경우 해당 객체를 {property: value} 형식의 문자열로 자동으로 변환해서 보내는 것을 방지
-      // 서버가 저장한 이미지의 경로와 이름을 반환 받기
       dataType: 'json'
     }).done(resData => {  // resData == {url: '/경로/파일명'}
-    	alert(resData.url);
-    	$('#profile-img').attr('src', resData.url);
-      alert("성공");
+   	  $('#profile-img').attr('src', resData.url);
     }).fail(jqXHR => {
       alert("실패");
       alert(jqXHR.status);
@@ -152,7 +147,7 @@
     if (files.length == 1) { // 파일이 하나만 선택되었는지 확인
       profileUpload(files[0]); // 첫 번째 파일 업로드
     } else {
-      alert("하나의 파일만 선택해주세요.");
+      alert("변경을 원하시는 프로필 파일을 선택해주세요.");
     }
   });
 //블로그 가져오기

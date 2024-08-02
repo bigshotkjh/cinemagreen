@@ -409,36 +409,41 @@ public class UserServiceImpl implements IUserService {
 //프로필 업로드     
   @Override
   public ResponseEntity<Map<String, Object>> profileUpload(MultipartFile multipartFile, HttpSession session) {
-    
-    String uploadPath = fileUploadUtils.getUploadPath(); //파일업로드 유틸가 보면 지금 D드라이브로 되어있어!!
-    File uploadDir = new File(uploadPath);
-    if(!uploadDir.exists())
-      uploadDir.mkdirs();
-      
-    String filesystemName = fileUploadUtils.getFilesystemName(multipartFile.getOriginalFilename());    
-    // 저장
-    System.out.println(filesystemName);
-    File file = new File(uploadDir, filesystemName);
-//공사중///////////////////////////////////
-    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-    if(loginUser == null)  // 로그인이 풀린 유저
-      return null; 
 
-    int userNo = loginUser.getUserNo();
-    Map<String, Object> params = new HashMap<>();//페이징 처리에 필요한 파라미터를 담은 Map을 생성
-    params.put("userNo", userNo);
-    params.put("uploadPath", uploadPath);
-    params.put("filesystemName", filesystemName);
-    userMapper.updateprofile(params);
-//공사중///////////////////////////////////
+    System.out.println("service start");
     
+//공사중///////////////////////////////////    
+    String profilePath = fileUploadUtils.getUploadPath(); //파일업로드 유틸가 보면 지금 D드라이브로 되어있어!!
+    File profileDir = new File(profilePath);
+    if(!profileDir.exists())
+      profileDir.mkdirs();
+      
+    String filesystemName = fileUploadUtils.getFilesystemName(multipartFile.getOriginalFilename());
+    //String filesystemName = multipartFile.getOriginalFilename();
+    // 저장
+    File file = new File(profileDir, filesystemName);
     try {
       multipartFile.transferTo(file);
     } catch (Exception e) {
       e.printStackTrace();
     }
+//공사중///////////////////////////////////
     
-    return ResponseEntity.ok(Map.of("url", uploadPath + "/" + filesystemName));
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    if(loginUser == null)  // 로그인이 풀린 유저
+      return null; 
+    int userNo = loginUser.getUserNo();
+    Map<String, Object> params = new HashMap<>();//페이징 처리에 필요한 파라미터를 담은 Map을 생성
+    params.put("userNo", userNo);
+    params.put("profilePath", profilePath);
+    params.put("profileName", filesystemName);
+    userMapper.updateprofile(params);
+    //session 업데이트
+    params.put("email",loginUser.getEmail());
+    params.put("pw", loginUser.getPw());
+    loginUser = userMapper.getUserByMap(params);
+    session.setAttribute("loginUser", loginUser);
+    return ResponseEntity.ok(Map.of("url", profilePath  + "/" + filesystemName));
     
   }
 

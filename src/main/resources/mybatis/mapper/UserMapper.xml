@@ -42,7 +42,7 @@
   </insert>
   
   <select id="getUserByMap" parameterType="Map" resultType="UserDTO">
-    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt, birthyear, age, postcode, address, detail_address, extra_address           
+    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt, birthyear, age, postcode, address, detail_address, extra_address, profile_name, profile_path           
       FROM user_t
     <where> 
       <if test="email != null">email = #{email}</if>
@@ -148,7 +148,7 @@
   </insert>
   
   <select id="getsnsUserInfo" parameterType="UserDTO" resultType="UserDTO">
-    SELECT user_no, email, name, mobile, sns, signup_dt, birthyear, age, postcode, address, detail_address, extra_address        
+    SELECT user_no, email, name, mobile, sns, signup_dt, birthyear, age, postcode, address, detail_address, extra_address, profile_name, profile_path        
       FROM user_t
      WHERE email = #{email}
   </select>
@@ -162,8 +162,8 @@
   
   <update id="updateprofile" parameterType="Map" >
     UPDATE user_t
-       SET profile_name = #{filesystemName}
-         , profile_path = #{uploadPath}
+       SET profile_name = #{profileName}
+         , profile_path = #{profilePath}
     WHERE  user_no = #{userNo}
   </update>
   
