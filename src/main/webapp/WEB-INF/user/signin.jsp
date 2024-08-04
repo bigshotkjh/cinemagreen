@@ -21,40 +21,40 @@
 <div class="wrap">
   <div class="sections section_signin">
     <div class="width_con">
-    <div class ="aaa">
-      <div class="title_con white signin">
-        <h4 class="title">Sign In</h4><br>
-        <form id="signin-form">
-          <input type="hidden" name="url" value="${url}">
-          
-          <div>
-            <input type="text" name="email" id="email" placeholder="이메일">
-            <input type="checkbox" id="checkId">
-            <label for="id">이메일저장</label>
-            <h6></h6>
-          </div>
-          
-          <div>
-            <input type="password" name="pw" id="pw" placeholder="비밀번호">
-          </div><br>
-          
-          <%--  / SNS 로그인 / 아이디비번 찾기 --%>
-          
-          <div>
-            <button type="button" id="submitbtn" onclick="setCookie()">로그인하기</button>
-            <button type="button" onclick="history.back()">취소하기</button>
-            <h6></h6>
-            <button type="button" onclick="pwfind()">비밀번호 찾기</button>
-            <button type="button" onclick="emailfind()">이메일 찾기</button>
-            <h6></h6>
-          </div>
-          
-          <!-- 네이버 로그인 버튼 노출 영역 -->
-          <a href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
-          <!-- //네이버 로그인 버튼 노출 영역 -->
-                      
-        </form>
-      </div>
+      <div class ="aaa">
+        <div class="title_con white signin">
+	        <h4 class="title">Sign In</h4><br>
+	        <form id="signin-form">
+	          <input type="hidden" name="url" value="${url}">
+	          
+	          <div>
+	            <input type="text" name="email" id="email" placeholder="이메일">
+	            <input type="checkbox" id="checkId">
+	            <label for="id">이메일저장</label>
+	            <h6></h6>
+	          </div>
+	          
+	          <div>
+	            <input type="password" name="pw" id="pw" placeholder="비밀번호">
+	          </div><br>
+	          
+	          <%--  / SNS 로그인 / 아이디비번 찾기 --%>
+	          
+	          <div>
+	            <button type="button" id="submitbtn" onclick="setCookie()">로그인하기</button>
+	            <button type="button" onclick="history.back()">취소하기</button>
+	            <h6></h6>
+	            <button type="button" onclick="pwfind()">비밀번호 찾기</button>
+	            <button type="button" onclick="emailfind()">이메일 찾기</button>
+	            <h6></h6>
+	          </div>
+	          
+	          <!-- 네이버 로그인 버튼 노출 영역 -->
+	          <a href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+	          <!-- //네이버 로그인 버튼 노출 영역 -->
+	                      
+	        </form>
+        </div>
       </div>
     </div>
   </div>

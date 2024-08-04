@@ -15,6 +15,10 @@ public class FileUploadUtils {
     return "/profile";
   }
   
+  public String getSummernotePath() {
+    return "/summernote"; 
+  }
+  
   public String getFilesystemName(String originalFilename) {
     String extension;
     if(originalFilename.endsWith(".tar.gz")) {

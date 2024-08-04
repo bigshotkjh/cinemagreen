@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.min.cinemagreen.blog.mapper.IBlogMapper">
+
+  <insert id="insertBlog" parameterType="BlogDTO">
+    <selectKey keyProperty="blogNo" resultType="int" order="BEFORE">
+      SELECT blog_seq.NEXTVAL FROM dual
+    </selectKey>
+    INSERT INTO blog_t (
+        blog_no
+      , title
+      , contents
+      , hit
+      , user_no
+      , create_dt
+      , modify_dt
+    ) VALUES (
+        #{blogNo}
+      , #{title}
+      , #{contents}
+      , 0
+      , #{userNo}
+      , CURRENT_DATE
+      , CURRENT_DATE
+    )
+  </insert>
+
+  <insert id="insertSummernoteImage" parameterType="ImageDTO">
+    INSERT INTO image_t (
+        blog_no
+      , upload_path
+      , filesystem_name
+    ) VALUES (
+        #{blogNo}
+      , #{uploadPath}
+      , #{filesystemName}
+    )
+  </insert>
+  
+  <select id="getBlogCount" resultType="int">
+    SELECT COUNT(*)
+      FROM blog_t
+  </select>
+  
+  <select id="getBlogList" parameterType="Map" resultType="BlogDTO">
+    SELECT blog_no, title, contents, hit, user_no, create_dt, modify_dt, name, email
+      FROM (SELECT ROW_NUMBER() OVER(ORDER BY blog_no DESC) AS rnum, B.blog_no, B.title, B.contents, B.hit, B.user_no, B.create_dt, B.modify_dt, U.name, U.email
+              FROM user_t U INNER JOIN blog_t B
+                ON U.user_no = B.user_no)
+     WHERE rnum BETWEEN #{begin} AND #{end}
+  </select>
+  
+  <update id="updateHit" parameterType="int">
+    UPDATE blog_t
+       SET hit = hit + 1
+     WHERE blog_no = #{blogNo}
+  </update>
+  
+  <select id="getBlogByNo" parameterType="int" resultType="BlogDTO">
+    SELECT B.blog_no, B.title, B.contents, B.hit, B.user_no, B.create_dt, B.modify_dt, U.name, U.email
+      FROM user_t U INNER JOIN blog_t B 
+        ON U.user_no = B.user_no
+     WHERE B.blog_no = #{blogNo}
+  </select>
+  
+  <insert id="insertBlogCommentParent" parameterType="BlogCommentDTO">  <!-- BlogCommentDTO 는 원글 -->
+    INSERT INTO blog_comment_t(
+        comment_no
+      , user_no
+      , blog_no
+      , contents
+      , create_dt
+      , state
+      , depth
+      , group_no
+      , group_order
+    ) VALUES (
+        blog_comment_seq.NEXTVAL
+      , #{userNo}
+      , #{blogNo}
+      , #{contents}
+      , CURRENT_DATE
+      , 1
+      , 0
+      , blog_comment_seq.CURRVAL
+      , 0
+    )
+  </insert>
+  
+  <select id="getBlogCommentCount" parameterType="int" resultType="int">
+    SELECT COUNT(*)
+      FROM blog_comment_t
+     WHERE blog_no = #{blogNo}
+  </select>
+  
+  <select id="getBlogCommentList" parameterType="Map" resultType="BlogCommentDTO">
+    SELECT user_no, name, email, blog_no, contents, create_dt, state, depth, group_no, group_order
+      FROM (SELECT ROW_NUMBER() OVER(ORDER BY C.group_no DESC, C.group_order ASC) AS rnum
+                 , U.user_no, U.name, U.email, C.blog_no, C.contents, C.create_dt, C.state, C.depth, C.group_no, C.group_order
+              FROM user_t U INNER JOIN blog_comment_t C
+                ON U.user_no = C.user_no
+             WHERE C.blog_no = #{blogNo})
+     WHERE rnum BETWEEN #{begin} AND #{end}
+  </select>
+  
+  <update id="updateGroupOrder" parameterType="BlogCommentDTO">  <!-- BlogCommentDTO 는 원글 -->
+    UPDATE blog_comment_t
+       SET group_order = group_order + 1
+     WHERE group_no = #{groupNo}
+       AND group_order > #{groupOrder}
+  </update>
+  
+  <insert id="insertBlogCommentChild" parameterType="BlogCommentDTO">  <!-- BlogCommentDTO 는 답글 -->
+    INSERT INTO blog_comment_t (
+        comment_no
+      , user_no
+      , blog_no
+      , contents
+      , create_dt
+      , state
+      , depth
+      , group_no
+      , group_order
+    ) VALUES (
+        blog_comment_seq.NEXTVAL
+      , #{userNo}
+      , #{blogNo}
+      , #{contents}
+      , CURRENT_DATE
+      , 1
+      , #{depth}
+      , #{groupNo}
+      , #{groupOrder}
+    )
+  </insert>
+  
+</mapper>

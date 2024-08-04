@@ -184,7 +184,12 @@ public class UserServiceImpl implements IUserService {
     LocalDate currentDate = LocalDate.now();
     int age = Period.between(birthDate, currentDate).getYears();
     user.setAge(age);
-    session.setAttribute("loginUser", user); 
+
+    Map<String, Object> params = new HashMap<>();
+    params.put("email",loginUser.getEmail());
+    params.put("pw", loginUser.getPw());
+    loginUser = userMapper.getUserByMap(params);
+    session.setAttribute("loginUser", loginUser);
     return userMapper.updateInf(user);
   }
   
@@ -412,7 +417,7 @@ public class UserServiceImpl implements IUserService {
 
     System.out.println("service start");
     
-//공사중///////////////////////////////////    
+  
     String profilePath = fileUploadUtils.getUploadPath(); //파일업로드 유틸가 보면 지금 D드라이브로 되어있어!!
     File profileDir = new File(profilePath);
     if(!profileDir.exists())
@@ -427,13 +432,12 @@ public class UserServiceImpl implements IUserService {
     } catch (Exception e) {
       e.printStackTrace();
     }
-//공사중///////////////////////////////////
     
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
     if(loginUser == null)  // 로그인이 풀린 유저
       return null; 
     int userNo = loginUser.getUserNo();
-    Map<String, Object> params = new HashMap<>();//페이징 처리에 필요한 파라미터를 담은 Map을 생성
+    Map<String, Object> params = new HashMap<>();
     params.put("userNo", userNo);
     params.put("profilePath", profilePath);
     params.put("profileName", filesystemName);
@@ -445,6 +449,18 @@ public class UserServiceImpl implements IUserService {
     session.setAttribute("loginUser", loginUser);
     return ResponseEntity.ok(Map.of("url", profilePath  + "/" + filesystemName));
     
+  }
+////티켓/////////////////
+  @Override
+  public ResponseEntity<Map<String, Object>> getUserTicket(HttpSession session) {
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    if(loginUser == null)  // 로그인이 풀린 유저
+      return null; 
+    int userNo = loginUser.getUserNo();
+    Map<String, Object> params = new HashMap<>();
+    params.put("userNo", userNo);
+    userMapper.getUserTicket(params);
+    return null;
   }
 
 ///블로그//////////////////

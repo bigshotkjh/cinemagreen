@@ -17,6 +17,7 @@
  .red{ border: 2px solid red;}
  #blog-list{ border: 2px solid green;   margin-right: 1000px; }
  .blog{ border: 2px solid black;}
+ #profile-img{ border-radius: 20%;}
 </style>
 <!--
  가져와 표시할 것 들
@@ -37,9 +38,23 @@
     <div class="width_con">
       <div class="title_con white userpage">
         <h4 class="title">User Page</h4><br>
+        
+       <!--프로필 변경 --> 
+        <form id="profile-form">
+          <div>
+            <label class="profile-label" for="profile"><b>프로필 변경하기 : </label>
+            <input type="file" name="file" id="profile" accept="image/*">
+          </div>
+          <div>
+            <button type="button" id="profile-upload" >프로필변경</button>
+          </div><br>
+        </form>
+        
+        <img id="profile-img" src=" ${loginUser.profilePath}/${loginUser.profileName}" width="100" height="100">
+
         <form id="user-info-form"
               method="post"
-              action="${contextPath}/user/updateInf.do">
+              action="${contextPath}/user/updateInf.do">  
           <div>
             <h5>이메일</h5>
             <input type="text" name="email" id="email" value="${loginUser.email}" disabled>
@@ -75,26 +90,17 @@
           </div>
               
         </form><br>
-   <!--프로필 변경 --> 
-        <div>
-    	<img id="profile-img" src=" ${loginUser.profilePath}/${loginUser.profileName}" width="100" height="100">    
-          <form id="profile-form">
-            <div>
-              <label class="profile-label" for="profile"><b>프로필 변경하기 : </label>
-              <input type="file" name="file" id="profile" accept="image/*">
-            </div>
-            <div>
-              <button type="button" id="profile-upload" >프로필변경</button>
-            </div><br>
-          </form>
-        </div>
         <div>
           <button type="button" class="pw-button" onclick="location.href = '${contextPath}/user/pwchange.page'">비밀번호변경</button>
         </div><br>
         <div>
           <button type="button" onclick="leaveUser()">탈퇴하기</button>
         </div><br>
+        <div>
+          <button type="button" onclick="getUserTicket()">예매가져오기</button>
+        </div><br>
 <!-- 블로그 -->
+        <h4>내가 작성한 무비포스트</h4>
         <div id="blog-list"></div><br>
         <div id="paging"></div>
 <!-- 블로그 -->
@@ -184,6 +190,18 @@
     })
   }
   getBlogList();
+
+  
+  const detail = ()=>{
+    $(document).on('click', '.blog', evt=>{
+      if('${sessionScope.loginUser.userNo}' == evt.currentTarget.dataset.userNo){
+        location.href = '${contextPath}/blog/detail.do?blogNo=' + evt.currentTarget.dataset.blogNo;
+      } else {
+        location.href = '${contextPath}/blog/updateHit.do?blogNo=' + evt.currentTarget.dataset.blogNo;
+      }
+    })
+  }
+  detail();
 
 //sns로그인유저 비밀번호변경 버튼 숨기기
   const fnSnsPwNone = ()=>{
@@ -295,6 +313,11 @@
     fnAllCheck();
   } 
   
+//예매
+
+  const getUserTicket = ()=>{
+	  location.href = "${contextPath}/user/getuserticket.do";
+  }
 //탈퇴
   const leaveUser = () => {
     // 회원 탈퇴 확인 메시지 표시

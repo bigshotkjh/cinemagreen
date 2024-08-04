@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
  *   4) DELETE : delete()
  * 4. 앞으로는 WebClient로 대체될 예정  */
 
-@MapperScan(basePackages = {"com.min.cinemagreen.mapper", "com.min.cinemagreen.admin.mapper", "com.min.cinemagreen.payment.mapper", "com.min.cinemagreen.user.mapper", "com.min.cinemagreen.movie.mapper"})
+@MapperScan(basePackages = {"com.min.cinemagreen.mapper", "com.min.cinemagreen.admin.mapper", "com.min.cinemagreen.payment.mapper", "com.min.cinemagreen.user.mapper", "com.min.cinemagreen.movie.mapper", "com.min.cinemagreen.blog.mapper"})
 @Configuration
 public class RestTemplateConfig {
 

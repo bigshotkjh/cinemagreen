@@ -26,6 +26,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     registry.addResourceHandler("/profile/**") //profile경로
     .addResourceLocations("file:D:/profile/");
     
+    registry.addResourceHandler("/summernote/**") //summernote경로
+    .addResourceLocations("file:D:/summernote/");
+    
+    
   }
   
   private final SigninCheck signinCheck;

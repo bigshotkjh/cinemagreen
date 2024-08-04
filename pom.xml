@@ -40,24 +40,31 @@
  
 	<dependencies>
 
-	    <!-- 포트원 결제-->
-	    <dependency>
-	      <groupId>com.github.iamport</groupId>
-	      <artifactId>iamport-rest-client-java</artifactId>
-	      <version>0.2.23</version>
-	    </dependency>
+    <!-- HTML/XML Parser : https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.17.2</version>
+    </dependency>
 
-        <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
+    <!-- 포트원 결제-->
+    <dependency>
+      <groupId>com.github.iamport</groupId>
+      <artifactId>iamport-rest-client-java</artifactId>
+      <version>0.2.23</version>
+    </dependency>
 
-        <!-- log4jdbc-log4j2 (JDBC proxy driver for logging SQL) -->
-        <dependency>
-          <groupId>org.bgee.log4jdbc-log4j2</groupId>
-          <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-          <version>1.16</version>
-        </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mail</artifactId>
+    </dependency>
+
+    <!-- log4jdbc-log4j2 (JDBC proxy driver for logging SQL) -->
+    <dependency>
+      <groupId>org.bgee.log4jdbc-log4j2</groupId>
+      <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+      <version>1.16</version>
+    </dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -104,32 +111,32 @@
 		</dependency>
 		
 		<!-- Servlet -->
-	    <dependency>
-	      <groupId>jakarta.servlet</groupId>
-	      <artifactId>jakarta.servlet-api</artifactId>
-	      <scope>provided</scope>
-	    </dependency>
-	    <!-- JSTL -->
-	    <dependency>
-	      <groupId>jakarta.servlet.jsp.jstl</groupId>
-	      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-	    </dependency>
-	    <dependency> <!-- JSTL Implementation -->
-	      <groupId>org.glassfish.web</groupId>
-	      <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-	    </dependency>
-	    <!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper -->
-	    <dependency>
-	      <groupId>org.apache.tomcat.embed</groupId>
-	      <artifactId>tomcat-embed-jasper</artifactId>
-	    </dependency>
-		<!-- https://mvnrepository.com/artifact/org.json/json -->
-		<dependency>
-		    <groupId>org.json</groupId>
-		    <artifactId>json</artifactId>
-		    <version>20240303</version>
-		</dependency>
-		
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <!-- JSTL -->
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+    </dependency>
+    <dependency> <!-- JSTL Implementation -->
+      <groupId>org.glassfish.web</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper -->
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-jasper</artifactId>
+    </dependency>
+	<!-- https://mvnrepository.com/artifact/org.json/json -->
+  	<dependency>
+  	    <groupId>org.json</groupId>
+  	    <artifactId>json</artifactId>
+  	    <version>20240303</version>
+  	</dependency>
+	
 	</dependencies>
 
 	<build>

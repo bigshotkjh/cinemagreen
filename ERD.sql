@@ -1,6 +1,7 @@
 
 /* DROP SEQUENCE */
 
+DROP SEQUENCE blog_comment_seq;
 DROP SEQUENCE blog_seq;
 DROP SEQUENCE x_user_seq;
 DROP SEQUENCE post_img_seq;
@@ -19,7 +20,7 @@ DROP SEQUENCE user_seq;
 
 
 /* CREATE SEQUENCE */
-CREATE SEQUENCE user_seq START WITH 1;
+CREATE SEQUENCE user_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE movie_seq START WITH 1;
 CREATE SEQUENCE runtime_seq START WITH 1;
 CREATE SEQUENCE occupied_seat_seq START WITH 1;
@@ -32,10 +33,13 @@ CREATE SEQUENCE like_seq START WITH 1;
 CREATE SEQUENCE access_seq START WITH 1;
 CREATE SEQUENCE post_seq START WITH 1;
 CREATE SEQUENCE post_img_seq START WITH 1;
-CREATE SEQUENCE x_user_seq START WITH 1;
-CREATE SEQUENCE blog_seq START WITH 1;
+CREATE SEQUENCE x_user_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE blog_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE blog_comment_seq START WITH 1 INCREMENT BY 1;
 
 /* DROP TABLE */
+DROP TABLE blog_comment_t;
+DROP TABLE image_t;
 DROP TABLE blog_t;
 DROP TABLE moviepost_img_t;
 DROP TABLE moviepost_comment_t;
@@ -287,6 +291,41 @@ CREATE TABLE blog_t (
   CONSTRAINT fk_blog_user FOREIGN KEY(user_no)
       REFERENCES user_t(user_no) ON DELETE CASCADE
 );
+
+-- 블로그 만들 때 사용한 이미지 목록
+CREATE TABLE image_t (
+  blog_no         NUMBER             NOT NULL,
+  upload_path     VARCHAR2(100 BYTE),
+  filesystem_name VARCHAR2(100 BYTE),
+  CONSTRAINT fk_blog_image FOREIGN KEY(blog_no)
+    REFERENCES blog_t(blog_no) ON DELETE CASCADE
+);
+
+-- 블로그 댓글
+CREATE TABLE blog_comment_t (
+  comment_no  NUMBER NOT NULL,
+  user_no     NUMBER,
+  blog_no     NUMBER,
+  contents    VARCHAR2(1000 BYTE),
+  create_dt   DATE,
+  state       NUMBER,
+  depth       NUMBER,
+  group_no    NUMBER,
+  group_order NUMBER,
+  CONSTRAINT pk_comment PRIMARY KEY(comment_no),
+  CONSTRAINT fk_comment_user FOREIGN KEY(user_no)
+    REFERENCES user_t(user_no) ON DELETE CASCADE,
+  CONSTRAINT fk_comment_blog FOREIGN KEY(blog_no)
+    REFERENCES blog_t(blog_no) ON DELETE CASCADE
+);
+
+SELECT user_no, name, email, blog_no, contents, create_dt, state, depth, group_no, group_order
+  FROM (SELECT ROW_NUMBER() OVER(ORDER BY C.group_no DESC, C.group_order ASC) AS rnum,
+               U.user_no, U.name, U.email, C.blog_no, C.contents, C.create_dt, C.state, C.depth, C.group_no, C.group_order
+          FROM user_t U INNER JOIN blog_comment_t C
+            ON U.user_no = C.user_no
+         WHERE C.blog_no = 1)
+ WHERE rnum BETWEEN 1 AND 20;
 
 -- x_user_t 트리거    
 CREATE OR REPLACE TRIGGER x_trigger

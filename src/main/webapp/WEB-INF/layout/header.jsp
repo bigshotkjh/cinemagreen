@@ -51,8 +51,9 @@
                	<li><a href="#">장바구니</a></li>
               </ul>
             </li>
-            <li><a href="${contextPath}/openai/chat.page">AI챗봇</a><li>
-				<a href="${contextPath}/admin/admin.page">관리자</a>
+            <li><a href="${contextPath}/blog/list.do">무비포스트</a></li>
+            <li><a href="${contextPath}/openai/chat.page">AI챗봇</a></li>
+				    <li><a href="${contextPath}/admin/admin.page">관리자</a></li>
           </ul>
           <c:if test="${empty sessionScope.loginUser}">
             <ul class="nav_customer">

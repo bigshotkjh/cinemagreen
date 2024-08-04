@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.min.cinemagreen.dto.BlogDTO;
 import com.min.cinemagreen.dto.UserDTO;
+import com.min.cinemagreen.dto.UserTicketDTO;
 
 @Mapper
 public interface IUserMapper {
@@ -24,6 +25,8 @@ public interface IUserMapper {
   UserDTO getsnsUserInfo(UserDTO user);
   int ageUpdate(UserDTO user);
   int updateprofile(Map<String, Object> params);
+//티켓/////////////////////////
+  List<UserTicketDTO> getUserTicket(Map<String, Object> params);
 //블로그//////////////////
   int getBlogCount(int userNo);
   List<BlogDTO> userGetBlogList(Map<String, Object> params);
