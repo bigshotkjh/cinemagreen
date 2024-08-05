@@ -10,7 +10,6 @@
   <jsp:param value="CINEMAGREEN ADMIN" name="title"/>
 </jsp:include>
 <style>
-  
     .textarea-small {
       width: 33%;
       height: 30%;
@@ -19,9 +18,7 @@
     .input-wide {
       width: 33%;
     }
-    
 </style>
-
 
 <main>
   <div class="container-fluid px-4">
@@ -34,8 +31,9 @@
         <table id="datatablesSimple" class="table table-striped">
           <thead>
             <tr>
-              <th>선택</th>
               <th>영화순위</th>
+              <th>상영 시작 시각</th>
+              <th>상영 종료 시각</th>
               <th>제목</th>
               <th>등급</th>
               <th>장르</th>
@@ -43,13 +41,33 @@
               <th>상세</th>
             </tr>
           </thead>
+          
+          
+          
           <tbody>
             <c:forEach var="movie" items="${movieList}">
               <tr>
-                <td>
-                  <input type="checkbox" class="movie-checkbox" data-movieno="${movie.movieNo}">
-                </td>
                 <td>${movie.movieNo}</td>
+                <td>
+                  <c:choose>
+                    <c:when test="${not empty movie.runtimeInfo.startTime}">
+                      ${movie.runtimeInfo.startTime}
+                    </c:when>
+                    <c:otherwise>
+                      NULL
+                    </c:otherwise>
+                  </c:choose>
+                </td><!-- 상영 시작 시각 -->
+                <td>
+                  <c:choose>
+                    <c:when test="${not empty movie.runtimeInfo.endTime}">
+                      ${movie.runtimeInfo.endTime}
+                    </c:when>
+                    <c:otherwise>
+                      NULL
+                    </c:otherwise>
+                  </c:choose>
+                </td><!-- 상영 종료 시각 -->
                 <td>${movie.movieNm}</td>
                 <td>${movie.rating}</td>
                 <td>${movie.genres}</td>
@@ -68,7 +86,6 @@
   </div>
 </main>
 
-
 <%@ include file="../admin/adminfooter.jsp" %>
 
 <!-- 모달 -->
@@ -83,43 +100,42 @@
         <div class="wrap">
           <div class="sections section_moviepage">
             <div class="width_con">
-              <div class="title_con white moviepage">                    <!-- 추가하기 -->
+              <div class="title_con white moviepage">
                 <form id="movie-info-form" method="post" action="${contextPath}/admin/updateInf.do">
                   <input type="hidden" id="modalMovieNo" name="movieNo" value="">
                   
-          <!-- 프로필 들어갈 자리 -->
-          
-                  <div>
-                    <h5>제목</h5>
-                    <input type="text" class="offset-1 input-wide" name="movie_nm" id="modalMovieNmInput" value="">
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="flex: 1;">
+                      <h5>제목</h5>
+                      <input type="text" class="offset-1 input-wide" name="movie_nm" id="modalMovieNmInput" value="">
+                    </div>
+                    <div>
+                      <img id="modalPoster" src="" alt="영화 포스터" style="width: 100px; height: auto; margin-left: 10px;">
+                    </div>
                   </div>
                   <div>
                     <h5>등급</h5>
                     <input type="text" class="offset-1 input-wide" name="rating" id="modalRating" value="">
+                    
                   </div>
                   <div>
                     <h5>장르</h5>
-                    <input type="text" class="offset-1 input-wide"  name="genres" id="modalGenres" value="">
+                    <input type="text" class="offset-1 input-wide" name="genres" id="modalGenres" value="">
                   </div>
                   <div>
-                    <h5>상영시간(분)</h5>
-                    <input type="text" class="offset-1 input-wide"  name="runtime" id="modalRuntime" value="">
+                    <pre><h5>상영시간(분)                                                                  상영 시작시간</h5></pre>
+                    <input type="text" class="offset-1 input-wide" name="runtime" id="modalRuntime" value="">
+                    <input type="text" class="offset-1 input-wide" name="start_time" id="modalStartTime" value="">
                   </div>
                   <div>
-                    <h5>줄거리</h5>
+                    <pre><h5>줄거리                                                                           상영 종료시간</h5></pre>
                     <textarea class="offset-1 plot textarea-small" name="plot" id="modalPlot" rows="4"></textarea>
+                    <input type="text" class="offset-1 input-wide" name="end_time" id="modalEndTime" value="">
                   </div>
                   <div> 
                     <h5>영제</h5>
-                    <input type="text" class="offset-1 input-wide"  name="title_eng" id="modalTitleEng" value="">
+                    <input type="text" class="offset-1 input-wide" name="title_eng" id="modalTitleEng" value="">
                   </div>
-                  <div>
-                    <img id="modalPoster" src="" alt="영화 포스터" style="width: 100%; height: auto; margin-bottom: 10px;">
-                    </div>
-                  <br>
-          <!--<div>
-            <button type="button" onclick="adminDeleteMovie()">삭제하기</button>
-          </div>-->
                 </form>
               </div>
             </div>
@@ -139,20 +155,24 @@
   $(document).ready(function() {
     // 상세보기 버튼 클릭 시
     $('.detail-btn').click(function() {
-      var movieNo = $(this).data('movieno'); // data-userno 속성 가져오기
+      var movieNo = $(this).data('movieno');
 
       // AJAX 요청
       $.ajax({
         url: '/admin/getMovieDetail/' + movieNo,
         method: 'GET',
         success: function(data) {
-          $('#modalMovieNmInput').val(data.movieNm); // 수정된 부분
+          console.log(data);
+          $('#modalMovieNo').val(data.movieNo); // 영화 번호 설정
+          $('#modalMovieNmInput').val(data.movieNm);
           $('#modalRating').val(data.rating);
           $('#modalGenres').val(data.genres);
           $('#modalRuntime').val(data.runtime);
+          $('#modalStartTime').val(data.startTime);
+          $('#modalEndTime').val(data.endTime);
           $('#modalPlot').val(data.plot);
           $('#modalTitleEng').val(data.titleEng);
-          $('#modalPoster').attr('src', data.poster_urls); // 포스터 URL 설정
+          $('#modalPoster').attr('src', data.posterUrl); // 포스터 URL 설정
           $('#movieDetailModal').modal('show'); // 모달 표시
         },
         error: function() {
@@ -161,29 +181,18 @@
       });
     });
 
-    // 모달 닫기 이벤트
     $('#movieDetailModal').on('hide.bs.modal', function() {
       // 입력값 초기화 등의 추가 로직
+      $('#modalMovieNo').val('');
+      $('#modalMovieNmInput').val('');
+      $('#modalRating').val('');
+      $('#modalGenres').val('');
+      $('#modalRuntime').val('');
+      $('#modalStartTime').val('');
+      $('#modalEndTime').val('');
+      $('#modalPlot').val('');
+      $('#modalTitleEng').val('');
+      $('#modalPoster').attr('src', ''); // 포스터 초기화
     });
   });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

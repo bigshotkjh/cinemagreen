@@ -119,6 +119,7 @@ CREATE TABLE runtime_t (
     time_no    NUMBER NOT NULL PRIMARY KEY,
     movie_no   NUMBER,
     start_time VARCHAR2(100),
+    end_time VARCHAR2(100),
     CONSTRAINT fk_runtime_movie FOREIGN KEY(movie_no) REFERENCES movie_t(movie_no) ON DELETE SET NULL
 );
 
