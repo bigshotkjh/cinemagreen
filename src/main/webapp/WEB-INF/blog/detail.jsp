@@ -11,8 +11,6 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <style>
-  .sections.section_signin .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
-  .sections.section_signin .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
   #blog-comment-btn {
@@ -33,35 +31,40 @@
   .paging {
     margin: 30px 0;
   }
+  .title_con {position: relative; transform: translate(0px, -150px);}
+  .blog-content {position: relative; transform: translate(250px, 0px);}
+  .blog {border-radius: 5px; padding: 5px; background-color: #FFFFF4; margin: 5px; width: 900px; overflow: hidden;}
+  #parent-form {position: relative; transform: translate(250px, 0px);}
+  .data {text-align: right;}
+  .movie-title {position: relative; transform: translate(200px, 0px) !important;}
 </style>
 
 
 <div class="wrap">
-  <div class="sections section_signin">
+  <div class="sections">
     <div class="width_con">
       <div class ="aaa">
         <div class="title_con white signin">
-          <h4 class="title">Movie Postlist</h4><br>
-					<h3 class="title">${blog.title}</h3>
-					<div>${blog.name}</div>
-					<div>${blog.createDt}</div>
-					<div>HIT : ${blog.hit}</div>
-					<div>${blog.contents}</div>
-					
-					<div id="blog-comment-btn">
-					  <span>댓글</span>
-					  <span id="blog-comment-count"></span>
-					</div>
-					
-					<div id="blog-comment-list" class="blind"></div>
+          <h4 class="movie-title">Movie Postlist</h4><br>
+          <div class="blog-content">
+	          <h5 class="blog title"><b>제목 | ${blog.title}</h5>
+	          <div class="blog data">${blog.name}| HIT : ${blog.hit} | 작성일 : ${blog.createDt} </div>
+	          <div class="blog contents ">${blog.contents}</div>
+	          <div id="blog-comment-btn">
+	            <span>댓글</span>
+	            <span id="blog-comment-count"></span>
+	          </div>
+            <div id="blog-comment-list" class="blind"></div>
+          </div>
 					
 					<hr>
 					
 					<div>
 					  <form id="parent-form">
 					    <input type="hidden" name="blogNo" value="${blog.blogNo}">
-					    <textarea id="contents" name="contents" rows="5" cols="50" placeholder="훈훈한 댓글 플리즈"></textarea>    
+					    <textarea id="contents" name="contents" rows="3" cols="50" placeholder="댓글을 입력해 주세요."></textarea>    
 					    <button type="button" id="save-parent-btn">등록</button>
+              <button type="button" onclick="history.back()">뒤로가기</button>
 					  </form>
 					</div>
         </div>
@@ -73,7 +76,7 @@
 
   const signinCheck = () => {
     if('${sessionScope.loginUser}' === '') {
-      if(confirm('Sign In 이 필요한 기능입니다. Sign In 할까요?')) {
+      if(confirm('로그인이 필요한 기능입니다. 로그인 하시겠습니까?')) {
         location.href = '${contextPath}/user/signin.page';
         return true;
       } else {
@@ -158,7 +161,7 @@
         str += '  <input type="hidden" name="groupNo" value="' + blogComment.groupNo + '">';
         str += '  <input type="hidden" name="groupOrder" value="' + blogComment.groupOrder + '">';
         str += '  <input type="hidden" name="blogNo" value="${blog.blogNo}">';
-        str += '  <textarea name="contents" rows="5" cols="50" placeholder="훈훈한 댓글 플리즈"></textarea>';
+        str += '  <textarea name="contents" rows="3" cols="50" placeholder="댓글을 입력해 주세요."></textarea>';
         str += '  <button type="button" class="save-child-btn">등록</button>';
         str += '</form>';
         str += '</div>';

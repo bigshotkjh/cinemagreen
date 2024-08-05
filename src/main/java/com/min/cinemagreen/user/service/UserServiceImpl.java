@@ -418,8 +418,8 @@ public class UserServiceImpl implements IUserService {
     System.out.println("service start");
     
   
-    String profilePath = fileUploadUtils.getUploadPath(); //파일업로드 유틸가 보면 지금 D드라이브로 되어있어!!
-    File profileDir = new File(profilePath);
+    String profilePath = fileUploadUtils.getUploadPath(); 
+    File profileDir = new File(profilePath);//profilePath를 직접 "D:/profile"로 넣어줘야 정상 동작해.
     if(!profileDir.exists())
       profileDir.mkdirs();
       

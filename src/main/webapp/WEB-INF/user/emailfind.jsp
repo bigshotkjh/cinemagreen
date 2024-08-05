@@ -13,6 +13,9 @@
   .sections.section_emailfind .width_con .emailfind form{ position: relative; transform: translateX(42%); transition: inherit;}
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
+  .title_con{ position: relative; transform: translate(0px, 0px);}
+  #emailfind-form{  position: relative; transform: translate(570px, 0px); border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 215px; padding: 10px;}
+  
 </style>
 
 <div class="wrap">

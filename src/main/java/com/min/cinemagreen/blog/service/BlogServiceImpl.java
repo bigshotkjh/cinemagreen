@@ -45,7 +45,7 @@ public class BlogServiceImpl implements IBlogService {
     System.out.println("디렉터리전");
     // 저장할 디렉터리 만들기
     String uploadPath = fileUploadUtils.getSummernotePath();
-    File uploadDir = new File(uploadPath);
+    File uploadDir = new File("/summernote");//uploadPath를 직접 "D:/summernote"로 넣어줘야 정상 동작해.
     if(!uploadDir.exists()) {
       uploadDir.mkdirs();
     }
@@ -102,7 +102,7 @@ public class BlogServiceImpl implements IBlogService {
   public ResponseEntity<Map<String, Object>> getBlogList(HttpServletRequest request) {
     
     int page = Integer.parseInt(request.getParameter("page"));//페이지를 받아왔네.
-    int display = 20; //한 페이지에 표시할 게시물 수
+    int display = 10; //한 페이지에 표시할 게시물 수
     int total = blogMapper.getBlogCount();//블로그 게시물 총수/ 맵퍼에 다녀와야해.
     
     pageUtils.setPaging(total, display, page);//페이징 정보를 설정

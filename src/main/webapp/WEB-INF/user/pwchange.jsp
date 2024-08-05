@@ -15,6 +15,7 @@
   .sections.section_pwchange .width_con .pwchange form{ position: relative; transform: translateX(42%); transition: inherit;}
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
+  .title_con{ position: relative; transform: translate(0px, 0px);}
 </style>
 
 <div class="wrap">
