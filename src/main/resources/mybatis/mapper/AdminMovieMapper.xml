@@ -7,6 +7,8 @@
 
   <select id="getMovieList" resultType="MovieDTO"> <!-- 모든 영화 가져오기 -->
     SELECT * FROM movie_t
+             ORDER BY
+             movie_no ASC
   </select>
   
   <select id="getMovieById" parameterType="int" resultType="MovieDTO"> <!-- 해당 영화번호에 맞는 정보 가져오기 -->
@@ -16,6 +18,8 @@
   
   <select id="getRuntimeList" resultType="RuntimeDTO"> <!-- 모든 영화 상영시각 가져오기 -->
     SELECT * FROM runtime_t
+             ORDER BY
+             movie_no ASC
   </select>
   
   <select id="getRuntimeById" parameterType="int" resultType="RuntimeDTO"> <!-- 해당 영화번호에 맞는 상영시각 가져오기 -->

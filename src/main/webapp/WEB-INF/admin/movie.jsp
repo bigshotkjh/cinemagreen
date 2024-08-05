@@ -33,7 +33,6 @@
             <tr>
               <th>영화순위</th>
               <th>상영 시작 시각</th>
-              <th>상영 종료 시각</th>
               <th>제목</th>
               <th>등급</th>
               <th>장르</th>
@@ -58,16 +57,6 @@
                     </c:otherwise>
                   </c:choose>
                 </td><!-- 상영 시작 시각 -->
-                <td>
-                  <c:choose>
-                    <c:when test="${not empty movie.runtimeInfo.endTime}">
-                      ${movie.runtimeInfo.endTime}
-                    </c:when>
-                    <c:otherwise>
-                      NULL
-                    </c:otherwise>
-                  </c:choose>
-                </td><!-- 상영 종료 시각 -->
                 <td>${movie.movieNm}</td>
                 <td>${movie.rating}</td>
                 <td>${movie.genres}</td>
@@ -116,23 +105,30 @@
                   <div>
                     <h5>등급</h5>
                     <input type="text" class="offset-1 input-wide" name="rating" id="modalRating" value="">
-                    
                   </div>
                   <div>
                     <h5>장르</h5>
                     <input type="text" class="offset-1 input-wide" name="genres" id="modalGenres" value="">
                   </div>
                   <div>
-                    <pre><h5>상영시간(분)                                                                  상영 시작시간</h5></pre>
+                    <h5>상영시간(분)</h5>
                     <input type="text" class="offset-1 input-wide" name="runtime" id="modalRuntime" value="">
-                    <input type="text" class="offset-1 input-wide" name="start_time" id="modalStartTime" value="">
                   </div>
                   <div>
-                    <pre><h5>줄거리                                                                           상영 종료시간</h5></pre>
+                    <h5>줄거리</h5>
                     <textarea class="offset-1 plot textarea-small" name="plot" id="modalPlot" rows="4"></textarea>
-                    <input type="text" class="offset-1 input-wide" name="end_time" id="modalEndTime" value="">
+                    <div style="border: 1px solid #ccc; padding: 10px; max-width: 200px; margin: 10px auto;">
+                      <h5>상영 시간</h5>
+                      <div style="display: flex; justify-content: space-between;">
+                        <div>
+                          <label for="modalStartTime">상영 시작시간</label>
+                          <input type="time" name="start_time" id="modalStartTime" value="">
+                        </div>
+                      </div>
+                      <button type="button" class="btn btn-primary" onclick="registerShowTime()">입력</button>
+                    </div>
                   </div>
-                  <div> 
+                  <div>
                     <h5>영제</h5>
                     <input type="text" class="offset-1 input-wide" name="title_eng" id="modalTitleEng" value="">
                   </div>
@@ -148,6 +144,22 @@
     </div>
   </div>
 </div>
+
+<script>
+function registerShowTime() {
+  const startTime = document.getElementById('modalStartTime').value;
+
+  if (!startTime) {
+    alert("상영 시작시간을 입력해 주세요.");
+    return;
+  }
+
+  // 여기에 상영 시간을 등록하는 로직을 추가할 수 있습니다.
+  console.log("상영 시작시간:", startTime);
+  
+  // 예를 들어, AJAX 요청을 통해 서버에 상영 시간을 전송할 수도 있습니다.
+}
+</script>
 
 <!-- jQuery 및 AJAX 스크립트 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -169,7 +181,6 @@
           $('#modalGenres').val(data.genres);
           $('#modalRuntime').val(data.runtime);
           $('#modalStartTime').val(data.startTime);
-          $('#modalEndTime').val(data.endTime);
           $('#modalPlot').val(data.plot);
           $('#modalTitleEng').val(data.titleEng);
           $('#modalPoster').attr('src', data.posterUrl); // 포스터 URL 설정
@@ -189,10 +200,64 @@
       $('#modalGenres').val('');
       $('#modalRuntime').val('');
       $('#modalStartTime').val('');
-      $('#modalEndTime').val('');
       $('#modalPlot').val('');
       $('#modalTitleEng').val('');
       $('#modalPoster').attr('src', ''); // 포스터 초기화
     });
   });
+  
+  
+  
+  
+  
+  const adminInsertMovie = () => {
+    
+    if (confirm("상영 시간을 등록하시겠습니까?")) {
+    
+      
+      const movieNo = $('#modalMovieNo').val();
+      const startTime = $('#modalStartTime').val();
+      
+    console.log(    JSON.stringify({ 
+      
+              movieNo: movieNo,
+              startTime: startTime
+            }));
+    
+      $.ajax({
+        url: "${contextPath}/admin/adminInsertMovie.do",
+        method: 'POST',
+      contentType: 'application/json',
+        data: JSON.stringify({ 
+          
+          movieNo: movieNo,
+          startTime: startTime
+        }),
+        success: function(response) {
+      if(response.isSuccess) {        
+            alert('상영 시간 등록이 완료되었습니다.');
+        location.reload();
+      } else {
+            alert('상영 시간 등록이 실패했습니다.');
+      }
+        },
+        error: function(xhr, status, error) {
+          console.error("Error details: ", xhr.responseText);
+          alert('상영 시간 등록에 실패했습니다. 다시 시도해주세요.');
+        }
+      });
+    }
+  };
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </script>

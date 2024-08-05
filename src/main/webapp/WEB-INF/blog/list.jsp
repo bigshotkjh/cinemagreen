@@ -16,13 +16,18 @@
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
   .blog {
-    display: flex;
     width: 500px;
     cursor: pointer;
     background-color: beige;
     border-bottom: 1px solid gray;
     margin-bottom: 10px;
-  }
+  }position: relative; transform: translate(0px, -150px);
+  .title_con{ }
+  .blog{ position: relative; transform: translate(0px, 0px);}
+  .paging { position: relative; transform: translate(-300px, 20px);}
+  button{position: relative; transform: translate(950px, -10px);}
+  #blog-list {border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 510px; position: relative; transform: translate(440px, 0px);}
+  .right {text-align: right;}
 </style>
 
 
@@ -33,11 +38,10 @@
         <div class="title_con white signin">
           <h4 class="title">Movie Postlist</h4><br>
 					<div>
-					  <a href="${contextPath}/blog/write.page">작성하러가기</a>
+					  <button type="button" onclick="blogWrite()">무비포스트 작성하기</button>
 					</div>
-					
-					<div id="paging"></div>
 					<div id="blog-list"></div>
+          <div id="paging"></div>
         </div>
       </div>
     </div>
@@ -73,10 +77,8 @@
       blogList.innerHTML = '';
       for(const blog of resData.blogList){
         let str = '<div class="blog" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
-        str += '<div>' + blog.name + '</div>';
-        str += '<div>' + blog.title + '</div>';
-        str += '<div>' + blog.hit + '</div>';
-        str += '<div>' + blog.createDt + '</div>';
+        str += '<div>제목 : ' + blog.title + '</div>';
+        str += '<div class="right">작성자 : ' + blog.name + ' /조회수 : ' + blog.hit + ' /작성일 : ' + blog.createDt + '</div>';
         str += '</div>';
         blogList.innerHTML += str;
       }
@@ -95,6 +97,12 @@
   
   getBlogList();
   detail();
+  
+//블로그 쓰기 이동
+
+  const blogWrite = ()=>{
+    location.href = "${contextPath}/blog/write.page";
+  }
   
 </script>
 

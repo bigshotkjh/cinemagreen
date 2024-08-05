@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.min.cinemagreen.admin.service.IAdminMovieService;
 import com.min.cinemagreen.dto.MovieDTO;
-import com.min.cinemagreen.dto.RuntimeDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,26 +19,17 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/admin")
 @Controller
 public class AdminMovieController {
-
+  
   private final IAdminMovieService adminMovieService;
 
   // ------------------------- 페이지 이동 -------------------------
   @GetMapping("/movie.page")
   public String moviePage(Model model) {
-      // 영화 목록 조회
-      List<MovieDTO> movieList = adminMovieService.getMovieList(null);
-      model.addAttribute("movieList", movieList);
-      
-      // 런타임 목록 조회
-      List<RuntimeDTO> runtimeList = adminMovieService.getRuntimeList(null);
-      model.addAttribute("runtimeList", runtimeList);
-
-      return "admin/movie"; // 사용자 목록
+    List<MovieDTO> movieList = adminMovieService.getMovieList(null);
+    model.addAttribute("movieList", movieList);
+    return "admin/movie"; // 사용자 목록
   }
   // ------------------------- 페이지 이동 -------------------------
-  
-  
-  
   
   
   
@@ -51,16 +41,6 @@ public class AdminMovieController {
   } // 모든 영화 목록
   // ------------------------ 유저 관련 기능 ------------------------
   
-  
-  
-  
-  
-  // ------------------------ 상영 시각 관련 기능 ------------------------
-  @GetMapping(value = "/getRuntimeList.do", produces = "application/json")
-  public ResponseEntity<List<RuntimeDTO>> getRuntimeListDo(HttpServletRequest request) {
-    return ResponseEntity.ok(adminMovieService.getRuntimeList(request));
-  } // 모든 상영시각 목록
-  // ------------------------ 상영 시각 관련 기능 ------------------------
   
   
   

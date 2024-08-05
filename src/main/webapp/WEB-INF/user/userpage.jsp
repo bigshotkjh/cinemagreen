@@ -13,11 +13,23 @@
  .sections.section_signup .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
  .sections.section_signup .width_con .signup form{ position: relative; transform: translateX(42%); transition: inherit;}
  .title_con h6{ margin-top: 0;}
-  input { border-radius: 4px; margin-top: 2px;}
- .red{ border: 2px solid red;}
- #blog-list{ border: 2px solid green;   margin-right: 1000px; }
- .blog{ border: 2px solid black;}
+  input { border-radius: 4px; margin-top: 2px; }
+ .red{ border: 2px solid red;  border-radius: 5px;}
+ .blogdiv{ 
+    position: absolute;
+    transform: translate(430px, -900px);}
+ .blog{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;}
+ .blog-zero{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;  white-space: pre;}
  #profile-img{ border-radius: 20%;}
+ .title_con{ width: 400px; position: relative; transform: translate(200px, -150px);}
+ .hit{ text-align: right;}
+ .profile-div{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 200px;  position: absolute; transform: translate(80px, -73px); overflow: hidden;}
+	#profile, #profile-upload{margin: 3px;}
+	#user-info-form{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 280px;}
+	.paging { position: relative; transform: translate(250px, 0px);}
+	h5{margin: 10px 10px 10px 0px; }
+	.user-info{position: relative; transform: translate(37px, -10px);}
+						     
 </style>
 <!--
  가져와 표시할 것 들
@@ -40,42 +52,39 @@
         <h4 class="title">User Page</h4><br>
         
        <!--프로필 변경 --> 
+        <h5><b>프로필 변경하기</h5>
+        
+        <img id="profile-img" src=" ${loginUser.profilePath}/${loginUser.profileName}" width="73" height="73">
         <form id="profile-form">
-          <div>
-            <label class="profile-label" for="profile"><b>프로필 변경하기 : </label>
+          <div class="profile-div">
             <input type="file" name="file" id="profile" accept="image/*">
-          </div>
-          <div>
             <button type="button" id="profile-upload" >프로필변경</button>
           </div><br>
         </form>
-        
-        <img id="profile-img" src=" ${loginUser.profilePath}/${loginUser.profileName}" width="100" height="100">
-
+        <h5><b>개인정보 변경</b></h5>
         <form id="user-info-form"
               method="post"
               action="${contextPath}/user/updateInf.do">  
-          <div>
+          <div class="user-info">
             <h5>이메일</h5>
             <input type="text" name="email" id="email" value="${loginUser.email}" disabled>
             <h6></h6>
           </div>
-          <div>
+          <div class="user-info">
             <h5>이름</h5>
             <input type="text" name="name" id="name" value="${loginUser.name}">
           </div>
-          <div>
+          <div class="user-info">
             <h5>휴대폰번호</h5>
             <input type="text" name="mobile" id="mobile" value="${loginUser.mobile}">
             <h6></h6>
           </div>
-          <div>
+          <div class="user-info">
             <h5>생년월일</h5>
             <input type="text" name="birthYear" id="birth_year" value="${loginUser.birthYear}">
             <h6></h6>
           </div>
-          
-          <div>
+          <div class="user-info">
             <h5>주소</h5>
             <input type="button" onclick="execDaumPostcode(), fnMobileCheck(), fnAllCheck()" value="우편번호 찾기"><br>
             <input type="text" id="postcode" name="postcode" value="${loginUser.postcode}"><br>
@@ -84,10 +93,10 @@
             <input type="text" id="detailAddress" name="detailAddress" value="${loginUser.detailAddress}"> 
           </div>
           <br>
-       
-          <div>
+          <div class="user-info">
             <button type="submit"  class="submit dead-btn" >개인정보 변경하기</button>
           </div>
+          <div></div>
               
         </form><br>
         <div>
@@ -100,9 +109,11 @@
           <button type="button" onclick="getUserTicket()">예매가져오기</button>
         </div><br>
 <!-- 블로그 -->
-        <h4>내가 작성한 무비포스트</h4>
-        <div id="blog-list"></div><br>
-        <div id="paging"></div>
+        <div class="blogdiv">
+	        <h5><b>내가 작성한 무비포스트</h5>
+	        <div id="blog-list"></div><br>
+	        <div id="paging"></div>
+				</div>
 <!-- 블로그 -->
 	          
       </div>
@@ -175,15 +186,18 @@
       const blogList = document.getElementById('blog-list');
       const paging = document.getElementById('paging');
       if(resData.blogList.length === 0){
-        blogList.innerHTML = '<div>등록된 블로그가 없습니다.</div>';
+    	  let str = '<div class="blog-zero"> 작성하신 무비 포스트가 없습니다.      |      관람하신 영화의 무비 포스트를 작성해 보세요</div>';
+           str += '<button type="button" onclick="blogWrite()">무비포스트 작성하기</button>';
+        blogList.innerHTML += str;
         paging.innerHTML = '';
         return;
       }
       paging.innerHTML = resData.paging;
       blogList.innerHTML = '';
       for(const blog of resData.blogList){
-        let str =  '<div class="blog" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
-            str +=   '<div> 제목 : ' + blog.title + ' /Hit : ' + blog.hit + ' /Date : '  + blog.createDt + '</div>';
+        let str  = '<div class="blog" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
+            str +=   '<div> 제목 : ' + blog.title + '</div>';
+            str +=   '<div class="hit"> Hit : ' + blog.hit + ' /Date : '  + blog.createDt + '</div>';
             str += '</div>';
         blogList.innerHTML += str;
       }
@@ -194,11 +208,14 @@
   
   const detail = ()=>{
     $(document).on('click', '.blog', evt=>{
-      if('${sessionScope.loginUser.userNo}' == evt.currentTarget.dataset.userNo){
-        location.href = '${contextPath}/blog/detail.do?blogNo=' + evt.currentTarget.dataset.blogNo;
-      } else {
-        location.href = '${contextPath}/blog/updateHit.do?blogNo=' + evt.currentTarget.dataset.blogNo;
-      }
+
+        if (confirm("작성한 무비포스트로 이동 하시겠습니까?")) {
+            if('${sessionScope.loginUser.userNo}' == evt.currentTarget.dataset.userNo){
+                location.href = '${contextPath}/blog/detail.do?blogNo=' + evt.currentTarget.dataset.blogNo;
+              } else {
+                location.href = '${contextPath}/blog/updateHit.do?blogNo=' + evt.currentTarget.dataset.blogNo;
+              }
+        }
     })
   }
   detail();
@@ -316,7 +333,13 @@
 //예매
 
   const getUserTicket = ()=>{
-	  location.href = "${contextPath}/user/getuserticket.do";
+    location.href = "${contextPath}/user/getuserticket.do";
+  }
+  
+//블로그 쓰기 이동
+
+  const blogWrite = ()=>{
+    location.href = "${contextPath}/blog/write.page";
   }
 //탈퇴
   const leaveUser = () => {

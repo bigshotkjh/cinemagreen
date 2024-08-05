@@ -15,6 +15,8 @@
  .title_con h6{ margin-top: 0;}
   input { border-radius: 4px; margin-top: 2px;}
  .red{ border: 2px solid red;}
+ .title_con{ position: relative; transform: translate(0px, -130px);}
+  #snssignup-form{  position: relative; transform: translate(540px, 0px); border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 300px;}
 </style>
 <!--@@@@@@@끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 

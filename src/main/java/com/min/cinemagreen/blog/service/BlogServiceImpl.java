@@ -45,7 +45,7 @@ public class BlogServiceImpl implements IBlogService {
     System.out.println("디렉터리전");
     // 저장할 디렉터리 만들기
     String uploadPath = fileUploadUtils.getSummernotePath();
-    File uploadDir = new File(uploadPath);
+    File uploadDir = new File("/summernote");//uploadPath를 직접 "D:/summernote"로 넣어줘야 정상 동작해.
     if(!uploadDir.exists()) {
       uploadDir.mkdirs();
     }

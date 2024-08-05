@@ -323,26 +323,6 @@
 	  }
 	};
 
-	const adminPwChange = () => {
-	  if (confirm("비밀번호를 변경하시겠습니까?")) {
-	    var userNo = $('#modalUserNo').val();
-	    var newPassword = prompt("새 비밀번호를 입력하세요:");
-	    if (newPassword) {
-	      $.ajax({
-	        url: "${contextPath}/admin/adminPwupdate.do",
-	        method: 'POST',
-	        data: { userNo: userNo, newPassword: newPassword },
-	        success: function(response) {
-	          alert('변경 완료되었습니다.');
-	          location.reload();
-	        },
-	        error: function() {
-	          alert('변경 실패했습니다.');
-	        }
-	      });
-	    }
-	  }
-	};
   </script>
 </script>
 
