@@ -105,6 +105,11 @@
     </where>
   </select>
   
+  <select id="boxOfficeList"  resultType="MovieDTO">
+    SELECT movie_no, movie_cd, movie_nm, audi_acc, sales_acc, open_dt, title_eng, title_org, plot, runtime, rating, genres, keywords, still_urls, poster_urls
+      FROM movie_t
+  </select>
+  
   <select id="getMovieByNo" parameterType="int" resultType="MovieDTO">
     SELECT movie_no, movie_cd, movie_nm, audi_acc, sales_acc, open_dt, title_eng, title_org, plot, runtime, rating, genres, keywords, still_urls, poster_urls
       FROM movie_t

@@ -41,8 +41,6 @@ public class BlogServiceImpl implements IBlogService {
   @Transactional(readOnly = true)
   @Override
   public ResponseEntity<Map<String, Object>> summernoteImageUpload(MultipartFile multipartFile) {
-
-    System.out.println("디렉터리전");
     // 저장할 디렉터리 만들기
     String uploadPath = fileUploadUtils.getSummernotePath();
     File uploadDir = new File("/summernote");//uploadPath를 직접 "D:/summernote"로 넣어줘야 정상 동작해.

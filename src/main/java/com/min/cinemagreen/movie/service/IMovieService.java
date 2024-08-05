@@ -8,5 +8,6 @@ import com.min.cinemagreen.dto.MovieDTO;
 
 public interface IMovieService {
   ResponseEntity<List<MovieDTO>> getBoxOfficeList();
+  ResponseEntity<List<MovieDTO>> boxOfficeList();
   MovieDTO getMovieByNo(int movieNo);
 }

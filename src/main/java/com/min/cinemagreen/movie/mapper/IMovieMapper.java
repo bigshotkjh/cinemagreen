@@ -19,5 +19,6 @@ public interface IMovieMapper {
   int insertActor(ActorDTO actorDTO);
   int insertMovieActor(Map<String, Object> params);
   List<MovieDTO> getBoxOfficeList(List<Integer> movieNoList);
+  List<MovieDTO> boxOfficeList();
   MovieDTO getMovieByNo(int movieNo);
 }

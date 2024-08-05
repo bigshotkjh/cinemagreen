@@ -154,6 +154,15 @@ public class MovieServiceImpl implements IMovieService {
     
   }
   
+
+  @Override
+  public ResponseEntity<List<MovieDTO>> boxOfficeList() {
+
+    return ResponseEntity.ok(movieMapper.boxOfficeList());
+    
+  }
+
+  
   @Transactional(readOnly = true)
   @Override
   public MovieDTO getMovieByNo(int movieNo) {
