@@ -162,7 +162,12 @@
 		$("input[name='seat']").prop("checked", false); //선택 좌석 초기화
 
 		$("input:disabled[name='seat']").prop("disabled",false); //좌석 활성화 
-		payBtn.disabled = true; //결제 버튼 비활성화 
+		payBtn.disabled = true; //결제 버튼 	비활성화 
+		/* if($("input[name='typeC']:checked").val() == 0 ){
+			$(".typeC  input:disabled[name='seat']").prop("disabled",true);
+		}else{$( ".typeC input:disabled[name='seat']").prop("disabled", false); } */
+		
+		
 		
 		var totalmoney = 0;
 		var chkLen = $(".ticket").length;
@@ -170,9 +175,7 @@
 		typeB = Number($("input[name='typeB']:checked").val());
 		typeC = Number($("input[name='typeC']:checked").val());
 		totalCount = (typeA + typeB + typeC);
-		function sum() {
-			
-	  }
+		
 		document.getElementById('personCount').value = typeA + typeB + typeC;
 		maxCount = 4;
 		Amoney = (typeA * 14000);
@@ -183,8 +186,6 @@
 		
 		
 		
-		
-
 		for(i=1; i<chkLen; i++){ 
 			//if($("input[name='type"+i+"']:checked").val() != undefined){
 			if($("input[data-no="+i+"]:checked").val() != undefined){	
@@ -205,11 +206,10 @@
 				}
 				
 				// 좌석  
-				
 				$("input[name='seat']").on("click",function(){
 					let stcount    = $("input:checked[name='seat']").length;
-					let typeCcount = $(".typeC input:checked[name='seat']").length;
-					// console.log("선택 좌석 : " + chkSeat());
+					let typeCcount = $("input:checked[name='seat']").length;
+					 console.log("선택 좌석 : " + $("input:checked[name='typeC']").val());
 					
 					if (stcount > totalCount){
 						$(this).prop("checked",false); // evt.target
@@ -221,30 +221,27 @@
 					}else if(stcount != totalCount){
 						payBtn.disabled = true; //결제 버튼 비활성화
 						$('#chk_seat').addClass('-active');
-						
 					}
-
-					$(".typeC input[name='seat']").on("click",function(){
-					
+				
+					$(".typeC input[name='seat']").off('click').click(function(){
 						if(typeC < typeCcount){
-							alert('선택 가능한 장애인석을 초과하였습니다.');
-							event.preventDefault()
 							$(this).prop("checked",false);
+								alert('선택 가능한 장애인석을 초과하였습니다.');
 							}
-					 })
-					 
-				})
-			}
-		}
-	})
+					 })// end typeC click
+				})// end seat click
+			} // end if undefined
+		} // end for
+	})// end ticket click
 	
-	// 선택 좌석
+	// 선택 좌석 배열
 	function chkSeat(){
 			var chk_seat = [];
 		$("input:checked[name='seat']").each(function(){
 			var chk = $(this).val();
 			chk_seat.push(chk);
 		});
+		chk_seat = Array.from(new Set(chk_seat));
 		return chk_seat;
 	}
 	
@@ -266,11 +263,12 @@
 	//포트원 결제 (현재 값들은 임의로 넣어둔상태임.)
 	var IMP = window.IMP;
   IMP.init("imp56805834"); 
+  
    function requestPay(e) {
-   	event.preventDefault()
+   	 event.preventDefault()
      IMP.request_pay({
       pg: "html5_inicis.INIpayTest", // KG이니시스PG
-      pay_method: "card",
+      pay_method: "card",						
       merchant_uid: createMerchantNum(),   // 주문번호
       name: "시네그린",        
       amount: totalamount.innerText,   // 
@@ -278,10 +276,11 @@
       buyer_name: '${loginUser.name}'
      }, function(rsp) { 
   	   console.log("실제 총 금액 : " + totalamount.innerText);
-  	   console.log("결제 고유 번호 : " + rsp.imp_uid);
-  	   console.log("티켓 번호 : " + rsp.merchant_uid);
-  	   console.log("선택 좌석 : " + chkSeat());
-  	 	console.log("test:"+ '${loginUser.userNo}' );
+  	   console.log("test 결제 고유번호 : " + rsp.imp_uid);
+  	   console.log("test 티켓번호 : " + rsp.merchant_uid);
+  	   console.log(chkSeat());
+  	   console.log("test 인원 : " + totalCount);
+  	 	 console.log("test 유저, 번호:"+ '${loginUser.name}, ${loginUser.userNo}' );
 	  	 //console.log("유저확인":"+ '${loginUser.name}');
   	   $.ajax({
 				type: 'POST',
@@ -293,8 +292,9 @@
        	   	"payId": rsp.imp_uid,     // 결제 고유번호
            	"amount": rsp.paid_amount, 
             "ticketingNo" : rsp.merchant_uid,
-            "payMethod" : rsp.pay_method
-            //"유저확인" : '${loginUser.userNo}'
+            "payMethod" : rsp.pay_method,
+            "seatCode" : chkSeat(),
+            "personCount": totalCount
           } 
           if(rsp.paid_amount === data.response.amount){// 결제검증
            	alert("결제를 완료하였습니다. 결제 완료페이지로 이동합니다.");
@@ -313,7 +313,6 @@
               		}else{
               			
               		}
-             		
              	},
           	 		error:function(request, status, error){
            	 		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -325,36 +324,7 @@
        });
       });
   	}
-       /* 	if (rsp.success) {
-	       		$.ajax({
-	          type: 'POST',
-	          url: '/payment/validation/' + rsp.imp_uid,
-	          contentType: 'application/json',
-	     			data: {
-	              "imp_uid": rsp.imp_uid,
-	              "merchant_uid": rsp.merchant_uid,
-	              "paid_amount": rsp.paid_amount
-	            }
-              //data: JSON.stringify(data)
-           	}).done(function(data) {
-            	// 결제검증
-             
-             	alert("결제를 완료하였습니다. 결제 완료페이지로 이동합니다.");
-              console.log(data.imp_uid.substring(4));
-               location.replace('/payment/complete?imp_uid='+ data.imp_uid + '&paid_amount='+ data.paid_amount);
-               //'/payment/complete/'+ rsp.imp_uid 적용 
-               
-             	// clg
-               console.log("Payment success");
-               console.log("Payment ID : " + rsp.imp_uid);
-               console.log("Order ID : " + rsp.merchant_uid);
-               console.log("Payment Amount : " + rsp.paid_amount);
-          	 })
-        	}else{
-           	alert("결제 실패했습니다." + alert(rsp.error_msg));
-           } 
-       })
-    }*/
+       
     
     
  

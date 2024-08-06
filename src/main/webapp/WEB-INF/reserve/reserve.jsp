@@ -107,7 +107,7 @@
 			               <div class="img"></div>
 			               <div class="txt_notice ">
 			                   <strong><span class="mvNm">&nbsp;</span></strong>
-			                   <p> 본 영화는<span class=""> {상영등급} </span> 영화입니다.</p>
+			                   <p> 본 영화는<span class=""> { 상영등급 } </span> 영화입니다.</p>
 			               </div>
 			           </div>
 			           <div class="next">

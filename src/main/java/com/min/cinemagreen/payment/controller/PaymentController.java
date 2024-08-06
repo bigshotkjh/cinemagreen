@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.min.cinemagreen.dto.OccupiedSeatDTO;
 import com.min.cinemagreen.dto.PaymentDTO;
-import com.min.cinemagreen.payment.service.IPaymentService;
-
 import com.min.cinemagreen.dto.UserDTO;
+import com.min.cinemagreen.payment.service.IPaymentService;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.request.CancelData;
@@ -63,30 +63,43 @@ public class PaymentController {
     @PostMapping("completeInsert")
     public int savePaymentInfo( @RequestBody Map<String,Object> pay, HttpSession session,Model model) throws IOException {
     // String token = paymentService.getToken();
-      log.info("map : {}" ,pay);
+      
+      log.info("====>> map : {}" ,pay);
+    /* 
+     *  List<String> seatCodes =  (List<String>) pay.get("seatCode");
+      //List<String> seatCodes =  new ArrayList<String>(Arrays.asList(arr));
+      //List<String> seatCodes = new ArrayList<>();
+      log.info("====>> seatCodes : {}" , seatCodes);
+      pay.remove("seatCode");
+      pay.put("seatCode", seatCodes);
+      */
+      
       UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+//    if(loginUser == null) {}
       pay.put("userNo", loginUser.getUserNo());
-      //1. 결제 insert 전에 티켓팅 테이블에 insert
-      
-      //2. 티켓팅 insert 후 티켓번호 반환 받아 pay 맵에 추가
-      
-      log.info("userNo : {}" ,loginUser.getUserNo());
-      //3. 결제테이블 insert
+      paymentService.ticketing(pay);
+      paymentService.saveOccpSeat(pay);
       int result = paymentService.payInsert(pay);
       return result;
+     
     }
       
-      
+    //ResponseEntity<List<MovieDTO>>
+    
+    
     
     @GetMapping(value = "complete/{payId}")
     public String getPaymentInfo(@PathVariable String payId, Model model) {
       PaymentDTO payment = paymentService.getPayInfo(payId);
       model.addAttribute("payment", payment);
+      
       return "/payment/complete";
     }
     
+
+    
     /* 
-    // complete 임시 ..
+    // complete 오류 임시 ..
     @GetMapping("complete")
     public String getPaymentInfo( @RequestParam String payId, Model model) throws IOException {
       //List<PaymentDTO> payList = paymentService.paySelect(payId); 
@@ -97,6 +110,17 @@ public class PaymentController {
       return "/reserve/complete";
     }
     */
+/*
+ * INSERT INTO payments (payId, amount, ticketingNo, payMethod, personCount) 
+    VALUES (#{payId}, #{amount}, #{ticketingNo}, #{payMethod}, #{personCount});
+    
+    <!-- seatCode 배열에 대한 좌석 정보 삽입 -->
+    <foreach collection="seatCode" item="seat" separator=";">
+        INSERT INTO payment_seats (payId, seatCode)
+        VALUES (#{payId}, #{seat})
+    </foreach>
+ * 
+ */
 
    
  // 결제 취소
