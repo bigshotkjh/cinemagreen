@@ -181,22 +181,13 @@ CREATE TABLE seat_type_t (
     seat_type    VARCHAR2(50)
 );
 
--- 좌석 seat_t 테이블
-CREATE TABLE seat_t (
-    seat_no      VARCHAR2(50) NOT NULL PRIMARY KEY ,
-    seat_code    VARCHAR2(10),
-    seat_type_no NUMBER,
-    CONSTRAINT fn_seat_seat_type FOREIGN KEY(seat_type_no) REFERENCES seat_type_t(seat_type_no) ON DELETE CASCADE
-);
-
 -- 예약좌석 occupied_seat_t 테이블
 CREATE TABLE occupied_seat_t (
     occupied_seat_no NUMBER NOT NULL PRIMARY KEY,
-    seat_no          VARCHAR2(50),
+    seat_code          VARCHAR2(50),
     time_no          NUMBER,
     ticketing_no     VARCHAR2(20),
-    age              NUMBER,
-    price            NUMBER,
+    seat_type_no     NUMBER,
     CONSTRAINT fk_occupied_seat_runtime FOREIGN KEY(time_no) REFERENCES runtime_t(time_no) ON DELETE CASCADE,
     CONSTRAINT fk_occupied_seat_ticket FOREIGN KEY(ticketing_no) REFERENCES ticketing_t(ticketing_no) ON DELETE CASCADE
 );

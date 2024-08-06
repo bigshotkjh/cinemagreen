@@ -28,5 +28,9 @@ public class MovieDTO {
   private String genres;
   private String keywords;
   private String stillUrls;
+<<<<<<< HEAD
   private String posterUrls;  
+=======
+  private String posterUrls;
+>>>>>>> 574f47f2da5f98cefffce1459d2482328ddf3b3f
 }

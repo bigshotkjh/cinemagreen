@@ -5,6 +5,7 @@
   
 <mapper namespace="com.min.cinemagreen.admin.mapper.IAdminMovieMapper">
 
+<<<<<<< HEAD
   <resultMap id="RuntimeMap" type="RuntimeDTO">
     <id property="timeNo" column="time_no"/>
     <result property="startTime" column="start_time"/>
@@ -74,6 +75,20 @@
     
      WHERE movie_no = #{movieNo}
   </select>
+=======
+  <select id="getMovieList" resultType="MovieDTO">
+    SELECT * FROM movie_t
+  </select>
+  
+  <select id="getMovieById" parameterType="int" resultType="MovieDTO">
+    SELECT * FROM movie_t
+     WHERE movie_no = #{movieNo}
+  </select>
+  
+  
+  
+  
+>>>>>>> 574f47f2da5f98cefffce1459d2482328ddf3b3f
   
   <insert id="adminInsertTime" parameterType="Map">
     INSERT INTO runtime_t(

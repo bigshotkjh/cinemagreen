@@ -15,7 +15,7 @@
   .sections.section_signin .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
-  .title_con{ position: relative; transform: translate(0px, 0px);}
+  .title_con{ position: relative; transform: translate(0px, -120px);}
 </style>
 
 <div class="wrap">

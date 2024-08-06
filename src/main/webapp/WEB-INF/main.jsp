@@ -81,6 +81,7 @@
     })
     .fail(jqXHR => {
       alert(jqXHR.responseText);
+      console.log(jqXHR.responseText);
     })
   }
 

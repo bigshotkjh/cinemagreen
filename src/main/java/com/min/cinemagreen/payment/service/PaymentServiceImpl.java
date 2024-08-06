@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.min.cinemagreen.dto.OccupiedSeatDTO;
 import com.min.cinemagreen.dto.PaymentDTO;
 import com.min.cinemagreen.payment.mapper.IPaymentMapper;
 import com.siot.IamportRestClient.IamportClient;
@@ -148,7 +151,46 @@ public class PaymentServiceImpl implements IPaymentService {
     return null;
   }
 
+  @Override
+  public int ticketing(Map<String, Object> pay) {
+    return paymentMapper.insertTicket(pay);
+  }
+
+
+  @Override
+  public void saveOccpSeat(Map<String, Object> pay) {
+    
+    for(String seatCode : (List<String>)pay.get("seatCode")) {
+      //ticketingNo, seatCode
+      Map<String,Object> params = new HashMap<>();
+      
+      String ticketingNo = (String) pay.get("ticketingNo");
+     
+      params.put("seatCode", seatCode);
+      params.put("ticketingNo", ticketingNo);
+      paymentMapper.insertOccpSeat(params);
+      log.info("====>> params : {}" ,params);
+    }
+    
+  }
+
+
+  @Override
+  public OccupiedSeatDTO getSeatInfo(String payId) {
+    return paymentMapper.getSeatInfo(payId);    
+  }
+
+
+//  @Override
+//  public ResponseEntity<Map<String, Object>> ticketing() {
+//
+//    return paymentMapper.insertTicket(pay);
+//  }
+
+
+
 
 
 
 }
+

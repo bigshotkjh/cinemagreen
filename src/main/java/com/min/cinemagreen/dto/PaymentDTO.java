@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class PaymentDTO {
     private String payId;        // 결제고유번호
-    private int userNo;          // 회원 
-    private String ticketingNo;     // 티켓번호 
-    private String payMethod;       // 결제수단
+    private int userNo;          // 회원번 
+    private String ticketingNo;  // 티켓번호 
+    private String payMethod;    // 결제수단
     private int amount;          // 결제금액
     private Date payDt;          // 결제일자  
     private String payState;     // 결제상태 
-    private Date cancelDt;      // 취소일자 
+    private Date cancelDt;       // 취소일자 
     private String cancelStatus; // 취소상태
     
   }

@@ -12,12 +12,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class TicketingDTO {
-  private int ticketing_no;       // 티켓번호
-  private Date ticketDt;      // 예매일 
-  private int userNo;         // 회원 
+  private String ticketingNo; // 티켓번호
+  private int userNo;         // 회원번호 
+  private int timeNo;         // 상영시간번호  
   private int movieNo;        // 영화번호 
+  private Date ticketDt;      // 예매일 
   private int personCount;    // 예매인원수 
   
-  
-
 }

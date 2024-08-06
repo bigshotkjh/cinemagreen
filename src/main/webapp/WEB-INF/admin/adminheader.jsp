@@ -66,7 +66,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="${contextPath}/admin/seat.page">
+                            <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 좌석 관리
                             </a>
@@ -77,8 +77,8 @@
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Copyright &copy;</div>
-                        CINEMAGREEN 2024
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
                     </div>
                 </nav>
             </div>

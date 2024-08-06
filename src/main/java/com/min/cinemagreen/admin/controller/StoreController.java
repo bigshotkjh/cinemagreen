@@ -11,11 +11,9 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class StoreController {
 
-  // ------------------------- 페이지 이동 -------------------------
   @GetMapping(value = "/store.page")
   public String storePage() {
     return "store/store";
   }
-  // ------------------------- 페이지 이동 -------------------------
-  
+
 }

@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 
 public interface IUserService {
 	  ResponseEntity<Map<String, Object>> sendCode(String email);
+	  void sendBrithDayEmail(UserDTO user);
 	  int signup(UserDTO user);
 	  ResponseEntity<Map<String, Object>> signin(HttpServletRequest request);
 	  int leave(HttpSession session);

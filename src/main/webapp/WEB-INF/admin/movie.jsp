@@ -10,6 +10,7 @@
   <jsp:param value="CINEMAGREEN ADMIN" name="title"/>
 </jsp:include>
 <style>
+  
     .textarea-small {
       width: 33%;
       height: 30%;
@@ -19,6 +20,7 @@
       width: 33%;
     }
     
+<<<<<<< HEAD
     
     /* 모달 크기 조정 */
     .modal-dialog {
@@ -36,7 +38,10 @@
     
     
     
+=======
+>>>>>>> 574f47f2da5f98cefffce1459d2482328ddf3b3f
 </style>
+
 
 <main>
   <div class="container-fluid px-4">
@@ -52,6 +57,7 @@
         <table id="datatablesSimple" class="table table-striped">
           <thead>
             <tr>
+              <th>선택</th>
               <th>영화순위</th>
               <th>제목</th>
               <th>등급</th>
@@ -63,6 +69,12 @@
           <tbody>
             <c:forEach var="movie" items="${movieList}">
               <tr>
+<<<<<<< HEAD
+=======
+                <td>
+                  <input type="checkbox" class="movie-checkbox" data-movieno="${movie.movieNo}">
+                </td>
+>>>>>>> 574f47f2da5f98cefffce1459d2482328ddf3b3f
                 <td>${movie.movieNo}</td>
                 <td>${movie.movieNm}</td>
                 <td>${movie.rating}</td>
@@ -82,6 +94,7 @@
   </div>
 </main>
 
+
 <%@ include file="../admin/adminfooter.jsp" %>
 <!-- 영화 상세 정보에 대한 모달 -->
 <div class="modal fade" id="movieDetailModal" tabindex="-1" aria-labelledby="movieDetailModalLabel" aria-hidden="true">
@@ -95,18 +108,15 @@
         <div class="wrap">
           <div class="sections section_moviepage">
             <div class="width_con">
-              <div class="title_con white moviepage">
+              <div class="title_con white moviepage">                    <!-- 추가하기 -->
                 <form id="movie-info-form" method="post" action="${contextPath}/admin/updateInf.do">
                   <input type="hidden" id="modalMovieNo" name="movieNo" value="">
                   
-                  <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <div style="flex: 1;">
-                      <h5>제목</h5>
-                      <input type="text" class="offset-1 input-wide" name="movie_nm" id="modalMovieNmInput" value="">
-                    </div>
-                    <div>
-                      <img id="modalPoster" src="" alt="영화 포스터" style="width: 100px; height: auto; margin-left: 10px;">
-                    </div>
+          <!-- 프로필 들어갈 자리 -->
+          
+                  <div>
+                    <h5>제목</h5>
+                    <input type="text" class="offset-1 input-wide" name="movie_nm" id="modalMovieNmInput" value="">
                   </div>
                   <div>
                     <h5>등급</h5>
@@ -114,20 +124,30 @@
                   </div>
                   <div>
                     <h5>장르</h5>
-                    <input type="text" class="offset-1 input-wide" name="genres" id="modalGenres" value="">
+                    <input type="text" class="offset-1 input-wide"  name="genres" id="modalGenres" value="">
                   </div>
                   <div>
                     <h5>상영시간(분)</h5>
-                    <input type="text" class="offset-1 input-wide" name="runtime" id="modalRuntime" value="">
+                    <input type="text" class="offset-1 input-wide"  name="runtime" id="modalRuntime" value="">
                   </div>
                   <div>
                     <h5>줄거리</h5>
                     <textarea class="offset-1 plot textarea-small" name="plot" id="modalPlot" rows="4"></textarea>
+<<<<<<< HEAD
+=======
+                  </div>
+                  <div> 
+                    <h5>영제</h5>
+                    <input type="text" class="offset-1 input-wide"  name="title_eng" id="modalTitleEng" value="">
+>>>>>>> 574f47f2da5f98cefffce1459d2482328ddf3b3f
                   </div>
                   <div>
-                    <h5>영제</h5>
-                    <input type="text" class="offset-1 input-wide" name="title_eng" id="modalTitleEng" value="">
-                  </div>
+                    <img id="modalPoster" src="" alt="영화 포스터" style="width: 100%; height: auto; margin-bottom: 10px;">
+                    </div>
+                  <br>
+          <!--<div>
+            <button type="button" onclick="adminDeleteMovie()">삭제하기</button>
+          </div>-->
                 </form>
               </div>
             </div>
@@ -141,6 +161,7 @@
   </div>
 </div>
 
+<<<<<<< HEAD
 
 
 <!-- JSP에서 MyBatis 쿼리 결과를 사용한 모달 -->
@@ -192,6 +213,8 @@
 
 
 
+=======
+>>>>>>> 574f47f2da5f98cefffce1459d2482328ddf3b3f
 <!-- jQuery 및 AJAX 스크립트 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -199,22 +222,20 @@
   $(document).ready(function() {
     // 상세보기 버튼 클릭 시
     $('.detail-btn').click(function() {
-      var movieNo = $(this).data('movieno');
+      var movieNo = $(this).data('movieno'); // data-userno 속성 가져오기
 
       // AJAX 요청
       $.ajax({
         url: '/admin/getMovieDetail/' + movieNo,
         method: 'GET',
         success: function(data) {
-          console.log(data);
-          $('#modalMovieNo').val(data.movieNo); // 영화 번호 설정
-          $('#modalMovieNmInput').val(data.movieNm);
+          $('#modalMovieNmInput').val(data.movieNm); // 수정된 부분
           $('#modalRating').val(data.rating);
           $('#modalGenres').val(data.genres);
           $('#modalRuntime').val(data.runtime);
           $('#modalPlot').val(data.plot);
           $('#modalTitleEng').val(data.titleEng);
-          $('#modalPoster').attr('src', data.posterUrl); // 포스터 URL 설정
+          $('#modalPoster').attr('src', data.poster_urls); // 포스터 URL 설정
           $('#movieDetailModal').modal('show'); // 모달 표시
         },
         error: function() {
@@ -223,8 +244,10 @@
       });
     });
 
+    // 모달 닫기 이벤트
     $('#movieDetailModal').on('hide.bs.modal', function() {
       // 입력값 초기화 등의 추가 로직
+<<<<<<< HEAD
       $('#modalMovieNo').val('');
       $('#modalMovieNmInput').val('');
       $('#modalRating').val('');
@@ -366,4 +389,28 @@
   
   
   
+=======
+    });
+  });
+>>>>>>> 574f47f2da5f98cefffce1459d2482328ddf3b3f
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

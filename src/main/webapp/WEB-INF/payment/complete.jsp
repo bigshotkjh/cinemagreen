@@ -23,7 +23,7 @@
 						결제금액 : ${payment.amount}<br>
 						티켓번호 : ${payment.ticketingNo}<br>
 						영화정보 : <br>
-						선택좌석 :  
+						선택좌석 : 
 
 					</div>
 					<button onclick="location.href='${contextPath}/'" type="button" id=""  class="c-btn c-cblue" style="margin-top:15px;">마이페이지</button>

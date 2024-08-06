@@ -21,9 +21,10 @@
        #{payMethod},
        #{amount},
        CURRENT_DATE,
-       'y'
+       'Y'
     )
   </insert>
+  
   <select id="getPayInfo"  resultType="PaymentDTO">
     SELECT pay_id,
        user_no,
@@ -39,5 +40,40 @@
 
   </select>
   
+  <insert id="insertTicket" parameterType="map">
+    INSERT INTO ticketing_t (
+       ticketing_no,
+       user_no,
+       time_no,
+       movie_no,
+       ticket_dt,
+       person_count
+    ) VALUES (
+       #{ticketingNo},
+       #{userNo},
+       2,
+       2,
+       CURRENT_DATE,
+       #{personCount}
+    )
+  </insert>
+  
+   <insert id="insertOccpSeat" parameterType="map">
+   		INSERT INTO occupied_seat_t (
+	       occupied_seat_no,
+	       seat_code,
+	       seat_type_no,
+	       time_no,
+	       ticketing_no
+	    ) VALUES (
+	       occupied_seat_seq.NEXTVAL,
+	       #{seatCode},
+	       2,
+	       2,
+	       #{ticketingNo}
+	    )
+    </insert>
+    
+
   
 </mapper>
