@@ -26,7 +26,7 @@
 						선택좌석 : 
 
 					</div>
-					<button onclick="location.href='${contextPath}/'" type="button" id=""  class="c-btn c-cblue" style="margin-top:15px;">마이페이지</button>
+					<button onclick="location.href='${contextPath}/user/userpage.page'" type="button" id=""  class="c-btn c-cblue" style="margin-top:15px;">마이페이지</button>
 					<button onclick="canclePay()" type="button" id="canclePay"  class="c-btn c-gray" style="margin-top:15px;">결제취소</button>
 		    </div>
 		</div>

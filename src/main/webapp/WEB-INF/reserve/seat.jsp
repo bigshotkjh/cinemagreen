@@ -223,12 +223,12 @@
 						$('#chk_seat').addClass('-active');
 					}
 				
-					$(".typeC input[name='seat']").off('click').click(function(){
+					/* $(".typeC input[name='seat']").on("click",function(){
 						if(typeC < typeCcount){
 							$(this).prop("checked",false);
 								alert('선택 가능한 장애인석을 초과하였습니다.');
 							}
-					 })// end typeC click
+					 })// end typeC click */
 				})// end seat click
 			} // end if undefined
 		} // end for

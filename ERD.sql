@@ -48,7 +48,6 @@ DROP TABLE moviepost_t;
 DROP TABLE review_t;
 DROP TABLE payment_t;
 DROP TABLE occupied_seat_t;
-DROP TABLE seat_t;
 DROP TABLE seat_type_t;
 DROP TABLE ticketing_t;
 DROP TABLE x_user_t;
@@ -170,9 +169,10 @@ CREATE TABLE ticketing_t (
     movie_no     NUMBER,
     ticket_dt    DATE,
     person_count NUMBER,
-    CONSTRAINT fk_ticketing_user FOREIGN KEY(user_no) REFERENCES user_t(user_no) ON DELETE SET NULL,
+    CONSTRAINT fk_ticketing_user FOREIGN KEY(user_no) REFERENCES user_t(user_no) ON DELETE SET NULL
+    /*,
     CONSTRAINT fk_ticketing_runtime FOREIGN KEY(time_no) REFERENCES runtime_t(time_no) ON DELETE SET NULL,
-    CONSTRAINT fk_ticketing_movie FOREIGN KEY(movie_no) REFERENCES movie_t(movie_no) ON DELETE SET NULL
+    CONSTRAINT fk_ticketing_movie FOREIGN KEY(movie_no) REFERENCES movie_t(movie_no) ON DELETE SET NULL*/
 );
 
 -- 좌석 종류 seat_type_t 테이블
@@ -188,8 +188,8 @@ CREATE TABLE occupied_seat_t (
     time_no          NUMBER,
     ticketing_no     VARCHAR2(20),
     seat_type_no     NUMBER,
-    CONSTRAINT fk_occupied_seat_runtime FOREIGN KEY(time_no) REFERENCES runtime_t(time_no) ON DELETE CASCADE,
     CONSTRAINT fk_occupied_seat_ticket FOREIGN KEY(ticketing_no) REFERENCES ticketing_t(ticketing_no) ON DELETE CASCADE
+    -- ,CONSTRAINT fk_occupied_seat_runtime FOREIGN KEY(time_no) REFERENCES runtime_t(time_no) ON DELETE CASCADE
 );
 
 -- 결제 payment_t 테이블
