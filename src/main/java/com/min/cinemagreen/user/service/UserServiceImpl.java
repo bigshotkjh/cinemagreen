@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.min.cinemagreen.dto.BlogDTO;
 import com.min.cinemagreen.dto.UserDTO;
+import com.min.cinemagreen.dto.UserTicketDTO;
 import com.min.cinemagreen.user.mapper.IUserMapper;
 import com.min.cinemagreen.utils.FileUploadUtils;
 import com.min.cinemagreen.utils.MailUtils;
@@ -474,7 +475,7 @@ public class UserServiceImpl implements IUserService {
     return ResponseEntity.ok(Map.of("url", profilePath  + "/" + filesystemName));
     
   }
-////티켓/////////////////
+////예매부분/////////////////
   @Override
   public ResponseEntity<Map<String, Object>> getUserTicket(HttpSession session) {
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
@@ -483,9 +484,11 @@ public class UserServiceImpl implements IUserService {
     int userNo = loginUser.getUserNo();
     Map<String, Object> params = new HashMap<>();
     params.put("userNo", userNo);
-    userMapper.getUserTicket(params);
-    return null;
+    //티켓정보가져오기
+    List<UserTicketDTO> ticketList = userMapper.getUserTicketList(userNo);
+    return ResponseEntity.ok(Map.of("ticketList", ticketList));
   }
+  
 
 ///블로그//////////////////
   

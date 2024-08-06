@@ -16,4 +16,5 @@ public class UserTicketDTO {
   private String seatCode;
   private int amount;
   private String payState;
+  private int personCount;
 }

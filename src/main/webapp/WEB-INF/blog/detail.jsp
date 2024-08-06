@@ -35,7 +35,8 @@
   .blog-content {position: relative; transform: translate(250px, 0px);}
   .blog {border-radius: 5px; padding: 5px; background-color: #FFFFF4; margin: 5px; width: 900px; overflow: hidden;}
   #parent-form {position: relative; transform: translate(250px, 0px);}
-  .data {text-align: right;}
+  .data {text-align: right; width: 600px;}
+  .title.data {text-align: right; width: 400px;}
   .movie-title {position: relative; transform: translate(200px, 0px) !important;}
 </style>
 

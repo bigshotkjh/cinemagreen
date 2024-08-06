@@ -28,6 +28,7 @@ public class Scheduler {
   
   @Scheduled(cron = "0 30 4 * * *")
   public void getBoxOfficeList() {
+    
     movieService.getBoxOfficeList();
   }
   

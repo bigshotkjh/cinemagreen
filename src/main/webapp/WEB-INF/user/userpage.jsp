@@ -37,7 +37,6 @@
       등급표시
       포인트량
       내가 쓴 블로그
-      내가 쓴 bbss
       예매한 영화 정보
     }
  -->
@@ -105,9 +104,6 @@
         <div>
           <button type="button" onclick="leaveUser()">탈퇴하기</button>
         </div><br>
-        <div>
-          <button type="button" onclick="getUserTicket()">예매가져오기</button>
-        </div><br>
 <!-- 블로그 -->
         <div class="blogdiv">
 	        <h5><b>내가 작성한 무비포스트</h5>
@@ -115,7 +111,7 @@
 	        <div id="paging"></div>
 				</div>
 <!-- 블로그 -->
-	          
+	      <div id="ticket-list"></div>    
       </div>
 	</div>
 
@@ -219,7 +215,32 @@
     })
   }
   detail();
-
+  
+//////////////////////////////////////////  
+//예매내역
+  const fnMovieTicket = ()=>{   
+    $.ajax({
+      type: 'get',
+      url: '${contextPath}/user/getuserticket.do',
+      dataType: 'json'
+    }).done(resData=>{   
+       const ticketList = document.getElementById('ticket-list');
+       if(resData.ticketList.length === 0){
+    	   ticketList.innerHTML = '<div> 예매 내역이 없습니다.    |    AI챗봇에게 영화를 추천받아 보세요.</div>';
+         return;
+       }
+       ticketList.innerHTML = '';
+       for(const ticket of resData.ticketList){
+         let str  = '<div class="ticket" data-start-time="' + ticket.startTime + '" data-user-no="' + ${loginUser.userNo} + '">';
+             str +=   '<div> 제목 : ' + ticket.movieNm + '</div>';
+             str +=   '<div class="hit"> 상영시간 : ' + ticket.startTime + ' / 좌석 : '  + ticket.seatCode + '</div>';
+             str += '</div>';
+         ticketList.innerHTML += str;
+       }
+       
+    })
+  }
+  fnMovieTicket();
 //sns로그인유저 비밀번호변경 버튼 숨기기
   const fnSnsPwNone = ()=>{
     

@@ -16,7 +16,7 @@
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
   .title_con{ position: relative; transform: translate(0px, -120px);}
-  #signin-form{  position: relative; transform: translate(550px, 0px); border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 300px; padding: 10px;}
+  #signin-form{  position: relative; transform: translate(550px, 0px); border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 305px; padding: 10px;}
 </style>
 
 

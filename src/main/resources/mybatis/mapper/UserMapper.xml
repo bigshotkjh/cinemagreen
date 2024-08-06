@@ -174,18 +174,20 @@
   </select>
   
 <!-- 티켓 부분 -->  
-  <select id="getUserTicket" parameterType="Map" resultType="UserTicketDTO">
+  <!-- 티켓 정보 만들기 -->
+  <select id="getUserTicketList" parameterType="int" resultType="UserTicketDTO">
   
     SELECT 
       M.movie_nm,
-      R.start_time,
       M.runtime,
-      S.seat_code,
+      R.start_time,
+      O.seat_code,
       P.amount,
-      P.pay_state
+      P.pay_state,
+      T.person_count
     FROM 
-        blog_t U
-    JOIN 
+        user_t U 
+    JOIN  
         ticketing_t T ON U.user_no = T.user_no
     JOIN 
         payment_t P ON T.ticketing_no = P.ticketing_no
@@ -195,11 +197,10 @@
         runtime_t R ON T.time_no = R.time_no
     JOIN 
         occupied_seat_t O ON T.ticketing_no = O.ticketing_no
-    JOIN 
-        seat_t S ON O.seat_no = S.seat_no
     WHERE  U.user_no = #{userNo}
-  </select>
   
+  </select>
+  <!-- 등급 만들기 -->
 <!-- 블로그 부분 -->  
   <select id="getBlogCount" resultType="int">
     SELECT COUNT(*)
