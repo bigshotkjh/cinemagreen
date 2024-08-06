@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
-import com.min.cinemagreen.dto.MovieDTO;
 import com.min.cinemagreen.dto.UserInfoDTO;
 
 import jakarta.servlet.http.HttpServletRequest;

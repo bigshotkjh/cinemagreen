@@ -5,29 +5,87 @@
   
 <mapper namespace="com.min.cinemagreen.admin.mapper.IAdminMovieMapper">
 
+  <resultMap id="RuntimeMap" type="RuntimeDTO">
+    <id property="timeNo" column="time_no"/>
+    <result property="startTime" column="start_time"/>
+    <association property="movieDTO" javaType="MovieDTO">
+      <id property="movieNo" column="movie_no"/>
+      <result property="movieNm" column="movie_nm"/>
+      <result property="runtime" column="runtime"/>
+    </association>
+  </resultMap>
+  <!-- 중요 -->
+
+
+
   <select id="getMovieList" resultType="MovieDTO"> <!-- 모든 영화 가져오기 -->
-    SELECT * FROM movie_t
-             ORDER BY
-             movie_no ASC
+    SELECT
+        movie_no,
+        movie_nm,
+        rating,
+        genres,
+        runtime
+    FROM movie_t
+         ORDER BY
+         movie_no ASC
+         <!-- 10개만 가져오기 추가해야 함 -->
   </select>
   
   <select id="getMovieById" parameterType="int" resultType="MovieDTO"> <!-- 해당 영화번호에 맞는 정보 가져오기 -->
-    SELECT * FROM movie_t
-     WHERE movie_no = #{movieNo}
+    SELECT
+        movie_nm,
+        rating,
+        genres,
+        runtime,
+        plot,
+        title_eng,
+        poster_urls
+    FROM movie_t
+    WHERE movie_no = #{movieNo}
   </select>
   
-  <select id="getRuntimeList" resultType="RuntimeDTO"> <!-- 모든 영화 상영시각 가져오기 -->
-    SELECT * FROM runtime_t
-             ORDER BY
-             movie_no ASC
+  <select id="getRuntimeList" resultMap="RuntimeMap"> <!-- 모든 영화 상영시각 가져오기 -->
+   SELECT
+     r.time_no,
+     r.start_time,
+     m.movie_no,
+     m.movie_nm,
+     m.runtime
+   FROM
+     movie_t m LEFT OUTER JOIN runtime_t r
+     ON m.movie_no = r.movie_no
+   ORDER BY
+     m.movie_no ASC
   </select>
   
   <select id="getRuntimeById" parameterType="int" resultType="RuntimeDTO"> <!-- 해당 영화번호에 맞는 상영시각 가져오기 -->
-    SELECT * FROM runtime_t
+   SELECT
+     r.time_no,
+     r.movie_no,
+     r.start_time,
+     m.movie_no,
+     m.movie_nm,
+     m.runtime
+   FROM
+     runtime_t r JOIN movie_t m
+     ON r.movie_no = m.movie_no
+   ORDER BY
+     m.movie_no ASC
+    
      WHERE movie_no = #{movieNo}
   </select>
   
-  
+  <insert id="adminInsertTime" parameterType="Map">
+    INSERT INTO runtime_t(
+      time_no,
+      movie_no,
+      start_time
+      ) VALUES(
+      runtime_seq.NEXTVAL,
+      #{movieNo},
+      #{startTime}
+      )
+  </insert>
   
   
   

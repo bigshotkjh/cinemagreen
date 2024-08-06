@@ -71,8 +71,8 @@
                                 좌석 관리
                             </a>
                             <a class="nav-link"  href="${contextPath}/admin/movie.page">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                영화 관리
+                              <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                               영화 관리
                             </a>
                         </div>
                     </div>

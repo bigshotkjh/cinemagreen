@@ -28,7 +28,5 @@ public class MovieDTO {
   private String genres;
   private String keywords;
   private String stillUrls;
-  private String posterUrls;
-  private RuntimeDTO runtimeInfo; // RuntimeDTO 추가
-  
+  private String posterUrls;  
 }

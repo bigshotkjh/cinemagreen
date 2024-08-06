@@ -16,7 +16,7 @@ import lombok.ToString;
 public class RuntimeDTO {
 
   private int timeNo;
-  private int movieNo;
   private String startTime;
+  private MovieDTO movieDTO;
   
 }

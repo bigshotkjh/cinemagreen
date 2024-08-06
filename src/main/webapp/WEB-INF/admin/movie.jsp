@@ -18,6 +18,24 @@
     .input-wide {
       width: 33%;
     }
+    
+    
+    /* 모달 크기 조정 */
+    .modal-dialog {
+      max-width: 90%; /* 너비를 80%로 설정 (원하는 비율로 조정 가능) */
+      margin: 1.75rem auto; /* 중앙 정렬을 위한 마진 */
+    }
+
+    /* 모달 내용 영역의 높이를 늘리려면 */
+    .modal-content {
+      height: auto; /* 자동 높이 조정 */
+      min-height: 400px; /* 최소 높이 설정 (원하는 값으로 조정) */
+    }
+    
+
+    
+    
+    
 </style>
 
 <main>
@@ -26,37 +44,26 @@
       <div class="card-header">
         <i class="fas fa-table me-1"></i>
         상영중인 영화 목록
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#movieRuntimeModal" id="manageRuntimeBtn">
+          상영 시각 관리
+        </button>
       </div>
       <div class="card-body">
         <table id="datatablesSimple" class="table table-striped">
           <thead>
             <tr>
               <th>영화순위</th>
-              <th>상영 시작 시각</th>
               <th>제목</th>
               <th>등급</th>
-              <th>장르</th>
+              <th>장르</th> 
               <th>상영시간(분)</th>
               <th>상세</th>
             </tr>
           </thead>
-          
-          
-          
           <tbody>
             <c:forEach var="movie" items="${movieList}">
               <tr>
                 <td>${movie.movieNo}</td>
-                <td>
-                  <c:choose>
-                    <c:when test="${not empty movie.runtimeInfo.startTime}">
-                      ${movie.runtimeInfo.startTime}
-                    </c:when>
-                    <c:otherwise>
-                      NULL
-                    </c:otherwise>
-                  </c:choose>
-                </td><!-- 상영 시작 시각 -->
                 <td>${movie.movieNm}</td>
                 <td>${movie.rating}</td>
                 <td>${movie.genres}</td>
@@ -76,8 +83,7 @@
 </main>
 
 <%@ include file="../admin/adminfooter.jsp" %>
-
-<!-- 모달 -->
+<!-- 영화 상세 정보에 대한 모달 -->
 <div class="modal fade" id="movieDetailModal" tabindex="-1" aria-labelledby="movieDetailModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -117,16 +123,6 @@
                   <div>
                     <h5>줄거리</h5>
                     <textarea class="offset-1 plot textarea-small" name="plot" id="modalPlot" rows="4"></textarea>
-                    <div style="border: 1px solid #ccc; padding: 10px; max-width: 200px; margin: 10px auto;">
-                      <h5>상영 시간</h5>
-                      <div style="display: flex; justify-content: space-between;">
-                        <div>
-                          <label for="modalStartTime">상영 시작시간</label>
-                          <input type="time" name="start_time" id="modalStartTime" value="">
-                        </div>
-                      </div>
-                      <button type="button" class="btn btn-primary" onclick="registerShowTime()">입력</button>
-                    </div>
                   </div>
                   <div>
                     <h5>영제</h5>
@@ -145,24 +141,60 @@
   </div>
 </div>
 
-<script>
-function registerShowTime() {
-  const startTime = document.getElementById('modalStartTime').value;
 
-  if (!startTime) {
-    alert("상영 시작시간을 입력해 주세요.");
-    return;
-  }
 
-  // 여기에 상영 시간을 등록하는 로직을 추가할 수 있습니다.
-  console.log("상영 시작시간:", startTime);
-  
-  // 예를 들어, AJAX 요청을 통해 서버에 상영 시간을 전송할 수도 있습니다.
-}
-</script>
+<!-- JSP에서 MyBatis 쿼리 결과를 사용한 모달 -->
+<div class="modal fade" id="movieRuntimeModal" tabindex="-1" role="dialog" aria-labelledby="movieRuntimeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="movieRuntimeModalLabel">상영 시각 관리</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex;">
+          <div style="overflow-x: auto; width: 50%;">
+            <table class="table" id="runtimeTable" style="width: 100%;">
+              <thead>
+                <tr>
+                  <th>순서번호</th>
+                  <th>제목</th>
+                  <th>상영 시간</th>
+                  <th>상영 시각</th>
+                  <th>설정</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- AJAX로 데이터가 로드되는 위치. -->
+              </tbody>
+            </table>
+          </div>
+          <div id="selectedMovieInfo" style="margin-left: 20px;">
+            <h6>선택된 영화:</h6>
+            <div id="movieTitle"></div>
+            <h6>영화번호:</h6>
+            <div id="movieNo"></div>
+            <input type="datetime-local" id="movieTimeInput" placeholder="상영 시각 입력" />
+            <button type="button" onclick="adminInsertTime()">등록</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 
 <!-- jQuery 및 AJAX 스크립트 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
   $(document).ready(function() {
     // 상세보기 버튼 클릭 시
@@ -180,7 +212,6 @@ function registerShowTime() {
           $('#modalRating').val(data.rating);
           $('#modalGenres').val(data.genres);
           $('#modalRuntime').val(data.runtime);
-          $('#modalStartTime').val(data.startTime);
           $('#modalPlot').val(data.plot);
           $('#modalTitleEng').val(data.titleEng);
           $('#modalPoster').attr('src', data.posterUrl); // 포스터 URL 설정
@@ -199,7 +230,6 @@ function registerShowTime() {
       $('#modalRating').val('');
       $('#modalGenres').val('');
       $('#modalRuntime').val('');
-      $('#modalStartTime').val('');
       $('#modalPlot').val('');
       $('#modalTitleEng').val('');
       $('#modalPoster').attr('src', ''); // 포스터 초기화
@@ -210,44 +240,120 @@ function registerShowTime() {
   
   
   
-  const adminInsertMovie = () => {
-    
-    if (confirm("상영 시간을 등록하시겠습니까?")) {
-    
+  
+  $(document).ready(function() {
+    $('#manageRuntimeBtn').click(function() {
+      $('#runtimeTable tbody').html('<tr><td colspan="5">로딩 중...</td></tr>');
+
+      $.ajax({
+        url: '/admin/getRuntimeList.do', // MyBatis 쿼리를 호출하는 URL
+        method: 'GET',
+        success: function(data) {
+          $('#runtimeTable tbody').empty();
+          if (data && data.length > 0) {
+            let tbody = '';
+            $.each(data, function(index, movie) {
+              tbody += '<tr>';
+              tbody += '<td>' + movie.timeNo + '</td>';
+              tbody += '<td>' + movie.movieDTO.movieNm + '</td>';
+              tbody += '<td>' + movie.movieDTO.runtime + '</td>';
+              tbody += '<td>' + movie.startTime + '</td>';
+              tbody += '<td>' + '<button class="btn btn-primary btn-sm" onclick="setMovie(\'' + movie.movieDTO.movieNo + '\', \'' + movie.movieDTO.movieNm + '\')">시각 설정</button>' + '</td>';
+              tbody += '</tr>';
+            });
+            $('#runtimeTable tbody').html(tbody);
+          }
+        }
+      });
+    });
+  });
+
+  // 영화 설정 함수
+  function setMovie(movieNo, movieNm) {
+      $('#movieNo').text(Number(movieNo)); // 선택된 영화 번호를 숫자로 표시
+      $('#movieTitle').text('제목: ' + movieNm); // 선택된 영화 제목 표시
+      $('#movieTimeInput').val(''); // 입력창 초기화
+  }
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  const adminInsertTime = () => {
+    if (confirm("등록하시겠습니까?")) {
+      const movieNo = Number($('#movieNo').text()); // movieNo를 숫자형으로 변환
+      const startTime = $('#movieTimeInput').val();
       
-      const movieNo = $('#modalMovieNo').val();
-      const startTime = $('#modalStartTime').val();
+      console.log(JSON.stringify({ 
+        movieNo: movieNo,
+        startTime: startTime
+      }));
       
-    console.log(    JSON.stringify({ 
+      $.ajax({
+        url: "${contextPath}/admin/adminInsertTime.do",
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          movieNo: movieNo,
+          startTime: startTime
+        }),
+        success: function(response) {
+          console.log(response); // 응답을 콘솔에 출력하여 확인
+          if (response.success) { // 'isSuccess' 대신 'success' 사용
+            alert('등록이 완료되었습니다.');
+            location.reload();
+          } else {
+            alert('등록이 실패했습니다.'); // 실패 메시지 추가
+          }
+        }
+      });
+    }
+  };
+  
+  
+  const adminUpdateTime = () => {
+    if (confirm("수정하시겠습니까?")) {
+      const movieNo = $('#modalmovieNo').val();
+      const startTime = $('#modalstartTime').val();
       
+    console.log(JSON.stringify({ 
               movieNo: movieNo,
               startTime: startTime
             }));
     
       $.ajax({
-        url: "${contextPath}/admin/adminInsertMovie.do",
+        url: "${contextPath}/admin/adminUpdateTime.do",
         method: 'POST',
       contentType: 'application/json',
-        data: JSON.stringify({ 
-          
+        data: JSON.stringify({
           movieNo: movieNo,
           startTime: startTime
         }),
         success: function(response) {
       if(response.isSuccess) {        
-            alert('상영 시간 등록이 완료되었습니다.');
+            alert('수정이 완료되었습니다.');
         location.reload();
       } else {
-            alert('상영 시간 등록이 실패했습니다.');
+            alert('수정이 실패했습니다.');
       }
         },
         error: function(xhr, status, error) {
           console.error("Error details: ", xhr.responseText);
-          alert('상영 시간 등록에 실패했습니다. 다시 시도해주세요.');
+          alert('수정에 실패했습니다. 다시 시도해주세요.');
         }
       });
     }
   };
+  
+  
+  
+  
   
   
   
