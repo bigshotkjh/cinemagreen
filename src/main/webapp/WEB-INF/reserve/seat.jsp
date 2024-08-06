@@ -178,9 +178,9 @@
 		
 		document.getElementById('personCount').value = typeA + typeB + typeC;
 		maxCount = 4;
-		Amoney = (typeA * 14000);
-		Bmoney = (typeB * 11000);
-		Cmoney = (typeC * 5000);		
+		Amoney = (typeA * 1400);   //1400
+		Bmoney = (typeB * 1100);   //1100
+		Cmoney = (typeC * 500);		 //500
 		totalmoney = (Amoney + Bmoney + Cmoney);
 		totalamount.innerText= totalmoney ;
 		

@@ -169,10 +169,10 @@ CREATE TABLE ticketing_t (
     movie_no     NUMBER,
     ticket_dt    DATE,
     person_count NUMBER,
-    CONSTRAINT fk_ticketing_user FOREIGN KEY(user_no) REFERENCES user_t(user_no) ON DELETE SET NULL
-    /*,
-    CONSTRAINT fk_ticketing_runtime FOREIGN KEY(time_no) REFERENCES runtime_t(time_no) ON DELETE SET NULL,
-    CONSTRAINT fk_ticketing_movie FOREIGN KEY(movie_no) REFERENCES movie_t(movie_no) ON DELETE SET NULL*/
+    CONSTRAINT fk_ticketing_user FOREIGN KEY(user_no) REFERENCES user_t(user_no) ON DELETE SET NULL,
+    CONSTRAINT fk_ticketing_movie FOREIGN KEY(movie_no) REFERENCES movie_t(movie_no) ON DELETE SET NULL
+    /*, CONSTRAINT fk_ticketing_runtime FOREIGN KEY(time_no) REFERENCES runtime_t(time_no) ON DELETE SET NULL*/
+    
 );
 
 -- 좌석 종류 seat_type_t 테이블

@@ -23,7 +23,7 @@ public class MovieController {
   
   @GetMapping(value = "/boxOfficeList.do", produces = "application/json")
   public ResponseEntity<List<MovieDTO>> boxOfficeListDo() {
-    return movieService.boxOfficeList();
+    return movieService.getBoxOfficeList();
   }
   
   @GetMapping(value = "/detail.do")
