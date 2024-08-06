@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.min.cinemagreen.admin.mapper.IAdminMovieMapper;
 import com.min.cinemagreen.dto.MovieDTO;
+import com.min.cinemagreen.dto.RuntimeDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -24,19 +25,12 @@ public class AdminMovieServiceImpl implements IAdminMovieService {
   @Transactional(readOnly = true)
   @Override
   public List<MovieDTO> getMovieList(HttpServletRequest request) {
-<<<<<<< HEAD
       
       // 영화 목록 조회
       List<MovieDTO> movieList = adminMovieMapper.getMovieList();
       return movieList;
   }
   
-=======
-    Map<String, Object> params = new HashMap<>();
-    return adminMovieMapper.getMovieList(params);
-  }
-
->>>>>>> 574f47f2da5f98cefffce1459d2482328ddf3b3f
   @Transactional(readOnly = true)
   @Override
   public MovieDTO getMovieById(int movieNo) {
@@ -46,7 +40,6 @@ public class AdminMovieServiceImpl implements IAdminMovieService {
   
   
   
-<<<<<<< HEAD
   
   
   // ------------------------- 상영시각 정보 이동 -------------------------
@@ -62,8 +55,6 @@ public class AdminMovieServiceImpl implements IAdminMovieService {
       return adminMovieMapper.getRuntimeById(movieNo);
   }
   // ------------------------- 상영시각 정보 이동 -------------------------
-=======
->>>>>>> 574f47f2da5f98cefffce1459d2482328ddf3b3f
 
   
   
