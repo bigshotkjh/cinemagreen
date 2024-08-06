@@ -25,6 +25,7 @@ public interface IUserMapper {
   UserDTO getsnsUserInfo(UserDTO user);
   int ageUpdate(UserDTO user);
   int updateprofile(Map<String, Object> params);
+  List<UserDTO> getBirthUserList(UserDTO birthUser);
 //티켓/////////////////////////
   List<UserTicketDTO> getUserTicket(Map<String, Object> params);
 //블로그//////////////////

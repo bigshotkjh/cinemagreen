@@ -26,7 +26,7 @@
  .profile-div{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 200px;  position: absolute; transform: translate(80px, -73px); overflow: hidden;}
 	#profile, #profile-upload{margin: 3px;}
 	#user-info-form{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 280px;}
-	.paging { position: relative; transform: translate(220px, 0px);}
+	.paging { position: relative; transform: translate(260px, 0px);}
 	h5{margin: 10px 10px 10px 0px; }
 	.user-info{position: relative; transform: translate(37px, -10px);}
 						     

@@ -167,6 +167,12 @@
     WHERE  user_no = #{userNo}
   </update>
   
+  <select id="getBirthUserList" parameterType="UserDTO" resultType="UserDTO">
+    SELECT user_no, age, birthyear, email, name
+      FROM user_t
+     WHERE birthyear LIKE '%' || #{birthYear}
+  </select>
+  
 <!-- 티켓 부분 -->  
   <select id="getUserTicket" parameterType="Map" resultType="UserTicketDTO">
   

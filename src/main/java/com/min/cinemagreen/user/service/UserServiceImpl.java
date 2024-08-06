@@ -58,12 +58,36 @@ public class UserServiceImpl implements IUserService {
     // 메일 보내기
     mailUtils.sendMail(
         email
-      , "[boot]인증요청"
-      , "<div>인증코드는 <strong>" + code + "</strong>입니다."
+      , "[CinemaGeen]인증요청"
+      , "<div>인증코드는 <strong>" + code + "</strong>입니다.</div>"
     );
     
     // {"code": "A43CF0"}
     return ResponseEntity.ok(Map.of("code", code));
+    
+  }
+  
+  @Transactional(readOnly = true)
+  @Override
+  public void sendBrithDayEmail(UserDTO user) {
+
+    
+    // 인증 코드 생성
+
+    //쿠폰도 만들어 메일로 쏴주고 할인도 해주면 좋을 듯.
+    //String discountCoupon = securityUtils.getRandomCode(6, true, true);
+    String email = user.getEmail();
+    System.out.println();
+    String name = user.getName();
+    int age = user.getAge(); 
+    System.out.println(email + name + age);
+    // 메일 보내기
+    mailUtils.sendMail(
+        email
+      , "[CinemaGeen] 생일을 축하드립니다."
+      , "<div><strong>" + name + "</strong>님의 <strong>" + age + "</strong>번째 생일을 축하드립니다.</div>"
+    );
+    
     
   }
   
@@ -184,13 +208,13 @@ public class UserServiceImpl implements IUserService {
     LocalDate currentDate = LocalDate.now();
     int age = Period.between(birthDate, currentDate).getYears();
     user.setAge(age);
-
+    int result = userMapper.updateInf(user);
     Map<String, Object> params = new HashMap<>();
     params.put("email",loginUser.getEmail());
     params.put("pw", loginUser.getPw());
     loginUser = userMapper.getUserByMap(params);
     session.setAttribute("loginUser", loginUser);
-    return userMapper.updateInf(user);
+    return result;
   }
   
   @Override
@@ -475,7 +499,6 @@ public class UserServiceImpl implements IUserService {
     int page = 1;
     page = Integer.parseInt(request.getParameter("page"));//페이지를 받아왔네.
     int display = 5; //한 페이지에 표시할 게시물 수
-//나중에 blogMapper로 바꾸기. 
     int total = userMapper.getBlogCount(userNo);//블로그 게시물 총수/ 맵퍼에 다녀와야해.
     System.out.println("total : " + total);
     System.out.println("display : " + display);

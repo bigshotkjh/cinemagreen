@@ -75,7 +75,6 @@ public class MovieServiceImpl implements IMovieService {
         movieMapper.updateMovieAcc(movie);
         continue;  // 이미 등록된 영화라면 kmdb-api 로 요청하지 않는다.
       }
-
       // movie_t insert 또는 update 된 영화번호
       int movieNo = movie.getMovieNo();
       movieNoList.add(movieNo);
@@ -149,7 +148,6 @@ public class MovieServiceImpl implements IMovieService {
       }
       
     }
-
     return ResponseEntity.ok(movieMapper.getBoxOfficeList(movieNoList));
     
   }
