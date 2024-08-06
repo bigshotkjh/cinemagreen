@@ -60,9 +60,8 @@ public class AdminMovieServiceImpl implements IAdminMovieService {
   
   @Override
   public int adminInsertTime(Map<String, Object> params) {
-      // 상영 시각 추가 처리
       return adminMovieMapper.adminInsertTime(params);
-  }
+  }// 상영 시각 추가
   
   
   

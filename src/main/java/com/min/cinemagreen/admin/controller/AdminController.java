@@ -35,7 +35,7 @@ public class AdminController {
     List<UserInfoDTO> userList = userInfoService.getUserList(null);
     model.addAttribute("userList", userList);
     return "admin/admin"; // 사용자 목록
-  }
+  } 
   
   @GetMapping(value = "/insertuser.page")
   public String insertuserPage() {

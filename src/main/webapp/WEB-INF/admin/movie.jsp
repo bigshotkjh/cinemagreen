@@ -273,7 +273,7 @@
       $('#movieNo').text(Number(movieNo)); // 선택된 영화 번호를 숫자로 표시
       $('#movieTitle').text('제목: ' + movieNm); // 선택된 영화 제목 표시
       $('#movieTimeInput').val(''); // 입력창 초기화
-  }
+  } 
   
   
   

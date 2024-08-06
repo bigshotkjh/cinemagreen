@@ -17,7 +17,7 @@ import com.min.cinemagreen.admin.service.IAdminMovieService;
 import com.min.cinemagreen.dto.MovieDTO;
 import com.min.cinemagreen.dto.RuntimeDTO;
 
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest; 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -64,13 +64,22 @@ public class AdminMovieController {
   
   @PostMapping(value = "/adminInsertTime.do")
   public ResponseEntity<Map<String, Object>> adminInsertTimeDo(@RequestBody Map<String, Object> params) {
+
+      // startTime 변환
+      String startTime = (String) params.get("startTime");
+      System.out.println(startTime);
+      String formattedStartTime = startTime.replace("T", "").replace("-", "").replace(":", "");
+      System.out.println(formattedStartTime);
+      // 변환된 startTime을 params에 다시 저장
+      params.put("startTime", formattedStartTime);
+
       int result = adminMovieService.adminInsertTime(params); // int 반환
 
-      Map<String, Object> response = new HashMap<>(); // LinkedHashMap 사용
-      response.put("success", result > 0); // 성공 여부
-      response.put("result", result); // 결과값
+      Map<String, Object> response = new HashMap<>();
+      response.put("success", result > 0);
+      response.put("result", result);
 
-      return ResponseEntity.ok(response); // JSON 형태로 반환
+      return ResponseEntity.ok(response);
   } // 상영 시각 추가
   // ------------------------------- 추가 기능 -------------------------------
   
