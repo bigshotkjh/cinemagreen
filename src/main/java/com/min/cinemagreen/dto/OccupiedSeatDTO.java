@@ -16,3 +16,5 @@ public class OccupiedSeatDTO {
   private int timeNo;          // 상영시간번호 
   private String ticketingNo;  // 티켓번호
 }
+
+

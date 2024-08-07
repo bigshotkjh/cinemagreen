@@ -57,7 +57,7 @@
 			<!-- 상영시간 -->
 			<div class="time_list box_con">
 			    <div class="list_head">
-						<h5 class="sub_title line">상영시간</h5>
+						<h5 class="sub_title line">상영시간</h5> <!-- 년월일시분 -->
 				       
 				    </div>
 			    <div class="list_body">
