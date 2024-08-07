@@ -211,8 +211,8 @@ public class UserController {
   
 //티켓 가져오기//////////////////////////////////////////////////////
   @GetMapping(value = "/getuserticket.do")
-  public ResponseEntity<Map<String, Object>> getUserTicket(HttpSession session) {
-    return userService.getUserTicket(session);
+  public ResponseEntity<Map<String, Object>> getUserTicket(HttpServletRequest request) {
+    return userService.getUserTicket(request);
   }
 //블로그/////////////////////////////////////////////////////////////
   

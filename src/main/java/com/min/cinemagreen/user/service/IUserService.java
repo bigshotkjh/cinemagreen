@@ -28,7 +28,7 @@ public interface IUserService {
 	  int snsSignup(UserDTO user);
 	  ResponseEntity<Map<String, Object>> profileUpload(MultipartFile multipartFile, HttpSession session);
 	///티켓////////////////////////
-	  ResponseEntity<Map<String, Object>> getUserTicket(HttpSession session);
+	  ResponseEntity<Map<String, Object>> getUserTicket(HttpServletRequest request);
 	///블로그//////////////////
 	  ResponseEntity<Map<String, Object>> getUserBloglist(HttpServletRequest request);
 	}

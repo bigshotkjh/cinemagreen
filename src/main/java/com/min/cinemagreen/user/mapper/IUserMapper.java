@@ -27,7 +27,8 @@ public interface IUserMapper {
   int updateprofile(Map<String, Object> params);
   List<UserDTO> getBirthUserList(UserDTO birthUser);
 //티켓/////////////////////////
-  List<UserTicketDTO> getUserTicketList(int userNo);
+  int getTicketCount(int userNo);
+  List<UserTicketDTO> getUserTicketList(Map<String, Object> params);
   //List<UserGrandeDTO> getUserGrande(int userNo);
 //블로그//////////////////
   int getBlogCount(int userNo);

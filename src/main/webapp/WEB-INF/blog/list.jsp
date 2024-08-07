@@ -21,13 +21,15 @@
     background-color: beige;
     border-bottom: 1px solid gray;
     margin-bottom: 10px;
+    border-radius: 5px;
   }position: relative; transform: translate(0px, -150px);
-  .blog{ position: relative; transform: translate(0px, 0px);}
+  .blog{ position: relative; transform: translate(0px, 0px); }
   .paging { position: relative; transform: translate(-360px, 20px);}
   button{position: relative; transform: translate(1000px, -20px);}
   #blog-list {border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 510px; position: relative; transform: translate(420px, 0px);}
   .right {text-align: right;}
   .aaa {position: relative; transform: translate(0px, -150px);}
+  .button:hover{background-color: #FEFFF1; border: 2px solid  #ABDEC2;}            
 </style>
 
 
@@ -76,7 +78,7 @@
       paging.innerHTML = resData.paging;
       blogList.innerHTML = '';
       for(const blog of resData.blogList){
-        let str = '<div class="blog" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
+        let str = '<div class="blog button" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
         str += '<div>제목 : ' + blog.title + '</div>';
         str += '<div class="right">작성자 : ' + blog.name + ' /조회수 : ' + blog.hit + ' /작성일 : ' + blog.createDt + '</div>';
         str += '</div>';

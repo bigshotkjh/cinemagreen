@@ -477,16 +477,33 @@ public class UserServiceImpl implements IUserService {
   }
 ////예매부분/////////////////
   @Override
-  public ResponseEntity<Map<String, Object>> getUserTicket(HttpSession session) {
+  public ResponseEntity<Map<String, Object>> getUserTicket(HttpServletRequest request) {
+    HttpSession session = request.getSession();
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
     if(loginUser == null)  // 로그인이 풀린 유저
       return null; 
     int userNo = loginUser.getUserNo();
+    int page = 1;
+    page = Integer.parseInt(request.getParameter("page"));//페이지를 받아왔네.
+    int display = 5; //한 페이지에 표시할 게시물 수
+    int total = userMapper.getTicketCount(userNo);//게시물 총수/ 맵퍼에 다녀와야해.
+    System.out.println("total : " + total);
+    System.out.println("display : " + display);
+    System.out.println("page : " + page);
+    pageUtils.setPaging(total, display, page);//페이징 정보를 설정
+
+    System.out.println("비긴 : " + pageUtils.getBegin());
+    System.out.println("엔드 : " + pageUtils.getEnd());
+    
+    
     Map<String, Object> params = new HashMap<>();
     params.put("userNo", userNo);
+    params.put("begin", pageUtils.getBegin());
+    params.put("end", pageUtils.getEnd());//시작과 끝을 담고 리스트 받으러 가
     //티켓정보가져오기
-    List<UserTicketDTO> ticketList = userMapper.getUserTicketList(userNo);
-    return ResponseEntity.ok(Map.of("ticketList", ticketList));
+    List<UserTicketDTO> ticketList = userMapper.getUserTicketList(params);
+    String ticketPaging = pageUtils.getAsyncticketPaging();//pageUtils를 사용하여 페이징 HTML 코드를 생성
+    return ResponseEntity.ok(Map.of("ticketList", ticketList, "ticketPaging", ticketPaging));
   }
   
 
