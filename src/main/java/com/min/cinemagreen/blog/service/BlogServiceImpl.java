@@ -221,4 +221,10 @@ public class BlogServiceImpl implements IBlogService {
     
   }
   
+  @Override
+  public int deletePost(BlogDTO blogDTO) {
+    int blogNo = blogDTO.getBlogNo();
+    return blogMapper.deletePost(blogNo);
+  }
+  
 }

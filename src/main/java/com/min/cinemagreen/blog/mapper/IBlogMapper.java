@@ -22,4 +22,5 @@ public interface IBlogMapper {
   List<BlogCommentDTO> getBlogCommentList(Map<String, Object> params);
   int updateGroupOrder(BlogCommentDTO blogCommentParentDTO);
   int insertBlogCommentChild(BlogCommentDTO blogCommentChildDTO);
+  int deletePost(int blogNo);
 }

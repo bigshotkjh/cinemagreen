@@ -137,4 +137,10 @@
     )
   </insert>
   
+  <delete id="deletePost" parameterType="int">
+    DELETE
+      FROM blog_t
+     WHERE blog_no = #{blogNo}
+  </delete>
+  
 </mapper>

@@ -43,7 +43,7 @@ public class BlogController {
   
   @PostMapping(value = "/saveBlog.do")
   public String saveBlogDo(BlogDTO blogDTO, HttpSession session, RedirectAttributes rttr) {
-    rttr.addFlashAttribute("saveBlogMessage", blogService.saveBlog(blogDTO, session) == 1 ? "블로그 추가 성공" : "블로그 추가 실패");
+    rttr.addFlashAttribute("saveBlogMessage", blogService.saveBlog(blogDTO, session) == 1 ? "무비포스트 추가 성공" : "무비포스트 추가 실패");
     return "redirect:/blog/list.do";
   }
   
@@ -77,6 +77,15 @@ public class BlogController {
   @PostMapping(value = "/saveBlogCommentChild.do", produces = "application/json")
   public ResponseEntity<Map<String, Object>> saveBlogCommentChildDo(HttpServletRequest request) {
     return blogService.saveBlogCommentChild(request);
+  }
+  
+  @GetMapping(value = "/deletepost.do")
+  public String deletePost(BlogDTO blogDTO, RedirectAttributes rttr) {
+    System.out.println("도착");
+    
+    rttr.addFlashAttribute("deletePostMessage", blogService.deletePost(blogDTO) == 1 ? "무비포스트 삭제 성공" : "무비포스트 삭제 실패");
+    
+    return "redirect:/blog/list.do";
   }
   
 }

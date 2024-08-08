@@ -54,6 +54,9 @@
   if('${saveBlogMessage}' !== '')
     alert('${saveBlogMessage}');
 
+  if('${deletePostMessage}' !== '')
+    alert('${deletePostMessage}');
+  
   var page = 1;
   
   const paging = (p)=>{

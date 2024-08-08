@@ -19,4 +19,5 @@ public interface IBlogService {
   ResponseEntity<Map<String, Object>> saveBlogCommentParent(HttpServletRequest request);
   ResponseEntity<Map<String, Object>> getBlogCommentList(HttpServletRequest request);
   ResponseEntity<Map<String, Object>> saveBlogCommentChild(HttpServletRequest request);
+  int deletePost(BlogDTO blogDTO);
 }

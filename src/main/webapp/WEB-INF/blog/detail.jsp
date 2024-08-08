@@ -38,6 +38,8 @@
   .data {text-align: right;}
   .blog.title{width: 600px;}
   .movie-title {position: relative; transform: translate(200px, 0px) !important;}
+  .delete{position: relative; transform: translate(320px, -220px)}
+  .hidden-btn{display: none;}
 </style>
 
 
@@ -65,6 +67,7 @@
 					    <textarea id="contents" name="contents" rows="3" cols="50" placeholder="댓글을 입력해 주세요."></textarea>    
 					    <button type="button" id="save-parent-btn">등록</button>
               <button type="button" onclick="history.back()">뒤로가기</button>
+              <button type="button" class="delete hidden-btn" onclick="deletePost()">게시물삭제</button>
 					  </form>
 					</div>
         </div>
@@ -73,7 +76,17 @@
   </div>
 
 <script>
-
+  const deletePost = ()=> {
+	  location.href = '${contextPath}/blog/deletepost.do?blogNo='+${blog.blogNo};
+  }
+  
+  const hiddenBtn = ()=> {
+	   if("${loginUser.userNo}" == "${blog.userNo}"){
+	     $(".delete").removeClass("hidden-btn");
+	   } 
+  }
+  hiddenBtn();
+  
   const signinCheck = () => {
     if('${sessionScope.loginUser}' === '') {
       if(confirm('로그인이 필요한 기능입니다. 로그인 하시겠습니까?')) {
