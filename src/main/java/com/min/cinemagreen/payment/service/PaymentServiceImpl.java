@@ -139,8 +139,16 @@ public class PaymentServiceImpl implements IPaymentService {
 
 
   @Override
-  public PaymentDTO getPayInfo(String payId) {
-    return paymentMapper.getPayInfo(payId);    
+  public Map<String, Object> getPayInfo(String payId) {
+    PaymentDTO payment = paymentMapper.getPayInfo(payId);
+   
+    //예약한 좌석 맵에 넣기
+    List<String> seatCodes = paymentMapper.getOccpSeatsInfo(payment.getTicketingNo());
+    Map<String, Object> params = new HashMap<>();
+    params.put("payment", payment);
+    params.put("seatCodes", seatCodes);
+
+    return params;
   }
 
 
@@ -156,36 +164,34 @@ public class PaymentServiceImpl implements IPaymentService {
     return paymentMapper.insertTicket(pay);
   }
 
-
+  
   @Override
   public void saveOccpSeat(Map<String, Object> pay) {
-    
     for(String seatCode : (List<String>)pay.get("seatCode")) {
-      //ticketingNo, seatCode
       Map<String,Object> params = new HashMap<>();
       
       String ticketingNo = (String) pay.get("ticketingNo");
-     
       params.put("seatCode", seatCode);
       params.put("ticketingNo", ticketingNo);
+
       paymentMapper.insertOccpSeat(params);
       log.info("====>> params : {}" ,params);
     }
-    
   }
 
 
+
+  // 예약된 좌석 
   @Override
-  public OccupiedSeatDTO getSeatInfo(String payId) {
-    return paymentMapper.getSeatInfo(payId);    
+  public List<String> getOccpSeats() {
+    return paymentMapper.getOccpSeats();
   }
 
 
-//  @Override
-//  public ResponseEntity<Map<String, Object>> ticketing() {
-//
-//    return paymentMapper.insertTicket(pay);
-//  }
+
+
+
+
 
 
 

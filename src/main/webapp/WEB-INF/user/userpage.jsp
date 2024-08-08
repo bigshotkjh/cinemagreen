@@ -15,9 +15,9 @@
  .title_con h6{ margin-top: 0;}
   input { border-radius: 4px; margin-top: 2px; }
  .red{ border: 2px solid red;  border-radius: 5px;}
- .blogdiv{ 
+ .blog-div{ 
     position: absolute;
-    transform: translate(430px, -900px);}
+    transform: translate(430px, -850px);}
  .blog{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;}
  .blog-zero{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;  white-space: pre;}
  #profile-img{ border-radius: 20%;}
@@ -29,7 +29,13 @@
 	.paging { position: relative; transform: translate(260px, 0px);}
 	h5{margin: 10px 10px 10px 0px; }
 	.user-info{position: relative; transform: translate(37px, -10px);}
-						     
+  .ticket-div{ 
+    position: relative;
+    transform: translate(430px, -450px);}
+  .ticket{  border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px; }
+  .movie-time{ text-align: right;}	
+  .ticket-zero{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;  white-space: pre;}
+  .button:hover{background-color: #FFFFFF; border: 2px solid  #ABDEC2;}				     
 </style>
 <!--
  가져와 표시할 것 들
@@ -105,13 +111,17 @@
           <button type="button" onclick="leaveUser()">탈퇴하기</button>
         </div><br>
 <!-- 블로그 -->
-        <div class="blogdiv">
+        <div class="blog-div">
 	        <h5><b>내가 작성한 무비포스트</h5>
 	        <div id="blog-list"></div><br>
 	        <div id="paging"></div>
 				</div>
 <!-- 블로그 -->
-	      <div id="ticket-list"></div>    
+        <div class="ticket-div">
+          <h5><b>예매 내역</h5>
+          <div id="ticket-list"></div>  
+          <div id="ticket-paging"></div>
+        </div>  
       </div>
 	</div>
 
@@ -191,7 +201,7 @@
       paging.innerHTML = resData.paging;
       blogList.innerHTML = '';
       for(const blog of resData.blogList){
-        let str  = '<div class="blog" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
+        let str  = '<div class="blog button" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
             str +=   '<div> 제목 : ' + blog.title + '</div>';
             str +=   '<div class="hit"> Hit : ' + blog.hit + ' /Date : '  + blog.createDt + '</div>';
             str += '</div>';
@@ -218,26 +228,36 @@
   
 //////////////////////////////////////////  
 //예매내역
+  
+
+  var ticketPage = 1;
+  
+  const ticketPaging = (p)=>{
+	  ticketPage = p;
+	  fnMovieTicket();
+  }
   const fnMovieTicket = ()=>{   
     $.ajax({
       type: 'get',
       url: '${contextPath}/user/getuserticket.do',
+      data: 'page=' + ticketPage,
       dataType: 'json'
     }).done(resData=>{   
-       const ticketList = document.getElementById('ticket-list');
+        const ticketList = document.getElementById('ticket-list');
+        const ticketPaging = document.getElementById('ticket-paging');
        if(resData.ticketList.length === 0){
-    	   ticketList.innerHTML = '<div> 예매 내역이 없습니다.    |    AI챗봇에게 영화를 추천받아 보세요.</div>';
+    	   ticketList.innerHTML = '<div class="ticket-zero"> 예매 내역이 없습니다.    |    AI챗봇에게 영화를 추천받아 보세요.</div>';
          return;
        }
+       ticketPaging.innerHTML = resData.ticketPaging;
        ticketList.innerHTML = '';
        for(const ticket of resData.ticketList){
-         let str  = '<div class="ticket" data-start-time="' + ticket.startTime + '" data-user-no="' + ${loginUser.userNo} + '">';
+         let str  = '<div class="ticket button" data-start-time="' + ticket.startTime + '" data-user-no="' + ${loginUser.userNo} + '">';
              str +=   '<div> 제목 : ' + ticket.movieNm + '</div>';
-             str +=   '<div class="hit"> 상영시간 : ' + ticket.startTime + ' / 좌석 : '  + ticket.seatCode + '</div>';
+             str +=   '<div class=movie-time> 상영시간 : ' + ticket.startTime + ' / 좌석 : '  + ticket.seatCode + '</div>';
              str += '</div>';
          ticketList.innerHTML += str;
        }
-       
     })
   }
   fnMovieTicket();

@@ -41,7 +41,7 @@
         runtime,
         plot,
         title_eng,
-        poster_urls 
+        poster_urls
     FROM movie_t
     WHERE movie_no = #{movieNo}
   </select>

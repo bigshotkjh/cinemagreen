@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.min.cinemagreen.dto.OccupiedSeatDTO;
 import com.min.cinemagreen.dto.PaymentDTO;
 import com.min.cinemagreen.dto.UserDTO;
 import com.min.cinemagreen.payment.service.IPaymentService;
@@ -65,15 +64,7 @@ public class PaymentController {
     // String token = paymentService.getToken();
       
       log.info("====>> map : {}" ,pay);
-    /* 
-     *  List<String> seatCodes =  (List<String>) pay.get("seatCode");
-      //List<String> seatCodes =  new ArrayList<String>(Arrays.asList(arr));
-      //List<String> seatCodes = new ArrayList<>();
-      log.info("====>> seatCodes : {}" , seatCodes);
-      pay.remove("seatCode");
-      pay.put("seatCode", seatCodes);
-      */
-      
+
       UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 //    if(loginUser == null) {}
       pay.put("userNo", loginUser.getUserNo());
@@ -84,15 +75,13 @@ public class PaymentController {
      
     }
       
-    //ResponseEntity<List<MovieDTO>>
-    
-    
     
     @GetMapping(value = "complete/{payId}")
     public String getPaymentInfo(@PathVariable String payId, Model model) {
-      PaymentDTO payment = paymentService.getPayInfo(payId);
-      model.addAttribute("payment", payment);
-      
+      Map<String, Object> paymentInfo = paymentService.getPayInfo(payId);
+      model.addAttribute("payment", paymentInfo.get("payment"));
+      model.addAttribute("seatCodes", paymentInfo.get("seatCodes"));
+
       return "/payment/complete";
     }
     
@@ -110,17 +99,7 @@ public class PaymentController {
       return "/reserve/complete";
     }
     */
-/*
- * INSERT INTO payments (payId, amount, ticketingNo, payMethod, personCount) 
-    VALUES (#{payId}, #{amount}, #{ticketingNo}, #{payMethod}, #{personCount});
-    
-    <!-- seatCode 배열에 대한 좌석 정보 삽입 -->
-    <foreach collection="seatCode" item="seat" separator=";">
-        INSERT INTO payment_seats (payId, seatCode)
-        VALUES (#{payId}, #{seat})
-    </foreach>
- * 
- */
+
 
    
  // 결제 취소

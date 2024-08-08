@@ -1,5 +1,6 @@
 package com.min.cinemagreen.payment.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -14,5 +15,7 @@ public interface IPaymentMapper {
   PaymentDTO getPayInfo(String payId);
   int insertTicket(Map<String, Object> pay);
   int insertOccpSeat(Map<String, Object> pay);
-  OccupiedSeatDTO getSeatInfo(String ticketingNo);
+  List<OccupiedSeatDTO> getSeatByTicketNo(String ticketingNo);
+  List<String> getOccpSeats();
+  List<String> getOccpSeatsInfo(String ticketingNo);
 }

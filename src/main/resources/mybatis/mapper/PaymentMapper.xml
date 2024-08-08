@@ -74,6 +74,16 @@
 	    )
     </insert>
     
-
-  
+    
+    <select id="getOccpSeatsInfo" resultType="map">
+	    SELECT seat_code
+	    FROM occupied_seat_t
+	    WHERE ticketing_no = #{ticketingNo} 
+		</select>
+		
+    <select id="getOccpSeats" resultType="String">
+	    SELECT seat_code
+	    FROM occupied_seat_t
+		</select>
+    
 </mapper>

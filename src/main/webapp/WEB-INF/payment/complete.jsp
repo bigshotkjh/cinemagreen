@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 
 <jsp:include page="../layout/header.jsp">
@@ -18,14 +19,15 @@
 		      </div>
 		      
 		     	<div class="list_body ">
-		     		예매자명 : ${loginUser.name}<br>
+		     		<%-- 예매자명 : ${loginUser.name}<br> --%>
 						결제번호 : ${payment.payId}<br>
 						결제금액 : ${payment.amount}<br>
 						티켓번호 : ${payment.ticketingNo}<br>
 						영화정보 : <br>
-						선택좌석 : 
-
-					</div>
+						예매좌석 : <c:forEach var="seat" items="${seatCodes}">
+					            ${fn:substring(seat,11,13)}
+					        	</c:forEach>
+					</div>    <%-- ${fn:split(seat, '=')[1]} --%>
 					<button onclick="location.href='${contextPath}/user/userpage.page'" type="button" id=""  class="c-btn c-cblue" style="margin-top:15px;">마이페이지</button>
 					<button onclick="canclePay()" type="button" id="canclePay"  class="c-btn c-gray" style="margin-top:15px;">결제취소</button>
 		    </div>

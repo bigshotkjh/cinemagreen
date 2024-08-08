@@ -175,8 +175,62 @@
   
 <!-- 티켓 부분 -->  
   <!-- 티켓 정보 만들기 -->
-  <select id="getUserTicketList" parameterType="int" resultType="UserTicketDTO">
+  <select id="getTicketCount" resultType="int">
+    SELECT COUNT(*) AS total_count
+      FROM 
+          user_t U 
+      JOIN  
+          ticketing_t T ON U.user_no = T.user_no
+      JOIN 
+          payment_t P ON T.ticketing_no = P.ticketing_no
+      JOIN 
+          movie_t M ON T.movie_no = M.movie_no
+      JOIN 
+          runtime_t R ON T.time_no = R.time_no
+      JOIN 
+          occupied_seat_t O ON T.ticketing_no = O.ticketing_no
+      WHERE  
+    U.user_no = #{userNo}
+  </select>
   
+  
+  
+  <select id="getUserTicketList" parameterType="Map" resultType="UserTicketDTO">
+	  SELECT 
+	    movie_nm,
+	    runtime,
+	    start_time,
+	    seat_code,
+	    amount,
+	    pay_state,
+	    person_count
+		FROM (
+		    SELECT 
+		        ROW_NUMBER() OVER(ORDER BY T.ticketing_no DESC) AS rnum,
+		        M.movie_nm,
+		        M.runtime,
+		        R.start_time,
+		        O.seat_code,
+		        P.amount,
+		        P.pay_state,
+		        T.person_count
+		    FROM 
+		        user_t U 
+		    JOIN  
+		        ticketing_t T ON U.user_no = T.user_no
+		    JOIN 
+		        payment_t P ON T.ticketing_no = P.ticketing_no
+		    JOIN 
+		        movie_t M ON T.movie_no = M.movie_no
+		    JOIN 
+		        runtime_t R ON T.time_no = R.time_no
+		    JOIN 
+		        occupied_seat_t O ON T.ticketing_no = O.ticketing_no
+		    WHERE  
+		        U.user_no = #{userNo}
+		) 
+		WHERE rnum BETWEEN #{begin} AND #{end}
+    <!--  
     SELECT 
       M.movie_nm,
       M.runtime,
@@ -198,7 +252,7 @@
     JOIN 
         occupied_seat_t O ON T.ticketing_no = O.ticketing_no
     WHERE  U.user_no = #{userNo}
-  
+  -->
   </select>
   <!-- 등급 만들기 -->
 <!-- 블로그 부분 -->  

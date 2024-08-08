@@ -95,7 +95,7 @@
 				      				<input id="<%=c%><%=i%>" type="checkbox" name="seat" value="<%=c%><%=i%>"><label for="<%=c%><%=i%>"><%=c%><%=i%></label>
 				      			<%} %>
 				      				<br>
-				      				<%= i == 3 ? "<br/><p class='typeC'>" : "" %>
+				      				<%= i == 3 ? "<br/><p class='typeC' >" : "" %>
 				      				<%= i == 4 ? "</p>" : "" %>
 			      			<%} %>
 				      </div>
@@ -178,9 +178,9 @@
 		
 		document.getElementById('personCount').value = typeA + typeB + typeC;
 		maxCount = 4;
-		Amoney = (typeA * 1400);   //1400
-		Bmoney = (typeB * 1100);   //1100
-		Cmoney = (typeC * 500);		 //500
+		Amoney = (typeA * 1400);   //14000
+		Bmoney = (typeB * 1100);   //11000
+		Cmoney = (typeC * 500);		 //5000
 		totalmoney = (Amoney + Bmoney + Cmoney);
 		totalamount.innerText= totalmoney ;
 		
@@ -324,11 +324,7 @@
        });
       });
   	}
-       
-    
-    
- 
-	
  </script>
+
 
 <%@ include file="../layout/footer.jsp" %>
