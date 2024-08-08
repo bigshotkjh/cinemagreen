@@ -5,11 +5,16 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.min.cinemagreen.dto.AmountDTO;
 import com.min.cinemagreen.dto.UserInfoDTO;
 
 @Mapper
 public interface IUserInfoMapper {
-
+  
+  List<AmountDTO> getAmountList(); // 모든 매출 가져오기
+  
+  List<AmountDTO> getWeeklyAmountList(); //최근 일주일 매출 가져오기
+  
   List<UserInfoDTO> getUserList(Map<String, Object> params); // 모든 사용자 가져오기
 
   UserInfoDTO getUserById(int userNo); // 해당 사용자 가져오기

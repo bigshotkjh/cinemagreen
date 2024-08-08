@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.min.cinemagreen.admin.service.IUserInfoService;
+import com.min.cinemagreen.dto.AmountDTO;
 import com.min.cinemagreen.dto.UserInfoDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,24 +28,31 @@ public class AdminController {
 
   private final IUserInfoService userInfoService;
 
-  
-  
   // ------------------------- 페이지 이동 -------------------------
   @GetMapping("/admin.page")
   public String adminPage(Model model) {
     List<UserInfoDTO> userList = userInfoService.getUserList(null);
     model.addAttribute("userList", userList);
-    return "admin/admin"; // 사용자 목록
-  } 
-  
+    return "admin/admin"; // 사용자 목록 페이지 반환
+  }
+
   @GetMapping(value = "/insertuser.page")
   public String insertuserPage() {
     return "admin/insertuser";
   } // 사용자 추가 페이지로 이동
   // ------------------------- 페이지 이동 -------------------------
-  
-  
-  
+
+  @GetMapping(value = "/getDailyAmount.do", produces = "application/json")
+  public ResponseEntity<List<AmountDTO>> getDailyAmountList() {
+    List<AmountDTO> amountList = userInfoService.getAmountList();
+    return ResponseEntity.ok(amountList); // AJAX 요청에 대한 데이터 반환
+  } // 일일 매출
+
+  @GetMapping(value = "/getWeeklyAmount.do", produces = "application/json")
+  public ResponseEntity<List<AmountDTO>> getWeeklyAmountList() {
+    List<AmountDTO> weeklyAmountList = userInfoService.getWeeklyAmountList();
+    return ResponseEntity.ok(weeklyAmountList); // AJAX 요청에 대한 데이터 반환
+  } // 주간 매출
   
   
   // ------------------------ 유저 관련 기능 ------------------------
@@ -66,7 +74,7 @@ public class AdminController {
     rttr.addFlashAttribute("deleteMessage", "회원 삭제 성공");
     return "redirect:/admin/admin.page"; // 삭제 후 사용자 목록으로 리다이렉트
   } // 유저 삭제
-  
+
   @PostMapping(value = "/adminInsertUser.do")
   public String adminInsertUserDo(UserInfoDTO user, RedirectAttributes rttr) {
     String redirectURL;
@@ -83,14 +91,7 @@ public class AdminController {
     return "redirect:" + redirectURL;
   } // 유저 추가
   // ------------------------ 유저 관련 기능 ------------------------
-  
-  
-  
-  
-  
-  
-  
-  
+
   // ------------------------------- 추가 기능 -------------------------------
   @PostMapping(value = "/doubleEmailCheck.do", produces = "application/json")
   public ResponseEntity<Map<String, Object>> doubleEmailCheckDo(UserInfoDTO email) {
@@ -102,6 +103,6 @@ public class AdminController {
     UserInfoDTO user = userInfoService.getUserById(userNo);
     return ResponseEntity.ok(user);
   } // 유저 상세보기에 해당 유저 정보 넣기
- // ------------------------------- 추가 기능 -------------------------------
+  // ------------------------------- 추가 기능 -------------------------------
 
 }

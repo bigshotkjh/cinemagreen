@@ -21,6 +21,7 @@ public interface IAdminMovieMapper {
   
   int adminInsertTime(Map<String, Object> params); // 상영 시간 등록
   
+  
   /*
    * int adminUpdateTime(RuntimeDTO timeInfo); // 수정
    * 

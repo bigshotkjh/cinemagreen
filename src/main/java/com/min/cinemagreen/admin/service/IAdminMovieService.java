@@ -18,7 +18,9 @@ public interface IAdminMovieService {
 
   RuntimeDTO getRuntimeById(int movieNo); // 특정 영화 상영 시각 가져오기
 
+  
   int adminInsertTime(Map<String, Object> params); // 상영 시각 추가
+  
   /*
    * int adminUpdateTime(RuntimeDTO timeInfo); // 사용자 정보 수정
    * 

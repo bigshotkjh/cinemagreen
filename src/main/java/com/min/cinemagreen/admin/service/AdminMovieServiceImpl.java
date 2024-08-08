@@ -19,51 +19,42 @@ import lombok.RequiredArgsConstructor;
 public class AdminMovieServiceImpl implements IAdminMovieService {
 
   private final IAdminMovieMapper adminMovieMapper;
-  
-  
+
   // ------------------------- 영화 정보 이동 -------------------------
   @Transactional(readOnly = true)
   @Override
   public List<MovieDTO> getMovieList(HttpServletRequest request) {
-      
-      // 영화 목록 조회
-      List<MovieDTO> movieList = adminMovieMapper.getMovieList();
-      return movieList;
+
+    // 영화 목록 조회
+    List<MovieDTO> movieList = adminMovieMapper.getMovieList();
+    return movieList;
   }
-  
+
   @Transactional(readOnly = true)
   @Override
   public MovieDTO getMovieById(int movieNo) {
     return adminMovieMapper.getMovieById(movieNo);
   }
   // ------------------------- 영화 정보 이동 -------------------------
-  
-  
-  
-  
-  
+
   // ------------------------- 상영시각 정보 이동 -------------------------
   @Transactional(readOnly = true)
   @Override
   public List<RuntimeDTO> getRuntimeList() {
-      // 모든 상영 시각 정보 조회
-      return adminMovieMapper.getRuntimeList(); // MyBatis 매퍼 메서드 호출
+    // 모든 상영 시각 정보 조회
+    return adminMovieMapper.getRuntimeList(); // MyBatis 매퍼 메서드 호출
   }
+
   @Transactional(readOnly = true)
   @Override
   public RuntimeDTO getRuntimeById(int movieNo) {
-      return adminMovieMapper.getRuntimeById(movieNo);
+    return adminMovieMapper.getRuntimeById(movieNo);
   }
   // ------------------------- 상영시각 정보 이동 -------------------------
 
-  
-  
   @Override
   public int adminInsertTime(Map<String, Object> params) {
-      return adminMovieMapper.adminInsertTime(params);
+    return adminMovieMapper.adminInsertTime(params);
   }// 상영 시각 추가
-  
-  
-  
-  
+
 }

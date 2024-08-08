@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.min.cinemagreen.admin.mapper.IUserInfoMapper;
+import com.min.cinemagreen.dto.AmountDTO;
 import com.min.cinemagreen.dto.UserInfoDTO;
 import com.min.cinemagreen.utils.SecurityUtils;
 
@@ -27,7 +28,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
   private final SecurityUtils securityUtils;
   
   
-  // ------------------------- 사용자 정보 이동 -------------------------
+  // ------------------------------ 사용자 정보 이동 ------------------------------
   @Transactional(readOnly = true)
   @Override
   public List<UserInfoDTO> getUserList(HttpServletRequest request) {
@@ -40,12 +41,25 @@ public class UserInfoServiceImpl implements IUserInfoService {
   public UserInfoDTO getUserById(int userNo) {
     return userInfoMapper.getUserById(userNo);
   }
-  // ------------------------- 사용자 정보 이동 -------------------------
+  // ------------------------------ 사용자 정보 이동 ------------------------------
   
   
+  // ------------------------------- 매출 정보 이동 -------------------------------
+  @Transactional(readOnly = true)
+  @Override
+  public List<AmountDTO> getAmountList() {
+	return userInfoMapper.getAmountList();
+  } // 일간 매출
   
-
   
+  @Transactional(readOnly = true)
+  @Override
+  public List<AmountDTO> getWeeklyAmountList() {
+  return userInfoMapper.getWeeklyAmountList();
+  } // 주간 매출
+  
+  
+  // -------------------------------- 매출 정보 이동 --------------------------------
   // ------------------------- 사용자 정보 수정, 삭제, 추가 -------------------------
   @Override
   public int adminUpdateUser(UserInfoDTO userInfo) {

@@ -32,19 +32,18 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-chart-bar me-1"></i>
-            주간 최고 매출 영화
-          </div>
-          <div class="card-body">
-            <canvas id="myBarChart" width="100%" height="40"></canvas>
-          </div>
-        </div>
-      </div>
+	  <div class="col-xl-6">
+	      <div class="card mb-4">
+	          <div class="card-header">
+	              <i class="fas fa-chart-bar me-1"></i>
+	              일일 최고 매출 영화
+	          </div>
+	          <div class="card-body">
+	              <canvas id="myBarChart" width="100%" height="40"></canvas>
+	          </div>
+	      </div> 
+	  </div>
     </div>
-
     <div class="card mb-4">
       <div class="card-header">
         <i class="fas fa-table me-1"></i>
@@ -206,10 +205,11 @@
   </div>
 </div>
 
-<!-- jQuery 및 AJAX 스크립트 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-	$(document).ready(function() {
+	$(document).ready(function() { // 있어야 함.
+	/*const displayUser = () => {*/
+		
 	  // 상세보기 버튼 클릭 시
 	  $('.detail-btn').click(function() {
 	    var userNo = $(this).data('userno'); // data-userno 속성 가져오기
@@ -243,7 +243,8 @@
 	    // 입력값 초기화 등의 추가 로직
 	  });
 	});
-
+	
+	
 	const adminDeleteUser = () => {
 	  if (confirm("정말 회원 삭제를 하시겠습니까?")) {
 	    var userNo = $('#modalUserNo').val();
@@ -260,8 +261,9 @@
 	      }
 	    });
 	  }
-	};
+	}
 
+	
 	const adminUpdateUser = () => {
 		
 	  if (confirm("정말 회원 정보를 수정하시겠습니까?")) {
@@ -321,7 +323,8 @@
 	      }
 	    });
 	  }
-	};
+	}
+	
 
 	const adminPwChange = () => {
 	  if (confirm("비밀번호를 변경하시겠습니까?")) {
@@ -342,8 +345,7 @@
 	      });
 	    }
 	  }
-	};
-  </script>
+	}
+	
+
 </script>
-
-
