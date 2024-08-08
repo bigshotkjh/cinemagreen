@@ -29,6 +29,7 @@ public interface IUserMapper {
 //티켓/////////////////////////
   int getTicketCount(int userNo);
   List<UserTicketDTO> getUserTicketList(Map<String, Object> params);
+  UserTicketDTO getTicketDetail(Map<String, Object> params);
   //List<UserGrandeDTO> getUserGrande(int userNo);
 //블로그//////////////////
   int getBlogCount(int userNo);

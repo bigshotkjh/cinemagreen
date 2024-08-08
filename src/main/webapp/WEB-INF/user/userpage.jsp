@@ -7,6 +7,7 @@
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="userpage" name="title"/>
 </jsp:include>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <style>
  .dead-btn{cursor: default; pointer-events: none;}
  .hidden-btn{display: none;}
@@ -36,6 +37,8 @@
   .movie-time{ text-align: right;}	
   .ticket-zero{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;  white-space: pre;}
   .button:hover{background-color: #FFFFFF; border: 2px solid  #ABDEC2;}				     
+  .modal-backdrop.show{ display: none !important; }
+  .modal-content{ top: 250px; width: 350px;}
 </style>
 <!--
  가져와 표시할 것 들
@@ -123,12 +126,32 @@
           <div id="ticket-paging"></div>
         </div>  
       </div>
+  <!-- 모달을 실행할 버튼 -->
+		  
+		  <!-- 모달 -->
+		  <div class="modal fade" id="ticket-etail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <h1 class="modal-title fs-5" id="exampleModalLabel">예매 상세 내역</h1>
+		          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        </div>
+		        <div class="modal-body" id="modal-body">
+		          ...
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
 	</div>
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->  
 
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  
 <script>
@@ -252,7 +275,7 @@
        ticketPaging.innerHTML = resData.ticketPaging;
        ticketList.innerHTML = '';
        for(const ticket of resData.ticketList){
-         let str  = '<div class="ticket button" data-start-time="' + ticket.startTime + '" data-user-no="' + ${loginUser.userNo} + '">';
+         let str  = '<div class="ticket button" data-bs-toggle="modal" data-bs-target="#ticket-etail" data-movie-nm="'+ ticket.movieNm +'" data-seat-code="' + ticket.seatCode + '" data-start-time="' + ticket.startTime + '">';
              str +=   '<div> 제목 : ' + ticket.movieNm + '</div>';
              str +=   '<div class=movie-time> 상영시간 : ' + ticket.startTime + ' / 좌석 : '  + ticket.seatCode + '</div>';
              str += '</div>';
@@ -261,6 +284,42 @@
     })
   }
   fnMovieTicket();
+
+//티켓디테일///////////// 
+  const ticketDetail = ()=>{
+	  
+    $(document).on('click', '.ticket', evt=>{
+	     var movieNm = evt.currentTarget.dataset.movieNm,
+	         seatCode = evt.currentTarget.dataset.seatCode,
+	         startTime = evt.currentTarget.dataset.startTime;
+	     $.ajax({
+         type: 'get',
+         url: '${contextPath}/user/ticketdetail.do',
+         data: {
+             'movieNm': movieNm,
+             'seatCode': seatCode,
+             'startTime' : startTime
+         },
+         dataType: 'json'
+       }).done(ticketInf => {  
+    	   const modalBody = document.getElementById('modal-body');
+           modalBody.innerHTML = '';
+           let str  = '<div><strong>제목</strong> : ' + ticketInf.movieNm + '</div>';
+		           str += '<div><strong>상영시간</strong> : ' + ticketInf.startTime + ' / <strong>좌석</strong> : '  + ticketInf.seatCode + '</div>';
+	             str += '<hr>';
+               str += '<div><strong>러닝타임</strong> : ' + ticketInf.runtime + ' / <strong>관람등급</strong> : '  + ticketInf.rating + '</div>';
+               str += '<div><strong>예매일</strong> : ' + ticketInf.ticketDt + ' / <strong>관람인원</strong> : '  + ticketInf.personCount + '</div>';
+               str += '<hr>';
+               str += '<div><strong>결제수단</strong> : ' + ticketInf.payMethod + ' / <strong>결제금액</strong> : '  + ticketInf.amount + '</div>';
+               str += '<div><strong>결제상태</strong> : ' + ticketInf.payState + '</div>';
+               str += '<div><strong>결제취소일자</strong> : ' + ticketInf.cancelDt + ' / <strong>결제취소상태</strong> : '  + ticketInf.cancelStatus + '</div>';
+            modalBody.innerHTML += str;
+           
+       
+       })
+    })
+  }
+  ticketDetail();
 //sns로그인유저 비밀번호변경 버튼 숨기기
   const fnSnsPwNone = ()=>{
     

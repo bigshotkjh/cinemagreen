@@ -35,8 +35,8 @@
   .blog-content {position: relative; transform: translate(250px, 0px);}
   .blog {border-radius: 5px; padding: 5px; background-color: #FFFFF4; margin: 5px; width: 900px; overflow: hidden;}
   #parent-form {position: relative; transform: translate(250px, 0px);}
-  .data {text-align: right; width: 600px;}
-  .title.data {text-align: right; width: 400px;}
+  .data {text-align: right;}
+  .blog.title{width: 600px;}
   .movie-title {position: relative; transform: translate(200px, 0px) !important;}
 </style>
 
@@ -48,8 +48,7 @@
         <div class="title_con white signin">
           <h4 class="movie-title">Movie Postlist</h4><br>
           <div class="blog-content">
-	          <h5 class="blog title"><b>제목 | ${blog.title}</h5>
-	          <div class="blog data">${blog.name}| HIT : ${blog.hit} | 작성일 : ${blog.createDt} </div>
+	          <div class="blog title"><b>제목 | ${blog.title} <div class="data"> ${blog.name}| HIT : ${blog.hit} | 작성일 : ${blog.createDt} </div></div>
 	          <div class="blog contents ">${blog.contents}</div>
 	          <div id="blog-comment-btn">
 	            <span>댓글</span>

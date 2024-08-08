@@ -214,6 +214,10 @@ public class UserController {
   public ResponseEntity<Map<String, Object>> getUserTicket(HttpServletRequest request) {
     return userService.getUserTicket(request);
   }
+  @GetMapping(value = "/ticketdetail.do")
+  public ResponseEntity<Map<String, Object>> getTicketDetail(HttpServletRequest request) {
+    return userService.getTicketDetail(request);
+  }
 //블로그/////////////////////////////////////////////////////////////
   
   @GetMapping(value = "/getUserBloglist.do")

@@ -16,7 +16,7 @@
   .sections.section_signin .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
-  div.note-modal.open{ position: fixed; top: 200px; }
+  div.note-modal.open{ position: fixed; top: 100px; }
   div.note-modal-backdrop { display: none !important; }
   #blog-write-form{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 1035px;}
   .title_con{ position: relative; transform: translate(180px, -150px);}

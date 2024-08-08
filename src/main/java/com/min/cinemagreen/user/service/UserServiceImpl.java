@@ -507,6 +507,55 @@ public class UserServiceImpl implements IUserService {
   }
   
 
+  @Override
+  public ResponseEntity<Map<String, Object>> getTicketDetail(HttpServletRequest request) {
+
+    /*
+    HttpSession session = request.getSession();
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    if(loginUser == null)
+      return null; 
+     userNo = loginUser.getUserNo();
+     */
+    String movieNm = request.getParameter("movieNm");
+    String startTime = request.getParameter("startTime");
+    String seatCode = request.getParameter("seatCode");
+    Map<String, Object> params = new HashMap<>();
+    params.put("movieNm", movieNm);
+    params.put("startTime", startTime);
+    params.put("seatCode", seatCode);
+    //params.put("userNo", userNo);
+    UserTicketDTO ticket = userMapper.getTicketDetail(params);
+    int runtime = ticket.getRuntime();
+    String rating = ticket.getRating();
+    String ticketDt = ticket.getTicketDt();
+    String payMethod = ticket.getPayMethod();
+    int personCount = ticket.getPersonCount();
+    int amount = ticket.getAmount();
+    String payState = ticket.getPayState();
+    String cancelDt = ticket.getCancelDt();
+    String cancelStatus = ticket.getCancelStatus();
+    
+
+    Map<String, Object> ticketInf = new HashMap<>();
+    ticketInf.put("movieNm", movieNm);
+    ticketInf.put("startTime", startTime);
+    ticketInf.put("seatCode", seatCode);
+    ticketInf.put("runtime", runtime);
+    ticketInf.put("rating", rating);
+    ticketInf.put("ticketDt", ticketDt);
+    ticketInf.put("payMethod", payMethod);
+    ticketInf.put("personCount", personCount);
+    ticketInf.put("amount", amount);
+    ticketInf.put("payState", payState);
+    ticketInf.put("cancelDt", cancelDt);
+    ticketInf.put("cancelStatus", cancelStatus);
+    
+    //return ResponseEntity.ok(Map.of("movieNm", movieNm, "startTime", startTime, "seatCode", seatCode, "runtime", runtime, "rating", rating, "ticketDt", ticketDt, "payMethod", payMethod, "personCount", personCount, "amount", amount, "payState", payState, "cancelDt", cancelDt, "cancelStatus", cancelStatus ));
+    return ResponseEntity.ok(ticketInf);
+  }
+  
+
 ///블로그//////////////////
   
   @Override

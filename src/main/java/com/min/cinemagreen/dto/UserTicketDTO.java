@@ -17,4 +17,9 @@ public class UserTicketDTO {
   private int amount;
   private String payState;
   private int personCount;
+  private String rating;
+  private String ticketDt;
+  private String payMethod;
+  private String cancelDt;
+  private String cancelStatus;
 }

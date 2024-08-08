@@ -253,7 +253,23 @@
         occupied_seat_t O ON T.ticketing_no = O.ticketing_no
     WHERE  U.user_no = #{userNo}
   -->
+  </select> 
+  
+  <select id="getTicketDetail" parameterType="Map" resultType="UserTicketDTO">
+    SELECT M.movie_nm, M.runtime, M.rating, R.start_time, O.seat_code, T.ticket_dt, T.person_count, P.pay_method, P.amount, P.pay_state, P.cancel_dt, P.cancel_status
+    
+      FROM ticketing_t T 
+      JOIN runtime_t R ON T.time_no = R.time_no
+      JOIN payment_t P ON T.ticketing_no = P.ticketing_no
+      JOIN occupied_seat_t O ON T.ticketing_no = O.ticketing_no
+      JOIN movie_t M ON T.movie_no = M.movie_no
+          
+     WHERE M.movie_nm = #{movieNm}
+       AND R.start_time = #{startTime}
+       AND O.seat_code = #{seatCode}
   </select>
+  
+  
   <!-- 등급 만들기 -->
 <!-- 블로그 부분 -->  
   <select id="getBlogCount" resultType="int">
