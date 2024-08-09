@@ -56,7 +56,7 @@ public class AdminMovieController {
     // startTime 변환
     String startTime = (String) params.get("startTime");
     System.out.println(startTime);
-    String formattedStartTime = startTime.replace("T", "").replace("-", "").replace(":", "");
+    String formattedStartTime = startTime.replace("T", " ");
     System.out.println(formattedStartTime);
     // 변환된 startTime을 params에 다시 저장
     params.put("startTime", formattedStartTime);
