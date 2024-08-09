@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.min.cinemagreen.dto.MovieDTO;
 import com.min.cinemagreen.dto.PaymentDTO;
+import com.min.cinemagreen.dto.RuntimeDTO;
+import com.min.cinemagreen.dto.TicketingDTO;
 import com.min.cinemagreen.dto.UserDTO;
 import com.min.cinemagreen.payment.service.IPaymentService;
+import com.min.cinemagreen.payment.service.IReserveService;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.request.CancelData;
@@ -28,13 +32,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping("/payment")
 @RequiredArgsConstructor
+@RequestMapping("/payment")
 @Controller
 public class PaymentController {
 
   private final IPaymentService paymentService;
 	//private final IamportClient iamportClient;
+  private final IReserveService reserveService;
 
 	  @Value("${imp.api.key}")
     private String apiKey;
@@ -61,29 +66,44 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("completeInsert")
     public int savePaymentInfo( @RequestBody Map<String,Object> pay, HttpSession session,Model model) throws IOException {
-    // String token = paymentService.getToken();
       
       log.info("====>> map : {}" ,pay);
 
       UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 //    if(loginUser == null) {}
+      
       pay.put("userNo", loginUser.getUserNo());
       paymentService.ticketing(pay);
       paymentService.saveOccpSeat(pay);
+      
       int result = paymentService.payInsert(pay);
       return result;
      
     }
-      
     
+      
+    //결제정보
     @GetMapping(value = "complete/{payId}")
     public String getPaymentInfo(@PathVariable String payId, Model model) {
       Map<String, Object> paymentInfo = paymentService.getPayInfo(payId);
+      
+      TicketingDTO ticketInfo = (TicketingDTO) paymentInfo.get("ticketInfo");
+      int movieNo = ticketInfo.getMovieNo();
+      int timeNo = ticketInfo.getTimeNo();
+        
+      MovieDTO movie = reserveService.getMovieByNo(movieNo);
+      RuntimeDTO runtime = reserveService.getRuntimeByNo(timeNo);
+      
       model.addAttribute("payment", paymentInfo.get("payment"));
       model.addAttribute("seatCodes", paymentInfo.get("seatCodes"));
+      model.addAttribute("movie", movie);
+      model.addAttribute("runtime", runtime);
+      log.info("====> paymentInfo : {}", paymentInfo);
+
 
       return "/payment/complete";
     }
+    
     
 
     

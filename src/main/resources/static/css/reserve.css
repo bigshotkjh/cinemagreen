@@ -21,19 +21,19 @@ p{padding:0; margin:0;}
 .reserve_wrap .movie_list { margin-top:var(--mrgn-half);}
 .reserve_wrap .date_list { width:200px;}
 .reserve_wrap .date_list .day_list{ display: flex; flex-direction: column;  height: 420px;}
-.reserve_wrap .date_list .month.sub_title{ width: 95px; height: 40px;text-align: center; background: #eee; margin-bottom: 0; font-weight: 400; display: flex; justify-content: center; align-items: center; padding: 0; }
-.reserve_wrap button.mon { width:95px;  margin-top: 1px; padding: 5px; border :0;}
+.reserve_wrap .date_list .month.sub_title{ width: 95px; height: 40px;text-align: center; background: #eee; margin-bottom: 0; font-weight: 400; display: flex; justify-content: center; align-items: center; padding: 0; background:#eee;}
+.reserve_wrap button.mon { width:95px;  margin-top: 1px; padding: 5px; border :0; border-radius: 5px;}
 .reserve_wrap button.mon.sat{ color:#0072e2;}
 .reserve_wrap button.mon.sun{ color:#e40202;}
 .reserve_wrap .movie-day{ margin-right:15px;}
 .reserve_wrap #movieList{height: 370px;}
 .reserve_wrap #movieList .movie { display:block; height:33px; display: flex; align-items: center;}
-.reserve_wrap #movieList .movie.active , button.mon.active { background: #bbb; pointer-events:none;}
+.reserve_wrap #movieList .movie.active , button.mon.active { background: #ddd; pointer-events:none;  padding: 5px; border-radius: 7px;}
 
 .reserve_wrap .btn_del {display:none; color:#888; padding-right:5px;}
 
 .reserve_wrap .modal_bg{position: fixed; background: rgba(0, 0, 0, 0.4); top: 0; left: 0; content: ''; width: 100%; height: 100%; z-index: 99; display:none;}
-.reserve_wrap #reserve_modal{ position: fixed; width: 500px; height: 300px; background:#fff; transform: translate(-50%, -50%); left: 50%; top: 50%; z-index: 999; display:none;}
+.reserve_wrap #reserve_modal{ position: fixed; width: 500px; height: 300px; background:#eee;border-radius: 10px;  box-shadow: 0 0px 20px 5px #888; transform: translate(-50%, -50%); left: 50%; top: 50%; z-index: 999; display:none;}
 .reserve_wrap #reserve_modal.open, .modal_bg.open{display:flex;}
 .reserve_wrap #reserve_modal.open{ display: flex; justify-content: space-evenly; align-items: center; flex-direction: column;}
 .reserve_wrap #reserve_modal .txt_notice.gr_12 span{ border-bottom:1px solid #e9b630; color:#e9b630}
@@ -72,3 +72,4 @@ span.typeB-mini:before {position:absolute; top:-2px; left:1px; content: '×'}
 .rsv_seat .seat_area input[type="checkbox"] + label {display: inline-block; width:25px; height: 25px !important;  border: 2px solid #149b85; color:#fff; cursor: pointer; border-radius: 2px; text-align:center; margin :1px;}
 .rsv_seat .seat_area input[type="checkbox"]:checked + label {background:#149b85;}
 .rsv_seat .seat_area input[type="checkbox"]:disabled + label{border:2px solid #a8bbb6; cursor: default;}
+   

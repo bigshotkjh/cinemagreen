@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.min.cinemagreen.dto.OccupiedSeatDTO;
 import com.min.cinemagreen.dto.PaymentDTO;
+import com.min.cinemagreen.dto.TicketingDTO;
 import com.min.cinemagreen.payment.mapper.IPaymentMapper;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -141,12 +141,16 @@ public class PaymentServiceImpl implements IPaymentService {
   @Override
   public Map<String, Object> getPayInfo(String payId) {
     PaymentDTO payment = paymentMapper.getPayInfo(payId);
-   
-    //예약한 좌석 맵에 넣기
+
     List<String> seatCodes = paymentMapper.getOccpSeatsInfo(payment.getTicketingNo());
+    //int movieNo = paymentMapper.getMovieByTicketingNo(payment.getTicketingNo());
+    //int timeNo = paymentMapper.getRuntimeByTicketingNo(payment.getTicketingNo());
+    TicketingDTO ticketInfo = paymentMapper.getTicketInfo(payment.getTicketingNo());
+    
     Map<String, Object> params = new HashMap<>();
     params.put("payment", payment);
     params.put("seatCodes", seatCodes);
+    params.put("ticketInfo", ticketInfo);
 
     return params;
   }
@@ -167,16 +171,27 @@ public class PaymentServiceImpl implements IPaymentService {
   
   @Override
   public void saveOccpSeat(Map<String, Object> pay) {
-    for(String seatCode : (List<String>)pay.get("seatCode")) {
-      Map<String,Object> params = new HashMap<>();
-      
-      String ticketingNo = (String) pay.get("ticketingNo");
-      params.put("seatCode", seatCode);
-      params.put("ticketingNo", ticketingNo);
-
-      paymentMapper.insertOccpSeat(params);
-      log.info("====>> params : {}" ,params);
-    }
+    log.info("seatCode pay에서 get : {}",pay.get("seatCode"));
+   // try {
+      for(String seatCode : (List<String>)pay.get("seatCode")){
+        log.info("====>> seatCode : {}" ,seatCode);
+        Map<String,Object> params = new HashMap<>();
+        
+        String ticketingNo = (String) pay.get("ticketingNo");
+        int timeNo = Integer.parseInt((String.valueOf(pay.get("timeNo"))));
+        
+        log.info("====>> ticketingNo : {}" ,ticketingNo);
+        log.info("====>> timeNo : {}" ,timeNo);
+        params.put("seatCode", seatCode);
+        params.put("timeNo", timeNo);
+        params.put("ticketingNo", ticketingNo);
+  
+        paymentMapper.insertOccpSeat(params);
+        log.info("====>> params : {}" ,params);
+      }
+//    }catch (Exception e) {
+//        log.error("에러 saveOccpSeat: ", e);
+//    }
   }
 
 
@@ -186,6 +201,9 @@ public class PaymentServiceImpl implements IPaymentService {
   public List<String> getOccpSeats() {
     return paymentMapper.getOccpSeats();
   }
+
+
+
 
 
 

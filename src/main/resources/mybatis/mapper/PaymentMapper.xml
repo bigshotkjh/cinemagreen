@@ -51,8 +51,8 @@
     ) VALUES (
        #{ticketingNo},
        #{userNo},
-       2,
-       2,
+       #{timeNo},
+       #{movieNo},
        CURRENT_DATE,
        #{personCount}
     )
@@ -69,7 +69,7 @@
 	       occupied_seat_seq.NEXTVAL,
 	       #{seatCode},
 	       2,
-	       2,
+	       #{timeNo},
 	       #{ticketingNo}
 	    )
     </insert>
@@ -85,5 +85,23 @@
 	    SELECT seat_code
 	    FROM occupied_seat_t
 		</select>
+		
+		<select id="getMovieByTicketingNo" resultType="int">
+	    SELECT movie_no
+	    FROM ticketing_t
+	    WHERE ticketing_no = #{ticketingNo}
+		</select>
+		
+		<select id="getTickeInfo" resultType="TicketingDTO">
+		  SELECT ticketing_no,
+		  user_no,
+		  time_no,
+		  movie_no,
+		  ticket_dt,
+		  person_count
+		  FROM ticketing_t
+		  WHERE ticketing_no = #{ticketingNo}
+		</select> 
+		
     
 </mapper>

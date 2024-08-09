@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 
 <jsp:include page="../layout/header.jsp">
@@ -31,8 +32,9 @@
 			    <div class="movie_list">
  			        <div class="scroll_inner">
 			            <ul id="movieList" class="">
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a></li>
-			            	<li><a class="movie" href="javascript:void(0)"><span>상영등급 </span> 영화제목</a> </li>
+			            	<c:forEach var="movie" items="${movieReserveList}"> 
+			              	<li><a class="movie" href="javascript:void(0);" onclick="selectMovie('${movie.movieNo}','${movie.rating}')"><span style="width:100px;color:#888;">${movie.rating}</span> ${movie.movieNm}</a></li>
+			            	</c:forEach>
 			            </ul>
 			        </div>
 			    </div>
@@ -58,45 +60,31 @@
 			<div class="time_list box_con">
 			    <div class="list_head">
 						<h5 class="sub_title line">상영시간</h5> <!-- 년월일시분 -->
-				       
 				    </div>
 			    <div class="list_body">
             <div id="timeList">
            		 <!-- 선택전  -->
                 <div class="none">
-                    <div class="desc">영화를 선택해주세요</div>
+                    <div class="desc">영화를 선택해주세요.</div>
                 </div>
+                 
+
                 <ul class="types -active">
-					     	<li>
-			        		<p>1관 / 2D ()</p>
-			            <a href="javascript:void(0);" class="time">
-			            	<span class="time_txt" >17:30 ~ 19:06</span>
-			            	<span class="count_txt">20 / 20 </span>
-			            </a> 
-			            <a href="javascript:void(0);" class="time">
-			            	<span class="time_txt" >17:30 ~ 19:06</span>
-			            	<span class="count_txt">20 / 20 </span>
-			            </a> 
-			            <a href="javascript:void(0);" class="time">
-			            	<span class="time_txt" >17:30 ~ 19:06</span>
-			            	<span class="count_txt">20 / 20 </span>
-			            </a> 
-								</li>
-								<li>
-			        		<p>1관 / 2D ()</p>
-			            <a href="javascript:void(0);" class="time">
-			            	<span class="time_txt" >17:30 ~ 19:06</span>
-			            	<span class="count_txt">20 / 20 </span>
-			            </a>
-			            <a href="javascript:void(0);" class="time">
-			            	<span class="time_txt" >17:30 ~ 19:06</span>
-			            	<span class="count_txt">20 / 20 </span>
-			            </a> 
-			            <a href="javascript:void(0);" class="time">
-			            	<span class="time_txt" >17:30 ~ 19:06</span>
-			            	<span class="count_txt">20 / 20 </span>
-			            </a> 
-							</li>
+                <%-- <li>
+	                 <c:choose>
+									    <c:when test="${empty runtime}">
+									   		<div class="">해당 일자에 상영 시간표가 없습니다.</div>
+									    </c:when>
+									    <c:otherwise>
+										    <c:forEach var="runtime" items="${runtimeList}"> 
+										    	<a href="javascript:void(0);" class="time">
+							            	<span class="time_txt">${runtime.startTime}</span>
+							            	<!-- <span class="count_txt">20 / 20 </span> -->
+							            </a> 
+						            </c:forEach>
+									    </c:otherwise>
+									</c:choose> 
+								</li> --%>
 							</ul>
 							
             </div>
@@ -105,18 +93,19 @@
 			           <div class="info">
 			               <!-- 선택후 -->
 			               <div class="img"></div>
-			               <div class="txt_notice ">
+			               <div class="txt_notice">
 			                   <strong><span class="mvNm">&nbsp;</span></strong>
-			                   <p> 본 영화는<span class=""> { 상영등급 } </span> 영화입니다.</p>
+			                   <p> 본 영화는 "<span id="modalRating"> </span>" 영화입니다.</p>
 			               </div>
 			           </div>
 			           <div class="next">
 			           		 <button onclick="modalDel()" id="btnDel" class="c-btn c-gray">취소</button>
-			               <button onclick="location.href='${contextPath}/reserve/seat.do'" type="button" id="btnNext" class="c-btn c-cblue">인원/좌석 선택</button>
+			               <button type="button" id="btnNext" class="c-btn c-cblue">인원/좌석 선택</button>
 			           </div>
 			       </div>
 			   </div>
 			</div>
+			
 		</div>
 	</div>
 	
@@ -158,13 +147,22 @@ $(function() {
 		$(".modal_bg").addClass('open');
 		$("#reserve_modal").addClass('open');
 	})
-
 	});
-
+	
+//모달open
+function openModal(rating,movieNo,timeNo){
+	$(".modal_bg").addClass('open');
+	$("#reserve_modal").addClass('open');
+	console.log(movieNo);
+	 document.getElementById('modalRating').innerText = rating;
+	 $("#btnNext").attr('onclick','location.href="${contextPath}/reserve/seat.do?movieNo='+ movieNo + '&timeNo=' + timeNo + '"');
+}
+//모달close
 function modalDel() {
 	$(".modal_bg").removeClass('open');
 	$("#reserve_modal").removeClass('open');
 	}
+	
 
 
 const dataDate = new Date();
@@ -255,4 +253,51 @@ $('.day_list .mon').click(function(){
 
 		
 </script>
+
+<!--  <script>
+const fn_selectMovie = () => {    
+    $.ajax({
+      type: 'get',
+      url: '/reserve/reserve.do?movieNo='+ movieNo,
+      dataType: 'json'
+    })
+    .done(resData => {
+      
+    })
+    .fail(jqXHR => {
+      alert(jqXHR.responseText);
+      console.log(jqXHR.responseText);
+    })
+  }
+fn_selectMovie();
+    </script>  -->
+    <script>
+    
+    function selectMovie(movieNo, rating) {
+        $.ajax({
+          url: "/reserve/getRuntime.do?movieNo=" + movieNo,  
+          type: "GET",
+          dataType: 'json'
+        }).done(resData => {
+         	let timeList = $('#timeList .types');
+           	timeList.empty();  
+             if (resData.length === 0) {
+             	timeList.append('<div class="desc">해당 일자에 상영 시간표가 없습니다.</div>');
+             }else{  
+            	 resData.forEach(runtime => {
+               	let time = '<li>';
+                 	time += '<a href="javascript:openModal(\'' + rating +'\',\'' + movieNo +'\',\'' + runtime.timeNo +'\');" class="time">';
+                 	time += '<span class="time_txt">' + runtime.startTime + '</span>';
+                 	time += '</a>';
+                 	time += '</li>';
+               timeList.append(time);
+               });
+             }
+        	})
+          .fail(jqXHR => {
+             alert(jqXHR.responseText);
+             console.log(jqXHR.responseText);
+	           })
+   			 }
+    </script>
 <%@ include file="../layout/footer.jsp" %>

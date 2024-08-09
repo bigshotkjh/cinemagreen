@@ -260,8 +260,10 @@
 		return MerchantNum;
 	}
 	
+	var params = new URL(location.href).searchParams;
 	//포트원 결제 (현재 값들은 임의로 넣어둔상태임.)
 	var IMP = window.IMP;
+	
   IMP.init("imp56805834"); 
   
    function requestPay(e) {
@@ -275,13 +277,14 @@
       buyer_email: '${loginUser.email}',
       buyer_name: '${loginUser.name}'
      }, function(rsp) { 
+    	 //테스트 콘솔
   	   console.log("실제 총 금액 : " + totalamount.innerText);
   	   console.log("test 결제 고유번호 : " + rsp.imp_uid);
   	   console.log("test 티켓번호 : " + rsp.merchant_uid);
   	   console.log(chkSeat());
+  	   console.log("무비넘버 : " + params.get('movieNo'));
   	   console.log("test 인원 : " + totalCount);
   	 	 console.log("test 유저, 번호:"+ '${loginUser.name}, ${loginUser.userNo}' );
-	  	 //console.log("유저확인":"+ '${loginUser.name}');
   	   $.ajax({
 				type: 'POST',
          url: '/payment/validation/' + rsp.imp_uid,
@@ -293,6 +296,8 @@
            	"amount": rsp.paid_amount, 
             "ticketingNo" : rsp.merchant_uid,
             "payMethod" : rsp.pay_method,
+            "movieNo" : params.get('movieNo'),
+            "timeNo" : params.get('timeNo'),
             "seatCode" : chkSeat(),
             "personCount": totalCount
           } 

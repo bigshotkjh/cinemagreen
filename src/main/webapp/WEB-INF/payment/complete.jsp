@@ -17,17 +17,18 @@
 					<div class="list_head">
 		        <h5 class="sub_title line">결제가 완료되었습니다.</h5>
 		      </div>
-		      
 		     	<div class="list_body ">
-		     		<%-- 예매자명 : ${loginUser.name}<br> --%>
-						결제번호 : ${payment.payId}<br>
-						결제금액 : ${payment.amount}<br>
+						
 						티켓번호 : ${payment.ticketingNo}<br>
-						영화정보 : <br>
+						영화정보 : ${movie.movieNm}<br>
+						상영시간 : ${runtime.startTime}<br>
 						예매좌석 : <c:forEach var="seat" items="${seatCodes}">
 					            ${fn:substring(seat,11,13)}
 					        	</c:forEach>
-					</div>    <%-- ${fn:split(seat, '=')[1]} --%>
+					        	<br><br>
+					  결제번호 : ${payment.payId}<br>
+						결제금액 : ${payment.amount}<br>
+					</div>    
 					<button onclick="location.href='${contextPath}/user/userpage.page'" type="button" id=""  class="c-btn c-cblue" style="margin-top:15px;">마이페이지</button>
 					<button onclick="canclePay()" type="button" id="canclePay"  class="c-btn c-gray" style="margin-top:15px;">결제취소</button>
 		    </div>

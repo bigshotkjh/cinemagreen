@@ -7,43 +7,58 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.min.cinemagreen.payment.service.IPaymentService;
+import com.min.cinemagreen.dto.MovieDTO;
+import com.min.cinemagreen.dto.RuntimeDTO;
+import com.min.cinemagreen.payment.service.IReserveService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping("/reserve")
 @RequiredArgsConstructor
+@RequestMapping("/reserve")
 @Controller
 public class ReserveController {
   
   
-  private final IPaymentService paymentService;
+  private final IReserveService reserveService;
   
-	@GetMapping(value = "reserve.do")
-	  public String reserveDo() {
+	@GetMapping(value = "reserve.page")
+	  public String reserveDo(Model model, HttpServletRequest request) {
+	    //영화목
+  	  List<MovieDTO> movieReserveList = reserveService.getMovieReserveList(request);
+      model.addAttribute("movieReserveList", movieReserveList);
 	    return "/reserve/reserve";
 	  }
 	
+	@GetMapping("/getRuntime.do")
+  public ResponseEntity<List<RuntimeDTO>> getRuntimeListDo(@RequestParam int movieNo) {
+	
+	  List<RuntimeDTO> runtimeList = reserveService.getRuntimeByMovie(movieNo);
+      log.info("runtimeList {}" , runtimeList);
+      return ResponseEntity.ok(runtimeList);
+  }
+	
 	@GetMapping(value = "seat.do")
-	  public String seatDo(Model model) { 
-	  // 예약좌석 select 
-//  	  List<String> occupiedSeats = paymentService.getOccpSeats();
-//      model.addAttribute("occupiedSeats", occupiedSeats);
+	  public String seatDo( @RequestParam int movieNo, @RequestParam int timeNo , Model model) { 
+	 
+	  MovieDTO movie = reserveService.getMovieByNo(movieNo);
+    model.addAttribute("movie", movie);
+    
+    // MovieDTO movie = reserveService.getMovieByNo(movieNo);
+    // RuntimeDTO runtime = reserveService.getRuntimeByNo(timeNo);
+    // model.addAttribute("movie", movie);
+    // model.addAttribute("runtime", runtime);
+
 	    return "/reserve/seat";
 	  }
 		
-	
-// 예매
-//  @PostMapping("/reservation")
-//  public String reserveTicket(@RequestBody TicketDTO ticket) {
-//    log.info("ticket reserve request: " + ticket);
-//
-//    reserveService.saveTicket(ticket);
-//    return ;
-//  }
+
+  
+
 
  
 	

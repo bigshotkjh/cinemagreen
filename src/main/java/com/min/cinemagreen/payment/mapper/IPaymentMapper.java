@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.min.cinemagreen.dto.OccupiedSeatDTO;
 import com.min.cinemagreen.dto.PaymentDTO;
+import com.min.cinemagreen.dto.TicketingDTO;
 
 @Mapper
 public interface IPaymentMapper {
@@ -18,4 +19,12 @@ public interface IPaymentMapper {
   List<OccupiedSeatDTO> getSeatByTicketNo(String ticketingNo);
   List<String> getOccpSeats();
   List<String> getOccpSeatsInfo(String ticketingNo);
+  int getMovieNoByPayId(String payId);
+  //int getMovieByTicketingNo(String ticketingNo);
+  //int getRuntimeByTicketingNo(String ticketingNo);
+  TicketingDTO getTicketInfo(String ticketingNo);
+  
+  int getMovieByTicketingNo(String ticketingNo);
+  
+  
 }

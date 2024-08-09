@@ -1,22 +1,18 @@
-package com.min.cinemagreen.payment.service;
-
+package com.min.cinemagreen.payment.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 
 import com.min.cinemagreen.dto.MovieDTO;
 import com.min.cinemagreen.dto.RuntimeDTO;
 
-import jakarta.servlet.http.HttpServletRequest;
-
-public interface IReserveService {
-
-  List<MovieDTO> getMovieReserveList(HttpServletRequest request);
-
+@Mapper
+public interface IReserveMapper {
+  
+  List<MovieDTO> getMovieReserveList();
   List<RuntimeDTO> getRuntimeByMovie(int movieNo);
-
   MovieDTO getMovieByNo(int movieNo);
   RuntimeDTO getRuntimeByNo(int timeNo);
-
-
+  
 }
-

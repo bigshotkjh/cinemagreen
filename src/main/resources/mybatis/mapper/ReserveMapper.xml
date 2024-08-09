@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.min.cinemagreen.payment.mapper.IReserveMapper">
+    
+	<select id="getMovieReserveList" resultType="MovieDTO">
+	 	SELECT
+     movie_no,
+     movie_cd,
+     movie_nm,
+     rating,
+     runtime
+   FROM movie_t 
+	</select>
+	
+	<select id="getMovieByNo" parameterType="int" resultType="MovieDTO"> 
+    SELECT
+     movie_no,
+     movie_cd,
+     movie_nm,
+     rating,
+     runtime
+    FROM movie_t
+    WHERE movie_no = #{movieNo}
+  </select>
+  
+  <select id="getRuntimeByNo" parameterType="int" resultType="RuntimeDTO"> 
+    SELECT
+    	time_no,
+      start_time
+    FROM runtime_t 
+    WHERE time_no = #{timeNo}
+  </select>
+  
+
+	<select id="getRuntimeByMovie" resultType="RuntimeDTO">
+	 	SELECT
+	 		time_no,
+      start_time
+    FROM runtime_t 
+    WHERE movie_no = #{movieNo}
+	</select>
+    	
+  
+    	
+</mapper>

@@ -175,15 +175,15 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 .c-btn{ border: 0;  width: 130px; padding: 5px 0px; border-radius: 5px; transition:all .3s;} 
 .c-btn:hover{box-shadow: 0px 0px 15px -3px rgb(255,255,255,0.5) inset;}
 .c-btn.c-cblue{ background: #149b85; color: #fff;} 
+.c-btn.c-cgrn{ background: #61a961; color: #fff;} 
 .c-btn.c-lgrn{background: #12b886; color: #fff;}
 .c-btn.c-gray{background:#999; color: #fff;}
 /* 공통 버튼 Css: end */
  
 /* 영화 메인 Css:start */ 
 .movie-chart{margin-top: calc(var(--mrgn-half) *  2);}
-.movie-chart .movie img{border-radius: 10px;}
+.movie-chart .movie img{border-radius: 10px; height:285px;}
 .movie-chart .movie .overlay{height: 285px; border-radius: 10px;}
 .movie-chart .movie .overlay p{text-overflow: ellipsis; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical;}
 .movie-chart h2{font-size: 20px; margin-top: 10px; line-height:1.15; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1;  -webkit-box-orient: vertical;}
 
-.movie{ }
