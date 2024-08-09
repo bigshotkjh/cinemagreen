@@ -110,6 +110,7 @@ public class UserServiceImpl implements IUserService {
     LocalDate currentDate = LocalDate.now();
     int age = Period.between(birthDate, currentDate).getYears();
     user.setAge(age);
+    user.setGrade("bronze");
     return userMapper.insertUser(user);
   }
   

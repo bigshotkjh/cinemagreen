@@ -22,6 +22,7 @@
       , address
       , detail_address
       , extra_address
+      , grade
     ) VALUES (
         user_seq.NEXTVAL
       , #{email}
@@ -38,6 +39,7 @@
       , #{address}
       , #{detailAddress}
       , #{extraAddress}
+      , #{grade}
     )
   </insert>
   

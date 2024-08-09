@@ -145,23 +145,29 @@
 
 //이메일 중복 검사 ajax
   const overlapCheck = () => {
-    $.ajax({
-      type: 'post',
-      url: '${contextPath}/user/overlapcheck.do',
-      data: $('#signup-form').serialize(),
-      dataType: 'json'
-    }).done(resData => {
-      if (resData.isSuccess) {
-        alert('사용할 수 있는 이메일 입니다.');
-        fnEmailCheck();
-        emailOverlapCheck = true;
-      } else {
-        alert('이미 사용중인 이메일 입니다.');
-        emailOverlapCheck = false;
-      }
-    }).fail(jqXHR => {
-      alert(jqXHR.status);
-    });
+	  var email = document.getElementById('email');
+	  if( email.value == ""){
+		  alert("이메일을 입력하세요.");
+	  }else{
+      $.ajax({
+        type: 'post',
+        url: '${contextPath}/user/overlapcheck.do',
+        data: $('#signup-form').serialize(),
+        dataType: 'json'
+      }).done(resData => {
+        if (resData.isSuccess) {
+          alert('사용할 수 있는 이메일 입니다.');
+          fnEmailCheck();
+          emailOverlapCheck = true;
+        } else {
+          alert('이미 사용중인 이메일 입니다.');
+          emailOverlapCheck = false;
+        }
+      }).fail(jqXHR => {
+        alert(jqXHR.status);
+      });
+		  
+	  }
   }
   
   
