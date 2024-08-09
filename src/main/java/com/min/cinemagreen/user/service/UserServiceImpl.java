@@ -12,6 +12,7 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -506,7 +507,6 @@ public class UserServiceImpl implements IUserService {
     return ResponseEntity.ok(Map.of("ticketList", ticketList, "ticketPaging", ticketPaging));
   }
   
-
   @Override
   public ResponseEntity<Map<String, Object>> getTicketDetail(HttpServletRequest request) {
 
@@ -553,6 +553,29 @@ public class UserServiceImpl implements IUserService {
     
     //return ResponseEntity.ok(Map.of("movieNm", movieNm, "startTime", startTime, "seatCode", seatCode, "runtime", runtime, "rating", rating, "ticketDt", ticketDt, "payMethod", payMethod, "personCount", personCount, "amount", amount, "payState", payState, "cancelDt", cancelDt, "cancelStatus", cancelStatus ));
     return ResponseEntity.ok(ticketInf);
+  }
+  
+  @Override
+  public ResponseEntity<Map<String, Object>> ticketRefund(HttpServletRequest request) {
+    String resultMessage = "";
+    // 현재 날짜와 시간 가져오기
+    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+    String formattedDate = now.format(formatter);
+    
+    // 티켓영화 시간
+    String startTime = request.getParameter("startTime");
+    // 비교하기
+    if (formattedDate.compareTo(startTime) > 0) {
+      resultMessage = "현재시간이 상영시간 이후으로 확인 되었으며 \n 환불처리가 불가능합니다.";
+        
+    } else {
+      //아직 환불기능이 미완성 완성시 연결하기.
+      resultMessage = "현재시간이 상영시간 이전으로 확인 되었으며 \n 환불처리 신청 되었습니다.";
+        
+    }
+    
+    return ResponseEntity.ok(Map.of("resultMessage", resultMessage));
   }
   
 

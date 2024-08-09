@@ -38,7 +38,9 @@
   .ticket-zero{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;  white-space: pre;}
   .button:hover{background-color: #FFFFFF; border: 2px solid  #ABDEC2;}				     
   .modal-backdrop.show{ display: none !important; }
-  .modal-content{ top: 250px; width: 350px;}
+  .modal-content{ top: 250px; right: -70px; width: 350px; border: 10px solid  #ABDEC2;}
+  .width_con {height: 1000px;}
+  .refund{ border: 2px solid  #ABDEC2; transform: translate(-170px, 0px);}
 </style>
 <!--
  가져와 표시할 것 들
@@ -140,7 +142,8 @@
 		          ...
 		        </div>
 		        <div class="modal-footer">
-		          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn refund" onclick="refund()">예매취소</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 		        </div>
 		      </div>
 		    </div>
@@ -155,6 +158,30 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  
 <script>
+//예매취소
+  const refund = ()=>{
+	  
+	  var ticketInfElement = document.getElementById('ticket-inf');
+
+	  var movieNm = ticketInfElement.dataset.movieNm;
+	  var seatCode = ticketInfElement.dataset.seatCode;
+	  var startTime = ticketInfElement.dataset.startTime;
+	  
+    $.ajax({
+      type: 'get',
+      url: '${contextPath}/user/ticketrefund.do',
+      data: {
+          'movieNm': movieNm,
+          'seatCode': seatCode,
+          'startTime' : startTime
+      },
+      dataType: 'json'
+    }).done(resData => {  
+      alert(resData.resultMessage);
+    }).fail(jqXHR => {
+      alert(jqXHR.status);
+    });
+  }
 
 //프로필 변경
   const profileUpload = (file)=> {  // file: 추가한 이미지 (단일 파일)
@@ -225,8 +252,8 @@
       blogList.innerHTML = '';
       for(const blog of resData.blogList){
         let str  = '<div class="blog button" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
-            str +=   '<div> 제목 : ' + blog.title + '</div>';
-            str +=   '<div class="hit"> Hit : ' + blog.hit + ' /Date : '  + blog.createDt + '</div>';
+            str +=   '<div><strong> 제목 : </strong>' + blog.title + '</div>';
+            str +=   '<div class="hit"><strong>Hit : </strong>' + blog.hit + ' /<strong>Date : </strong>'  + blog.createDt + '</div>';
             str += '</div>';
         blogList.innerHTML += str;
       }
@@ -266,21 +293,21 @@
       data: 'page=' + ticketPage,
       dataType: 'json'
     }).done(resData=>{   
-        const ticketList = document.getElementById('ticket-list');
-        const ticketPaging = document.getElementById('ticket-paging');
-       if(resData.ticketList.length === 0){
-    	   ticketList.innerHTML = '<div class="ticket-zero"> 예매 내역이 없습니다.    |    AI챗봇에게 영화를 추천받아 보세요.</div>';
-         return;
-       }
-       ticketPaging.innerHTML = resData.ticketPaging;
-       ticketList.innerHTML = '';
-       for(const ticket of resData.ticketList){
-         let str  = '<div class="ticket button" data-bs-toggle="modal" data-bs-target="#ticket-etail" data-movie-nm="'+ ticket.movieNm +'" data-seat-code="' + ticket.seatCode + '" data-start-time="' + ticket.startTime + '">';
-             str +=   '<div> 제목 : ' + ticket.movieNm + '</div>';
-             str +=   '<div class=movie-time> 상영시간 : ' + ticket.startTime + ' / 좌석 : '  + ticket.seatCode + '</div>';
-             str += '</div>';
-         ticketList.innerHTML += str;
-       }
+      const ticketList = document.getElementById('ticket-list');
+      const ticketPaging = document.getElementById('ticket-paging');
+      if(resData.ticketList.length === 0){
+   	   ticketList.innerHTML = '<div class="ticket-zero"> 예매 내역이 없습니다.    |    AI챗봇에게 영화를 추천받아 보세요.</div>';
+        return;
+      }
+      ticketPaging.innerHTML = resData.ticketPaging;
+      ticketList.innerHTML = '';
+      for(const ticket of resData.ticketList){
+        let str  = '<div class="ticket button" data-bs-toggle="modal" data-bs-target="#ticket-etail" data-movie-nm="'+ ticket.movieNm +'" data-seat-code="' + ticket.seatCode + '" data-start-time="' + ticket.startTime + '">';
+            str +=   '<div> <strong>제목 :</strong> ' + ticket.movieNm + '</div>';
+            str +=   '<div class=movie-time> <strong>상영시간</strong> : ' + ticket.startTime + ' / <strong>좌석 :</strong> '  + ticket.seatCode + '</div>';
+            str += '</div>';
+        ticketList.innerHTML += str;
+      }
     })
   }
   fnMovieTicket();
@@ -304,7 +331,8 @@
        }).done(ticketInf => {  
     	   const modalBody = document.getElementById('modal-body');
            modalBody.innerHTML = '';
-           let str  = '<div><strong>제목</strong> : ' + ticketInf.movieNm + '</div>';
+           let str  = '<div id="ticket-inf" data-movie-nm="'+ ticketInf.movieNm +'" data-seat-code="' + ticketInf.seatCode + '" data-start-time="' + ticketInf.startTime + '">';
+               str += '<div><strong>제목</strong> : ' + ticketInf.movieNm + '</div>';
 		           str += '<div><strong>상영시간</strong> : ' + ticketInf.startTime + ' / <strong>좌석</strong> : '  + ticketInf.seatCode + '</div>';
 	             str += '<hr>';
                str += '<div><strong>러닝타임</strong> : ' + ticketInf.runtime + ' / <strong>관람등급</strong> : '  + ticketInf.rating + '</div>';
@@ -313,6 +341,7 @@
                str += '<div><strong>결제수단</strong> : ' + ticketInf.payMethod + ' / <strong>결제금액</strong> : '  + ticketInf.amount + '</div>';
                str += '<div><strong>결제상태</strong> : ' + ticketInf.payState + '</div>';
                str += '<div><strong>결제취소일자</strong> : ' + ticketInf.cancelDt + ' / <strong>결제취소상태</strong> : '  + ticketInf.cancelStatus + '</div>';
+               str += '</div>';
             modalBody.innerHTML += str;
            
        
@@ -458,7 +487,8 @@
 //업데이트 결과 메세지.
   if('${updateMessage}' !== ''){   
     alert('${updateMessage}');
-  }
+  } 
+
 </script>
 
 <%@ include file="../layout/footer.jsp" %>

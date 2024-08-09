@@ -29,7 +29,8 @@ public interface IUserService {
 	  ResponseEntity<Map<String, Object>> profileUpload(MultipartFile multipartFile, HttpSession session);
 	///티켓////////////////////////
 	  ResponseEntity<Map<String, Object>> getUserTicket(HttpServletRequest request);
-	  ResponseEntity<Map<String, Object>> getTicketDetail(HttpServletRequest request);
+    ResponseEntity<Map<String, Object>> getTicketDetail(HttpServletRequest request);
+    ResponseEntity<Map<String, Object>> ticketRefund(HttpServletRequest request);
 	///블로그//////////////////
 	  ResponseEntity<Map<String, Object>> getUserBloglist(HttpServletRequest request);
 	}
