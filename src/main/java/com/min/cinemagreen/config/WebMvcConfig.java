@@ -41,7 +41,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     /* 인터셉터
      *   특정 요청을 처리할 때 자동으로 동작함  */
     registry.addInterceptor(signinCheck)
-      .addPathPatterns("/user/userpage.page","/reserve/reserve.do","/blog/write.page");
+      .addPathPatterns("/user/userpage.page","/reserve/reserve.page","/blog/write.page");
     registry.addInterceptor(signoutCheck)
       .addPathPatterns("/user/signin.page", "/user/signup.page");
     

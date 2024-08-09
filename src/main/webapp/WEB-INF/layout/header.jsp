@@ -41,8 +41,8 @@
           <a href="http://localhost:9090" class="btn_home"><img src="img/logo.svg">멋진로고</a>
           <div class="btn_open_nav"><div></div></div>
           <ul class="nav" id="main-menu">
-            <li><a href="${contextPath}/reserve/reserve.do">예매</a></li>
-            <li><a href="#">영화</a></li>
+            <li><a href="${contextPath}/reserve/reserve.page">예매</a></li>
+            <!-- <li><a href="#">영화</a></li> -->
             <li><a href="#">고객지원</a></li>
             <li><a href="${contextPath}/user/userpage.page">마이페이지</a></li>
             <li><a href="${contextPath}/store/store.page">스토어</a>

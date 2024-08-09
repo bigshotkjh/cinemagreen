@@ -92,7 +92,7 @@
 	    WHERE ticketing_no = #{ticketingNo}
 		</select>
 		
-		<select id="getTickeInfo" resultType="TicketingDTO">
+		<select id="getTicketInfo" resultType="TicketingDTO">
 		  SELECT ticketing_no,
 		  user_no,
 		  time_no,
