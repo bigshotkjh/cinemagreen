@@ -98,7 +98,9 @@ public class UserController {
   }
   
   @GetMapping(value = "/userpage.page")
-  public String userpage() {
+  public String userpage(HttpSession session) {
+//등급    
+    userService.getUserGrade(session);
     return "user/userpage";
   }
   @PostMapping(value = "/updateInf.do")

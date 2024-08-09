@@ -18,7 +18,7 @@
  .red{ border: 2px solid red;  border-radius: 5px;}
  .blog-div{ 
     position: absolute;
-    transform: translate(430px, -850px);}
+    transform: translate(430px, -950px);}
  .blog{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;}
  .blog-zero{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;  white-space: pre;}
  #profile-img{ border-radius: 20%;}
@@ -32,14 +32,14 @@
 	.user-info{position: relative; transform: translate(37px, -10px);}
   .ticket-div{ 
     position: relative;
-    transform: translate(430px, -450px);}
+    transform: translate(430px, -550px);}
   .ticket{  border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px; }
   .movie-time{ text-align: right;}	
   .ticket-zero{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;  white-space: pre;}
   .button:hover{background-color: #FFFFFF; border: 2px solid  #ABDEC2;}				     
   .modal-backdrop.show{ display: none !important; }
-  .modal-content{ top: 250px; right: -70px; width: 350px; border: 10px solid  #ABDEC2;}
-  .width_con {height: 1000px;}
+  .modal-content{ top: 150px; right: -70px; width: 350px; border: 10px solid  #ABDEC2;}
+  .width_con {height: 1100px;}
   .refund{ border: 2px solid  #ABDEC2; transform: translate(-170px, 0px);}
 </style>
 <!--
@@ -79,6 +79,9 @@
             <h5>이메일</h5>
             <input type="text" name="email" id="email" value="${loginUser.email}" disabled>
             <h6></h6>
+		        <h5>회원등급</h5>
+		        <input type="text" value="${loginUser.grade}" disabled>
+		        <h6></h6>
           </div>
           <div class="user-info">
             <h5>이름</h5>

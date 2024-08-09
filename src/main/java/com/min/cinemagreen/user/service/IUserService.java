@@ -27,6 +27,7 @@ public interface IUserService {
 	  void makeNaverApi(HttpSession session) throws UnsupportedEncodingException;
 	  int snsSignup(UserDTO user);
 	  ResponseEntity<Map<String, Object>> profileUpload(MultipartFile multipartFile, HttpSession session);
+	  void getUserGrade(HttpSession session);
 	///티켓////////////////////////
 	  ResponseEntity<Map<String, Object>> getUserTicket(HttpServletRequest request);
     ResponseEntity<Map<String, Object>> getTicketDetail(HttpServletRequest request);

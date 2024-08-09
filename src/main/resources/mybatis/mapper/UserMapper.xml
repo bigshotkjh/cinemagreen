@@ -42,7 +42,7 @@
   </insert>
   
   <select id="getUserByMap" parameterType="Map" resultType="UserDTO">
-    SELECT user_no, email, pw, name, gender, mobile, sns, pw_modify_dt, signup_dt, birthyear, age, postcode, address, detail_address, extra_address, profile_name, profile_path           
+    SELECT user_no, email, pw, name, gender, grade, mobile, sns, pw_modify_dt, signup_dt, birthyear, age, postcode, address, detail_address, extra_address, profile_name, profile_path           
       FROM user_t
     <where> 
       <if test="email != null">email = #{email}</if>
@@ -148,7 +148,7 @@
   </insert>
   
   <select id="getsnsUserInfo" parameterType="UserDTO" resultType="UserDTO">
-    SELECT user_no, email, name, mobile, sns, signup_dt, birthyear, age, postcode, address, detail_address, extra_address, profile_name, profile_path        
+    SELECT user_no, email, name, mobile, sns, signup_dt, grade, birthyear, age, postcode, address, detail_address, extra_address, profile_name, profile_path        
       FROM user_t
      WHERE email = #{email}
   </select>
@@ -230,29 +230,6 @@
 		        U.user_no = #{userNo}
 		) 
 		WHERE rnum BETWEEN #{begin} AND #{end}
-    <!--  
-    SELECT 
-      M.movie_nm,
-      M.runtime,
-      R.start_time,
-      O.seat_code,
-      P.amount,
-      P.pay_state,
-      T.person_count
-    FROM 
-        user_t U 
-    JOIN  
-        ticketing_t T ON U.user_no = T.user_no
-    JOIN 
-        payment_t P ON T.ticketing_no = P.ticketing_no
-    JOIN 
-        movie_t M ON T.movie_no = M.movie_no
-    JOIN 
-        runtime_t R ON T.time_no = R.time_no
-    JOIN 
-        occupied_seat_t O ON T.ticketing_no = O.ticketing_no
-    WHERE  U.user_no = #{userNo}
-  -->
   </select> 
   
   <select id="getTicketDetail" parameterType="Map" resultType="UserTicketDTO">
@@ -270,7 +247,20 @@
   </select>
   
   
-  <!-- 등급 만들기 -->
+<!-- 등급 만들기 -->
+  <select id="getAmounts" parameterType="Map" resultType="UserTicketDTO">
+    SELECT amount
+      FROM payment_t
+     WHERE user_no = #{userNo}
+       AND cancel_status IS NULL
+  </select>
+  
+  <update id="updateUserGrade" parameterType="Map" >
+    UPDATE user_t
+       SET grade = #{grade}
+    WHERE  user_no = #{userNo}
+  </update>
+  
 <!-- 블로그 부분 -->  
   <select id="getBlogCount" resultType="int">
     SELECT COUNT(*)

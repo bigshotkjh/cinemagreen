@@ -476,6 +476,33 @@ public class UserServiceImpl implements IUserService {
     return ResponseEntity.ok(Map.of("url", profilePath  + "/" + filesystemName));
     
   }
+  
+//고객등급 만들기.
+  @Override
+  public void getUserGrade(HttpSession session) {
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    int userNo = loginUser.getUserNo();
+    String grade = loginUser.getGrade();
+    Map<String, Object> params = new HashMap<>();
+    params.put("userNo", userNo);
+    List<UserTicketDTO> amounts  = userMapper.getAmounts(params);
+    int point = 0;
+    for(UserTicketDTO amount : amounts ) {
+      point += amount.getAmount();
+    }
+    System.out.println("등급 포인트!!!!!!!!!!!!!!!!" + point);
+    if(point > 1000000) {
+      grade = "VIP";
+    }else if(point > 100000) {
+      grade = "gold";
+    }else if(point > 100000) {
+      grade = "silver";
+    }else {
+      grade = "bronze";
+    }
+    params.put("grade", grade);
+    userMapper.updateUserGrade(params);
+  }
 ////예매부분/////////////////
   @Override
   public ResponseEntity<Map<String, Object>> getUserTicket(HttpServletRequest request) {
@@ -609,7 +636,6 @@ public class UserServiceImpl implements IUserService {
     return ResponseEntity.ok(Map.of("blogList", blogList, "paging", paging)); //리스트랑 페이징 결과 담아서 보내.
 
   }
-  
   
 }
 
