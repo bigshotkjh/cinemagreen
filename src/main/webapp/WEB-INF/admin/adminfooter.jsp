@@ -7,11 +7,5 @@
         </footer>
       </div>
     </div>
-    <script src="../lib/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <script src="../static/demo/chart-area-demo.js"></script>
-    <script src="../static/demo/chart-bar-demo.js"></script>
-    <script src="../lib/datatables-simple-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
   </body>
 </html>

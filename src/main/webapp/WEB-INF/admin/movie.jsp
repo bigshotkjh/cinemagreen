@@ -1,41 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
-<link href="" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<script src="" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/1h6QZz5U+Y1S8M1U3VZ1+2YQ7Q4S4M0F1n6r3Z" crossorigin="anonymous"></script>
 
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 
 <jsp:include page="../admin/adminheader.jsp">
   <jsp:param value="CINEMAGREEN ADMIN" name="title"/>
 </jsp:include>
+
 <style>
-    .textarea-small {
-      width: 33%;
-      height: 30%;
-      box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비 조정 */
-    }
-    .input-wide {
-      width: 33%;
-    }
+  .textarea-small {
+    width: 33%;
+    height: 30%;
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비 조정 */
+  }
+  .input-wide {
+    width: 33%;
+  }
     
-    
-    /* 모달 크기 조정 */
-    .modal-dialog {
-      max-width: 90%; /* 너비를 80%로 설정 (원하는 비율로 조정 가능) */
-      margin: 1.75rem auto; /* 중앙 정렬을 위한 마진 */
-    }
+  /* 모달 크기 조정 */
+  .modal-dialog {
+    max-width: 90%; /* 너비를 80%로 설정 (원하는 비율로 조정 가능) */
+    margin: 1.75rem auto; /* 중앙 정렬을 위한 마진 */
+  }
 
-    /* 모달 내용 영역의 높이를 늘리려면 */
-    .modal-content {
-      height: auto; /* 자동 높이 조정 */
-      min-height: 400px; /* 최소 높이 설정 (원하는 값으로 조정) */
-    }
-    
-
-    
-    
-    
+  /* 모달 내용 영역의 높이를 늘리려면 */
+  .modal-content {
+    height: auto; /* 자동 높이 조정 */
+    min-height: 400px; /* 최소 높이 설정 (원하는 값으로 조정) */
+  }
+  
 </style>
 
 <main>
@@ -49,7 +43,7 @@
         </button>
       </div>
       <div class="card-body">
-        <table id="datatablesSimple" class="table table-striped">
+        <table class="table table-striped">
           <thead>
             <tr>
               <th>영화순위</th>
@@ -82,7 +76,6 @@
   </div>
 </main>
 
-<%@ include file="../admin/adminfooter.jsp" %>
 <!-- 영화 상세 정보에 대한 모달 -->
 <div class="modal fade" id="movieDetailModal" tabindex="-1" aria-labelledby="movieDetailModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -92,54 +85,45 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="wrap">
-          <div class="sections section_moviepage">
-            <div class="width_con">
-              <div class="title_con white moviepage">
-                <form id="movie-info-form" method="post" action="${contextPath}/admin/updateInf.do">
-                  <input type="hidden" id="modalMovieNo" name="movieNo" value="">
-                  
-                  <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <div style="flex: 1;">
-                      <h5>제목</h5>
-                      <input type="text" class="offset-1 input-wide" name="movie_nm" id="modalMovieNmInput" value="">
-                    </div>
-                    <div>
-                      <img id="modalPoster" src="" alt="영화 포스터" style="width: 100px; height: auto; margin-left: 10px;">
-                    </div>
-                  </div>
-                  <div>
-                    <h5>등급</h5>
-                    <input type="text" class="offset-1 input-wide" name="rating" id="modalRating" value="">
-                  </div>
-                  <div>
-                    <h5>장르</h5>
-                    <input type="text" class="offset-1 input-wide" name="genres" id="modalGenres" value="">
-                  </div>
-                  <div>
-                    <h5>상영시간(분)</h5>
-                    <input type="text" class="offset-1 input-wide" name="runtime" id="modalRuntime" value="">
-                  </div>
-                  <div>
-                    <h5>줄거리</h5>
-                    <textarea class="offset-1 plot textarea-small" name="plot" id="modalPlot" rows="4"></textarea>
-                  </div>
-                  <div>
-                    <h5>영제</h5>
-                    <input type="text" class="offset-1 input-wide" name="title_eng" id="modalTitleEng" value="">
-                  </div>
-                </form>
-              </div>
+        <div class="wrap" style="display: flex;">
+          <div class="left-section" style="flex: 1; padding: 20px;">
+            <form id="movie-info-form" method="post">
+              <input type="hidden" id="modalMovieNo" name="movieNo" value="">
+              <h5>제목</h5>
+              <input type="text" class="input-wide" name="movie_nm" id="modalMovieNmInput">
+              
+              <h5>등급</h5>
+              <input type="text" class="input-wide" name="rating" id="modalRating">
+              
+              <h5>장르</h5>
+              <input type="text" class="input-wide" name="genres" id="modalGenres">
+              
+              <h5>상영시간(분)</h5>
+              <input type="text" class="input-wide" name="runtime" id="modalRuntime">
+              
+              <h5>줄거리</h5>
+              <textarea class="plot textarea-small" name="plot" id="modalPlot" rows="4"></textarea>
+              
+              <h5>영제</h5>
+              <input type="text" class="input-wide" name="title_eng" id="modalTitleEng" value="">
+            </form>
+          </div>
+          <div class="right-section" style="flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center;">
+            <img id="modalPoster" alt="영화 포스터" style="width: 300px; height: auto; margin-bottom: 20px;">
+            <div id="stillCutContainer" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center;">
+              <!-- 스틸컷 이미지가 이곳에 추가됩니다. -->
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-bs-dismiss="modal">닫기</button>
-          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">닫기</button>
       </div>
     </div>
   </div>
 </div>
+
+
 
 
 
@@ -187,93 +171,111 @@
 </div>
 
 
-
-
-
-
-
-<!-- jQuery 및 AJAX 스크립트 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-  $(document).ready(function() {
-    // 상세보기 버튼 클릭 시
-    $('.detail-btn').click(function() {
-      var movieNo = $(this).data('movieno');
+  
 
-      // AJAX 요청
-      $.ajax({
-        url: '/admin/getMovieDetail/' + movieNo,
-        method: 'GET',
-        success: function(data) {
-          console.log(data);
-          $('#modalMovieNo').val(data.movieNo); // 영화 번호 설정
-          $('#modalMovieNmInput').val(data.movieNm);
-          $('#modalRating').val(data.rating);
-          $('#modalGenres').val(data.genres);
-          $('#modalRuntime').val(data.runtime);
-          $('#modalPlot').val(data.plot);
-          $('#modalTitleEng').val(data.titleEng);
-          $('#modalPoster').attr('src', data.posterUrl); // 포스터 URL 설정
-          $('#movieDetailModal').modal('show'); // 모달 표시
-        },
-        error: function() {
-          alert('영화 정보를 불러오는데 실패했습니다.');
+  // 상세보기 버튼 클릭 시
+  $('.detail-btn').on('click', (event) => {
+    const movieNo = $(event.target).data('movieno');
+
+    // AJAX 요청
+    $.ajax({
+      url: '/admin/getMovieDetail/' + movieNo,
+      method: 'GET',
+      success: (data) => {
+        console.log(data);
+        $('#modalMovieNo').val(data.movieNo); // 영화 번호 설정
+        $('#modalMovieNmInput').val(data.movieNm);
+        $('#modalRating').val(data.rating);
+        $('#modalGenres').val(data.genres);
+        $('#modalRuntime').val(data.runtime);
+        $('#modalPlot').val(data.plot);
+        $('#modalTitleEng').val(data.titleEng);
+        $('#modalPoster').attr('src', data.posterUrls.split('|')[0]); // 포스터 URL 설정
+
+        // 스틸컷 사진 추가
+        const stillCutContainer = $('#stillCutContainer');
+        stillCutContainer.empty();
+
+        const stillCuts = data.stillUrls.split('|'); // still_urls를 '|'로 분리
+
+        for (let i = 0; i < stillCuts.length; i++) {
+          const img = $('<img>').attr('src', stillCuts[i]).css({
+            width: '130px',
+            height: 'auto',
+            margin: '5px'
+          });
+          stillCutContainer.append(img);
         }
-      });
-    });
 
-    $('#movieDetailModal').on('hide.bs.modal', function() {
-      // 입력값 초기화 등의 추가 로직
-      $('#modalMovieNo').val('');
-      $('#modalMovieNmInput').val('');
-      $('#modalRating').val('');
-      $('#modalGenres').val('');
-      $('#modalRuntime').val('');
-      $('#modalPlot').val('');
-      $('#modalTitleEng').val('');
-      $('#modalPoster').attr('src', ''); // 포스터 초기화
-    });
-  });
-  
-  
-  
-  
-  
-  
-  $(document).ready(function() {
-    $('#manageRuntimeBtn').click(function() {
-      $('#runtimeTable tbody').html('<tr><td colspan="5">로딩 중...</td></tr>');
-
-      $.ajax({
-        url: '/admin/getRuntimeList.do', // MyBatis 쿼리를 호출하는 URL
-        method: 'GET',
-        success: function(data) {
-          $('#runtimeTable tbody').empty();
-          if (data && data.length > 0) {
-            let tbody = '';
-            $.each(data, function(index, movie) {
-              tbody += '<tr>';
-              tbody += '<td>' + movie.timeNo + '</td>';
-              tbody += '<td>' + movie.movieDTO.movieNm + '</td>';
-              tbody += '<td>' + movie.movieDTO.runtime + '</td>';
-              tbody += '<td>' + movie.startTime + '</td>';
-              tbody += '<td>' + '<button class="btn btn-primary btn-sm" onclick="setMovie(\'' + movie.movieDTO.movieNo + '\', \'' + movie.movieDTO.movieNm + '\')">시각 설정</button>' + '</td>';
-              tbody += '</tr>';
-            });
-            $('#runtimeTable tbody').html(tbody);
-          }
-        }
-      });
+        $('#movieDetailModal').modal('show'); // 모달 표시
+      },
+      error: () => {
+        alert('영화 정보를 불러오는데 실패했습니다.');
+      }
     });
   });
 
-  // 영화 설정 함수
-  function setMovie(movieNo, movieNm) {
-      $('#movieNo').text(Number(movieNo)); // 선택된 영화 번호를 숫자로 표시
-      $('#movieTitle').text('제목: ' + movieNm); // 선택된 영화 제목 표시
-      $('#movieTimeInput').val(''); // 입력창 초기화
-  } 
+  $('#movieDetailModal').on('hide.bs.modal', () => {
+    // 입력값 초기화 등의 추가 로직
+    $('#modalMovieNo').val('');
+    $('#modalMovieNmInput').val('');
+    $('#modalRating').val('');
+    $('#modalGenres').val('');
+    $('#modalRuntime').val('');
+    $('#modalPlot').val('');
+    $('#modalTitleEng').val('');
+    $('#stillCutContainer').attr('img', '');
+    $('#modalPoster').attr('src', ''); // 포스터 초기화
+  });
+
+  
+  
+  
+  
+  
+  
+
+  // 영화 상영 시각
+  const setMovie = (movieNo, movieNm) => {
+    $('#movieNo').text(Number(movieNo));
+    $('#movieTitle').text('제목: ' + movieNm);
+    $('#movieTimeInput').val('');
+    $('#movieTimeModal').modal('show'); // 모달 ID에 맞춰 수정
+  }
+
+  $('#manageRuntimeBtn').on('click', (event) => {
+    $('#runtimeTable tbody').html('<tr><td colspan="5">로딩 중...</td></tr>');
+
+    $.ajax({
+      url: '/admin/getRuntimeList.do', 
+      method: 'GET',
+      success: (data) => {
+        $('#runtimeTable tbody').empty();
+        if (data && data.length > 0) {
+          let tbody = '';
+          $.each(data, (index, movie) => {
+            tbody += '<tr>';
+            tbody += '<td>' + movie.timeNo + '</td>';
+            tbody += '<td>' + movie.movieDTO.movieNm + '</td>';
+            tbody += '<td>' + movie.movieDTO.runtime + '</td>';
+            tbody += '<td>' + movie.startTime + '</td>';
+            tbody += '<td>' + '<button class="btn btn-primary btn-sm" onclick="setMovie(\'' + movie.movieDTO.movieNo + '\', \'' + movie.movieDTO.movieNm + '\')">시각 설정</button>' + '</td>';
+            tbody += '</tr>';
+          });
+          $('#runtimeTable tbody').html(tbody);
+        } else {
+          $('#runtimeTable tbody').html('<tr><td colspan="5">영화 정보가 없습니다.</td></tr>');
+        }
+      },
+      error: () => {
+        $('#runtimeTable tbody').html('<tr><td colspan="5">로딩 실패</td></tr>');
+      }
+    });
+  });
+
+
+
   
   
   
@@ -286,10 +288,9 @@
   
   
   const adminInsertTime = () => {
-    if (confirm("등록하시겠습니까?")) {
+    if (confirm('등록하시겠습니까?')) {
       const movieNo = Number($('#movieNo').text()); // movieNo를 숫자형으로 변환
       const startTime = $('#movieTimeInput').val();
-      
       console.log(JSON.stringify({ 
         movieNo: movieNo,
         startTime: startTime
@@ -318,7 +319,7 @@
   
   
   const adminUpdateTime = () => {
-    if (confirm("수정하시겠습니까?")) {
+    if (confirm('수정하시겠습니까?')) {
       const movieNo = $('#modalmovieNo').val();
       const startTime = $('#modalstartTime').val();
       
@@ -335,16 +336,16 @@
           movieNo: movieNo,
           startTime: startTime
         }),
-        success: function(response) {
+        success: (response) => {
       if(response.isSuccess) {        
-            alert('수정이 완료되었습니다.');
+        alert('수정이 완료되었습니다.');
         location.reload();
       } else {
-            alert('수정이 실패했습니다.');
+        alert('수정이 실패했습니다.');
       }
         },
-        error: function(xhr, status, error) {
-          console.error("Error details: ", xhr.responseText);
+        error: (xhr, status, error) => {
+          console.error('Error details: ', xhr.responseText);
           alert('수정에 실패했습니다. 다시 시도해주세요.');
         }
       });
@@ -352,18 +353,7 @@
   };
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </script>
+
+
+<%@ include file="../admin/adminfooter.jsp" %>

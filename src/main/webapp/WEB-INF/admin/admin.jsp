@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
-<link href="" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<script src="" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/1h6QZz5U+Y1S8M1U3VZ1+2YQ7Q4S4M0F1n6r3Z" crossorigin="anonymous"></script>
+
 
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 
@@ -87,7 +86,7 @@
   </div>
 </main>
 
-
+<!--
 <script>
   // 전체 선택 체크박스 기능
   document.addEventListener('DOMContentLoaded', function() {
@@ -99,6 +98,7 @@
     });
   });
 </script>
+-->
 
 <%@ include file="../admin/adminfooter.jsp" %>
 
@@ -118,38 +118,37 @@
                 <form id="user-info-form" method="post" action="${contextPath}/user/updateInf.do">
                   <input type="hidden" id="modalUserNo" name="userNo" value="">
 				  <!-- 프로필 들어갈 자리 -->
-				  
                   <div>
                     <h5>이메일</h5>
-					          <input type="text" class="offset-1 input-wide" name="email" id="modalEmailInput" value="" disabled>
+					          <input type="text" class="offset-1 input-wide" name="email" id="modalEmailInput" disabled>
                   </div>
                   <div>
                     <h5>이름</h5>
-					          <input type="text" class="offset-1 input-wide" name="name" id="modalName" value="" disabled>
+					          <input type="text" class="offset-1 input-wide" name="name" id="modalName" disabled>
                   </div>
 				          <div>
       				      <h5>전화번호</h5>
-      				      <input type="text" class="offset-1 input-wide"  name="mobile" id="modalMobile" value="">
+      				      <input type="text" class="offset-1 input-wide"  name="mobile" id="modalMobile">
       				    </div>
       			      <div>
       			        <h5>성별</h5>
-      			        <input type="text" class="offset-1 input-wide"  name="gender" id="modalGender" value="">
+      			        <input type="text" class="offset-1 input-wide"  name="gender" id="modalGender">
       			      </div>
       				    <div>
       			        <h5>생년월일</h5>
-      				      <input type="text" class="offset-1 input-wide"  name="birthyear" id="modalBirthyear" value="">
+      				      <input type="text" class="offset-1 input-wide"  name="birthyear" id="modalBirthyear">
       				    </div>
       		        <div>
       				      <h5>가입일자</h5>
-      			       	<input type="text" class="offset-1 input-wide"  name="signup_dt" id="modalSignupDt" value="" disabled>
+      			       	<input type="text" class="offset-1 input-wide"  name="signup_dt" id="modalSignupDt" disabled>
       				    </div>
       			  	  <br>
                   <div>
                     <h5>주소<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"></h5>
-				          	<input type="text" class="offset-1 input-wide" name="postcode" id="modalPostcode" value=""><br>
-					          <input type="text" class="offset-1 input-wide" name="address" id="modalAddress" value=""><br>
-                    <input type="text" class="offset-1 input-wide" name="extraAddress" id="modalExtraAddress" value=""><br>
-                    <input type="text" class="offset-1 input-wide" name="detailAddress"id="modalDetailAddress" value="">
+				          	<input type="text" class="offset-1 input-wide" name="postcode" id="modalPostcode"><br>
+					          <input type="text" class="offset-1 input-wide" name="address" id="modalAddress"><br>
+                    <input type="text" class="offset-1 input-wide" name="extraAddress" id="modalExtraAddress"><br>
+                    <input type="text" class="offset-1 input-wide" name="detailAddress"id="modalDetailAddress">
                   </div>
                   <div>
                     <button type="button" onclick="adminUpdateUser()">개인정보 변경하기</button>
@@ -349,3 +348,7 @@
 	
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script src="../static/demo/chart-area-demo.js"></script>
+<script src="../static/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>

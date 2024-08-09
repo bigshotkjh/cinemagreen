@@ -2,9 +2,11 @@
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
-var labels = [];
-var data = [];
-var topMovies = [
+const labels = [];
+const data = [];
+
+// 미리 틀을 만들기
+const topMovies = [
   { movieNm: "-", totalAmount: 0 },
   { movieNm: "-", totalAmount: 0 },
   { movieNm: "-", totalAmount: 0 },
@@ -16,22 +18,21 @@ fetch('/admin/getDailyAmount.do', {
   method: 'GET',
 }).then(response => response.json())
   .then(resData => {
-    resData.forEach(movie => {
-      const movieIndex = topMovies.findIndex(topMovie => topMovie.movieNm === movie.movieNm);
-      if (movieIndex !== -1) {
-        topMovies[movieIndex].totalAmount = movie.totalAmount; // 매출 업데이트
+    resData.forEach((movie, index) => {
+      if (index < topMovies.length) {
+        topMovies[index].movieNm = movie.movieNm || "-"; // 영화 제목
+        topMovies[index].totalAmount = movie.totalAmount || 0; // 매출
       }
     });
 
-    // labels와 data 배열 생성
     topMovies.forEach(movie => {
-      labels.push(movie.movieNm ? movie.movieNm : "-"); // 영화 제목이 없으면 "-"로 설정
-      data.push(movie.totalAmount || 0); // 매출이 없으면 0으로 설정
+      labels.push(movie.movieNm);
+      data.push(movie.totalAmount);
     });
 
     // 일일 매출
-    var ctx = document.getElementById("myBarChart");
-    var myBarChart = new Chart(ctx, {
+    const ctx = document.getElementById("myBarChart");
+    const myBarChart = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: labels,
@@ -70,5 +71,5 @@ fetch('/admin/getDailyAmount.do', {
     });
   })
   .catch(error => {
-    console.error("API 호출 중 오류 발생:", error);
+    console.log("API 호출 중 오류 발생:", error);
   });

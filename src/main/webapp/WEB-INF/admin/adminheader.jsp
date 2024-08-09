@@ -14,16 +14,10 @@
   		<script src="${contextPath}/static/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
   		<script src="${contextPath}/static/summernote-0.8.18-dist/summernote-lite.min.js"></script>
   		<script src="${contextPath}/static/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
   		<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   		<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
       
-      
-
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-      
-      
-      
-		
   		<link rel="stylesheet" href="${contextPath}/static/jquery-ui-1.13.3.custom/jquery-ui.min.css">
   		<link rel="stylesheet" href="${contextPath}/static/bootstrap-5.3.3-dist/css/bootstrap.min.css">
   		<link rel="stylesheet" href="${contextPath}/static/summernote-0.8.18-dist/summernote-lite.min.css">
@@ -33,6 +27,12 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="../css/admin.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        
+        
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <script src="../lib/datatables-simple-demo.js"></script>
           
           
 
@@ -66,13 +66,17 @@
               <div class="sb-sidenav-menu">
                 <div class="nav">
                   <div class="sb-sidenav-menu-heading">Addons</div>
+                  <a class="nav-link"  href="${contextPath}/admin/movie.page">
+                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                    영화 관리
+                  </a>
                   <a class="nav-link" href="${contextPath}/admin/seat.page">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                     좌석 관리
                   </a>
-                  <a class="nav-link"  href="${contextPath}/admin/movie.page">
+                  <a class="nav-link"  href="${contextPath}/admin/qna.page">
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    영화 관리
+                    문의 내역
                   </a>
                 </div>
               </div>
