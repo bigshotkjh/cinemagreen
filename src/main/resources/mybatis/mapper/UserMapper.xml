@@ -249,6 +249,21 @@
   </select>
   
   
+  <update id="cancelRequest" parameterType="Map" >
+		UPDATE payment_t P
+		SET P.cancel_status = #{cancelStatus}
+		WHERE P.ticketing_no IN (
+		    SELECT T.ticketing_no
+		    FROM ticketing_t T 
+		    JOIN runtime_t R ON T.time_no = R.time_no
+		    JOIN occupied_seat_t O ON T.ticketing_no = O.ticketing_no
+		    JOIN movie_t M ON T.movie_no = M.movie_no
+		    WHERE M.movie_nm = #{movieNm}
+		      AND R.start_time = #{startTime}
+		      AND O.seat_code = #{seatCode}
+		)
+  </update>
+  
 <!-- 등급 만들기 -->
   <select id="getAmounts" parameterType="Map" resultType="UserTicketDTO">
     SELECT amount

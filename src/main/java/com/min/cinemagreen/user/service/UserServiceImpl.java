@@ -599,8 +599,19 @@ public class UserServiceImpl implements IUserService {
         
     } else {
       //아직 환불기능이 미완성 완성시 연결하기.
-      resultMessage = "현재시간이 상영시간 이전으로 확인 되었으며 \n 환불처리 신청 되었습니다.";
-        
+      String movieNm = request.getParameter("movieNm");
+      String seatCode = request.getParameter("seatCode");
+      Map<String, Object> params = new HashMap<>();
+      params.put("movieNm", movieNm);
+      params.put("startTime", startTime);
+      params.put("seatCode", seatCode);
+      params.put("cancelStatus", "진행중");
+      int result = userMapper.cancelRequest(params);
+      if(result == 1) {
+        resultMessage = "현재시간이 상영시간 이전으로 확인 되었으며 \n 환불처리 신청 되었습니다.";
+      } else {
+        resultMessage = "죄송합니다. 환불처리 신청에 실패 했습니다.\n  관리자에게 문의해 주세요.";
+      }
     }
     
     return ResponseEntity.ok(Map.of("resultMessage", resultMessage));

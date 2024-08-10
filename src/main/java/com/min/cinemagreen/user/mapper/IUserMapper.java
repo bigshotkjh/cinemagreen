@@ -33,6 +33,7 @@ public interface IUserMapper {
   int getTicketCount(int userNo);
   List<UserTicketDTO> getUserTicketList(Map<String, Object> params);
   UserTicketDTO getTicketDetail(Map<String, Object> params);
+  int cancelRequest(Map<String, Object> params);
   //List<UserGrandeDTO> getUserGrande(int userNo);
 //블로그//////////////////
   int getBlogCount(int userNo);

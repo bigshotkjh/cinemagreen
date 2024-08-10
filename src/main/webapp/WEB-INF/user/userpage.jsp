@@ -39,9 +39,9 @@
   .button:hover{background-color: #FFFFFF; border: 2px solid  #ABDEC2;}				     
   .modal-backdrop.show{ display: none !important; }
   .modal-content{ top: 150px; right: -70px; width: 350px; border: 10px solid  #ABDEC2;}
-  .width_con {height: 1100px;}
   .refund{ border: 2px solid  #ABDEC2; transform: translate(-170px, 0px);}
   .gray{ background-color: #E2E2E2; }
+  .section_userpage .width_con { height: 1100px;}
 </style>
 <!--
  가져와 표시할 것 들
@@ -358,8 +358,20 @@
                str += '<div><strong>예매일</strong> : ' + ticketInf.ticketDt + ' / <strong>관람인원</strong> : '  + ticketInf.personCount + '</div>';
                str += '<hr>';
                str += '<div><strong>결제수단</strong> : ' + ticketInf.payMethod + ' / <strong>결제금액</strong> : '  + ticketInf.amount + '</div>';
-               str += '<div><strong>결제상태</strong> : ' + ticketInf.payState + '</div>';
-               str += '<div><strong>결제취소일자</strong> : ' + ticketInf.cancelDt + ' / <strong>결제취소상태</strong> : '  + ticketInf.cancelStatus + '</div>';
+               if (ticketInf.payState == "Y") {
+            	    str += '<div><strong>결제상태</strong> : 결제완료</div>';
+            	 } else {
+                  str += '<div><strong>결제상태</strong> : 결제대기중</div>';
+            	 }
+               if(ticketInf.cancelStatus == null) {
+            	   
+               } else if(ticketInf.cancelDt == null) {
+
+                   str += '<div><strong>결제취소상태</strong> : '  + ticketInf.cancelStatus + '</div>';     
+               } else {
+
+                 str += '<div><strong>결제취소일자</strong> : ' + ticketInf.cancelDt + ' / <strong>결제취소상태</strong> : '  + ticketInf.cancelStatus + '</div>'; 
+               }
                str += '</div>';
             modalBody.innerHTML += str;
            
