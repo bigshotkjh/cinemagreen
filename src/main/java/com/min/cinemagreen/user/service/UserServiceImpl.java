@@ -588,7 +588,7 @@ public class UserServiceImpl implements IUserService {
     String resultMessage = "";
     // 현재 날짜와 시간 가져오기
     LocalDateTime now = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     String formattedDate = now.format(formatter);
     
     // 티켓영화 시간

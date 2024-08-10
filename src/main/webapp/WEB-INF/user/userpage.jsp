@@ -41,6 +41,7 @@
   .modal-content{ top: 150px; right: -70px; width: 350px; border: 10px solid  #ABDEC2;}
   .width_con {height: 1100px;}
   .refund{ border: 2px solid  #ABDEC2; transform: translate(-170px, 0px);}
+  .gray{ background-color: #E2E2E2; }
 </style>
 <!--
  가져와 표시할 것 들
@@ -305,11 +306,26 @@
       ticketPaging.innerHTML = resData.ticketPaging;
       ticketList.innerHTML = '';
       for(const ticket of resData.ticketList){
-        let str  = '<div class="ticket button" data-bs-toggle="modal" data-bs-target="#ticket-etail" data-movie-nm="'+ ticket.movieNm +'" data-seat-code="' + ticket.seatCode + '" data-start-time="' + ticket.startTime + '">';
-            str +=   '<div> <strong>제목 :</strong> ' + ticket.movieNm + '</div>';
-            str +=   '<div class=movie-time> <strong>상영시간</strong> : ' + ticket.startTime + ' / <strong>좌석 :</strong> '  + ticket.seatCode + '</div>';
-            str += '</div>';
-        ticketList.innerHTML += str;
+	    	// 문자열을 Date 객체로 변환
+	    	const ticketTime = new Date(ticket.startTime);
+	    	// 현재 날짜와 시간 가져오기
+	    	const currentDate = new Date();
+	    	// 날짜 비교
+	    	if (currentDate <= ticketTime) {
+	    		
+	            let str  = '<div class="ticket button" data-bs-toggle="modal" data-bs-target="#ticket-etail" data-movie-nm="'+ ticket.movieNm +'" data-seat-code="' + ticket.seatCode + '" data-start-time="' + ticket.startTime + '">';
+	                str +=   '<div> <strong>제목 :</strong> ' + ticket.movieNm + '</div>';
+	                str +=   '<div class=movie-time> <strong>상영시간</strong> : ' + ticket.startTime + ' / <strong>좌석 :</strong> '  + ticket.seatCode + '</div>';
+	                str += '</div>';
+	            ticketList.innerHTML += str;
+	    	}  else {
+	    	      
+	            let str  = '<div class="ticket button gray" data-bs-toggle="modal" data-bs-target="#ticket-etail" data-movie-nm="'+ ticket.movieNm +'" data-seat-code="' + ticket.seatCode + '" data-start-time="' + ticket.startTime + '">';
+	                str +=   '<div> <strong>제목 :</strong> ' + ticket.movieNm + ' | <strong>상영 완료</strong></div>';
+	                str +=   '<div class=movie-time> <strong>상영시간</strong> : ' + ticket.startTime + ' / <strong>좌석 :</strong> '  + ticket.seatCode + '</div>';
+	                str += '</div>';
+	            ticketList.innerHTML += str;
+	    	}
       }
     })
   }
