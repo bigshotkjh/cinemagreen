@@ -27,19 +27,25 @@ public class ReserveController {
   private final IReserveService reserveService;
   
 	@GetMapping(value = "reserve.page")
-	  public String reserveDo(Model model, HttpServletRequest request) {
-	    //영화목
-  	  List<MovieDTO> movieReserveList = reserveService.getMovieReserveList(request);
-      model.addAttribute("movieReserveList", movieReserveList);
-	    return "/reserve/reserve";
-	  }
+  public String reserveDo(Model model, HttpServletRequest request) {
+    //영화목록 
+	  List<MovieDTO> movieReserveList = reserveService.getMovieReserveList(request);
+    model.addAttribute("movieReserveList", movieReserveList);
+    return "/reserve/reserve";
+  }
 	
-	@GetMapping("/getRuntime.do")
-  public ResponseEntity<List<RuntimeDTO>> getRuntimeListDo(@RequestParam int movieNo) {
+	@GetMapping(value = "movieSearch.do")
+	public ResponseEntity<List<MovieDTO>> searchMovies(@RequestParam String search) {
+    List<MovieDTO> movieList = reserveService.searchMovieByName(search);
+    return ResponseEntity.ok(movieList);
+	}
 	
-	  List<RuntimeDTO> runtimeList = reserveService.getRuntimeByMovie(movieNo);
-      log.info("runtimeList {}" , runtimeList);
-      return ResponseEntity.ok(runtimeList);
+	@GetMapping("getRuntime.do")
+  public ResponseEntity<List<RuntimeDTO>> getRuntimeListDo(@RequestParam int movieNo, @RequestParam String selectedDate) {
+	
+	  List<RuntimeDTO> runtimeList = reserveService.getRuntimeByMovie(movieNo, selectedDate);
+    log.info("runtimeList {}" , runtimeList);
+    return ResponseEntity.ok(runtimeList);
   }
 	
 	@GetMapping(value = "seat.do")

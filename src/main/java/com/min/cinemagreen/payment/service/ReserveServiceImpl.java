@@ -26,11 +26,6 @@ public class ReserveServiceImpl implements IReserveService {
     return movieReserveList;
   }
   
-  @Transactional(readOnly = true)
-  @Override
-  public List<RuntimeDTO> getRuntimeByMovie(int movieNo) {
-    return reserveMapper.getRuntimeByMovie(movieNo);
-  }
   
   public MovieDTO getMovieByNo(int movieNo) {
     return reserveMapper.getMovieByNo(movieNo);
@@ -38,6 +33,19 @@ public class ReserveServiceImpl implements IReserveService {
   
   public RuntimeDTO getRuntimeByNo(int timeNo) {
     return reserveMapper.getRuntimeByNo(timeNo);
+  }
+
+  @Transactional(readOnly = true)
+  @Override
+  public List<RuntimeDTO> getRuntimeByMovie(int movieNo, String selectedDate) {
+    // TODO Auto-generated method stub
+    return reserveMapper.getRuntimeByMovie(movieNo, selectedDate);
+  }
+ 
+  @Override
+  public List<MovieDTO> searchMovieByName(String search) {
+    // TODO Auto-generated method stub
+    return reserveMapper.searchMovieByName(search);
   }
   
 }

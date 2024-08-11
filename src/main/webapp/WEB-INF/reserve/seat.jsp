@@ -225,7 +225,7 @@
 					}
 				
 					/* $(".typeC input[name='seat']").on("click",function(){
-						if(typeC <=,,,,,ㅜ  typeCcount){
+						if(typeC <= typeCcount){
 							$(this).prop("checked",false);
 							alert('선택 가능한 우대석을 초과하였습니다.');
 							}

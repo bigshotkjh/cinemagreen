@@ -12,10 +12,14 @@ public interface IReserveService {
 
   List<MovieDTO> getMovieReserveList(HttpServletRequest request);
 
-  List<RuntimeDTO> getRuntimeByMovie(int movieNo);
+//  List<RuntimeDTO> getRuntimeByMovie(int movieNo);
+  List<RuntimeDTO> getRuntimeByMovie(int movieNo, String selectedDate);
 
   MovieDTO getMovieByNo(int movieNo);
   RuntimeDTO getRuntimeByNo(int timeNo);
+
+  List<MovieDTO> searchMovieByName(String search);
+
 
 
 }

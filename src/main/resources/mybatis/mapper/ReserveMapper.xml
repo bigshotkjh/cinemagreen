@@ -13,6 +13,7 @@
      rating,
      runtime
    FROM movie_t 
+   WHERE movie_no BETWEEN 1 AND 10
 	</select>
 	
 	<select id="getMovieByNo" parameterType="int" resultType="MovieDTO"> 
@@ -36,12 +37,28 @@
   
 
 	<select id="getRuntimeByMovie" resultType="RuntimeDTO">
-	 	SELECT
-	 		time_no,
+    SELECT
+      time_no,
       start_time
-    FROM runtime_t 
-    WHERE movie_no = #{movieNo}
+    FROM
+      runtime_t
+    WHERE
+      movie_no = #{movieNo}
+      AND SUBSTR(start_time, 1, 10) = #{selectedDate}
+        
 	</select>
+	
+	<select id="searchMovieByName" resultType="MovieDTO">
+    SELECT
+	    movie_no,
+	    movie_cd,
+	    movie_nm,
+	    rating,
+	    runtime
+   FROM movie_t 
+   WHERE 
+      movie_nm LIKE '%'||#{search}||'%'
+</select>
     	
   
     	

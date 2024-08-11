@@ -22,13 +22,15 @@ p{padding:0; margin:0;}
 .reserve_wrap .date_list { width:200px;}
 .reserve_wrap .date_list .day_list{ display: flex; flex-direction: column;  height: 420px;}
 .reserve_wrap .date_list .month.sub_title{ width: 95px; height: 40px;text-align: center; background: #eee; margin-bottom: 0; font-weight: 400; display: flex; justify-content: center; align-items: center; padding: 0; background:#eee;}
-.reserve_wrap button.mon { width:95px;  margin-top: 1px; padding: 5px; border :0; border-radius: 5px;}
+.reserve_wrap button.mon { width:95px;  margin-top: 1px; padding: 6px; border :0; border-radius: 5px;}
+.reserve_wrap button.mon.today{ box-shadow: 0 0 0 3px darkseagreen inset; }
 .reserve_wrap button.mon.sat{ color:#0072e2;}
 .reserve_wrap button.mon.sun{ color:#e40202;}
 .reserve_wrap .movie-day{ margin-right:15px;}
 .reserve_wrap #movieList{height: 370px;}
 .reserve_wrap #movieList .movie { display:block; height:33px; display: flex; align-items: center;}
-.reserve_wrap #movieList .movie.active , button.mon.active { background: #ddd; pointer-events:none;  padding: 5px; border-radius: 7px;}
+.reserve_wrap #movieList .movie.active , button.mon.active { background: #ddd; pointer-events:none;  }
+.reserve_wrap #movieList .movie.active {padding: 5px; border-radius: 7px;}
 
 .reserve_wrap .btn_del {display:none; color:#888; padding-right:5px;}
 

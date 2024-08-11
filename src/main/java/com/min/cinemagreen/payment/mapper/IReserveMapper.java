@@ -11,8 +11,9 @@ import com.min.cinemagreen.dto.RuntimeDTO;
 public interface IReserveMapper {
   
   List<MovieDTO> getMovieReserveList();
-  List<RuntimeDTO> getRuntimeByMovie(int movieNo);
+  List<RuntimeDTO> getRuntimeByMovie(int movieNo, String selectedDate);
   MovieDTO getMovieByNo(int movieNo);
   RuntimeDTO getRuntimeByNo(int timeNo);
+  List<MovieDTO> searchMovieByName(String search);
   
 }
