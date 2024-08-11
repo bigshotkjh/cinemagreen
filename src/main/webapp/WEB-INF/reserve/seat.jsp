@@ -206,10 +206,11 @@
 				}
 				
 				// 좌석  
-				$("input[name='seat']").on("click",function(){
+				$("input[name='seat']").on("click",function(){ 
 					let stcount    = $("input:checked[name='seat']").length;
-					let typeCcount = $("input:checked[name='seat']").length;
-					 console.log("선택 좌석 : " + $("input:checked[name='typeC']").val());
+						const typeCcount = $(".typeC input:checked[name='seat']").length;
+						let typeC = parseInt($("input:checked[name='typeC']").val());
+					console.log(typeC, typeCcount);
 					
 					if (stcount > totalCount){
 						$(this).prop("checked",false); // evt.target
@@ -224,17 +225,17 @@
 					}
 				
 					/* $(".typeC input[name='seat']").on("click",function(){
-						if(typeC < typeCcount){
+						if(typeC <=,,,,,ㅜ  typeCcount){
 							$(this).prop("checked",false);
-								alert('선택 가능한 장애인석을 초과하였습니다.');
+							alert('선택 가능한 우대석을 초과하였습니다.');
 							}
-					 })// end typeC click */
+					 }) */// end typeC click
 				})// end seat click
 			} // end if undefined
 		} // end for
 	})// end ticket click
 	
-	// 선택 좌석 배열
+	// 선택 좌석 배열 만들기 
 	function chkSeat(){
 			var chk_seat = [];
 		$("input:checked[name='seat']").each(function(){
@@ -252,11 +253,14 @@
 		const year = date.getFullYear();
 		const month = String(date.getMonth() + 1).padStart(2, "0");
 		const day = String(date.getDate()).padStart(2, "0");
-		
-		let MerchantNum = year + month + day;
-		for(let i=0;i<10;i++) {
-			MerchantNum += Math.floor(Math.random() * 4);	
-		}
+		const hours = String(date.getHours()).padStart(2, "0");
+		const minutes = String(date.getMinutes()).padStart(2, "0");
+		const seconds = String(date.getSeconds()).padStart(2, "0");
+		const milliSeconds = String(date.getMilliseconds()).padStart(3, "0");
+		const MerchantNum = year + month + day + hours + minutes + seconds+ milliSeconds;
+		/* for(let i=0;i<4;i++) {
+			MerchantNum += Math.floor(Math.random() * 9);	
+		} */
 		return MerchantNum;
 	}
 	
