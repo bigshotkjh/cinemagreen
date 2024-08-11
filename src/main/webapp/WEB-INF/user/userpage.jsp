@@ -11,36 +11,35 @@
 <style>
  .dead-btn{cursor: default; pointer-events: none;}
  .hidden-btn{display: none;}
- .sections.section_signup .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
- .sections.section_signup .width_con .signup form{ position: relative; transform: translateX(42%); transition: inherit;}
  .title_con h6{ margin-top: 0;}
   input { border-radius: 4px; margin-top: 2px; }
  .red{ border: 2px solid red;  border-radius: 5px;}
  .blog-div{ 
     position: absolute;
     transform: translate(430px, -950px);}
- .blog{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;}
+ .blog{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px; border: 1px solid  #ABDEC2;}
  .blog-zero{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;  white-space: pre;}
  #profile-img{ border-radius: 20%;}
  .title_con{ width: 400px; position: relative; transform: translate(200px, -150px);}
  .hit{ text-align: right;}
- .profile-div{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 200px;  position: absolute; transform: translate(80px, -73px); overflow: hidden;}
+ .profile-div{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 200px;  position: absolute; transform: translate(80px, -73px); overflow: hidden; border: 1px solid  #ABDEC2;}
 	#profile, #profile-upload{margin: 3px;}
-	#user-info-form{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 280px;}
+	#user-info-form{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 280px; border: 1px solid  #ABDEC2;}
 	.paging { position: relative; transform: translate(260px, 0px);}
 	h5{margin: 10px 10px 10px 0px; }
 	.user-info{position: relative; transform: translate(37px, -10px);}
   .ticket-div{ 
     position: relative;
     transform: translate(430px, -550px);}
-  .ticket{  border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px; }
+  .ticket{  border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px; border: 1px solid  #ABDEC2;}
   .movie-time{ text-align: right;}	
   .ticket-zero{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;  white-space: pre;}
-  .button:hover{background-color: #FFFFFF; border: 2px solid  #ABDEC2;}				     
+  .button:hover{background-color: #FFFFFF; border: 2px solid  #008000;}				     
   .modal-backdrop.show{ display: none !important; }
   .modal-content{ top: 150px; right: -70px; width: 350px; border: 10px solid  #ABDEC2;}
   .refund{ border: 2px solid  #ABDEC2; transform: translate(-170px, 0px);}
   .gray{ background-color: #E2E2E2; }
+  .section_userpage { background: white; color : #3f3f3f;}
   .section_userpage .width_con { height: 1100px;}
 </style>
 <!--

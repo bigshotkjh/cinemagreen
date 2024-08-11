@@ -36,7 +36,7 @@ h6{ font-size:    1em; font-weight: 400; line-height: 1.35em;}
 
 .main-wrap{margin-top: 150px;} /*임시적용*/
 .wrap{ position: relative; margin: 0 auto; max-width: 1920px; scroll-snap-type: y mandatory;}
-.sections{ position: relative; z-index: 1; background: rgba(0, 70, 150, .1); color: darkblue}
+.sections{ position: relative; z-index: 1; }
 .sections.section_01{ background: rgba(247, 248, 255, .4);}
 .sections.section_02{ background: rgba(0, 100, 250, .15);}
 .sections.section_03{ background: rgba(0, 102, 255, .45); color: aliceblue;}

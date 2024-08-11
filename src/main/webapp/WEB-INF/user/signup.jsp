@@ -17,9 +17,10 @@
  .sections.section_signup .width_con .signup form{ position: relative; transform: translateX(42%); transition: inherit;}
  .title_con h6{ margin-top: 0;}
  input { border-radius: 4px; margin-top: 2px;}
- .red{ border: 2px solid red;}
+ .red{ border: 2px solid #008000;}
  .title_con{ position: relative; transform: translate(0px, -130px);}
- #signup-form{  position: relative; transform: translate(540px, 0px); border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 430px;}
+ #signup-form{  position: relative; transform: translate(540px, 0px); border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 430px;  border: 1px solid  #ABDEC2;}
+ .section_signup { background: white; color : #3f3f3f;}
 </style>
 <!--@@@@@@@끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 

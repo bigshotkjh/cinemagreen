@@ -11,30 +11,31 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <style>
-  .sections.section_signin .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
-  .sections.section_signin .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
+  .sections.section_list { background: white; color : #3f3f3f;}
+  .sections.section_list .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
+  .sections.section_list .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
   .blog {
-    width: 500px;
+    width: 700px;
     cursor: pointer;
-    background-color: beige;
+    background-color: #fffff4;
     border-bottom: 1px solid gray;
     margin-bottom: 10px;
     border-radius: 5px;
   }position: relative; transform: translate(0px, -150px);
   .blog{ position: relative; transform: translate(0px, 0px); }
-  .paging { position: relative; transform: translate(-360px, 20px);}
+  .paging { position: relative; transform: translate(-330px, 30px);}
   button{position: relative; transform: translate(1000px, -20px);}
-  #blog-list {border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 510px; position: relative; transform: translate(420px, 0px);}
+  #blog-list {border-radius: 5px; padding: 5px; background-color: #b9ceb1; width: 710px; position: relative; transform: translate(340px, 0px);border: 1px solid  #ABDEC2;}
   .right {text-align: right;}
   .aaa {position: relative; transform: translate(0px, -150px);}
-  .button:hover{background-color: #FEFFF1; border: 2px solid  #ABDEC2;}            
+  .button:hover{background-color: #FFFFF8; border: 2px solid  #008000;}            
 </style>
 
 
 <div class="wrap">
-  <div class="sections section_signin">
+  <div class="sections section_list">
     <div class="width_con">
       <div class ="aaa">
         <div class="title_con white signin">

@@ -627,8 +627,7 @@ public class UserServiceImpl implements IUserService {
     if(loginUser == null)  // 세션 만료 대비
       return null;
     int userNo = loginUser.getUserNo();
-    int page = 1;
-    page = Integer.parseInt(request.getParameter("page"));//페이지를 받아왔네.
+    int page = Integer.parseInt(request.getParameter("page"));//페이지를 받아왔네.
     int display = 5; //한 페이지에 표시할 게시물 수
     int total = userMapper.getBlogCount(userNo);//블로그 게시물 총수/ 맵퍼에 다녀와야해.
     System.out.println("total : " + total);

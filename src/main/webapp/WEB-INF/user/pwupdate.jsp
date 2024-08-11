@@ -11,11 +11,12 @@
 
   h6{ font-size:  .85em;}
   .dead-btn{cursor: default; pointer-events: none;}
-  .sections.section_signin .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
-  .sections.section_signin .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
+  .sections.section_pwchange .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
+  .sections.section_pwchange .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
   .title_con{ position: relative; transform: translate(0px, -120px);}
+  .section_pwchange { background: white; color : #3f3f3f;}
 </style>
 
 <div class="wrap">
