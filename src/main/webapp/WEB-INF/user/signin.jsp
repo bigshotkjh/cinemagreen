@@ -11,12 +11,12 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <style>
-  .sections.section_signin .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
-  .sections.section_signin .width_con .signin form{ position: relative; transform: translateX(42%); transition: inherit;}
+  .sections.section_signin .width_con .title_con h4{ position: relative;}
+  .sections.section_signin .width_con .signin form{ position: relative;}
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
-  .title_con{ position: relative; transform: translate(0px, -120px);}
-  #signin-form{  position: relative; transform: translate(550px, 0px); border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 320px; padding: 10px; border: 1px solid  #ABDEC2;}
+  .title_con{ display: flex; align-items: center; flex-direction: column; }
+  #signin-form{ border-radius: 5px; padding: 20px; background-color: #FFFFF4;  border: 1px solid  #ABDEC2;}
   .section_signup { background: white; color : #3f3f3f;}
 </style>
 
@@ -31,24 +31,24 @@
 	          <input type="hidden" name="url" value="${url}">
 	          
 	          <div>
-	            <input type="text" name="email" id="email" placeholder="이메일">
+	            <input type="text" name="email" id="email" class="ipt" placeholder="이메일">
 	            <input type="checkbox" id="checkId">
 	            <label for="id">이메일저장</label>
 	            <h6></h6>
 	          </div>
 	          
 	          <div>
-	            <input type="password" name="pw" id="pw" placeholder="비밀번호">
+	            <input type="password" name="pw" id="pw" class="ipt" placeholder="비밀번호">
 	          </div><br>
 	          
 	          <%--  / SNS 로그인 / 아이디비번 찾기 --%>
 	          
 	          <div>
-	            <button type="button" id="submitbtn" onclick="setCookie()">로그인하기</button>
-	            <button type="button" onclick="history.back()">취소하기</button>
+	            <button type="button" class="c-btn c-cblue" id="submitbtn" onclick="setCookie()">로그인하기</button>
+	            <button type="button" class="c-btn c-gray"onclick="history.back()">취소하기</button>
 	            <h6></h6>
-	            <button type="button" onclick="pwfind()">비밀번호 찾기</button>
-	            <button type="button" onclick="emailfind()">이메일 찾기</button>
+	            <button type="button" class="line-btn" onclick="pwfind()">비밀번호 찾기</button>
+	            <button type="button" class="line-btn" onclick="emailfind()">이메일 찾기</button>
 	            <h6></h6>
 	          </div>
 	          

@@ -20,7 +20,7 @@
  .blog{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px; border: 1px solid  #ABDEC2;}
  .blog-zero{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 600px; margin: 3px 0px;  white-space: pre;}
  #profile-img{ border-radius: 20%;}
- .title_con{ width: 400px; position: relative; transform: translate(200px, -150px);}
+ .title_con{ width: 400px; position: relative; transform: translate(200px, 0px);}
  .hit{ text-align: right;}
  .profile-div{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 200px;  position: absolute; transform: translate(80px, -73px); overflow: hidden; border: 1px solid  #ABDEC2;}
 	#profile, #profile-upload{margin: 3px;}
@@ -39,8 +39,8 @@
   .modal-content{ top: 150px; right: -70px; width: 350px; border: 10px solid  #ABDEC2;}
   .refund{ border: 2px solid  #ABDEC2; transform: translate(-170px, 0px);}
   .gray{ background-color: #E2E2E2; }
-  .section_userpage { background: white; color : #3f3f3f;}
-  .section_userpage .width_con { height: 1100px;}
+  .section_userpage { /* background: white; */ color : #3f3f3f;}
+  .section_userpage .width_con { height: 1100px; background: #fff;}
 </style>
 <!--
  가져와 표시할 것 들
