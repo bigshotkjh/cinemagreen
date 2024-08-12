@@ -23,6 +23,8 @@
       , detail_address
       , extra_address
       , grade
+      , profile_name
+      , profile_path
     ) VALUES (
         user_seq.NEXTVAL
       , #{email}
@@ -40,6 +42,8 @@
       , #{detailAddress}
       , #{extraAddress}
       , #{grade}
+      , #{profileName}
+      , #{profilePath}
     )
   </insert>
   
@@ -132,6 +136,8 @@
       , address
       , detail_address
       , extra_address
+      , profile_name
+      , profile_path
     ) VALUES (
         user_seq.NEXTVAL
       , #{email}
@@ -146,6 +152,8 @@
       , #{address}
       , #{detailAddress}
       , #{extraAddress}
+      , #{profileName}
+      , #{profilePath}
     )
   </insert>
   

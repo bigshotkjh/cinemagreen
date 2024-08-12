@@ -111,6 +111,9 @@ public class UserServiceImpl implements IUserService {
     int age = Period.between(birthDate, currentDate).getYears();
     user.setAge(age);
     user.setGrade("bronze");
+    user.setProfilePath("/profile");
+    user.setProfileName("defaultImg.webp");
+    
     return userMapper.insertUser(user);
   }
   
@@ -434,6 +437,8 @@ public class UserServiceImpl implements IUserService {
     LocalDate currentDate = LocalDate.now();
     int age = Period.between(birthDate, currentDate).getYears();
     user.setAge(age);
+    user.setProfilePath("/profile");
+    user.setProfileName("defaultImg.webp");
     
     return userMapper.insertSnsUser(user);
 

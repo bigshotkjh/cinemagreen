@@ -161,7 +161,7 @@
  
 <script>
 //예매취소
-  const refund = ()=>{
+  const refund = ()=> {
 	  
 	  var ticketInfElement = document.getElementById('ticket-inf');
 
