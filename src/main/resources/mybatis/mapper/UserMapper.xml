@@ -278,6 +278,7 @@
       FROM payment_t
      WHERE user_no = #{userNo}
        AND cancel_status IS NULL
+       AND pay_dt BETWEEN #{startDate} AND #{endDate}
   </select>
   
   <update id="updateUserGrade" parameterType="Map" >

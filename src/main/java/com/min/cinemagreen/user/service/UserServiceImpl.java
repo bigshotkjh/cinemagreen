@@ -112,7 +112,7 @@ public class UserServiceImpl implements IUserService {
     user.setAge(age);
     user.setGrade("bronze");
     user.setProfilePath("/profile");
-    user.setProfileName("defaultImg.webp");
+    user.setProfileName("defaultImg.png");
     
     return userMapper.insertUser(user);
   }
@@ -489,8 +489,21 @@ public class UserServiceImpl implements IUserService {
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
     int userNo = loginUser.getUserNo();
     String grade = loginUser.getGrade();
+  //6개월 만들기  
+    // 현재 날짜
+    LocalDate currentDate = LocalDate.now();
+    
+    // 6개월 전 날짜
+    LocalDate sixMonthsAgo = currentDate.minusMonths(6);
+    
+    // SQL DATE 형식으로 변환
+    Date sqlCurrentDate = Date.valueOf(currentDate);
+    Date sqlSixMonthsAgo = Date.valueOf(sixMonthsAgo);
+    
     Map<String, Object> params = new HashMap<>();
     params.put("userNo", userNo);
+    params.put("startDate", sqlSixMonthsAgo);
+    params.put("endDate", sqlCurrentDate);
     List<UserTicketDTO> amounts  = userMapper.getAmounts(params);
     int point = 0;
     for(UserTicketDTO amount : amounts ) {
