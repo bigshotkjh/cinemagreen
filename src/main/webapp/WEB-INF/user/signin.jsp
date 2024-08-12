@@ -16,7 +16,7 @@
   .title_con h6{ margin-top: 0;}
   input { border-radius: 4px;}
   .title_con{ position: relative; transform: translate(0px, -120px);}
-  #signin-form{  position: relative; transform: translate(550px, 0px); border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 305px; padding: 10px; border: 1px solid  #ABDEC2;}
+  #signin-form{  position: relative; transform: translate(550px, 0px); border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 320px; padding: 10px; border: 1px solid  #ABDEC2;}
   .section_signup { background: white; color : #3f3f3f;}
 </style>
 

@@ -46,8 +46,8 @@
   </select>
   
   <select id="getBlogList" parameterType="Map" resultType="BlogDTO">
-    SELECT blog_no, title, contents, hit, user_no, create_dt, modify_dt, name, email
-      FROM (SELECT ROW_NUMBER() OVER(ORDER BY blog_no DESC) AS rnum, B.blog_no, B.title, B.contents, B.hit, B.user_no, B.create_dt, B.modify_dt, U.name, U.email
+    SELECT blog_no, title, contents, hit, user_no, create_dt, modify_dt, name, email, profile_name, profile_path
+      FROM (SELECT ROW_NUMBER() OVER(ORDER BY blog_no DESC) AS rnum, B.blog_no, B.title, B.contents, B.hit, B.user_no, B.create_dt, B.modify_dt, U.name, U.email, U.profile_name, U.profile_path 
               FROM user_t U INNER JOIN blog_t B
                 ON U.user_no = B.user_no)
      WHERE rnum BETWEEN #{begin} AND #{end}
@@ -60,7 +60,7 @@
   </update>
   
   <select id="getBlogByNo" parameterType="int" resultType="BlogDTO">
-    SELECT B.blog_no, B.title, B.contents, B.hit, B.user_no, B.create_dt, B.modify_dt, U.name, U.email
+    SELECT B.blog_no, B.title, B.contents, B.hit, B.user_no, B.create_dt, B.modify_dt, U.name, U.email, U.profile_name, U.profile_path
       FROM user_t U INNER JOIN blog_t B 
         ON U.user_no = B.user_no
      WHERE B.blog_no = #{blogNo}

@@ -28,9 +28,11 @@
   .paging { position: relative; transform: translate(-330px, 30px);}
   button{position: relative; transform: translate(1000px, -20px);}
   #blog-list {border-radius: 5px; padding: 5px; background-color: #b9ceb1; width: 710px; position: relative; transform: translate(340px, 0px);border: 1px solid  #ABDEC2;}
-  .right {text-align: right;}
+  .title{position: relative; transform: translate(20px, 10px);}
+  .right {text-align: right; position: relative; transform: translate(-20px, 5px);}
+  .profile {border-radius: 5px; position: relative; transform: translate(10px, -15px);} 
   .aaa {position: relative; transform: translate(0px, -150px);}
-  .button:hover{background-color: #FFFFF8; border: 2px solid  #008000;}            
+  .button:hover{background-color: #FFFFF8; border: 2px solid  #008000;}           
 </style>
 
 
@@ -83,8 +85,9 @@
       blogList.innerHTML = '';
       for(const blog of resData.blogList){
         let str = '<div class="blog button" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
-        str += '<div>제목 : ' + blog.title + '</div>';
-        str += '<div class="right">작성자 : ' + blog.name + ' /조회수 : ' + blog.hit + ' /작성일 : ' + blog.createDt + '</div>';
+        str += '<div class="title">제목 : ' + blog.title + '</div>';
+        str += '<div class="right">작성자 : ' + blog.name + ' /조회수 : ' + blog.hit + ' /작성일 : ' + blog.createDt + '<img class = profile src="' + blog.profilePath + '/' + blog.profileName + '" width="50 height="50"></div>';
+        str += ''
         str += '</div>';
         blogList.innerHTML += str;
       }

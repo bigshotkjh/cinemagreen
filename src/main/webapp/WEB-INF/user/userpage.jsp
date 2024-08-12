@@ -63,7 +63,6 @@
         
        <!--프로필 변경 --> 
         <h5><b>프로필 변경하기</h5>
-        
         <img id="profile-img" src=" ${loginUser.profilePath}/${loginUser.profileName}" width="73" height="73">
         <form id="profile-form">
           <div class="profile-div">
@@ -358,7 +357,7 @@
                str += '<hr>';
                str += '<div><strong>결제수단</strong> : ' + ticketInf.payMethod + ' / <strong>결제금액</strong> : '  + ticketInf.amount + '</div>';
                if (ticketInf.payState == "Y") {
-            	    str += '<div><strong>결제상태</strong> : 결제완료</div>';
+            	    str += '<div><strong>결제상태</strong> : <span style="color: green;">결제완료</span></div>';
             	 } else {
                   str += '<div><strong>결제상태</strong> : 결제대기중</div>';
             	 }
@@ -366,7 +365,7 @@
             	   
                } else if(ticketInf.cancelDt == null) {
 
-                   str += '<div><strong>결제취소상태</strong> : '  + ticketInf.cancelStatus + '</div>';     
+                   str += '<div><strong>결제취소상태</strong> : <span style="color: red;">'  + ticketInf.cancelStatus + '</span></div>';     
                } else {
 
                  str += '<div><strong>결제취소일자</strong> : ' + ticketInf.cancelDt + ' / <strong>결제취소상태</strong> : '  + ticketInf.cancelStatus + '</div>'; 

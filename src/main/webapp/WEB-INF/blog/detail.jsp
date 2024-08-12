@@ -38,8 +38,9 @@
   .data {text-align: right;}
   .blog.title{width: 600px;}
   .movie-title {position: relative; transform: translate(200px, 0px) !important;}
-  .delete{position: relative; transform: translate(1080px, 95px)}
+  .delete{position: relative; transform: translate(1070px, 150px)}
   .hidden-btn{display: none;}
+  #profile-img {border-radius: 5px; position:absolute ; transform: translate(780px, 120px);} 
 </style>
 
 
@@ -49,6 +50,7 @@
       <div class ="aaa">
         <div class="title_con white signin">
           <button type="button" class="delete hidden-btn" onclick="deletePost()">게시물삭제</button>
+          <img id="profile-img" src=" ${blog.profilePath}/${blog.profileName}" width="55" height="55">
           <h4 class="movie-title">Movie Postlist</h4><br>
           <div class="blog-content">
 	          <div class="blog title"><b>제목 | ${blog.title} <div class="data"> ${blog.name}| HIT : ${blog.hit} | 작성일 : ${blog.createDt} </div></div>

@@ -20,6 +20,8 @@ public class BlogDTO {
   private Date createDt;
   private Date modifyDt;
   private String name;
+  private String profileName;
+  private String profilePath;
 
 }
 
