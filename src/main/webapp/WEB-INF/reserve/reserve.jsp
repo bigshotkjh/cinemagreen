@@ -120,7 +120,7 @@
 <script>
 
 $(function() {
-
+	
 	$("#srchMovie").on("keyup", function(e) {
 		var txt = $(this).val().trim();
 		if (txt == "") {
@@ -134,6 +134,29 @@ $(function() {
 		$("#srchMovie").val("").keyup();
 	});
 	
+	//검색
+	function search(){
+		let search = $('#srchMovie').val();
+		console.log(search);
+		if (search.length > 0) {
+			$.ajax({
+				 type: "GET",
+		     url : "/reserve/movieSearch.do",
+		     data : {
+		         "search":search
+		     },
+		     dataType: "json",
+		     success:function(resdata) {
+           showList(resdata);
+         },
+		     errer : function (e) {
+         	alert(e);
+		     }
+			});
+		}else {
+        $('#movieList').empty();
+    }
+	}	
 	
 	$('.none').css('display','block');
 	var movieList = $('#movieList a.movie');
@@ -257,44 +280,28 @@ for(let i = dayNumber ; i<=dayNumber+13 ; i++) {
 
 }
 
-	//검색
-	function search(){
-		let search = $('#srchMovie').val();
-		console.log(search);
-		if (search.length > 0) {
-			$.ajax({
-				 type: "GET",
-		     url : "/reserve/movieSearch.do",
-		     data : {
-		         "search":search
-		     },
-		     dataType: "json",
-		     success:function(resdata) {
-           showList(resdata);
-         },
-		     errer : function (e) {
-         	alert(e);
-		     }
-			});
-		}else {
-        // 검색어가 없으면 기본 영화 목록을 보여주기
-        $('#movieList').empty();
-    }
-	}	
+	
 	function showList(movies) {
-	    let movieList = $('#movieList');
-	    movieList.empty();  // 기존 리스트 초기화
+    let movieList = $('#movieList');
+    movieList.empty();  // 기존 리스트 초기화
 
-	    if (movies.length === 0) {
-	        movieList.append('<li>영화가 존재하지 않습니다.</li>');
-	    } else {
-	        movies.forEach(movie => {
-	            let movieItem = `<li><a class="movie" href="javascript:void(0);" data-movieno ="${movie.movieNo}" data-rating ="${movie.rating}"><span style="width:100px;color:#888;">${movie.rating}</span> ${movie.movieNm}</a></li>`;
-	            movieList.append(movieItem);
-	        });
-	    }
+    if (movies.length === 0) {
+      movieList.append('<li>영화가 존재하지 않습니다.</li>');
+    } else {
+      movies.forEach(movie => {
+        let movieItem = '<li>';
+        //`<li><a class="movie" href="javascript:void(0);" data-movieno ="${movie.movieNo}" data-rating ="${movie.rating}"><span style="width:100px;color:#888;">${movie.rating}</span> ${movie.movieNm}</a></li>`;
+       
+
+       	movieItem += '</li>';
+        movieList.append(movieItem);
+      });
+    }
 	}
 
+	
+	
+  
 //날짜선택 
 $('.day_list .mon').click(function(){
 	$('#timeList .none').css('display','none');
@@ -311,6 +318,9 @@ $('.day_list .mon').click(function(){
   selectedRating = activeMovie.getAttribute('data-rating'); //rating가지고오기
 
   console.log(selectedMovieNo, selectedRating);
+	
+  
+  
   $.ajax({
     type: "GET",
     data: { 
@@ -333,6 +343,28 @@ $('.day_list .mon').click(function(){
            	time += '</li>';
          timeList.append(time);
          });
+      	
+      	//현재시간이랑 비교 
+      	const nowT = new Date();
+      	const span = document.querySelector('.time_txt');
+
+        if (span) {
+          // Date 객체로 변환..
+          const timeText = span.textContent;
+          const [dateStr, timeStr] = timeText.split(' ');
+          const [year, month, day] = dateStr.split('-').map(Number);
+          const [hour, minute] = timeStr.split(':').map(Number);
+          const spanDate = new Date(year, month - 1, day, hour, minute);
+
+          // 비활성화처리
+          if (nowT > spanDate) {
+            const spanParent = span.closest('a'); 
+            if (spanParent) {
+            	spanParent.classList.add('disable');
+            }
+          }
+        } //현재시간이랑 비교 
+      	
        }
   	})
     .fail(jqXHR => {
@@ -341,6 +373,11 @@ $('.day_list .mon').click(function(){
          })
   
 })
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    
+  });
 </script>
 <script>
     /*  영화선택 -> 날짜선택으로 수정중 

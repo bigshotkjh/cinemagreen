@@ -34,7 +34,7 @@ h6{ font-size:    1em; font-weight: 400; line-height: 1.35em;}
 .nomgbt{ margin-bottom: 0 !important;}
 
 
-.main-wrap{margin-top: 150px;} /*임시적용*/
+.main-wrap{ padding-top: 115px; background: rgb(227 230 229 / 70%);} /*임시적용*/
 .wrap{ position: relative; margin: 0 auto; max-width: 1920px; scroll-snap-type: y mandatory;}
 .sections{ position: relative; z-index: 1; }
 .sections.section_01{ background: rgba(247, 248, 255, .4);}
@@ -46,7 +46,7 @@ h6{ font-size:    1em; font-weight: 400; line-height: 1.35em;}
 .sections.section_07{ background: rgba(0, 102, 255, .35);}
 .sections.section_08{ background: rgba(247, 248, 255, .4);}
 
-.width_con{ position: relative; margin: 0 auto; width: 1400px; padding: var(--mrgn-x4) 0; background: rgb(0, 255, 0, 0.06); transition: all 250ms ease-in-out;}
+.width_con{ position: relative;  margin: 0 auto; width: 1400px; padding: var(--mrgn-half); border-radius:5px; /* background:rgb(227 230 229 / 70%); */ transition: all 250ms ease-in-out;}
 .title_con{ position: relative; margin: 0 0 var(--mrgn-x2) 0; }
 .title_con.center{}
 .title_con h1{ margin-top: var(--mrgn-half);}
@@ -105,10 +105,11 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #header.sections.section_00{ position: fixed; color: black; top: 10px; left: 50%; z-index: 99; transform: translateX(-50%); border-radius: calc(var(--mrgn-half) / 2); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); background: rgba(255, 255, 255, .85); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .15); transition: all 250ms ease-in-out;}
 #header.sections.section_00:hover{ background: rgba(255, 255, 255, 1); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .35);}
 #header.sections.section_00 .width_con,
-#header.sections.section_00.scrolled:hover .width_con{ height: 80px; padding: 0 var(--mrgn-x2); }
+#header.sections.section_00.scrolled:hover .width_con{ height: 80px; padding: 0 var(--mrgn-x2); background:#95b3a9; }
 #header.sections.section_00.scrolled .width_con{ height: 50px;}
 #header.sections.section_00 .width_con a.btn_home,
-#header.sections.section_00.scrolled:hover .width_con a.btn_home{ position: absolute; top: 50%; left: var(--mrgn); height: calc(100% - 10px); transform: translateY(-50%); transition: inherit;}
+#header.sections.section_00.scrolled:hover .width_con a.btn_home{ position: absolute; top: 50%; left: var(--mrgn); transform: translateY(-50%); transition: inherit; font-size: 20px; font-weight: 900; letter-spacing: -1px;  letter-spacing: -1px;
+    -webkit-background-clip: text; color: transparent; background: linear-gradient(#ffffff 37%, #9CB394 100%); background-clip: text; }
 #header.sections.section_00.scrolled .width_con a.btn_home{ height: calc(100% - 6px);}
 #header.sections.section_00 .width_con a.btn_home img{ height: 100%;}
 #header.sections.section_00 .width_con ul.nav{ position: relative; transform: translateX(12%); transition: inherit; overflow: auto;}/*수정*/
@@ -117,14 +118,14 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #header.sections.section_00.scrolled:hover .width_con ul.nav{ top: 25px; }
 #header.sections.section_00.scrolled .width_con ul.nav{ top: 16px;}
 #header.sections.section_00 .width_con ul.nav:after{ content: ''; clear: both;}
-#header.sections.section_00 .width_con ul.nav > li{ float: none; width:13.3%;}/*수정*/
-#header.sections.section_00 .width_con ul.nav > li > a{ font-size: 20px; text-decoration: none; color: inherit; }
+#header.sections.section_00 .width_con ul.nav > li{ float: none; width: 12.5%; text-align: center;}/*수정*/
+#header.sections.section_00 .width_con ul.nav > li > a{ font-size: 18px; text-decoration: none; color: #fff; text-shadow:1.5px 1.5px 1px #999;}
 #header.sections.section_00 .width_con ul.nav_customer,
-#header.sections.section_00.scrolled:hover .width_con ul.nav_customer{ top: 7px; filter: blur(0); opacity: 1; pointer-events: auto; list-style-type: none;}
+#header.sections.section_00.scrolled:hover .width_con ul.nav_customer{ top: 27px; filter: blur(0); opacity: 1; pointer-events: auto; list-style-type: none;}
 #header.sections.section_00.scrolled .width_con ul.nav_customer{ top: -5px; filter: blur(4px); opacity: 0; pointer-events: none;}
 #header.sections.section_00 .width_con ul.nav_customer:after{ content: ''; clear: both;}
-#header.sections.section_00 .width_con ul.nav_customer > li{ float: left; margin-left: var(--mrgn-half);}
-#header.sections.section_00 .width_con ul.nav_customer > li > a{ font-size: 16px; text-decoration: none; color: inherit;}
+#header.sections.section_00 .width_con ul.nav_customer > li{ float: left; margin-left: var(--mrgn-half); color: #fff; text-shadow:1.5px 1.5px 1px #999;}
+#header.sections.section_00 .width_con ul.nav_customer > li > a{font-family: "Poppins"; font-size: 16px; text-decoration: none; color: inherit; text-shadow:1.5px 1.5px 1px #999;}
 
 #sub-menu {
 	margin: 0;
@@ -139,13 +140,14 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #sub-menu > li > a {
 	display: block;
 	padding: 10px 0px;
-	color: black;
+	color: #fff;
 	font-size: medium;
 	text-decoration: none;
+	text-shadow:1.5px 1.5px 1px #999;
 }
 
 #main-menu > li:hover {
-	text-decoration: underline;
+
 }
 
 #main-menu > li:hover #sub-menu {
@@ -158,7 +160,6 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 #visual.sections.section_01 .width_con.title_con{}
 
 
-
 .sections.section_05 .width_con ul.v_con.six_con li.cells.box{opacity: 1; transform: translateY(0); filter: blur(0); transition: all 1000ms ease-out;}
 .sections.section_05.wait_scroll .width_con ul.v_con.six_con li.cells.box{opacity: 0; transform: translateY(var(--mrgn)); filter: blur(4px);}
 .sections.section_05 .width_con ul.v_con.six_con li.cells.box:nth-child(1){ transition-delay: 1000ms;}
@@ -169,21 +170,43 @@ ul.v_con.six_con > .slick-list > .slick-track > li.cells{ width: calc(16.6666% -
 .sections.section_05 .width_con ul.v_con.six_con li.cells.box:nth-child(6){ transition-delay: 2000ms;}
 
 
+
+
+dl, ol, ul {list-style:none; padding:0;}
+a{ color:#111; text-decoration:none;}
+p{padding:0; margin:0;}
+
+
+
+
+.title{ font-size:24px; font-weight:600; margin: var(--mrgn-half) 0; }
+.title::before { content: ''; width: 6px; height: 25px;background: #95b3a9; position: absolute; top: 3px; border-radius: 5px; left: -13px;}
+.banner_wrap{background: #42524f;text-align: center; padding: var(--mrgn-half);}
+
 /* 공통 버튼 Css: start */
  button:disabled { filter: opacity(0.35);} /*버튼 비활성화 상태*/
 
 .c-btn{ border: 0;  width: 130px; padding: 5px 0px; border-radius: 5px; transition:all .3s;} 
 .c-btn:hover{box-shadow: 0px 0px 15px -3px rgb(255,255,255,0.5) inset;}
-.c-btn.c-cblue{ background: #149b85; color: #fff;} 
+.c-btn.c-cblue{ background: #618c7d; color: #fff;} 
 .c-btn.c-cgrn{ background: #61a961; color: #fff;} 
-.c-btn.c-lgrn{background: #12b886; color: #fff;}
+.c-btn.c-lgrn{background: #71b19c; color: #fff;}
 .c-btn.c-gray{background:#999; color: #fff;}
+
 /* 공통 버튼 Css: end */
  
 /* 영화 메인 Css:start */ 
-.movie-chart{margin-top: calc(var(--mrgn-half) *  2);}
-.movie-chart .movie img{border-radius: 10px; height:285px;}
+.movie-chart{}
+.movie-chart .movie:hover  { transform: scale(1.05);}
+.movie-chart .movie img{border-radius: 10px; height:285px; width: 200px; box-shadow:2px 2px 6px 2px #bbb}
 .movie-chart .movie .overlay{height: 285px; border-radius: 10px;}
 .movie-chart .movie .overlay p{text-overflow: ellipsis; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical;}
 .movie-chart h2{font-size: 20px; margin-top: 10px; line-height:1.15; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1;  -webkit-box-orient: vertical;}
+.ft_logo{  font-size: 20px; font-weight: 900; letter-spacing: -1px; letter-spacing: -1px; -webkit-background-clip: text; color: transparent; background: linear-gradient(#9CB394 20%, #d2d2d2 100%); background-clip: text;}
+.footer-wrap .links{text-align:right}
 
+
+
+.line-btn {border: 0; color: #888;  background: 0;; padding: 0;}
+.line-btn + .line-btn:before { content: '';  width: 1.5px;  height: 12px; display: inline-block; background: #999; margin: 0 8px;}
+.ipt {width: 265px; height: 33px; border: 1px solid #ccc;}

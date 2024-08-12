@@ -38,6 +38,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     
+    
     /* 인터셉터
      *   특정 요청을 처리할 때 자동으로 동작함  */
     registry.addInterceptor(signinCheck)

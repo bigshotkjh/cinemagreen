@@ -20,7 +20,7 @@
       <a href="#">개인정보처리방침</a> |
     </div>
       <div class="trademark">
-        <img src="img/cinemagreen_logo.png" alt="cinemagreen Logo">
+        <p class="ft_logo">CINEMAGREEN</p>
       </div>
    <!-- <div class="copy center">
         서울특별시 성동구 왕십리로 50, 6층 (성수동1가, 메가박스 성수) ARS 1544-0070 대표이메일 m.dreamcenter@partner.megabox.co.kr

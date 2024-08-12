@@ -66,7 +66,7 @@
 
 <div class="wrap">
 
-  <h2 class="title">Chat With ChatGPT</h2>
+  <h5 class="title">Chat With ChatGPT</h5>
   
   <div class="message-wrap">
     <textarea class="message" id="message" wrap="hard" placeholder="GPT가 답해드립니다!"></textarea>    
