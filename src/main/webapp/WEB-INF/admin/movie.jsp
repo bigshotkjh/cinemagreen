@@ -111,7 +111,6 @@
           <div class="right-section" style="flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center;">
             <img id="modalPoster" alt="영화 포스터" style="width: 300px; height: auto; margin-bottom: 20px;">
             <div id="stillCutContainer" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center;">
-              <!-- 스틸컷 이미지가 이곳에 추가됩니다. -->
             </div>
           </div>
         </div>

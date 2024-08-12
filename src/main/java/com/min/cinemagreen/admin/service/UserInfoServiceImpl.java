@@ -66,6 +66,14 @@ public class UserInfoServiceImpl implements IUserInfoService {
     // 업데이트 로직
     return userInfoMapper.adminUpdateUser(userInfo);
   }
+  
+
+
+  
+  
+  
+  
+  
 
   @Override
   public String adminDeleteUser(int userNo) {
@@ -89,7 +97,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
     user.setMobile(mobile.replace("-", ""));
     // 나이계산
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-    LocalDate birthDate = LocalDate.parse(user.getBirthyear(), formatter);
+    LocalDate birthDate = LocalDate.parse(user.getBirthYear(), formatter);
     LocalDate currentDate = LocalDate.now();
     int age = Period.between(birthDate, currentDate).getYears();
     user.setAge(age);

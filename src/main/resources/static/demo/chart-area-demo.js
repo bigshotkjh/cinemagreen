@@ -76,7 +76,7 @@ fetch('/admin/getWeeklyAmount.do', {
           yAxes: [{
             ticks: {
               min: 0,
-              max: 200000,
+              max: 10000,
               maxTicksLimit: 10
             },
             gridLines: {

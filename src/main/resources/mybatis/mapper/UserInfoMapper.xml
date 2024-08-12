@@ -42,20 +42,24 @@
   </insert>
 
   <select id="getUserList" resultType="UserInfoDTO">
-      SELECT
-          user_no,
-          email, 
-          name, 
-          mobile, 
-          sns, 
-          signup_dt, 
-          birthyear, 
-          age, 
-          gender,
-          postcode, 
-          address, 
-          detail_address, 
-          extra_address        
+    SELECT user_no
+         , email
+         , pw
+         , name
+         , gender
+         , grade
+         , mobile
+         , sns
+         , pw_modify_dt
+         , signup_dt
+         , birthyear
+         , age
+         , postcode
+         , address
+         , detail_address
+         , extra_address
+         , profile_name
+         , profile_path           
       FROM user_t
       ORDER BY
           user_no DESC
@@ -63,23 +67,28 @@
   
   <!-- 사용자 번호에 해당하는 정보 조회 -->
   <select id="getUserById" parameterType="int" resultType="UserInfoDTO">
-      SELECT
-          user_no,
-          email, 
-          name, 
-          mobile, 
-          sns, 
-          signup_dt, 
-          birthyear, 
-          age, 
-          gender,
-          postcode, 
-          address, 
-          detail_address, 
-          extra_address        
-      FROM user_t
-      WHERE
-          user_no = #{userNo}
+    SELECT
+       user_no
+     , email
+     , pw
+     , name
+     , gender
+     , grade
+     , mobile
+     , sns
+     , pw_modify_dt
+     , signup_dt
+     , birthyear
+     , age
+     , postcode
+     , address
+     , detail_address
+     , extra_address
+     , profile_name
+     , profile_path        
+    FROM user_t
+    WHERE
+        user_no = #{userNo}
   </select>
     
   
@@ -96,6 +105,14 @@
 	  detail_address = #{detailAddress}
 	  WHERE user_no = #{userNo}
 	</update>
+	
+	<update id="adminUpdateprofile" parameterType="Map" >
+    UPDATE user_t
+       SET profile_name = #{profileName}
+         , profile_path = #{profilePath}
+    WHERE  user_no = #{userNo}
+  </update>
+	
   
   <delete id="adminDeleteUser" parameterType="int">
     DELETE

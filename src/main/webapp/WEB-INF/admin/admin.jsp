@@ -14,7 +14,7 @@
     .input-wide {
       width: 33%;
     }
-    
+
 </style>
 
 <main>
@@ -113,87 +113,93 @@
       <div class="modal-body">
         <div class="wrap">
           <div class="sections section_userpage">
-            <div class="width_con">
-              <div class="title_con white userpage">
+            <div class="width_con" style="display: flex;">
+              <!-- 왼쪽 정보 섹션 -->
+              <div class="left-section" style="flex: 1; padding: 20px;">
                 <form id="user-info-form" method="post" action="${contextPath}/user/updateInf.do">
-                  <input type="hidden" id="modalUserNo" name="userNo" value="">
-				  <!-- 프로필 들어갈 자리 -->
+                  <input type="hidden" id="modalUserNo" name="userNo">
+                  
                   <div>
                     <h5>이메일</h5>
-					          <input type="text" class="offset-1 input-wide" name="email" id="modalEmailInput" disabled>
+                    <input type="text" class="offset-1 input-wide" name="email" id="modalEmailInput" disabled>
                   </div>
                   <div>
                     <h5>이름</h5>
-					          <input type="text" class="offset-1 input-wide" name="name" id="modalName" disabled>
+                    <input type="text" class="offset-1 input-wide" name="name" id="modalName" disabled>
                   </div>
-				          <div>
-      				      <h5>전화번호</h5>
-      				      <input type="text" class="offset-1 input-wide"  name="mobile" id="modalMobile">
-      				    </div>
-      			      <div>
-      			        <h5>성별</h5>
-      			        <input type="text" class="offset-1 input-wide"  name="gender" id="modalGender">
-      			      </div>
-      				    <div>
-      			        <h5>생년월일</h5>
-      				      <input type="text" class="offset-1 input-wide"  name="birthyear" id="modalBirthyear">
-      				    </div>
-      		        <div>
-      				      <h5>가입일자</h5>
-      			       	<input type="text" class="offset-1 input-wide"  name="signup_dt" id="modalSignupDt" disabled>
-      				    </div>
-      			  	  <br>
                   <div>
-                    <h5>주소<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"></h5>
-				          	<input type="text" class="offset-1 input-wide" name="postcode" id="modalPostcode"><br>
-					          <input type="text" class="offset-1 input-wide" name="address" id="modalAddress"><br>
+                    <h5>전화번호</h5>
+                    <input type="text" class="offset-1 input-wide" name="mobile" id="modalMobile">
+                  </div>
+                  <div>
+                    <h5>성별</h5>
+                    <input type="text" class="offset-1 input-wide" name="gender" id="modalGender">
+                  </div>
+                  <div>
+                    <h5>생년월일</h5>
+                    <input type="text" class="offset-1 input-wide" name="birthyear" id="modalBirthyear">
+                  </div>
+                  <div>
+                    <h5>가입일자</h5>
+                    <input type="text" class="offset-1 input-wide" name="signup_dt" id="modalSignupDt" disabled>
+                  </div>
+                  <br>
+                  <div>
+                    <h5>주소 <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"></h5>
+                    <input type="text" class="offset-1 input-wide" name="postcode" id="modalPostcode"><br>
+                    <input type="text" class="offset-1 input-wide" name="address" id="modalAddress"><br>
                     <input type="text" class="offset-1 input-wide" name="extraAddress" id="modalExtraAddress"><br>
-                    <input type="text" class="offset-1 input-wide" name="detailAddress"id="modalDetailAddress">
+                    <input type="text" class="offset-1 input-wide" name="detailAddress" id="modalDetailAddress">
                   </div>
                   <div>
                     <button type="button" onclick="adminUpdateUser()">개인정보 변경하기</button>
                   </div>
-        				  <div>
-        				    <button type="button" onclick="adminDeleteUser()">삭제하기</button>
-        				  </div>
+                  <div>
+                    <button type="button" onclick="adminDeleteUser()">삭제하기</button>
+                  </div>
                 </form>
+              </div>
+              
+              <!-- 오른쪽 프로필 이미지 섹션 -->
+              <div class="right-section" style="flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center;">
+                <img id="modalProfileName" style="width: 300px; height: auto; margin-bottom: 20px;" alt="Profile Image">
               </div>
             </div>
           </div>
-		  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		  <script>
-		    //카카오 주소 API
-		    function execDaumPostcode() {
-		      new daum.Postcode({
-		        oncomplete: function(data) {
-		          var addr = ''; 
-		          var extraAddr = ''; 
-		          if (data.userSelectedType === 'R') {
-		            addr = data.roadAddress;
-		          } else { 
-		            addr = data.jibunAddress;
-		          }
-		          if(data.userSelectedType === 'R'){
-		            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-		              extraAddr += data.bname;
-		            }
-		            if(data.buildingName !== '' && data.apartment === 'Y'){
-		              extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-		            }
-		            if(extraAddr !== ''){
-		              extraAddr = ' (' + extraAddr + ')';
-		            }
+          <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+          <script>
+            // 카카오 주소 API
+            function execDaumPostcode() {
+              new daum.Postcode({
+                oncomplete: function(data) {
+                  var addr = ''; 
+                  var extraAddr = ''; 
+                  if (data.userSelectedType === 'R') {
+                    addr = data.roadAddress;
+                  } else { 
+                    addr = data.jibunAddress;
+                  }
+                  if(data.userSelectedType === 'R'){
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                      extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                      extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if(extraAddr !== ''){
+                      extraAddr = ' (' + extraAddr + ')';
+                    }
                     document.getElementById("modalExtraAddress").value = extraAddr;
-		          } else {
-		            document.getElementById("extraAddress").value = '';
-		          }
-				  document.getElementById('modalPostcode').value = data.zonecode;
-				  document.getElementById('modalAddress').value = addr;
-				  document.getElementById('modalDetailAddress').focus();
-		        }
-		      }).open();
-		    }
-		  </script>
+                  } else {
+                    document.getElementById("extraAddress").value = '';
+                  }
+                  document.getElementById('modalPostcode').value = data.zonecode;
+                  document.getElementById('modalAddress').value = addr;
+                  document.getElementById('modalDetailAddress').focus();
+                }
+              }).open();
+            }
+          </script>
 
           <div class="modal-footer">
             <button type="button" class="btn btn-success" data-bs-dismiss="modal">닫기</button>
@@ -205,43 +211,49 @@
 </div>
 
 
+
 <script>
-	$(document).ready(function() { // 있어야 함.
-	/*const displayUser = () => {*/
-		
-	  // 상세보기 버튼 클릭 시
-	  $('.detail-btn').click(function() {
-	    var userNo = $(this).data('userno'); // data-userno 속성 가져오기
+  $(function() {
+      // 상세보기 버튼 클릭 시
+      $('.detail-btn').click(function() {
+          const userNo = $(this).data('userno'); // data-userno 속성 가져오기
 
-	    // AJAX 요청
-	    $.ajax({
-	      url: '/admin/getUserDetail/' + userNo,
-	      method: 'GET',
-	      success: function(data) {
-	        $('#modalEmailInput').val(data.email);
-	        $('#modalName').val(data.name);
-	        $('#modalMobile').val(data.mobile);
-	        $('#modalUserNo').val(data.userNo);
-	        $('#modalGender').val(data.gender);
-	        $('#modalBirthyear').val(data.birthyear);
-	        $('#modalSignupDt').val(data.signupDt);
-	        $('#modalPostcode').val(data.postcode);
-	        $('#modalAddress').val(data.address);
-	        $('#modalExtraAddress').val(data.extraAddress); // 사용자 추가 주소
-	        $('#modalDetailAddress').val(data.detailAddress); // 사용자 상세 주소
-	        $('#userDetailModal').modal('show'); // 모달 표시
-	      },
-	      error: function() {
-	        alert('사용자 정보를 불러오는데 실패했습니다.');
-	      }
-	    });
-	  });
+          // AJAX 요청
+          $.ajax({
+              url: '/admin/getUserDetail/' + userNo,
+              method: 'GET',
+              success: function(data) {
+                  $('#modalEmailInput').val(data.email);
+                  
+                  // 프로필 이미지 URL 구성
+                  const profileImageUrl = data.profilePath + '/' + data.profileName;
+                  $('#modalProfileName').attr('src', profileImageUrl); // 프로필 이미지 설정
+                  
+                  $('#modalName').val(data.name);
+                  $('#modalMobile').val(data.mobile);
+                  $('#modalUserNo').val(data.userNo);
+                  $('#modalGender').val(data.gender);
+                  $('#modalBirthyear').val(data.birthyear);
+                  $('#modalSignupDt').val(data.signupDt);
+                  $('#modalPostcode').val(data.postcode);
+                  $('#modalAddress').val(data.address);
+                  $('#modalExtraAddress').val(data.extraAddress);
+                  $('#modalDetailAddress').val(data.detailAddress);
+                  $('#userDetailModal').modal('show'); // 모달 표시
+              },
+              error: function() {
+                  alert('사용자 정보를 불러오는데 실패했습니다.');
+              }
+          });
+      });
 
-	  // 모달 닫기 이벤트
-	  $('#userDetailModal').on('hide.bs.modal', function() {
-	    // 입력값 초기화 등의 추가 로직
-	  });
-	});
+      // 모달 닫기 이벤트
+      $('#userDetailModal').on('hide.bs.modal', function() {
+          // 입력값 초기화 등의 추가 로직
+          $('#modalProfileName').attr('src', ''); // 모달 닫을 때 이미지 초기화
+      });
+  });
+
 	
 	
 	const adminDeleteUser = () => {
@@ -323,7 +335,9 @@
 	    });
 	  }
 	}
-	
+  
+
+    
 
 	const adminPwChange = () => {
 	  if (confirm("비밀번호를 변경하시겠습니까?")) {

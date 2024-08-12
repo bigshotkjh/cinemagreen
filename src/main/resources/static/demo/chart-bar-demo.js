@@ -56,7 +56,7 @@ fetch('/admin/getDailyAmount.do', {
           yAxes: [{
             ticks: {
               min: 0,
-              max: 100000,
+              max: 4000,
               maxTicksLimit: 5
             },
             gridLines: {

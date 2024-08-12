@@ -67,6 +67,8 @@ public class AdminController {
     int result = userInfoService.adminUpdateUser(userInfo);
     return ResponseEntity.ok(Map.of("isSuccess", result == 1)); // {"isSuccess": true}
   } // 유저 수정
+  
+
 
   @PostMapping(value = "/adminDeleteUser.do")
   public String adminDeleteUser(@RequestParam int userNo, RedirectAttributes rttr) {

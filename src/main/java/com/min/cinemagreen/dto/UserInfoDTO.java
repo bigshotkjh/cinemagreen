@@ -22,12 +22,12 @@ public class UserInfoDTO {
   private int sns;
   private Date pwModifyDt;
   private Date signupDt;
-  private String birthyear;
+  private String birthYear;
   private int age;
   private String postcode;
   private String address;
   private String detailAddress;
   private String extraAddress;
-  private String uploadPath;
-  private String filesystemName;
+  private String profileName;
+  private String profilePath;
 }

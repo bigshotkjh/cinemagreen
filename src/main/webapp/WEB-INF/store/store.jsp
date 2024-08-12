@@ -255,3 +255,4 @@
       </div>
     </body>
 </html>
+<%@ include file="../layout/footer.jsp" %>
