@@ -31,7 +31,7 @@
   .paging {
     margin: 30px 0;
   }
-  .title_con {position: relative; transform: translate(0px, -150px);}
+  .title_con {position: relative; /* transform: translate(0px, -150px); */}
   .blog-content {position: relative; transform: translate(250px, 0px);}
   .blog {border-radius: 5px; padding: 5px; background-color: #FFFFF4; margin: 5px; width: 900px; overflow: hidden;border: 1px solid  #ABDEC2;}
   #parent-form {position: relative; transform: translate(250px, 0px);}
