@@ -115,7 +115,7 @@
 					       		</li>
 					       		<li class="">
 					       			<span class="typeC-mini"></span>
-					       			<span>장애인 석</span>
+					       			<span>우대석</span>
 					       		</li>
 					       		
 					       	</ul>
@@ -178,9 +178,9 @@
 		
 		document.getElementById('personCount').value = typeA + typeB + typeC;
 		maxCount = 4;
-		Amoney = (typeA * 1400);   //14000
-		Bmoney = (typeB * 1100);   //11000
-		Cmoney = (typeC * 500);		 //5000
+		Amoney = (typeA * 14000);   //14000
+		Bmoney = (typeB * 11000);   //11000
+		Cmoney = (typeC * 5000);		 //5000
 		totalmoney = (Amoney + Bmoney + Cmoney);
 		totalamount.innerText= totalmoney ;
 		

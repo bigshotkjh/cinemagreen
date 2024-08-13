@@ -10,12 +10,11 @@
 <!--@@@@@@@css시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 <style>
  .dead-btn{cursor: default; pointer-events: none;}
- .sections.section_snssignup .width_con .title_con h4{ position: relative; transform: translateX(100%); transition: inherit;}
+ .sections.section_snssignup .width_con .title_con h4{ position: relative; transform: translateX(105%); transition: inherit;}
  .sections.section_snssignup .width_con .snssignup form{ position: relative; transform: translateX(42%); transition: inherit;}
  .title_con h6{ margin-top: 0;}
   input { border-radius: 4px; margin-top: 2px;}
  .red{ border: 2px solid #008000;}
- .title_con{ position: relative; transform: translate(0px, -130px);}
   #snssignup-form{  position: relative; transform: translate(540px, 0px); border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 300px; border: 1px solid  #ABDEC2;}
  .section_snssignup { background: white; color : #3f3f3f;}
 </style>
