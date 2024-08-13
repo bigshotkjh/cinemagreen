@@ -143,4 +143,22 @@
      WHERE blog_no = #{blogNo}
   </delete>
   
+  <update id="newComment" parameterType="int">  
+    UPDATE blog_t
+       SET new_comment = 1
+     WHERE blog_no = #{blogNo}
+  </update>
+  
+  <select id="searchWriter" parameterType="int" resultType="int">
+    SELECT user_no
+      FROM blog_t
+     WHERE blog_no = #{blogNo}
+  </select>
+  
+  <update id="removeNew" parameterType="int">  
+    UPDATE blog_t
+       SET new_comment = 0
+     WHERE blog_no = #{blogNo}
+  </update>
+  
 </mapper>

@@ -214,13 +214,14 @@ CREATE TABLE review_t (
 
  --  블로그 blog_t 테이블
 CREATE TABLE blog_t (
-  blog_no   NUMBER               NOT NULL,
-  title     VARCHAR2(1000 BYTE)  NOT NULL,
-  contents  CLOB,
-  hit       NUMBER,
-  user_no   NUMBER               NOT NULL,
-  create_dt DATE,
-  modify_dt DATE,
+  blog_no    NUMBER               NOT NULL,
+  title      VARCHAR2(1000 BYTE)  NOT NULL,
+  contents   CLOB,
+  hit        NUMBER,
+  user_no    NUMBER               NOT NULL,
+  create_dt  DATE,
+  modify_dt  DATE,
+  new_comment NUMBER,
   CONSTRAINT pk_blog PRIMARY KEY(blog_no),
   CONSTRAINT fk_blog_user FOREIGN KEY(user_no)
       REFERENCES user_t(user_no) ON DELETE CASCADE

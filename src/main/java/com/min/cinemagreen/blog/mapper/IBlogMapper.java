@@ -23,4 +23,7 @@ public interface IBlogMapper {
   int updateGroupOrder(BlogCommentDTO blogCommentParentDTO);
   int insertBlogCommentChild(BlogCommentDTO blogCommentChildDTO);
   int deletePost(int blogNo);
+  int searchWriter(int blogNo);
+  void newComment(int blogNo);
+  void removeNew(int blogNo);
 }

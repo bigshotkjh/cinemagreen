@@ -59,8 +59,8 @@ public class BlogController {
   }
   
   @GetMapping(value = "/detail.do")
-  public String detailDo(@RequestParam("blogNo") int blogNo, Model model) {
-    model.addAttribute("blog", blogService.getBlogByNo(blogNo));
+  public String detailDo(@RequestParam("blogNo") int blogNo, Model model, HttpSession session) {
+    model.addAttribute("blog", blogService.getBlogByNo(blogNo, session));
     return "blog/detail";
   }
   

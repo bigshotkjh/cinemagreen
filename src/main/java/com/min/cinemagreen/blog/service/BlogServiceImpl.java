@@ -123,7 +123,16 @@ public class BlogServiceImpl implements IBlogService {
   
   @Transactional(readOnly = true)
   @Override
-  public BlogDTO getBlogByNo(int blogNo) {
+  public BlogDTO getBlogByNo(int blogNo, HttpSession session) {
+
+    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+    if(loginUser == null)  // 로그인이 풀린 유저
+      return null;  // 401
+    int loginUserNo = loginUser.getUserNo();
+    int writer = blogMapper.searchWriter(blogNo);
+    if(writer == loginUserNo){
+    blogMapper.removeNew(blogNo);
+    }
     return blogMapper.getBlogByNo(blogNo);
   }
   
@@ -132,23 +141,24 @@ public class BlogServiceImpl implements IBlogService {
     
     // 작성자
     UserDTO loginUser = (UserDTO) request.getSession().getAttribute("loginUser");
-    
     if(loginUser == null)  // 로그인이 풀린 유저
       return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);  // 401
-    
+    int loginUserNo = loginUser.getUserNo();
     // 원글 정보
     String contents = securityUtils.preventXss(request.getParameter("contents"));
     
     // 블로그 정보
     int blogNo = Integer.parseInt(request.getParameter("blogNo"));
-    
     BlogCommentDTO blogCommentParentDTO = BlogCommentDTO.builder()
-        .userNo(loginUser.getUserNo())
+        .userNo(loginUserNo)
         .blogNo(blogNo)
         .contents(contents).build();
     
     int insertResult = blogMapper.insertBlogCommentParent(blogCommentParentDTO);
-    
+    int writer = blogMapper.searchWriter(blogNo);
+    if(writer != loginUserNo){
+    blogMapper.newComment(blogNo);
+    }
     return ResponseEntity.ok(Map.of("isSuccess", insertResult == 1));
     
   }
@@ -189,7 +199,7 @@ public class BlogServiceImpl implements IBlogService {
     
     if(loginUser == null)  // 로그인이 풀린 유저
       return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);  // 401
-
+    int loginUserNo = loginUser.getUserNo();
     // 원글 정보
     int depth = Integer.parseInt(request.getParameter("depth"));
     int groupNo = Integer.parseInt(request.getParameter("groupNo"));
@@ -217,6 +227,10 @@ public class BlogServiceImpl implements IBlogService {
         .groupOrder(groupOrder + 1).build();
     
     int insertResult = blogMapper.insertBlogCommentChild(blogCommentChildDTO);
+    int writer = blogMapper.searchWriter(blogNo);
+    if(writer != loginUserNo){
+    blogMapper.newComment(blogNo);
+    }
     return ResponseEntity.ok(Map.of("isSuccess", insertResult == 1));
     
   }

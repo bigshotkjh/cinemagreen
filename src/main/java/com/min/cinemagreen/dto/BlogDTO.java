@@ -22,6 +22,6 @@ public class BlogDTO {
   private String name;
   private String profileName;
   private String profilePath;
-
+  private int newComment;
 }
 

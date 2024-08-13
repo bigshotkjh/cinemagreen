@@ -15,7 +15,7 @@ public interface IBlogService {
   int saveBlog(BlogDTO blogDTO, HttpSession session);
   ResponseEntity<Map<String, Object>> getBlogList(HttpServletRequest request);
   int increseHit(int blogNo);
-  BlogDTO getBlogByNo(int blogNo);
+  BlogDTO getBlogByNo(int blogNo, HttpSession session);
   ResponseEntity<Map<String, Object>> saveBlogCommentParent(HttpServletRequest request);
   ResponseEntity<Map<String, Object>> getBlogCommentList(HttpServletRequest request);
   ResponseEntity<Map<String, Object>> saveBlogCommentChild(HttpServletRequest request);
