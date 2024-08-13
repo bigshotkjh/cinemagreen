@@ -19,7 +19,7 @@
   div.note-modal.open{ position: fixed; top: 100px; }
   div.note-modal-backdrop { display: none !important; }
   #blog-write-form{ border-radius: 5px; padding: 5px; background-color: #FFFFF4; width: 1035px;}
-  .title_con{ position: relative; transform: translate(180px, -150px);}
+  .title_con{ position: relative; transform: translate(180px, -50px);}
 </style>
 
 

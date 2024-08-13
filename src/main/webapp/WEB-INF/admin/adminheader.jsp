@@ -21,16 +21,12 @@
   		<link rel="stylesheet" href="${contextPath}/static/jquery-ui-1.13.3.custom/jquery-ui.min.css">
   		<link rel="stylesheet" href="${contextPath}/static/bootstrap-5.3.3-dist/css/bootstrap.min.css">
   		<link rel="stylesheet" href="${contextPath}/static/summernote-0.8.18-dist/summernote-lite.min.css">
-  		<link rel="stylesheet" href="${contextPath}/static/css/init.css">
-  		<link rel="stylesheet" href="${contextPath}/static/css/header.css">
-  		<link rel="stylesheet" href="${contextPath}/static/css/store.css">
+  		<link rel="stylesheet" href="${contextPath}/static/css/init.css?dt=<%=System.currentTimeMillis()%>">
+  		<link rel="stylesheet" href="${contextPath}/static/css/header.css?dt=<%=System.currentTimeMillis()%>">
+  		<link rel="stylesheet" href="${contextPath}/static/css/store.css?dt=<%=System.currentTimeMillis()%>">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <link href="../css/admin.css" rel="stylesheet" />
+        <link href="../css/admin.css?dt=<%=System.currentTimeMillis()%>" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        
-        
-        
-        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
         <script src="../lib/datatables-simple-demo.js"></script>
           

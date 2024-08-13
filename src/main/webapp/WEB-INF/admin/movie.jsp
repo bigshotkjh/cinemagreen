@@ -136,7 +136,7 @@
       </div>
       <div class="modal-body">
         <div style="display: flex;">
-          <div style="overflow-x: auto; width: 50%;">
+          <div style="overflow-x: auto; width: 66.67%;"> <!-- 왼쪽 2/3 -->
             <table class="table" id="runtimeTable" style="width: 100%;">
               <thead>
                 <tr>
@@ -152,7 +152,7 @@
               </tbody>
             </table>
           </div>
-          <div id="selectedMovieInfo" style="margin-left: 20px;">
+          <div id="selectedMovieInfo" style="margin-left: 20px; width: 33.33%;"> <!-- 오른쪽 1/3 -->
             <h6>선택된 영화:</h6>
             <div id="movieTitle"></div>
             <h6>영화번호:</h6>
@@ -168,6 +168,7 @@
     </div>
   </div>
 </div>
+
 
 
 <script>
