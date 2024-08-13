@@ -12,8 +12,16 @@
 <style>
   
     .input-wide {
-      width: 33%;
+      width: 68%;
     }
+    
+    .textarea-small {
+      width: 100%; /* 너비를 전체로 설정 */
+      height: auto; /* 높이를 자동으로 조정 */
+      box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비 조정 */
+    }
+
+
 
 </style>
 

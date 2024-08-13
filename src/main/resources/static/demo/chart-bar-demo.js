@@ -38,7 +38,7 @@ fetch('/admin/getDailyAmount.do', {
         labels: labels,
         datasets: [{
           label: "Revenue",
-          backgroundColor: "rgba(30,110,75,1)",
+          backgroundColor: "#95B3A9",
           borderColor: "rgba(70,170,80,1)",
           data: data,
         }],
@@ -56,7 +56,7 @@ fetch('/admin/getDailyAmount.do', {
           yAxes: [{
             ticks: {
               min: 0,
-              max: 4000,
+              max: 15000,
               maxTicksLimit: 5
             },
             gridLines: {

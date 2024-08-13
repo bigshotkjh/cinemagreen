@@ -45,9 +45,9 @@
             <!-- <li><a href="#">영화</a></li> -->
             <li><a href="#">고객지원</a></li>
             <li><a href="${contextPath}/user/userpage.page">마이페이지</a></li>
-            <li><a href="${contextPath}/store/store.page">스토어</a>
+            <li><a href="#">스토어</a><!--${contextPath}/store/store.page-->
               <ul id="sub-menu">
-              	<li><a href="${contextPath}/store/store.page">스토어</a></li>
+              	<li><a href="#">스토어</a></li>
                	<li><a href="#">장바구니</a></li>
               </ul>
             </li>

@@ -49,7 +49,7 @@ fetch('/admin/getWeeklyAmount.do', {
           label: "총 매출",
           lineTension: 0.3,
           backgroundColor: "rgba(150,250,85,0.2)",
-          borderColor: "rgba(30,110,75,1)",
+          borderColor: "#95B3A9",
           pointRadius: 5,
           pointBackgroundColor: "rgba(200,20,20,1)",
           pointBorderColor: "rgba(255,255,255,0.8)",
@@ -76,7 +76,7 @@ fetch('/admin/getWeeklyAmount.do', {
           yAxes: [{
             ticks: {
               min: 0,
-              max: 10000,
+              max: 14000,
               maxTicksLimit: 10
             },
             gridLines: {

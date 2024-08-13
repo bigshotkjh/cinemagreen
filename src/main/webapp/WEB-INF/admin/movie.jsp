@@ -10,25 +10,28 @@
 
 <style>
   .textarea-small {
-    width: 33%;
-    height: 30%;
+    width: 100%; /* 너비를 전체로 설정 */
+    height: auto; /* 높이를 자동으로 조정 */
     box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비 조정 */
   }
+
   .input-wide {
-    width: 33%;
+    width: 100%; /* 너비를 전체로 설정 */
   }
-    
+
   /* 모달 크기 조정 */
   .modal-dialog {
-    max-width: 90%; /* 너비를 80%로 설정 (원하는 비율로 조정 가능) */
+    max-width: 90%; /* 너비를 90%로 설정 (원하는 비율로 조정 가능) */
     margin: 1.75rem auto; /* 중앙 정렬을 위한 마진 */
   }
 
-  /* 모달 내용 영역의 높이를 늘리려면 */
-  .modal-content {
-    height: auto; /* 자동 높이 조정 */
-    min-height: 400px; /* 최소 높이 설정 (원하는 값으로 조정) */
+  
+  /* 영화 상세보기 모달 너비 조정 */
+  #movieDetailModal .modal-dialog {
+    max-width: 60%; /* 원하는 비율로 너비 조정 (예: 70%) */
+    width: auto; /* 자동 너비 조정 */
   }
+
   
 </style>
 
@@ -76,41 +79,42 @@
   </div>
 </main>
 
-<!-- 영화 상세 정보에 대한 모달 -->
-<div class="modal fade" id="movieDetailModal" tabindex="-1" aria-labelledby="movieDetailModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="movieDetailModalLabel">상세보기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="wrap" style="display: flex;">
-          <div class="left-section" style="flex: 1; padding: 20px;">
-            <form id="movie-info-form" method="post">
-              <input type="hidden" id="modalMovieNo" name="movieNo" value="">
-              <h5>제목</h5>
-              <input type="text" class="input-wide" name="movie_nm" id="modalMovieNmInput">
-              
+<!-- 영화 상세 정보에 대한 모달 --> 
+<div class="modal fade" id="movieDetailModal" tabindex="-1" aria-labelledby="movieDetailModalLabel" aria-hidden="true"> 
+  <div class="modal-dialog"> 
+    <div class="modal-content"> 
+      <div class="modal-header"> 
+        <h1 class="modal-title fs-5" id="movieDetailModalLabel">상세보기</h1> 
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
+      </div> 
+      <div class="modal-body"> 
+        <div class="wrap" style="display: flex;"> 
+          <div class="left-section" style="flex: 0.3; padding: 20px;"> 
+            <form id="movie-info-form" method="post"> 
+              <input type="hidden" id="modalMovieNo" name="movieNo" value=""> 
+              <h5>제목</h5> 
+              <input type="text" class="input-wide" name="movie_nm" id="modalMovieNmInput" style="width: 100%;">
+
               <h5>등급</h5>
-              <input type="text" class="input-wide" name="rating" id="modalRating">
+              <input type="text" class="input-wide" name="rating" id="modalRating" style="width: 100%;">
               
               <h5>장르</h5>
-              <input type="text" class="input-wide" name="genres" id="modalGenres">
+              <input type="text" class="input-wide" name="genres" id="modalGenres" style="width: 100%;">
               
               <h5>상영시간(분)</h5>
-              <input type="text" class="input-wide" name="runtime" id="modalRuntime">
+              <input type="text" class="input-wide" name="runtime" id="modalRuntime" style="width: 100%;">
               
               <h5>줄거리</h5>
-              <textarea class="plot textarea-small" name="plot" id="modalPlot" rows="4"></textarea>
+              <textarea class="plot textarea-small" name="plot" id="modalPlot" rows="4" style="width: 100%;"></textarea>
               
               <h5>영제</h5>
-              <input type="text" class="input-wide" name="title_eng" id="modalTitleEng" value="">
+              <input type="text" class="input-wide" name="title_eng" id="modalTitleEng" value="" style="width: 100%;">
             </form>
           </div>
-          <div class="right-section" style="flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center;">
-            <img id="modalPoster" alt="영화 포스터" style="width: 300px; height: auto; margin-bottom: 20px;">
-            <div id="stillCutContainer" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center;">
+          <div class="right-section" style="flex: 0.7; display: flex; flex-direction: column; align-items: center;">
+            <img id="modalPoster" alt="영화 포스터">
+            <div id="stillCutContainer" style=" display: flex; flex-wrap: wrap; align-items: center;">
+              <!-- 스틸컷 이미지를 여기에 추가 -->
             </div>
           </div>
         </div>
@@ -126,6 +130,12 @@
 
 
 
+
+
+
+
+
+
 <!-- JSP에서 MyBatis 쿼리 결과를 사용한 모달 -->
 <div class="modal fade" id="movieRuntimeModal" tabindex="-1" role="dialog" aria-labelledby="movieRuntimeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -136,7 +146,7 @@
       </div>
       <div class="modal-body">
         <div style="display: flex;">
-          <div style="overflow-x: auto; width: 50%;">
+          <div style="overflow-x: auto; width: 66.67%;"> <!-- 왼쪽 2/3 -->
             <table class="table" id="runtimeTable" style="width: 100%;">
               <thead>
                 <tr>
@@ -152,7 +162,7 @@
               </tbody>
             </table>
           </div>
-          <div id="selectedMovieInfo" style="margin-left: 20px;">
+          <div id="selectedMovieInfo" style="margin-left: 20px; width: 33.33%;"> <!-- 오른쪽 1/3 -->
             <h6>선택된 영화:</h6>
             <div id="movieTitle"></div>
             <h6>영화번호:</h6>
@@ -168,6 +178,7 @@
     </div>
   </div>
 </div>
+
 
 
 <script>
@@ -200,9 +211,9 @@
 
         for (let i = 0; i < stillCuts.length; i++) {
           const img = $('<img>').attr('src', stillCuts[i]).css({
-            width: '130px',
-            height: 'auto',
-            margin: '5px'
+            width: '160px',
+            height: '90px',
+            margin: '15px'
           });
           stillCutContainer.append(img);
         }
@@ -227,6 +238,7 @@
     $('#stillCutContainer').attr('img', '');
     $('#modalPoster').attr('src', ''); // 포스터 초기화
   });
+
 
   
   

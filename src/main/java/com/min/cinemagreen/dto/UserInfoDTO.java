@@ -22,7 +22,7 @@ public class UserInfoDTO {
   private int sns;
   private Date pwModifyDt;
   private Date signupDt;
-  private String birthYear;
+  private String birthyear;
   private int age;
   private String postcode;
   private String address;
