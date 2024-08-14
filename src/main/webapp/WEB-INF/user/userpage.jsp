@@ -261,7 +261,7 @@
           str +=   '<div><strong> 제목 : </strong>' + blog.title + '</div>';
     		  
     	  }
-        str +=   '<div class="hit"><strong>Hit : </strong>' + blog.hit + ' /<strong>Date : </strong>'  + blog.createDt + '</div>';
+        str +=   '<div class="hit"><strong>Hit : </strong>' + blog.hit + ' /<strong>Date : </strong>'  + blog.createDt + ' /<strong>Like : </strong>'  + blog.likeHit + '</div>';
         str += '</div>';
         blogList.innerHTML += str;
       }

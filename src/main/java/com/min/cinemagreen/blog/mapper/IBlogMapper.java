@@ -26,4 +26,5 @@ public interface IBlogMapper {
   int searchWriter(int blogNo);
   void newComment(int blogNo);
   void removeNew(int blogNo);
+  int likeplus(int blogNo);
 }

@@ -42,6 +42,7 @@
   #profile-img {border-radius: 5px; position:absolute ; transform: translate(860px, 55px);  } 
   .sections{position: relative; transform: translate(0px, 100px)}
   .delete{position: relative; transform: translate(320px, 0px)}
+  .like{position: relative; transform: translate(320px, 0px)}
 </style>
 
 
@@ -53,7 +54,7 @@
           <img id="profile-img" src=" ${blog.profilePath}/${blog.profileName}" width="60" height="60">
           <h4 class="movie-title">Movie Postlist</h4><br>
           <div class="blog-content">
-	          <div class="blog title"><b>제목 | ${blog.title} <div class="data"> ${blog.name}| HIT : ${blog.hit} | 작성일 : ${blog.createDt} </div></div>
+	          <div class="blog title"><b>제목 | ${blog.title} <div class="data"> ${blog.name}| HIT : ${blog.hit} | 작성일 : ${blog.createDt} | 좋아요 : ${blog.likeHit} </div></div>
 	          <div class="blog contents ">${blog.contents}</div>
 	          <div id="blog-comment-btn">
 	            <span>댓글</span>
@@ -71,6 +72,7 @@
 					    <button type="button" id="save-parent-btn">등록</button>
               <button type="button" onclick="history.back()">뒤로가기</button>
               <button type="button" class="delete hidden-btn" onclick="deletePost()">게시물삭제</button>
+              <button type="button" class="like" onclick="likePlus()">좋아요</button>
 					  </form>
 					</div>
         </div>
@@ -79,13 +81,19 @@
   </div>
 
 <script>
+
   const deletePost = ()=> {
 	  location.href = '${contextPath}/blog/deletepost.do?blogNo='+${blog.blogNo};
+  }
+
+  const likePlus = ()=> {
+    location.href = '${contextPath}/blog/likeplus.do?blogNo='+${blog.blogNo};
   }
   
   const hiddenBtn = ()=> {
 	   if("${loginUser.userNo}" == "${blog.userNo}"){
 	     $(".delete").removeClass("hidden-btn");
+	       $(".like").addClass("hidden-btn");
 	   } 
   }
   hiddenBtn();

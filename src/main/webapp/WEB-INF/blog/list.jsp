@@ -84,7 +84,7 @@
       for(const blog of resData.blogList){
         let str = '<div class="blog button" data-blog-no="' + blog.blogNo + '" data-user-no="' + blog.userNo + '">';
         str += '<div>제목 : ' + blog.title + '</div>';
-        str += '<div class="right">작성자 : ' + blog.name + ' /조회수 : ' + blog.hit + ' /작성일 : ' + blog.createDt + '</div>';
+        str += '<div class="right">작성자 : ' + blog.name + ' /조회수 : ' + blog.hit + ' /작성일 : ' + blog.createDt + ' /좋아요 : ' + blog.likeHit + '</div>';
         str += '</div>';
         blogList.innerHTML += str;
       }

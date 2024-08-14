@@ -81,10 +81,13 @@ public class BlogController {
   
   @GetMapping(value = "/deletepost.do")
   public String deletePost(BlogDTO blogDTO, RedirectAttributes rttr) {
-    System.out.println("도착");
-    
-    rttr.addFlashAttribute("deletePostMessage", blogService.deletePost(blogDTO) == 1 ? "무비포스트 삭제 성공" : "무비포스트 삭제 실패");
-    
+    rttr.addFlashAttribute("deletePostMessage", blogService.deletePost(blogDTO) == 1 ? "무비포스트 삭제 성공 했습니다." : "무비포스트 삭제 실패 했습니다.");
+    return "redirect:/blog/list.do";
+  }
+  
+  @GetMapping(value = "/likeplus.do")
+  public String likeplus(BlogDTO blogDTO, RedirectAttributes rttr) {
+    rttr.addFlashAttribute("likePlusMessage", blogService.likeplus(blogDTO) == 1 ? "추천 했습니다." : "추천 실패 했습니다.");
     return "redirect:/blog/list.do";
   }
   
