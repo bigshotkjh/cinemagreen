@@ -126,12 +126,12 @@ public class BlogServiceImpl implements IBlogService {
   public BlogDTO getBlogByNo(int blogNo, HttpSession session) {
 
     UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-    if(loginUser == null)  // 로그인이 풀린 유저
-      return null;  // 401
-    int loginUserNo = loginUser.getUserNo();
-    int writer = blogMapper.searchWriter(blogNo);
-    if(writer == loginUserNo){
-    blogMapper.removeNew(blogNo);
+    if(loginUser != null) {
+      int loginUserNo = loginUser.getUserNo();
+      int writer = blogMapper.searchWriter(blogNo);
+      if(writer == loginUserNo){
+      blogMapper.removeNew(blogNo);
+      }
     }
     return blogMapper.getBlogByNo(blogNo);
   }
