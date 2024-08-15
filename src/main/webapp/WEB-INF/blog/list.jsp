@@ -57,6 +57,9 @@
 
   if('${deletePostMessage}' !== '')
     alert('${deletePostMessage}');
+
+  if('${likePlusMessage}' !== '')
+    alert('${likePlusMessage}');
   
   var page = 1;
   

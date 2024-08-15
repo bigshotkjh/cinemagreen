@@ -139,7 +139,7 @@
     )
   </insert>
   
-  <delete id="deletePost" parameterType="int">
+  <delete id="deletePost" parameterType="BlogDTO">
     DELETE
       FROM blog_t
      WHERE blog_no = #{blogNo}
@@ -163,10 +163,28 @@
      WHERE blog_no = #{blogNo}
   </update>
   
-  <update id="likeplus" parameterType="int">  
+  <update id="likeplus" parameterType="BlogDTO">  
     UPDATE blog_t
        SET like_hit = like_hit + 1
      WHERE blog_no = #{blogNo}
   </update>
   
+  <select id="likeCheck" parameterType="BlogDTO" resultType="BlogDTO">
+    SELECT user_no
+      FROM like_t
+     WHERE blog_no = #{blogNo}
+       AND user_no = #{userNo}
+  </select>
+  
+  <insert id="likeLog" parameterType="BlogDTO"> 
+    INSERT INTO like_t (
+        like_no
+      , user_no
+      , blog_no
+    ) VALUES (
+        like_seq.NEXTVAL
+      , #{userNo}
+      , #{blogNo}
+    )
+  </insert>
 </mapper>

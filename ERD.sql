@@ -1,6 +1,8 @@
 
 /* DROP SEQUENCE */
 
+
+DROP SEQUENCE like_seq;
 DROP SEQUENCE blog_comment_seq;
 DROP SEQUENCE blog_seq;
 DROP SEQUENCE x_user_seq;
@@ -30,8 +32,11 @@ CREATE SEQUENCE access_seq START WITH 1;
 CREATE SEQUENCE x_user_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE blog_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE blog_comment_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE like_seq START WITH 1;
+
 
 /* DROP TABLE */
+DROP TABLE like_t;
 DROP TABLE blog_comment_t;
 DROP TABLE image_t;
 DROP TABLE blog_t;
@@ -263,6 +268,15 @@ SELECT user_no, name, email, blog_no, contents, create_dt, state, depth, group_n
             ON U.user_no = C.user_no
          WHERE C.blog_no = 1)
  WHERE rnum BETWEEN 1 AND 20;
+ 
+
+CREATE TABLE like_t (
+    like_no   NUMBER NOT NULL PRIMARY KEY,
+    user_no   NUMBER,
+    blog_no   NUMBER,
+    CONSTRAINT fk_like_blog FOREIGN KEY(blog_no) REFERENCES blog_t(blog_no) ON DELETE CASCADE
+);
+ 
 
 -- x_user_t 트리거    
 CREATE OR REPLACE TRIGGER x_trigger

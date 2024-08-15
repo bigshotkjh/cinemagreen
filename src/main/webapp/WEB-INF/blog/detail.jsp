@@ -87,14 +87,17 @@
   }
 
   const likePlus = ()=> {
-    location.href = '${contextPath}/blog/likeplus.do?blogNo='+${blog.blogNo};
+    location.href = '${contextPath}/blog/likeplus.do?blogNo='+${blog.blogNo}+'&userNo='+${loginUser.userNo};
   }
   
   const hiddenBtn = ()=> {
+     if("${sessionScope.loginUser}" === ''){
+         $(".like").addClass("hidden-btn");
+       }
 	   if("${loginUser.userNo}" == "${blog.userNo}"){
 	     $(".delete").removeClass("hidden-btn");
-	       $(".like").addClass("hidden-btn");
-	   } 
+	     $(".like").addClass("hidden-btn");
+	   }
   }
   hiddenBtn();
   

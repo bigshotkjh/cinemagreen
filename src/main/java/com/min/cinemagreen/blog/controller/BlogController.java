@@ -87,7 +87,7 @@ public class BlogController {
   
   @GetMapping(value = "/likeplus.do")
   public String likeplus(BlogDTO blogDTO, RedirectAttributes rttr) {
-    rttr.addFlashAttribute("likePlusMessage", blogService.likeplus(blogDTO) == 1 ? "추천 했습니다." : "추천 실패 했습니다.");
+    rttr.addFlashAttribute("likePlusMessage", blogService.likeplus(blogDTO) == 1 ? "추천 했습니다." : "이미 추천하셨습니다.");
     return "redirect:/blog/list.do";
   }
   
