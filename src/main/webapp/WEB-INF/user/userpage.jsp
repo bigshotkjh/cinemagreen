@@ -41,6 +41,7 @@
   .gray{ background-color: #E2E2E2; }
   .section_userpage { /* background: white; */ color : #3f3f3f;}
   .section_userpage .width_con { height: 1100px; background: #fff;}
+  .sort{transform: translate(490px, 45px);}
 </style>
 <!--
  가져와 표시할 것 들
@@ -119,9 +120,17 @@
         </div><br>
 <!-- 블로그 -->
         <div class="blog-div">
+          <div class="sort">
+	          <select id="sort_column">
+	            <option value="blog_no">최신순</option>
+	            <option value="like_hit">좋아요</option>
+	            <option value="hit">조회수</option>
+	          </select>
+	          <button type="button" onclick="getBlogList()">정렬</button>
+          </div>
 	        <h5><b>내가 작성한 무비포스트</h5>
 	        <div id="blog-list"></div><br>
-	        <div id="paging"></div>
+          <div id="paging"></div>
 				</div>
 <!-- 블로그 -->
         <div class="ticket-div">
@@ -235,10 +244,15 @@
   }
   
   const getBlogList = ()=>{   
+    var sortColumn = "blog_no";
+    sortColumn = $('#sort_column').val() 
     $.ajax({
       type: 'get',
       url: '${contextPath}/user/getUserBloglist.do',
-      data: 'page=' + page,
+      data: {
+          page: page,
+          sortColumn: sortColumn,
+        },
       dataType: 'json'
     }).done(resData=>{  // {"blogList": [{}, {}, ...], "paging": "< 1 2 3 4 5 6 7 8 9 10 >"} 
       const blogList = document.getElementById('blog-list');
@@ -261,7 +275,7 @@
           str +=   '<div><strong> 제목 : </strong>' + blog.title + '</div>';
     		  
     	  }
-        str +=   '<div class="hit"><strong>Hit : </strong>' + blog.hit + ' /<strong>Date : </strong>'  + blog.createDt + ' /<strong>Like : </strong>'  + blog.likeHit + '</div>';
+        str +=   '<div class="hit"><strong>Hit : </strong>' + blog.hit + ' / <strong>Date : </strong>'  + blog.createDt + ' / <strong>Like : </strong>'  + blog.likeHit + '</div>';
         str += '</div>';
         blogList.innerHTML += str;
       }

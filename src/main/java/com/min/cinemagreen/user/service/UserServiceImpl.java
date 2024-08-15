@@ -652,6 +652,8 @@ public class UserServiceImpl implements IUserService {
     System.out.println("display : " + display);
     System.out.println("page : " + page);
     pageUtils.setPaging(total, display, page);//페이징 정보를 설정
+    
+    String sortColumn = request.getParameter("sortColumn");
 
     System.out.println("비긴 : " + pageUtils.getBegin());
     System.out.println("엔드 : " + pageUtils.getEnd());
@@ -659,6 +661,7 @@ public class UserServiceImpl implements IUserService {
     params.put("userNo", userNo);
     params.put("begin", pageUtils.getBegin());
     params.put("end", pageUtils.getEnd());//시작과 끝을 담고 리스트 받으러 가
+    params.put("sortColumn", sortColumn); 
    
     List<BlogDTO> blogList = userMapper.userGetBlogList(params); //블로그를 리스트형으로 받아오기.
     String paging = pageUtils.getAsyncPaging();//pageUtils를 사용하여 페이징 HTML 코드를 생성

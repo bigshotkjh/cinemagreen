@@ -25,12 +25,13 @@
     border-radius: 5px;
   }position: relative; transform: translate(0px, -150px);
   .blog{ position: relative; transform: translate(0px, 0px); }
-  .paging { position: relative; transform: translate(-330px, 30px);}
-  button{position: relative; transform: translate(1000px, -20px);}
+  .paging { position: relative; transform: translate(-150px, 30px);}
+  button{position: relative; transform: translate(800px, -20px);}
   #blog-list {border-radius: 5px; padding: 5px; background-color: #b9ceb1; width: 710px; position: relative; transform: translate(340px, 0px);border: 1px solid  #ABDEC2;}
   .right {text-align: right;}
   .aaa {position: relative; /* transform: translate(0px, -150px); */}
-  .button:hover{background-color: #FFFFF8; border: 2px solid  #008000;}            
+  .button:hover{background-color: #FFFFF8; border: 2px solid  #008000;}   
+  #sort_column {position: relative; transform: translate(800px, -20px);}        
 </style>
 
 
@@ -41,6 +42,12 @@
         <div class="title_con white signin">
           <h4 class="title">Movie Postlist</h4><br>
 					<div>
+				    <select id="sort_column">
+				      <option value="blog_no">최신순</option>
+              <option value="like_hit">좋아요</option>
+              <option value="hit">조회수</option>
+				    </select>
+            <button type="button" onclick="getBlogList()">정렬</button>
 					  <button type="button" onclick="blogWrite()">무비포스트 작성하기</button>
 					</div>
 					<div id="blog-list"></div>
@@ -62,17 +69,21 @@
     alert('${likePlusMessage}');
   
   var page = 1;
-  
   const paging = (p)=>{
     page = p;
     getBlogList();
   }
   
-  const getBlogList = ()=>{    
+  const getBlogList = ()=>{  
+	  var sortColumn = "blog_no";
+	  sortColumn = $('#sort_column').val() 
     $.ajax({
       type: 'get',
       url: '${contextPath}/blog/getBlogList.do',
-      data: 'page=' + page,
+      data: {
+    	  page: page,
+        sortColumn: sortColumn,
+      },
       dataType: 'json'
     }).done(resData=>{  // {"blogList": [{}, {}, ...], "paging": "< 1 2 3 4 5 6 7 8 9 10 >"}
       const blogList = document.getElementById('blog-list');
